@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <!--====== Title ======-->
-  <title>Business | Bootstrap 5 Business Template</title>
+  <title>MilkShaker | Automated Mastitis Prevention</title>
 
   <!--====== Favicon Icon ======-->
   <link rel="shortcut icon" href="../assets/favicon_io/favicon.ico" />
@@ -25,6 +25,9 @@
 
   <!--====== gLightBox css ======-->
   <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+
+  <!--====== PDF.js library ======-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -95,14 +98,17 @@
       <div class="sidebar-menu">
         <h5 class="menu-title">Quick Links</h5>
         <ul>
-          <li><a href="javascript:void(0)">About Us</a></li>
-          <li><a href="javascript:void(0)">Our Team</a></li>
-          <li><a href="javascript:void(0)">Latest News</a></li>
-          <li><a href="javascript:void(0)">Contact Us</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Product</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#partnerships">Our Partners</a></li>
+          <li><a href="#news">Latest News</a></li>
+          <li><a href="#contact">Contact Us</a></li>
         </ul>
       </div>
       <!-- menu -->
-      <div class="sidebar-social align-items-center justify-content-center">
+
+      <!-- <div class="sidebar-social align-items-center justify-content-center">
         <h5 class="social-title">Follow Us On</h5>
         <ul>
           <li>
@@ -118,7 +124,8 @@
             <a href="javascript:void(0)"><i class="lni lni-youtube"></i></a>
           </li>
         </ul>
-      </div>
+      </div> -->
+
       <!-- sidebar social -->
     </div>
     <!-- content -->
@@ -164,7 +171,7 @@
 
   <!--====== ABOUT FIVE PART START ======-->
 
-  <section class="about-area about-five">
+  <section id = "about" class="about-area about-five">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 col-12">
@@ -252,7 +259,7 @@
               <circle cx="60.333" cy="132" r="1.66667" fill="#DADADA" />
               <circle cx="104" cy="132" r="1.66667" fill="#DADADA" />
             </svg>
-            <img src="assets/images/about/about-img1.jpg" alt="about" />
+            <img src="assets/images/team_photo.jpeg" alt="about" />
           </div>
         </div>
         <div class="col-lg-6 col-12">
@@ -272,35 +279,29 @@
               </nav>
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-who" role="tabpanel" aria-labelledby="nav-who-tab">
-                  <p>We are a diverse <b ><a class="page-scroll" href="#team">team</a></b> of five female Columbia engineers united by our personal connections to 
-                    women who have faced mastitis and other breastfeeding challenges. Leveraging our combined expertise 
-                    in mechanical and electrical engineering, prototyping, and research, along with leadership 
-                    experience from campus organizations such as the Society of Women Engineers,  American Society 
-                    of Mechanical Engineers, Columbia’s Plasma Physics Laboratory,  Columbia Space Initiative, 
-                    and Columbia Formula Racing, we have developed MilkShaker to provide accessible, effective 
-                    mastitis prevention.
+                  <p>We are a <b ><a class="page-scroll" href="#team">team</a></b> of five female Columbia University engineering students
+                    united by our personal connections to women who have faced mastitis and other breastfeeding challenges. 
+                    
                   <p>Driven by friendship, shared experiences, and a deep commitment to women's health, we 
                     collaborate seamlessly to continually refine our innovative product. Our development process 
                     has been supported by invaluable  <b ><a class="page-scroll" href="#partnerships">partnerships</a></b> with gynecologists, fellow engineers, women's 
-                    health researchers, FemTech experts, and most notably, certified physical therapists from 
+                    health researchers, and most notably, certified physical therapists from 
                     FemFirst Health. Their expert insights ensure that MilkShaker effectively and safely meets the 
                     real-world needs of breastfeeding women.</p>
                 </p>
                 </div>
-                <div class="tab-pane fade" id="nav-vision" role="tabpanel" aria-labelledby="nav-vision-tab">
-                  <p>Breastfeeding is widely regarded as important to newborn development and mothers. 
-                    Despite centuries of this practice, research and innovation in supporting new mothers has 
-                    demonstrated yet another gaping hole in women’s health. 
-                  </p>
-                  <p>One specific and alarming problem 
+                <div class="tab-pane fade" id="nav-vision" role="tabpanel" aria-labelledby="nav-vision-tab">             
+                  <p>
+                    
+                    An alarming problem 
                     faced by at least 1 in 10 breastfeeding mothers is <b>mastitis</b>, a condition that occurs 
                     when a clogged milk duct – affecting 1 in 5 – becomes infected, causing intense pain and 
                     stress for the mother and restricting milk production for the child. This occurs due to poor 
                     lymphatic drainage from postpartum posture changes. 
                   </p>
                   <p>Many mothers resort to at-home remedies or neglect the issue, enduring high fevers, 
-                    painful breasts, and difficulties caring for their children. Those who can afford it will 
-                    seek pain alleviation massages from very few certified physical therapists.</p>
+                    painful breasts, and difficulties caring for their children. Certified Physical Therapy (MLD) is the only
+                    proven treatment, but remains inaccessible and expensive.</p>
                 </div>
                 <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
                   <p>Our novel design integrates a fully automatic mechanical massage system into a comfortable, 
@@ -322,6 +323,24 @@
     </div>
     <!-- container -->
   </section>
+    <!-- Start Cta Area -->
+    <section id="call-action" class="call-action">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-9">
+            <div class="inner-content">
+              <h2>mastitis</h2>
+              <h6>/maˈstīdəs/</h6>
+              <p>
+                inflammation of an infected clogged milk duct, a condition 
+                causing intense pain and stress and restricting milk production for breastfeeding mothers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Cta Area -->
 
   <!--====== ABOUT FIVE PART ENDS ======-->
 
@@ -334,10 +353,9 @@
           <div class="col-12">
             <div class="content">
               <h6>Product</h6>
-              <h2 class="fw-bold">Our Product: Milkshaker</h2>
+              <h2 class="fw-bold">Our Product: MilkShaker</h2>
               <p>
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some form.
+                An automated, physical therapist-backed wearable to prevent and treat mastitis in breastfeeding women.
               </p>
             </div>
           </div>
@@ -352,7 +370,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="single-services">
             <div class="service-icon">
-              <i class="lni lni-capsule"></i>
+              <i class="lni lni-pulse"></i>
             </div>
             <div class="service-content">
               <h4>Automated Professional Massage</h4>
@@ -366,7 +384,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="single-services">
             <div class="service-icon">
-              <i class="lni lni-bootstrap"></i>
+              <i class="lni lni-move"></i>
             </div>
             <div class="service-content">
               <h4>Portable & Hands Free</h4>
@@ -380,7 +398,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="single-services">
             <div class="service-icon">
-              <i class="lni lni-shortcode"></i>
+              <i class="lni lni-drop"></i>
             </div>
             <div class="service-content">
               <h4>Washable, Removable Technology</h4>
@@ -394,7 +412,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="single-services">
             <div class="service-icon">
-              <i class="lni lni-dashboard"></i>
+              <i class="lni lni-hand"></i>
             </div>
             <div class="service-content">
               <h4>Direct Pushing Massage</h4>
@@ -408,7 +426,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="single-services">
             <div class="service-icon">
-              <i class="lni lni-layers"></i>
+              <i class="lni lni-zoom-in"></i>
             </div>
             <div class="service-content">
               <h4>Breast-Specific</h4>
@@ -422,13 +440,13 @@
         <div class="col-lg-4 col-md-6">
           <div class="single-services">
             <div class="service-icon">
-              <i class="lni lni-reload"></i>
+              <i class="lni lni-protection"></i>
             </div>
             <div class="service-content">
-              <h4>Regular Updates</h4>
+              <h4>Medical-Grade Safety</h4>
               <p>
-                Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy
-                eirmod tempor ividunt labor dolore magna.
+                MilkShaker adheres to medical biocompatibility standards with skin-safe materials and an 
+                enclosed electronic housing, ensuring safe, comfortable use for all breastfeeding mothers.
               </p>
             </div>
           </div>
@@ -447,46 +465,14 @@
         </nav>
         <div class="tab-content" id="nav-tabContent2">
           <div class="tab-pane fade show active" id="nav-prototyping" role="tabpanel" aria-labelledby="nav-prototyping-tab">
-            <p>We are a diverse <b ><a class="page-scroll" href="#team">team</a></b> of five female Columbia engineers united by our personal connections to 
-              women who have faced mastitis and other breastfeeding challenges. Leveraging our combined expertise 
-              in mechanical and electrical engineering, prototyping, and research, along with leadership 
-              experience from campus organizations such as the Society of Women Engineers,  American Society 
-              of Mechanical Engineers, Columbia’s Plasma Physics Laboratory,  Columbia Space Initiative, 
-              and Columbia Formula Racing, we have developed MilkShaker to provide accessible, effective 
-              mastitis prevention.
-            <p>Driven by friendship, shared experiences, and a deep commitment to women's health, we 
-              collaborate seamlessly to continually refine our innovative product. Our development process 
-              has been supported by invaluable  <b ><a class="page-scroll" href="#partnerships">partnerships</a></b> with gynecologists, fellow engineers, women's 
-              health researchers, FemTech experts, and most notably, certified physical therapists from 
-              FemFirst Health. Their expert insights ensure that MilkShaker effectively and safely meets the 
-              real-world needs of breastfeeding women.</p>
+            <p>under construction.</p>
           </p>
           </div>
           <div class="tab-pane fade" id="nav-cad" role="tabpanel" aria-labelledby="nav-cad-tab">
-            <p>Breastfeeding is widely regarded as important to newborn development and mothers. 
-              Despite centuries of this practice, research and innovation in supporting new mothers has 
-              demonstrated yet another gaping hole in women’s health. 
-            </p>
-            <p>One specific and alarming problem 
-              faced by at least 1 in 10 breastfeeding mothers is <b>mastitis</b>, a condition that occurs 
-              when a clogged milk duct – affecting 1 in 5 – becomes infected, causing intense pain and 
-              stress for the mother and restricting milk production for the child. This occurs due to poor 
-              lymphatic drainage from postpartum posture changes. 
-            </p>
-            <p>Many mothers resort to at-home remedies or neglect the issue, enduring high fevers, 
-              painful breasts, and difficulties caring for their children. Those who can afford it will 
-              seek pain alleviation massages from very few certified physical therapists.</p>
+            <p>under construction.</p>
           </div>
           <div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
-            <p>Our novel design integrates a fully automatic mechanical massage system into a comfortable, 
-              supportive bra-like garment. Developed in partnership with NYC’s FemFirst Health clinic, 
-              MilkShaker replicates massages performed by certified physical therapists—the most effective 
-              treatment for mastitis but difficult to access due to limited certifications.
-            <p>As the only device of its kind, MilkShaker brings professional care into the home, 
-              prioritizing function, accessibility, mobility, and safety. With funding from StartupColumbia
-              and others, we envision MilkShaker as standard breastfeeding equipment, HSA-eligible and 
-              covered under the Affordable Care Act. 
-              Our product gives all mothers a new opportunity to alleviate an inevitable breastfeeding pain.</p>
+            <p>under construction.</p>
           </p>
           </div>
         </div>
@@ -500,14 +486,20 @@
       <div class="row justify-content-center">
         <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-9">
           <div class="inner-content">
-            <h2>We love to make perfect <br />solutions for your business</h2>
-            <p>
-              Why I say old chap that is, spiffing off his nut cor blimey
-              guvnords geeza<br />
-              bloke knees up bobby, sloshed arse William cack Richard. Bloke
-              fanny around chesed of bum bag old lost the pilot say there
-              spiffing off his nut.
-            </p>
+            <h2>By Women, For Women.</h2>
+            <p>Explore our pitch deck.</p>
+            <section class="py-5">
+              <div class="container">
+                <div class="pdf-container shadow rounded overflow-hidden">
+                  <canvas id="pdf-render"></canvas>
+                  <button id="prev-page" class="btn btn-link pdf-nav-btn">&lt;</button>
+                  <span id="page-num" class="mx-3">Page 1</span>
+                  <button id="next-page" class="btn btn-link pdf-nav-btn">&gt;</button>
+                </div>
+              </div>
+            </section>
+            
+
             <div class="light-rounded-buttons">
               <a href="javascript:void(0)" class="btn primary-btn-outline">
                 <i class="lni lni-play"></i>
@@ -741,10 +733,10 @@
           <div class="col-12">
             <div class="content">
               <h6>Meet our Partners</h6>
-              <h2 class="fw-bold">Our Collaborators</h2>
+              <h2 class="fw-bold">Our Partners</h2>
               <p>
                 In addition to our five founders, MilkShaker is supported by experts 
-                that have allowed our product to come to life. 
+                from various organizations that have allowed our product to come to life. 
               </p>
             </div>
           </div>
@@ -756,25 +748,22 @@
     <!--======  End Section Title Five ======-->
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-12">
+        <div class="col-lg-6 col-12">
           <div class="clients-logos">
             <div class="single-image">
-              <img src="assets/images/client-logo/graygrids.svg" alt="Brand Logo Images" />
+              <a href="https://www.femfirsthealth.com/" target="_blank">
+                <img src="assets/images/partner-logo/femfirst-logo.png" alt="Brand Logo Images" />
+              </a>
             </div>
             <div class="single-image">
-              <img src="assets/images/client-logo/uideck.svg" alt="Brand Logo Images" />
+              <a href = "https://entrepreneurship.columbia.edu/startupcolumbia/" target="_blank">
+                <img src="assets/images/partner-logo/startupcolumbia-logo.png" alt="Brand Logo Images" />
+              </a>
             </div>
             <div class="single-image">
-              <img src="assets/images/client-logo/ayroui.svg" alt="Brand Logo Images" />
-            </div>
-            <div class="single-image">
-              <img src="assets/images/client-logo/lineicons.svg" alt="Brand Logo Images" />
-            </div>
-            <div class="single-image">
-              <img src="assets/images/client-logo/tailwindtemplates.svg" alt="Brand Logo Images" />
-            </div>
-            <div class="single-image">
-              <img src="assets/images/client-logo/ecomhtml.svg" alt="Brand Logo Images" />
+              <a href = "https://www.engineering.columbia.edu/" target="_blank">
+                <img src="assets/images/partner-logo/columbiaengineering-logo.png" alt="Brand Logo Images" />
+              </a>
             </div>
           </div>
         </div>
@@ -784,7 +773,7 @@
   <!-- End Brand Area -->
 
   <!-- Start Latest News Area -->
-  <div id="blog" class="latest-news-area section">
+  <div id="news" class="latest-news-area section">
     <!--======  Start Section Title Five ======-->
     <div class="section-title-five">
       <div class="container">
@@ -794,8 +783,7 @@
               <h6>latest news</h6>
               <h2 class="fw-bold">Latest News</h2>
               <p>
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some form.
+                Follow us along our journey to bring MilkShaker to life.
               </p>
             </div>
           </div>
@@ -811,74 +799,19 @@
           <!-- Single News -->
           <div class="single-news">
             <div class="image">
-              <a href="javascript:void(0)"><img class="thumb" src="assets/images/blog/1.jpg" alt="Blog" /></a>
-              <div class="meta-details">
-                <img class="thumb" src="assets/images/blog/b6.jpg" alt="Author" />
-                <span>BY TIM NORTON</span>
-              </div>
+              <a href="https://entrepreneurship.engineering.columbia.edu/startup-columbia/"><img class="thumb" src="assets/images/news/millardchan2025.jpg" alt="Blog" /></a>
             </div>
             <div class="content-body">
               <h4 class="title">
-                <a href="javascript:void(0)"> Make your team a Design driven company </a>
+                <a href="https://entrepreneurship.engineering.columbia.edu/startup-columbia/"> MilkShaker wins $15,000 at the 2025 Millard Chan ’99 Technology Challenge </a>
               </h4>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                standard.
+                April 17, 2025 — MilkShaker takes home 2nd place prize at Startup Columbia's Millard Chan '99 Technology Challenge startup competition.
               </p>
             </div>
           </div>
           <!-- End Single News -->
         </div>
-        <div class="col-lg-4 col-md-6 col-12">
-          <!-- Single News -->
-          <div class="single-news">
-            <div class="image">
-              <a href="javascript:void(0)"><img class="thumb" src="assets/images/blog/2.jpg" alt="Blog" /></a>
-              <div class="meta-details">
-                <img class="thumb" src="assets/images/blog/b6.jpg" alt="Author" />
-                <span>BY TIM NORTON</span>
-              </div>
-            </div>
-            <div class="content-body">
-              <h4 class="title">
-                <a href="javascript:void(0)">
-                  The newest web framework that changed the world
-                </a>
-              </h4>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                standard.
-              </p>
-            </div>
-          </div>
-          <!-- End Single News -->
-        </div>
-        <div class="col-lg-4 col-md-6 col-12">
-          <!-- Single News -->
-          <div class="single-news">
-            <div class="image">
-              <a href="javascript:void(0)"><img class="thumb" src="assets/images/blog/3.jpg" alt="Blog" /></a>
-              <div class="meta-details">
-                <img class="thumb" src="assets/images/blog/b6.jpg" alt="Author" />
-                <span>BY TIM NORTON</span>
-              </div>
-            </div>
-            <div class="content-body">
-              <h4 class="title">
-                <a href="javascript:void(0)">
-                  5 ways to improve user retention for your startup
-                </a>
-              </h4>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                standard.
-              </p>
-            </div>
-          </div>
-          <!-- End Single News -->
         </div>
       </div>
     </div>
@@ -896,7 +829,7 @@
                 <div class="section-title text-center">
                   <span> Get in Touch </span>
                   <h2>
-                    Ready to Get Started
+                    Contact Us
                   </h2>
                   <p>
                     At vero eos et accusamus et iusto odio dignissimos ducimus
@@ -905,7 +838,7 @@
                 </div>
               </div>
             </div>
-            <form action="#" class="contact-form">
+            <form action="#" method="POST" class="contact-form">
               <div class="row">
                 <div class="col-md-6">
                   <input type="text" name="name" id="name" placeholder="Name" required />
@@ -948,7 +881,7 @@
   <section class="map-section map-style-9">
     <div class="map-container">
       <object style="border:0; height: 500px; width: 100%;"
-        data="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3102.7887109309127!2d-77.44196278417968!3d38.95165507956235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDU3JzA2LjAiTiA3N8KwMjYnMjMuMiJX!5e0!3m2!1sen!2sbd!4v1545420879707"></object>
+        data="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3019.929657192781!2d-73.96514762249356!3d40.807539531759076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2f63e96d30dc9%3A0x577933f947e52750!2sColumbia%20University!5e0!3m2!1sen!2sus!4v1745607191988!5m2!1sen!2sus"></object>
     </div>
     </div>
   </section>
@@ -1038,6 +971,7 @@
   <script src="assets/js/glightbox.min.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/tiny-slider.js"></script>
+  <script src="assets/js/pdf-viewer.js"></script>
 
   <script>
 

@@ -1472,7 +1472,32 @@ p {
   color: var(--dark-3);
 }
 
+/* ==== PDF =====*/
+.pdf-container {
+  max-width: 800px; /* adjust as needed */
+  margin: auto;
+  background-color: #fff;
+  padding: 10px;
+  font-weight: 200;
+}
 
+#pdf-render {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.pdf-nav-btn { 
+  color: var(--primary); 
+  text-decoration: none;
+  font-weight: 200;
+  padding: 0 10px;
+  transition: color 0.2s ease;
+}
+
+.pdf-nav-btn:hover {
+  color: var(--primary-dark);  
+}
 
 
 /* ===== Buttons Css ===== */
@@ -1526,10 +1551,15 @@ p {
 }
 .call-action .inner-content h2 {
   font-weight: 700;
-  margin-bottom: 30px;
+  
+  color: var(--white);
+}
+.call-action .inner-content h6 {
+  font-weight: 300;
   color: var(--white);
 }
 .call-action .inner-content p {
+  margin-top: 30px;
   color: var(--white);
 }
 .call-action .inner-content .light-rounded-buttons {
