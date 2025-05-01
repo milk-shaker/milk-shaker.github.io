@@ -1,4 +1,4 @@
-const url = 'assets/pitch-deck.pdf';
+const url = '/assets/pitch-deck.pdf';
 
 let pdfDoc = null,
     pageNum = 1,
