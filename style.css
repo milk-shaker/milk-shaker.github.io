@@ -1759,12 +1759,20 @@ p {
 .team-style-six .team-name {
   font-size: 17px;
   font-weight: 600;
-  margin-bottom: 6px;
   transition: color 0.3s ease-in-out;
+  margin-bottom: 2px;
+}
+
+.team-style-six h5 {
+  font-size: 12px;
+  color: var(--dark-3);
+  font-weight: 1000px;
+  transition: color 0.3s ease-in-out;
+  margin-bottom: 5px;
 }
 
 .team-style-six .sub-title {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--dark-3);
   transition: color 0.3s ease-in-out;
 }
@@ -1818,7 +1826,8 @@ p {
 }
 
 .team-style-six:hover .team-content .team-name,
-.team-style-six:hover .team-content .sub-title {
+.team-style-six:hover .team-content .sub-title,
+.team-style-six:hover .team-content h5 {
   color: var(--white);
 }
 
