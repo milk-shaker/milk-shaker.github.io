@@ -1738,7 +1738,6 @@ p {
 .team-style-six .team-image img {
   width: 100%;
   height: auto;
-  object-fit: cover;
   transition: transform 0.3s ease;
   display: block;
   border-radius: 6px 6px 0 0;
