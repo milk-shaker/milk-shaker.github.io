@@ -1740,6 +1740,7 @@ p {
   height: auto;
   transition: transform 0.3s ease;
   display: block;
+  object-fit: cover; 
   border-radius: 6px 6px 0 0;
 }
 
