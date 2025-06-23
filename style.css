@@ -1739,8 +1739,6 @@ p {
   width: 100%;
   height: auto;
   transition: transform 0.3s ease;
-  object-fit: cover;
-  display: block;
   border-radius: 6px 6px 0 0;
 }
 
