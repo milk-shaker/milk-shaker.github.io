@@ -411,21 +411,9 @@
                   <video id="my-video" width="100%" controls poster="videocover.jpg">
                     <source src="productdemo.mp4" type="video/mp4">
                   </video>
-                  <div class="mt-3">
-                    <button id="play-btn" class="btn btn-link video-nav-btn">Play</button>
-                    <button id="pause-btn" class="btn btn-link video-nav-btn">Pause</button>
-                  </div>
                 </div>
               </div>
             </section>
-            
-            <script>
-              const video = document.getElementById('my-video');
-              document.getElementById('play-btn').onclick = () => video.play();
-              document.getElementById('pause-btn').onclick = () => video.pause();
-              document.getElementById('rewind-btn').onclick = () => video.currentTime -= 10;
-              document.getElementById('forward-btn').onclick = () => video.currentTime += 10;
-            </script>
         
 
 
