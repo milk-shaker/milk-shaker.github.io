@@ -1243,6 +1243,23 @@ p {
   color: var(--dark-3);
 }
 
+.single-services .service-content p {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s, max-height 0.3s;
+  pointer-events: none;
+  margin-bottom: 0;
+}
+
+.single-services:hover .service-content p {
+  opacity: 1;
+  max-height: 300px; /* Adjust as needed for your content */
+  pointer-events: auto;
+  margin-bottom: 1rem; /* Restore margin if needed */
+}
+
+
 /*=====  =======*/
 
 .about-five-tab {
