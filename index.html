@@ -240,7 +240,7 @@
         <div class="row justify-content-center">
           <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-9">
             <div class="inner-content">
-              <h2><a href="https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(25)00088-X/fulltext"> mastitis </a></h2>
+              <h2>mastitis</h2>
               <h6>/maˈstīdəs/</h6>
               <p>
                 inflammation of an infected clogged milk duct, a condition 
@@ -407,14 +407,27 @@
             <p>Explore how the removable technology works.</p>
             <section class="py-5">
               <div class="container">
-                <div class="pdf-container shadow rounded overflow-hidden">
-                  <canvas id="pdf-render"></canvas>
-                  <button id="prev-page" class="btn btn-link pdf-nav-btn">&lt;</button>
-                  <span id="page-num" class="mx-3">Page 1</span>
-                  <button id="next-page" class="btn btn-link pdf-nav-btn">&gt;</button>
+                <div class="video-container shadow rounded overflow-hidden p-3 text-center" style="background:#fff;">
+                  <video id="my-video" width="100%" controls poster="your-thumbnail.jpg">
+                    <source src="your-video.mp4" type="video/mp4">
+                  </video>
+                  <div class="mt-3">
+                    <button id="play-btn" class="btn btn-link video-nav-btn">Play</button>
+                    <button id="pause-btn" class="btn btn-link video-nav-btn">Pause</button>
+                    <button id="rewind-btn" class="btn btn-link video-nav-btn">&lt;&lt; 10s</button>
+                    <button id="forward-btn" class="btn btn-link video-nav-btn">10s &gt;&gt;</button>
+                  </div>
                 </div>
               </div>
-            </section>  
+            </section>
+            
+            <script>
+              const video = document.getElementById('my-video');
+              document.getElementById('play-btn').onclick = () => video.play();
+              document.getElementById('pause-btn').onclick = () => video.pause();
+              document.getElementById('rewind-btn').onclick = () => video.currentTime -= 10;
+              document.getElementById('forward-btn').onclick = () => video.currentTime += 10;
+            </script>
         
 
 
