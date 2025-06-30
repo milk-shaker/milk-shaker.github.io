@@ -1649,12 +1649,12 @@ p {
     Brand CSS
 ========================================*/
 .brand-area {
-  padding: 100px 0;
+  padding: 60px 0;
   background: var(--light-3);
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .brand-area {
-    padding: 80px;
+    padding: 60px;
   }
 }
 @media (max-width: 767px) {
