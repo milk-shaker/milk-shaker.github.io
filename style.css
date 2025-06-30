@@ -2176,3 +2176,21 @@ p {
 .footer-eleven .social li a:hover {
   color: var(--primary); /* Use your theme's primary color */
 }
+
+.footer-eleven .social {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: flex-start; /* Default: left-aligned */
+}
+
+@media (max-width: 767px) {
+  .footer-eleven .social {
+    justify-content: center;
+  }
+}
+
