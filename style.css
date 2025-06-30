@@ -1028,7 +1028,7 @@ p {
   }
 }
 .about-five-content{
-  padding-left: 20px;
+  padding-left: 0;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .about-five-content {
