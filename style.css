@@ -2151,7 +2151,7 @@ p {
 }
 
 .footer-eleven .social li a {
-  font-size: 1.5rem; /* Adjust icon size as needed */
+  font-size: 1.9rem; /* Adjust icon size as needed */
   color: var(--dark-3); /* Use your theme color variable */
   transition: color 0.2s;
 }
