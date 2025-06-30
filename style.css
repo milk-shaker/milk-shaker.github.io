@@ -2135,25 +2135,32 @@ p {
   background-color: var(--primary-dark);
 }
 
-.footer-widget .social {
-  display: flex;
-  gap: 16px; /* Adjust spacing between icons as needed */
+.footer-widget .social,
+.footer-social {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 16px;
   list-style: none;
   padding: 0;
   margin: 0;
   align-items: center;
 }
 
-.footer-widget .social li {
-  /* No extra styles needed, but you can add margin if you want more space */
+.footer-widget .social li,
+.footer-social li {
+  margin: 0;
+  padding: 0;
 }
 
-.footer-widget .social li a {
-  font-size: 1.5rem; /* Adjust icon size as needed */
-  color: #333; /* Adjust color as needed */
+.footer-widget .social li a,
+.footer-social li a {
+  font-size: 1.5rem;
+  color: #333;
   transition: color 0.2s;
 }
 
-.footer-widget .social li a:hover {
-  color: #007bff; /* Change color on hover */
+.footer-widget .social li a:hover,
+.footer-social li a:hover {
+  color: #007bff;
 }
+
