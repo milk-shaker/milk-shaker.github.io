@@ -2134,3 +2134,26 @@ p {
   color: var(--white);
   background-color: var(--primary-dark);
 }
+
+.footer-widget .social {
+  display: flex;
+  gap: 16px; /* Adjust spacing between icons as needed */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.footer-widget .social li {
+  /* No extra styles needed, but you can add margin if you want more space */
+}
+
+.footer-widget .social li a {
+  font-size: 1.5rem; /* Adjust icon size as needed */
+  color: #333; /* Adjust color as needed */
+  transition: color 0.2s;
+}
+
+.footer-widget .social li a:hover {
+  color: #007bff; /* Change color on hover */
+}
