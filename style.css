@@ -1012,7 +1012,7 @@ p {
 ===========================*/
 .about-five {
   background-color: var(--light-3);
-  padding-top: 120px;
+  padding-top: 100px;
   padding-bottom: 90px;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
