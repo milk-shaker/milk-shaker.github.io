@@ -13,11 +13,11 @@ exports.handler = async (event) => {
 
   // Set up your email transport (use your SMTP credentials)
   const transporter = nodemailer.createTransport({
-    host: "smtp.yourprovider.com",
+    host: "smtp.gmail.com",
     port: 587,
     auth: {
-      user: "youruser",
-      pass: "yourpass"
+      user: "milkshakerinc@gmail.com",
+      pass: "sqot vwlr stnf yelb"
     }
   });
 
