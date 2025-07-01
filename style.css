@@ -2035,7 +2035,7 @@ p {
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .footer-eleven .footer-widget {
     margin-top: 40px;
-     text-align: center;
+    text-align: center;
   }
 }
 @media (max-width: 767px) {
@@ -2238,11 +2238,11 @@ p {
 .social li a {
   display: flex;
   align-items: center;
-  background: #f5f5f5;
+  background: var(--white);
   border-radius: 30px;
   padding: 0.5rem 1.2rem;
   text-decoration: none;
-  color: #333;
+  color: var(--primary-dark);
   transition: background 0.2s;
 }
 
