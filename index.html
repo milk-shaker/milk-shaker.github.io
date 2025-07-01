@@ -712,7 +712,7 @@
   </div>
   <!-- End Latest News Area -->
 
-  <!-- ========================= contact-section start ========================= -->
+  <!-- ========================= contact-section start =========================
   <section id="contact" class="contact-section">
     <div class="container">
       <div class="row">
@@ -740,7 +740,7 @@
       </div>
     </div>
   </section>
-  <!-- ========================= contact-section end ========================= -->
+  ========================= contact-section end ========================= -->
 
   <!-- ========================= map-section end ========================= -->
  <!-- <section class="map-section map-style-9">
@@ -884,33 +884,7 @@
       'autoplayVideos': true,
     });
 
-    //========= Netlify
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        message: form.message.value
-      };
-      fetch('https://your-netlify-site.netlify.app/.netlify/functions/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      })
-      .then(res => res.text())
-      .then(text => {
-        document.getElementById('form-response').textContent =
-          text.trim() === "success"
-            ? "Thank you! Your message was sent."
-            : "There was an error sending your message.";
-        form.reset();
-      })
-      .catch(() => {
-        document.getElementById('form-response').textContent =
-          "There was an error sending your message.";
-      });
-    });
+
 
 
   </script>
