@@ -2195,6 +2195,14 @@ p {
   }
 }
 
+.footer-row {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
+  min-height: 60px;        /* Optional: adjust as needed */
+}
+
+
 .social {
   list-style: none;
   padding: 0;
