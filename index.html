@@ -887,28 +887,47 @@
   }
 </style>
 
+
 <script>
   const openBtn = document.getElementById("openEmailPopup");
   const closeBtn = document.getElementById("closeEmailPopup");
   const popup = document.getElementById("emailPopup");
 
-  if (openBtn && closeBtn && popup) {
-    openBtn.addEventListener("click", () => {
+  function openPopup() {
+    if (popup) {
       popup.style.display = "flex";
-    });
+    }
+  }
 
-    closeBtn.addEventListener("click", () => {
+  function closePopup() {
+    if (popup) {
       popup.style.display = "none";
-    });
+    }
+  }
 
+  if (openBtn) {
+    openBtn.addEventListener("click", openPopup);
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closePopup);
+  }
+
+  if (popup) {
     popup.addEventListener("click", (e) => {
       if (e.target === popup) {
-        popup.style.display = "none";
+        closePopup();
       }
+    });
+
+    // auto open 2 seconds after page load
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        openPopup();
+      }, 2000);
     });
   }
 </script>
-
   <!-- ========================= map-section end ========================= -->
  <!-- <section class="map-section map-style-9">
     <div class="map-container">
