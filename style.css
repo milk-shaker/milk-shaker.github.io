@@ -425,6 +425,22 @@ p {
   top: 0;
   width: 100%;
 }
+@media (max-width: 767px) {
+  .navbar-area.navbar-nine {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  body {
+    padding-top: 100px; /* adjust if your mobile header is taller */
+  }
+
+  .header-eight {
+    padding-top: 40px;
+  }
+}
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
   .navbar-area.navbar-nine {
     padding: 10px 0;
