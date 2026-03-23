@@ -800,7 +800,96 @@
   </section>
 
   <!--  ========================= contact-section end ========================= -->
-  
+  <!-- Popup -->
+<div id="emailPopup" class="popup-overlay" style="display:none;">
+  <div class="popup-card">
+    <button id="closeEmailPopup" class="close-btn">&times;</button>
+    <h2>Join the MilkShaker waitlist</h2>
+    <p>Get product updates, launch news, and early access.</p>
+
+    <form
+      action="https://formspree.io/f/xaqprndl"
+      method="POST"
+    >
+      <label>
+        Your email:
+        <input type="email" name="email">
+      </label>
+      <label>
+        Your message:
+        <textarea name="message"></textarea>
+      </label>
+  <!-- your other form fields go here -->
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .popup-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    width: min(90%, 420px);
+    position: relative;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  }
+
+  .popup-card input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .popup-card button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  const openBtn = document.getElementById("openEmailPopup");
+  const closeBtn = document.getElementById("closeEmailPopup");
+  const popup = document.getElementById("emailPopup");
+
+  openBtn.addEventListener("click", () => {
+    popup.style.display = "flex";
+  });
+
+  closeBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) popup.style.display = "none";
+  });
+</script>
 
   <!-- ========================= map-section end ========================= -->
  <!-- <section class="map-section map-style-9">
