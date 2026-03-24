@@ -2517,10 +2517,40 @@ p {
   color: var(--black);
 }
 
-.resource-panel-content p {
+.resource-panel-content > p {
   color: var(--dark-2);
   line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.resource-citation {
+  border-left: 3px solid var(--primary);
+  padding: 14px 16px;
   margin-bottom: 16px;
+  background: var(--light-2);
+  border-radius: 0 8px 8px 0;
+}
+
+.resource-citation .citation-text {
+  color: var(--dark-2);
+  line-height: 1.7;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.resource-citation .citation-text:last-child {
+  margin-bottom: 0;
+}
+
+.citation-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: color 0.2s ease;
+}
+
+.citation-link:hover {
+  color: var(--primary-dark);
 }
 
 /* =====================
