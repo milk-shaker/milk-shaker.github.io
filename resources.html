@@ -129,16 +129,68 @@
     </div>
 
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div class="resources-topics">
-            <button class="resource-btn" data-topic="breastfeeding-basics">Breastfeeding Basics</button>
-            <button class="resource-btn" data-topic="mastitis">Mastitis &amp; Clogged Ducts</button>
-            <button class="resource-btn" data-topic="lymphatic-drainage">Lymphatic Drainage</button>
-            <button class="resource-btn" data-topic="milkshaker-tech">MilkShaker Technology</button>
-            <button class="resource-btn" data-topic="clinical-partners">Clinical Partners</button>
+      <div class="row">
+
+        <!-- Tile: Breastfeeding Basics -->
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="resource-tile" data-topic="breastfeeding-basics">
+            <div class="resource-tile-image resource-tile-color-1">
+              <i class="lni lni-heart"></i>
+            </div>
+            <div class="resource-tile-body">
+              <h4>Breastfeeding Basics</h4>
+            </div>
           </div>
         </div>
+
+        <!-- Tile: Mastitis & Clogged Ducts -->
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="resource-tile" data-topic="mastitis">
+            <div class="resource-tile-image resource-tile-color-2">
+              <i class="lni lni-drop"></i>
+            </div>
+            <div class="resource-tile-body">
+              <h4>Mastitis &amp; Clogged Ducts</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tile: Lymphatic Drainage -->
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="resource-tile" data-topic="lymphatic-drainage">
+            <div class="resource-tile-image resource-tile-color-3">
+              <i class="lni lni-pulse"></i>
+            </div>
+            <div class="resource-tile-body">
+              <h4>Lymphatic Drainage</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tile: MilkShaker Technology -->
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="resource-tile" data-topic="milkshaker-tech">
+            <div class="resource-tile-image resource-tile-color-1">
+              <i class="lni lni-cog"></i>
+            </div>
+            <div class="resource-tile-body">
+              <h4>MilkShaker Technology</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tile: Clinical Partners -->
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="resource-tile" data-topic="clinical-partners">
+            <div class="resource-tile-image resource-tile-color-2">
+              <i class="lni lni-handshake"></i>
+            </div>
+            <div class="resource-tile-body">
+              <h4>Clinical Partners</h4>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -252,7 +304,7 @@
     const panelContent = document.getElementById("resourcePanelContent");
     const closeBtn = document.getElementById("closePanelBtn");
 
-    document.querySelectorAll(".resource-btn").forEach(function (btn) {
+    document.querySelectorAll(".resource-tile").forEach(function (btn) {
       btn.addEventListener("click", function () {
         const key = btn.dataset.topic;
         const topic = topics[key];
