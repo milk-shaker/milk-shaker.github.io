@@ -552,8 +552,7 @@ p {
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
   .navbar-area.navbar-nine .navbar .navbar-nav .nav-item a i {
-    position: relative;
-    top: -5px;
+    display: none;
   }
 }
 .navbar-area.navbar-nine .navbar .navbar-nav .nav-item .sub-menu {
@@ -2631,6 +2630,103 @@ p {
 
 .resources-sub-menu {
   width: 280px;
+}
+
+/* ── Resource Search Bar ── */
+.resource-search-wrapper {
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.resource-search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.resource-search-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 18px;
+  color: var(--dark-3);
+  pointer-events: none;
+}
+
+.resource-search-input {
+  width: 100%;
+  padding: 14px 20px 14px 46px;
+  font-size: 1rem;
+  border: 2px solid var(--gray-4);
+  border-radius: 50px;
+  background: var(--white);
+  color: var(--black);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resource-search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px hsla(322, 60%, 74%, 0.2);
+}
+
+.resource-search-input::placeholder {
+  color: var(--dark-3);
+}
+
+.resource-search-suggestions {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--gray-4);
+  border-radius: 12px;
+  box-shadow: var(--shadow-4);
+  list-style: none;
+  padding: 6px;
+  margin: 0;
+  z-index: 500;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.resource-search-suggestions.open {
+  display: block;
+}
+
+.resource-search-suggestion {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.resource-search-suggestion:hover,
+.resource-search-suggestion.focused {
+  background: hsla(322, 60%, 74%, 0.15);
+}
+
+.suggestion-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--black);
+  line-height: 1.4;
+}
+
+.suggestion-section {
+  font-size: 0.78rem;
+  color: var(--primary);
+  margin-top: 2px;
+}
+
+.resource-search-no-results {
+  padding: 12px 14px;
+  color: var(--dark-3);
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .resources-disclaimer {

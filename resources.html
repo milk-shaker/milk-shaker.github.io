@@ -136,6 +136,20 @@
 
     <div class="container">
 
+      <!-- ── Search Bar ── -->
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-12">
+          <div class="resource-search-wrapper">
+            <div class="resource-search-input-wrapper">
+              <i class="lni lni-search-alt resource-search-icon"></i>
+              <input type="text" id="resourceSearch" class="resource-search-input" placeholder="Search topics…" autocomplete="off" aria-label="Search resources" aria-expanded="false" aria-controls="resourceSearchSuggestions">
+            </div>
+            <ul class="resource-search-suggestions" id="resourceSearchSuggestions" role="listbox"></ul>
+          </div>
+        </div>
+      </div>
+      <!-- ── End Search Bar ── -->
+
       <!-- ── Section: New Mom Wellness ── -->
       <div class="row">
         <div class="col-12 resource-section-header" id="section-wellness">
@@ -923,6 +937,126 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") closePanel();
     });
+
+    // Resource search
+    (function () {
+      const searchInput = document.getElementById("resourceSearch");
+      const suggestionsList = document.getElementById("resourceSearchSuggestions");
+
+      // Strip HTML tags to get plain searchable text
+      function stripHtml(html) {
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+      }
+
+      // Build index from the DOM + topic body content
+      const index = [];
+      document.querySelectorAll(".resource-section-header").forEach(function (header) {
+        const sectionName = header.querySelector(".resource-section-title").textContent.trim();
+        let sibling = header.closest(".row").nextElementSibling;
+        if (sibling) {
+          sibling.querySelectorAll(".resource-tile").forEach(function (tile) {
+            const key = tile.dataset.topic;
+            const bodyText = (topics[key] && topics[key].body) ? stripHtml(topics[key].body) : "";
+            index.push({
+              title: tile.querySelector("h4").textContent.trim(),
+              section: sectionName,
+              body: bodyText,
+              tileEl: tile
+            });
+          });
+        }
+      });
+
+      function showSuggestions(query) {
+        const q = query.trim().toLowerCase();
+        suggestionsList.innerHTML = "";
+        if (!q) {
+          suggestionsList.classList.remove("open");
+          searchInput.setAttribute("aria-expanded", "false");
+          return;
+        }
+        const matches = index.filter(function (item) {
+          return item.title.toLowerCase().includes(q) ||
+                 item.section.toLowerCase().includes(q) ||
+                 item.body.toLowerCase().includes(q);
+        });
+        if (!matches.length) {
+          const li = document.createElement("li");
+          li.className = "resource-search-no-results";
+          li.textContent = "No topics found";
+          suggestionsList.appendChild(li);
+        } else {
+          matches.forEach(function (item) {
+            const li = document.createElement("li");
+            li.className = "resource-search-suggestion";
+            li.setAttribute("role", "option");
+            li.innerHTML =
+              "<span class='suggestion-title'>" + item.title + "</span>" +
+              "<span class='suggestion-section'>" + item.section + "</span>";
+            li.addEventListener("mousedown", function (e) {
+              e.preventDefault(); // keep input focused until we navigate
+              searchInput.value = "";
+              suggestionsList.classList.remove("open");
+              searchInput.setAttribute("aria-expanded", "false");
+              // Scroll tile into view then open its panel
+              item.tileEl.scrollIntoView({ behavior: "smooth", block: "center" });
+              item.tileEl.click();
+            });
+            suggestionsList.appendChild(li);
+          });
+        }
+        suggestionsList.classList.add("open");
+        searchInput.setAttribute("aria-expanded", "true");
+      }
+
+      searchInput.addEventListener("input", function () {
+        showSuggestions(this.value);
+      });
+
+      searchInput.addEventListener("blur", function () {
+        // Slight delay so mousedown on a suggestion fires first
+        setTimeout(function () {
+          suggestionsList.classList.remove("open");
+          searchInput.setAttribute("aria-expanded", "false");
+        }, 150);
+      });
+
+      searchInput.addEventListener("focus", function () {
+        if (this.value.trim()) showSuggestions(this.value);
+      });
+
+      // Keyboard navigation
+      searchInput.addEventListener("keydown", function (e) {
+        const items = suggestionsList.querySelectorAll(".resource-search-suggestion");
+        let active = suggestionsList.querySelector(".resource-search-suggestion.focused");
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (!active) {
+            if (items[0]) items[0].classList.add("focused");
+          } else {
+            active.classList.remove("focused");
+            const next = active.nextElementSibling;
+            if (next && next.classList.contains("resource-search-suggestion")) next.classList.add("focused");
+            else if (items[0]) items[0].classList.add("focused");
+          }
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (active) {
+            active.classList.remove("focused");
+            const prev = active.previousElementSibling;
+            if (prev && prev.classList.contains("resource-search-suggestion")) prev.classList.add("focused");
+            else if (items[items.length - 1]) items[items.length - 1].classList.add("focused");
+          }
+        } else if (e.key === "Enter") {
+          if (active) active.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+        } else if (e.key === "Escape") {
+          suggestionsList.classList.remove("open");
+          searchInput.setAttribute("aria-expanded", "false");
+        }
+      });
+    })();
   </script>
 
 </body>
