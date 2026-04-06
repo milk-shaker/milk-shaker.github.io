@@ -2436,15 +2436,28 @@ p {
 }
 
 .resource-tile-color-1 {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  /* Managing Pain: soft lavender → mauve */
+  background: linear-gradient(135deg, hsl(268, 42%, 72%) 0%, hsl(312, 50%, 56%) 100%);
 }
 
 .resource-tile-color-2 {
-  background: linear-gradient(135deg, hsl(322, 60%, 82%) 0%, var(--primary) 100%);
+  /* Milk Supply: light blush → warm rose */
+  background: linear-gradient(135deg, hsl(348, 70%, 84%) 0%, hsl(322, 62%, 58%) 100%);
 }
 
 .resource-tile-color-3 {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, hsl(322, 60%, 60%) 100%);
+  /* Postpartum Recovery: warm peach → deep coral-rose */
+  background: linear-gradient(135deg, hsl(18, 58%, 78%) 0%, hsl(338, 58%, 52%) 100%);
+}
+
+.resource-tile-color-4 {
+  /* New Mom Wellness: brand pink → primary dark */
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.resource-tile-color-5 {
+  /* For Partners: slate purple → deep plum */
+  background: linear-gradient(135deg, hsl(288, 38%, 58%) 0%, hsl(272, 46%, 38%) 100%);
 }
 
 .resource-tile-image i {
@@ -2593,6 +2606,46 @@ p {
 
 .citation-link:hover {
   color: var(--primary-dark);
+}
+
+.resource-section-header {
+  margin-top: 56px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--primary);
+  scroll-margin-top: 130px;
+}
+
+.resource-section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--black);
+  margin: 0;
+}
+
+.resource-coming-soon {
+  color: var(--dark-2);
+  font-style: italic;
+  padding: 24px 0;
+}
+
+.resources-sub-menu {
+  width: 280px;
+}
+
+.resources-disclaimer {
+  background: var(--primary-light);
+  padding: 20px 0;
+  margin-top: 60px;
+}
+
+.resources-disclaimer p {
+  margin: 0;
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--dark-2);
+  text-align: center;
+  line-height: 1.7;
 }
 
 /* =====================
