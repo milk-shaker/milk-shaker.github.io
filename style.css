@@ -2113,6 +2113,125 @@ p {
   line-height: 1;
 }
 
+/* Waitlist Popup (chic version) */
+.wl-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 15, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.wl-overlay.is-visible {
+  display: flex;
+}
+
+.wl-card {
+  background: #fdf8f5;
+  padding: 52px 44px 44px;
+  border-radius: 2px;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.18);
+  border-top: 3px solid var(--primary);
+}
+
+.wl-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #c4a8b0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.wl-close:hover {
+  color: #2a1a20;
+}
+
+.wl-eyebrow {
+  font-family: var(--font-family);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.wl-heading {
+  font-family: var(--font-family);
+  font-weight: 300;
+  font-size: 1.7rem;
+  letter-spacing: 0.06em;
+  color: #2a1a20;
+  margin-bottom: 10px;
+}
+
+.wl-sub {
+  font-size: 0.88rem;
+  color: #8a6a74;
+  letter-spacing: 0.03em;
+  margin-bottom: 30px;
+}
+
+.wl-form input {
+  width: 100%;
+  padding: 13px 16px;
+  margin-bottom: 12px;
+  border: 1px solid #e0d4d8;
+  border-radius: 2px;
+  box-sizing: border-box;
+  background: #fff;
+  font-family: var(--font-family);
+  font-size: 0.88rem;
+  color: #2a1a20;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.wl-form input:focus {
+  border-color: var(--primary);
+}
+
+.wl-form input::placeholder {
+  color: #c4a8b0;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.wl-form button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.wl-form button[type="submit"]:hover {
+  background: var(--primary-dark);
+}
+
 /* Footer eleven css */
 .footer-eleven {
   padding-top: 100px;
