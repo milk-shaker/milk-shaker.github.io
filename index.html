@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--====== Required meta tags ======-->
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="description"
+    content="Reserve early access to MilkShaker, a nursing bra with embedded massaging technology for mastitis, clogged duct, and milk production support. No payment collected." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <link rel="canonical" href="https://themilkshaker.com/" />
+
+  <!--====== Open Graph: this page gets shared directly, so give it a card ======-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://themilkshaker.com/" />
+  <meta property="og:title" content="Preorder MilkShaker | On-Demand Mastitis Care" />
+  <meta property="og:description"
+    content="Reserve an early access spot before our first production run. No payment collected." />
+  <meta property="og:image" content="https://themilkshaker.com/assets/images/product-image.png" />
+
+  <!--====== Title ======-->
+  <title>Preorder MilkShaker | On-Demand Mastitis Care</title>
+
+  <!--====== Favicon Icon ======-->
+  <link rel="shortcut icon" href="/assets/favicon_io/favicon.ico" />
+
+  <!--====== Bootstrap css ======-->
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+
+  <!--====== Line Icons css ======-->
+  <link rel="stylesheet" href="/assets/css/lineicons.css" />
+
+  <link rel="stylesheet" href="/style.css" />
+
+  <!--======================================================================
+       Scoped styles for the preorder page only.
+
+       The palette is declared LOCALLY here (not in style.css) so the rest
+       of the site keeps its current colors. To promote it sitewide later,
+       move .ms-theme's values into :root.
+  =======================================================================-->
+  <style>
+    .ms-theme {
+      --ms-pink: #F3AEC7;
+      --ms-peri: #9F9ED5;
+      --ms-rose: #E6939D;
+      --ms-plum: #612F48;
+      --ms-pink-soft: #FDF4F7;
+      --ms-peri-soft: #F1F1FA;
+    }
+
+    /* ---------- new logo sizing (1380x232 wordmark, not the old square) ---------- */
+    .navbar-nine .navbar-brand img {
+      height: 46px;
+      width: auto;
+    }
+
+    @media (max-width: 767px) {
+      .navbar-nine .navbar-brand img {
+        height: 36px;
+      }
+    }
+
+    /* ---------- nav in the new palette ----------
+       The bar is trimmed to logo + one CTA, so the nav-link, toggler, and
+       off-canvas overrides that used to live here are gone with them.
+
+       The bar keeps a SOLID hero-pink background rather than going
+       transparent: main.js adds .sticky (position:fixed) on scroll, and a
+       transparent bar would leave the CTA floating over white content. */
+    .ms-theme .navbar-area.navbar-nine {
+      background: var(--ms-pink);
+    }
+
+    /* The trimmed bar has only two children, so drive it directly instead of
+       relying on Bootstrap's collapse layout. */
+    .ms-theme .navbar-area.navbar-nine .navbar {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Compact sibling of .ms-cta for the bar. Same plum-fill/outline-on-hover
+       treatment as the hero and band CTAs so all four read as one button. */
+    .ms-nav-cta {
+      flex: 0 0 auto;
+      padding: 13px 30px;
+      background: var(--ms-plum);
+      color: #fff;
+      border: 2px solid var(--ms-plum);
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.22s ease-out;
+    }
+
+    .ms-nav-cta:hover {
+      background: transparent;
+      color: var(--ms-plum);
+    }
+
+    @media (max-width: 767px) {
+      .ms-nav-cta {
+        padding: 11px 18px;
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+      }
+    }
+
+    /* ---------- HERO ---------- */
+    .ms-hero {
+      position: relative;
+      padding: 100px 0 70px 0;
+      background: var(--ms-pink);
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+      .ms-hero {
+        padding: 80px 0 60px 0;
+      }
+    }
+
+    /* On mobile style.css already applies `body { padding-top: 100px }` for the
+       fixed navbar, so the hero only needs a small top pad of its own. */
+    @media (max-width: 767px) {
+      .ms-hero {
+        padding: 28px 0 48px 0;
+      }
+    }
+
+    .ms-hero h1 {
+      color: var(--ms-plum);
+      font-size: 52px;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0 0 22px 0;
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+      .ms-hero h1 {
+        font-size: 40px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .ms-hero h1 {
+        font-size: 32px;
+      }
+    }
+
+    /* Single centered column. There is no finished hero photograph yet, so
+       the hero is text-only by design rather than showing an empty frame.
+       To go back to the two-column text+image layout, see the commented
+       markup in the HERO section below. */
+    .ms-hero-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .ms-hero .ms-sub {
+      color: var(--ms-plum);
+      opacity: 0.85;
+      font-size: 1.42rem;
+      line-height: 1.6;
+      max-width: 36rem;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 767px) {
+      .ms-hero .ms-sub {
+        font-size: 1.22rem;
+      }
+    }
+
+    /* Bigger primary CTA */
+    .ms-cta {
+      display: inline-block;
+      margin-top: 38px;
+      padding: 22px 60px;
+      background: var(--ms-plum);
+      color: #fff;
+      border: 2px solid var(--ms-plum);
+      border-radius: 4px;
+      font-size: 1.22rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.22s ease-out;
+    }
+
+    .ms-cta:hover {
+      background: transparent;
+      color: var(--ms-plum);
+    }
+
+    /* Wider, larger variant for the band CTA. Declared BEFORE the mobile
+       override below on purpose — equal specificity means the later
+       max-width:767px rule still wins, so this stays desktop/tablet only. */
+    .ms-cta--wide {
+      padding: 28px 96px;
+      font-size: 1.44rem;
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+      .ms-cta--wide {
+        padding: 24px 48px;
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .ms-cta {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 20px 24px;
+        font-size: 1.08rem;
+        letter-spacing: 0.06em;
+      }
+    }
+
+    /* Bigger supporting note */
+    .ms-cta-note {
+      margin: 18px 0 0 0;
+      color: var(--ms-plum);
+      opacity: 0.9;
+      font-size: 1.16rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 767px) {
+      .ms-cta-note {
+        text-align: center;
+        font-size: 1.04rem;
+      }
+    }
+
+    /* Ready for a real hero image whenever there is one. */
+    .ms-hero-img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+      .ms-hero-img {
+        margin-top: 40px;
+      }
+    }
+
+    /* ---------- generic section rhythm ---------- */
+    .ms-section {
+      padding: 86px 0;
+    }
+
+    @media (max-width: 767px) {
+      .ms-section {
+        padding: 54px 0;
+      }
+    }
+
+    .ms-section--tint {
+      background: var(--ms-pink-soft);
+    }
+
+    .ms-section--white {
+      background: #fff;
+    }
+
+    /* Section header: the lead sentence IS the heading now */
+    .ms-lede {
+      max-width: 780px;
+      margin: 0 auto 48px;
+      text-align: center;
+      color: var(--ms-plum);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 767px) {
+      .ms-lede {
+        font-size: 1.4rem;
+        margin-bottom: 34px;
+      }
+    }
+
+    /* ---------- tiles ---------- */
+    .ms-tile {
+      height: 100%;
+      padding: 32px 28px;
+      background: #fff;
+      border: 1px solid #efe4e9;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+
+    /* Numbered badge. Sized so an illustration can replace the number in
+       place later without the tiles reflowing. */
+    .ms-tile-step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: var(--ms-peri-soft);
+      color: var(--ms-peri);
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .ms-tile h4 {
+      color: var(--ms-plum);
+      font-size: 1.24rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .ms-tile p {
+      color: var(--dark-3);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ---------- standalone CTA band (2nd CTA instance) ---------- */
+    .ms-cta-band {
+      padding: 64px 0;
+      background: var(--ms-pink);
+      text-align: center;
+    }
+
+    .ms-cta-band .ms-cta {
+      margin-top: 0;
+    }
+
+    @media (max-width: 767px) {
+      .ms-cta-band {
+        padding: 40px 0;
+      }
+    }
+
+    /* ---------- how it works ---------- */
+    /* Product shot fills the section width, features stacked beneath it.
+       No max-width cap: the source PNG is 1536px wide, so even at the widest
+       1140px container this is still a downscale and stays sharp. */
+    .ms-hiw-shot {
+      margin: 0 auto 46px;
+    }
+
+    /* Same max-width as .ms-hiw-shot so the badges line up with the image's
+       left edge instead of hanging outside it. */
+    .ms-hiw-list {
+      list-style: none;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .ms-hiw-list li {
+      position: relative;
+      min-height: 52px;
+      padding: 0 0 28px 72px;
+      color: var(--dark-2);
+      font-size: 1.12rem;
+      line-height: 1.6;
+    }
+
+    .ms-hiw-list li:last-child {
+      padding-bottom: 0;
+    }
+
+    .ms-hiw-list li strong {
+      display: block;
+      color: var(--ms-plum);
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    /* Numbered badge in place of the old bullet dot — same treatment as the
+       tile badges, so both sets can be swapped for real art together. */
+    .ms-hiw-step {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--ms-peri-soft);
+      color: var(--ms-peri);
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    @media (max-width: 767px) {
+      .ms-hiw-list li {
+        padding-left: 62px;
+        font-size: 1.05rem;
+      }
+
+      .ms-hiw-step {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+      }
+    }
+
+    /* No top margin any more — the image is the first thing in the section
+       now, not the right-hand column of a two-column row. */
+    .ms-product-shot {
+      display: block;
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    /* ---------- credibility bubbles (replaces the logo slots) ---------- */
+    /* No top/bottom rules — the section reads as part of the white block above. */
+    .ms-bubbles {
+      padding: 20px 0 76px;
+      background: #fff;
+    }
+
+    .ms-bubble-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .ms-bubble {
+      padding: 18px 40px;
+      border: 2px solid var(--ms-pink);
+      border-radius: 999px;
+      background: var(--ms-pink-soft);
+      color: var(--ms-plum);
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 767px) {
+      .ms-bubbles {
+        padding: 12px 0 48px;
+      }
+
+      .ms-bubble {
+        padding: 14px 26px;
+        font-size: 1rem;
+        white-space: normal;
+      }
+    }
+
+    /* ---------- reserve / pricing test ---------- */
+    .ms-reserve {
+      padding: 86px 0;
+      background: var(--ms-pink-soft);
+    }
+
+    @media (max-width: 767px) {
+      .ms-reserve {
+        padding: 54px 0;
+      }
+    }
+
+    .ms-reserve-card {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 44px 42px 36px;
+      background: #fff;
+      border-radius: 12px;
+      border-top: 4px solid var(--ms-plum);
+      box-shadow: var(--shadow-4);
+    }
+
+    @media (max-width: 767px) {
+      .ms-reserve-card {
+        padding: 30px 20px 26px;
+      }
+    }
+
+    .ms-reserve-card h2 {
+      text-align: center;
+      color: var(--ms-plum);
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .ms-reserve-card .ms-reserve-sub {
+      text-align: center;
+      color: var(--dark-3);
+      font-size: 1.06rem;
+      margin-bottom: 28px;
+    }
+
+    .ms-price-block {
+      text-align: center;
+      padding: 24px 20px;
+      margin-bottom: 28px;
+      background: var(--ms-pink-soft);
+      border-radius: 10px;
+    }
+
+    .ms-price-anchor {
+      color: var(--dark-3);
+      font-size: 1.02rem;
+    }
+
+    .ms-price-now {
+      display: block;
+      margin: 6px 0 4px;
+      color: var(--ms-plum);
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .ms-price-caption {
+      color: var(--ms-plum);
+      opacity: 0.75;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* ---------- itemised "what founding member includes" ---------- */
+    .ms-includes {
+      list-style: none;
+      margin: 0 0 22px 0;
+      padding: 0;
+    }
+
+    .ms-includes li {
+      position: relative;
+      padding: 0 0 12px 30px;
+      color: var(--dark-2);
+      font-size: 1.06rem;
+      line-height: 1.5;
+    }
+
+    .ms-includes li:last-child {
+      padding-bottom: 0;
+    }
+
+    .ms-includes li::before {
+      content: "";
+      position: absolute;
+      top: 7px;
+      left: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ms-peri);
+    }
+
+    /* Status/timeline line. Reiterates the no-payment fact inline, where the
+       decision is actually being made, not only in the footer legal block. */
+    .ms-timeline {
+      display: block;
+      margin-bottom: 26px;
+      padding: 13px 18px;
+      border-radius: 6px;
+      background: var(--ms-peri-soft);
+      color: var(--ms-plum);
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* Divider between the offer summary and the pricing-test questions. */
+    .ms-card-rule {
+      height: 1px;
+      margin: 0 0 26px 0;
+      border: 0;
+      background: #efe4e9;
+      opacity: 1;
+    }
+
+    .ms-field {
+      margin-bottom: 22px;
+    }
+
+    .ms-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ms-plum);
+      font-size: 1.06rem;
+      font-weight: 700;
+    }
+
+    .ms-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #e4d8dd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      background: #fff;
+      font-family: var(--font-family);
+      font-size: 1.08rem;
+      color: var(--ms-plum);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .ms-input:focus {
+      border-color: var(--ms-peri);
+    }
+
+    .ms-input::placeholder {
+      color: #c9b3bb;
+    }
+
+    .ms-choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ms-choice {
+      position: relative;
+      flex: 1 1 auto;
+    }
+
+    .ms-choice input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .ms-choice span {
+      display: block;
+      padding: 12px 16px;
+      border: 1px solid #e4d8dd;
+      border-radius: 4px;
+      background: #fff;
+      color: var(--dark-2);
+      font-size: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .ms-choice span:hover {
+      border-color: var(--ms-peri);
+    }
+
+    .ms-choice input:checked + span {
+      border-color: var(--ms-plum);
+      background: var(--ms-plum);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .ms-choice input:focus-visible + span {
+      outline: 2px solid var(--ms-peri);
+      outline-offset: 2px;
+    }
+
+    .ms-commit {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 18px;
+      margin-bottom: 22px;
+      border: 1.5px solid var(--ms-peri);
+      border-radius: 6px;
+      background: var(--ms-peri-soft);
+      cursor: pointer;
+    }
+
+    .ms-commit input {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--ms-plum);
+      cursor: pointer;
+    }
+
+    .ms-commit span {
+      color: var(--ms-plum);
+      font-size: 1.06rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .ms-submit {
+      width: 100%;
+      padding: 20px;
+      border: 2px solid var(--ms-plum);
+      border-radius: 4px;
+      cursor: pointer;
+      background: var(--ms-plum);
+      color: #fff;
+      font-family: var(--font-family);
+      font-weight: 700;
+      font-size: 1.22rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .ms-submit:hover {
+      background: transparent;
+      color: var(--ms-plum);
+    }
+
+    .ms-nopay {
+      margin: 18px 0 0;
+      color: var(--dark-3);
+      font-size: 0.94rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .ms-confirm {
+      display: none;
+      max-width: 640px;
+      margin: 0 auto 24px;
+      padding: 18px 22px;
+      border-radius: 8px;
+      border-left: 4px solid var(--ms-plum);
+      background: #fff;
+      color: var(--ms-plum);
+      font-size: 1.08rem;
+      line-height: 1.55;
+    }
+
+    .ms-confirm.is-visible {
+      display: block;
+    }
+
+    /* ---------- FAQ ----------
+       Bootstrap 5.0.1's accordion (already bundled in bootstrap.min.css, and
+       bootstrap.bundle.min.js is loaded at the foot of this page) does the
+       collapse behaviour. These rules only retint it: Bootstrap ships a blue
+       focus ring and blue active text that would clash with the palette. */
+    .ms-faq {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .ms-faq .accordion-item {
+      margin-bottom: 12px;
+      border: 1px solid #efe4e9;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .ms-faq .accordion-button {
+      padding: 20px 22px;
+      background: #fff;
+      color: var(--ms-plum);
+      font-family: var(--font-family);
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    /* Bootstrap's default expanded state is blue-on-pale-blue. */
+    .ms-faq .accordion-button:not(.collapsed) {
+      background: var(--ms-pink-soft);
+      color: var(--ms-plum);
+      box-shadow: none;
+    }
+
+    .ms-faq .accordion-button:focus {
+      border-color: transparent;
+      box-shadow: 0 0 0 3px rgba(159, 158, 213, 0.45);
+    }
+
+    /* Recolour the chevron to plum (Bootstrap inlines it as an SVG data URI). */
+    .ms-faq .accordion-button::after {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23612F48'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+    .ms-faq .accordion-body {
+      padding: 4px 22px 22px;
+      color: var(--dark-3);
+      font-size: 1.06rem;
+      line-height: 1.65;
+    }
+
+    .ms-faq .accordion-body p {
+      margin: 0;
+    }
+
+    @media (max-width: 767px) {
+      .ms-faq .accordion-button {
+        padding: 16px 18px;
+        font-size: 1rem;
+      }
+
+      .ms-faq .accordion-body {
+        padding: 2px 18px 18px;
+        font-size: 1rem;
+      }
+    }
+
+    /* ---------- legal ---------- */
+    .ms-legal {
+      padding: 40px 0 0;
+      border-top: 1px solid #f0e6ea;
+    }
+
+    .ms-legal p {
+      max-width: 900px;
+      margin: 0 auto 10px;
+      color: var(--gray-1);
+      font-size: 0.86rem;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    .ms-legal p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body class="ms-theme">
+
+  <!--====== NAVBAR START ======-->
+  <!--  Trimmed to logo + one CTA: no nav links, no collapse toggler, no
+        hamburger. The off-canvas sidebar that the hamburger used to open has
+        been removed along with it (its markup, its CSS overrides, and its
+        toggle JS), since nothing could reach it any more. -->
+  <section class="navbar-area navbar-nine">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <nav class="navbar">
+            <a class="navbar-brand" href="/">
+              <img src="/assets/images/milkshaker-logo-2.png" alt="MilkShaker" />
+            </a>
+            <a href="#reserve" class="page-scroll ms-nav-cta">Reserve my spot</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--====== NAVBAR END ======-->
+
+  <!--====== HERO START ======-->
+  <section id="hero-area" class="ms-hero">
+    <div class="container">
+      <!--  No CTA in the hero on purpose: the sticky nav bar carries one at the
+            top of the page, and the next CTA is the band after the pain-cycle
+            section. -->
+      <div class="ms-hero-inner">
+        <h1>On-demand mastitis care... finally.</h1>
+        <p class="ms-sub">
+          MilkShaker is a nursing bra with embedded massaging technology for mastitis, clogged duct, and
+          milk production support.
+        </p>
+      </div>
+
+      <!--  To restore the two-column text + image hero once there is a real
+            hero photograph, swap the .ms-hero-inner block above for this:
+
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-12 col-12">
+          ...the h1 / .ms-sub markup above, unchanged...
+        </div>
+        <div class="col-lg-6 col-md-12 col-12">
+          <img src="/assets/images/YOUR-HERO.png" class="ms-hero-img" alt="" />
+        </div>
+      </div>
+
+            and delete `text-align: center` from .ms-hero-inner (or drop the
+            wrapper entirely).
+      -->
+    </div>
+  </section>
+  <!--====== HERO END ======-->
+
+  <!--====== THE PATTERN START ======-->
+  <section id="pattern" class="ms-section ms-section--tint">
+    <div class="container">
+      <h2 class="ms-lede">
+        For mothers with recurring clogged ducts and mastitis, it rarely feels like a surprise. It feels like a
+        pattern.
+      </h2>
+
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="ms-tile">
+            <!-- Numbered badge; replace with an illustration when there is one -->
+            <div class="ms-tile-step" aria-hidden="true">1</div>
+            <h4>Early symptoms begin</h4>
+            <p>The tender spot, the heat, the ache &mdash; before the fever arrives.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="ms-tile">
+            <div class="ms-tile-step" aria-hidden="true">2</div>
+            <h4>You try everything again... and again</h4>
+            <p>Hot showers, compresses, ibuprofen, hand expression at 2am. Over and over.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="ms-tile">
+            <div class="ms-tile-step" aria-hidden="true">3</div>
+            <h4>Yet, it still escalates to mastitis</h4>
+            <p>Inflammation, bad cold, high fevers, and more antibiotics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--====== THE PATTERN END ======-->
+
+  <!--====== CTA BAND (2nd CTA instance) START ======-->
+  <!--  This instance ONLY is labelled with the How It Works promise instead of
+        "Reserve my spot" — the nav bar and the form's submit button keep the
+        standard label. It still scrolls to #reserve. -->
+  <div class="ms-cta-band">
+    <div class="container">
+      <a href="#reserve" class="page-scroll ms-cta ms-cta--wide">Wear it. Forget it. Feel better.</a>
+      <p class="ms-cta-note">Early access pricing &mdash; no payment collected</p>
+    </div>
+  </div>
+  <!--====== CTA BAND END ======-->
+
+  <!--====== HOW IT WORKS START (white background, product mockup lives here) ======-->
+  <section id="how-it-works" class="ms-section ms-section--white">
+    <div class="container">
+      <!--  Section heading lives in the CTA band above this section now, as the
+            button label there. -->
+      <div class="ms-hiw-shot">
+        <img src="/assets/images/product-image.png" class="ms-product-shot"
+          alt="MilkShaker nursing and pumping bra with two removable massaging modules and a rechargeable battery" />
+      </div>
+
+      <ul class="ms-hiw-list">
+        <li>
+          <span class="ms-hiw-step" aria-hidden="true">1</span>
+          <strong>The only maternity bra you'll ever need</strong>
+          Compatible with nursing and pumping.
+        </li>
+        <li>
+          <span class="ms-hiw-step" aria-hidden="true">2</span>
+          <strong>One automated session at a time</strong>
+          About 10 sessions per overnight charge.
+        </li>
+        <li>
+          <span class="ms-hiw-step" aria-hidden="true">3</span>
+          <strong>Electronics lift out, garment goes in the wash</strong>
+          The modules are removable.
+        </li>
+      </ul>
+    </div>
+  </section>
+  <!--====== HOW IT WORKS END ======-->
+
+  <!--====== CREDIBILITY BUBBLES START ======-->
+  <div class="ms-bubbles">
+    <div class="container">
+      <div class="ms-bubble-row">
+        <span class="ms-bubble">CLC-endorsed</span>
+        <span class="ms-bubble">Lactation expert-informed</span>
+        <span class="ms-bubble">Female engineer-created</span>
+      </div>
+    </div>
+  </div>
+  <!--====== CREDIBILITY BUBBLES END ======-->
+
+  <!--====== RESERVE / PRICING TEST START ======-->
+  <section id="reserve" class="ms-reserve">
+    <div class="container">
+
+      <!-- Shown after a successful FormSubmit round-trip (?reserved=1) -->
+      <div id="reserveConfirm" class="ms-confirm">
+        <strong>You're on the list.</strong> We've saved your early access spot and we'll email you before shipping
+        opens. Nothing has been charged.
+      </div>
+
+      <div class="ms-reserve-card">
+        <h2>Reserve my spot</h2>
+        <p class="ms-reserve-sub">A limited early access group before our first production run.</p>
+
+        <div class="ms-price-block">
+          <!--  The anchor is the real launch price. It is hidden by the script
+                when the drawn variant equals it, so a $399 visitor never sees
+                "Regularly $399 ... $399". -->
+          <span class="ms-price-anchor" id="priceAnchor">Regularly <s id="priceAnchorValue">$399</s> at launch</span>
+          <span class="ms-price-now" id="priceDisplay">$399</span>
+          <span class="ms-price-caption">Founding member price</span>
+        </div>
+
+        <!-- What the reservation actually gets you, itemised. -->
+        <ul class="ms-includes">
+          <li>Founding member price locked in, even if launch pricing moves.</li>
+          <li>Priority shipping from the first production run.</li>
+          <li>First to know &mdash; we email you before anything is ever charged.</li>
+        </ul>
+
+        <!--  Keep this in sync with the same date in FAQ answer 5. -->
+        <span class="ms-timeline">Shipping Spring 2027 &mdash; no payment collected today</span>
+
+        <hr class="ms-card-rule">
+
+        <form action="https://formsubmit.co/valentina@themilkshaker.com" method="POST" id="reserveForm">
+
+          <!--  FormSubmit control fields.
+                _next sends the visitor to step 2 (the pricing/history
+                questions) instead of straight back here. The reservation is
+                already captured by THIS submission, so step 2 is optional and
+                has a skip link. -->
+          <input type="hidden" name="_next" value="https://themilkshaker.com/reserve-questions.html">
+          <input type="hidden" name="_subject" id="formSubject" value="MilkShaker early access reservation">
+          <input type="hidden" name="_template" value="table">
+
+          <!-- Assigned client-side; see script at the bottom of this page -->
+          <input type="hidden" name="price_variant" id="priceVariant" value="">
+          <input type="hidden" name="launch_price_anchor" id="priceAnchorField" value="$399">
+
+          <div class="ms-field">
+            <label class="ms-label" for="rName">Your name</label>
+            <input class="ms-input" type="text" id="rName" name="name" placeholder="Your name" required>
+          </div>
+
+          <div class="ms-field">
+            <label class="ms-label" for="rEmail">Your email</label>
+            <input class="ms-input" type="email" id="rEmail" name="email" placeholder="you@email.com" required>
+          </div>
+
+          <!--  The price-sentiment and mastitis-history questions moved to
+                step 2, /reserve-questions.html. -->
+
+          <label class="ms-commit">
+            <input type="checkbox" name="commitment" value="Yes - commits to purchase at this price">
+            <span>I commit to purchase at this price when it ships.</span>
+          </label>
+
+          <button type="submit" class="ms-submit">Reserve my spot</button>
+        </form>
+
+        <p class="ms-nopay">
+          No payment information is collected and no charge will be made. Reserving a spot is not a purchase or an
+          order.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!--====== RESERVE / PRICING TEST END ======-->
+
+  <!--====== FAQ START ======-->
+  <!--  Bootstrap 5.0.1 accordion — the collapse behaviour comes from
+        bootstrap.bundle.min.js, already loaded at the foot of this page. No
+        custom accordion existed in the codebase, and the site already uses
+        data-bs-toggle="collapse" elsewhere, so this follows that pattern.
+        The .ms-faq rules in <style> only retint it to the palette.
+
+        Answers stay on mechanism and comfort — no treat/prevent language. -->
+  <section id="faq" class="ms-section ms-section--white">
+    <div class="container">
+      <h2 class="ms-lede">FAQs</h2>
+
+      <div class="accordion ms-faq" id="faqAccordion">
+
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqBody1" aria-expanded="false" aria-controls="faqBody1">
+              Is it safe to wear while nursing or pumping?
+            </button>
+          </h3>
+          <div id="faqBody1" class="accordion-collapse collapse" aria-labelledby="faqHead1"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p>
+                Yes &mdash; it is designed to be worn as your everyday nursing bra, and it is compatible with both
+                nursing and pumping. The massaging modules run one session at a time and are meant to ease
+                discomfort and support lymphatic flow. As with any wearable, stop using it if something feels
+                wrong, and check with your own clinician or lactation consultant if you are unsure.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqBody2" aria-expanded="false" aria-controls="faqBody2">
+              How do I clean it?
+            </button>
+          </h3>
+          <div id="faqBody2" class="accordion-collapse collapse" aria-labelledby="faqHead2"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p>
+                The electronics lift out and the garment goes in the wash. The two massaging modules and the
+                battery are removable, so there is nothing you have to hand-clean around.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead4">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqBody4" aria-expanded="false" aria-controls="faqBody4">
+              What if it is not right for me &mdash; can I get a refund on my reservation?
+            </button>
+          </h3>
+          <div id="faqBody4" class="accordion-collapse collapse" aria-labelledby="faqHead4"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p>
+                There is nothing to refund, because there is nothing to pay. Reserving a spot collects no payment
+                information and creates no charge or obligation. If you change your mind, email us and we will
+                remove you from the list &mdash; no reason needed.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead5">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqBody5" aria-expanded="false" aria-controls="faqBody5">
+              When does it ship?
+            </button>
+          </h3>
+          <div id="faqBody5" class="accordion-collapse collapse" aria-labelledby="faqHead5"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <!--  Keep this in sync with the timeline line in the pricing card. -->
+              <p>
+                We are aiming for Spring 2027, after our first production run. We would rather give you an
+                honest date than an early one, so founding members get told before anything ships and before
+                anything is charged.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!--====== FAQ END ======-->
+
+  <!--====== FOOTER START ======-->
+  <footer class="footer-area footer-eleven">
+    <div class="footer-top">
+      <div class="container">
+
+        <!-- Regulatory + commercial disclaimer. Keep this with the copy above. -->
+        <div class="ms-legal">
+          <p>
+            MilkShaker is a Class I wearable device designed to support lymphatic flow and ease breast discomfort
+            during breastfeeding. It is not intended to diagnose, treat, cure, or prevent any disease. Statements on
+            this page describe the device's mechanism and comfort benefits only; any claim regarding mastitis
+            outcomes is pending completion of a post-market clinical study and a corresponding label update.
+          </p>
+          <p>
+            Reserving an early access spot does not create a purchase, order, or payment obligation. No payment
+            information is collected on this page and no charge will be made. Early access pricing is indicative and
+            subject to change before shipping opens.
+          </p>
+          <p>
+            MilkShaker is not a substitute for medical care. If you have a fever, spreading redness, or breast pain
+            that is worsening or not improving, contact your physician, midwife, or lactation consultant.
+          </p>
+        </div>
+
+        <div class="footer-row" style="margin-top: 36px;">
+          <p><span>MilkShaker Inc. 2026</span></p>
+          <!--  Dormant during the preorder test: the links to home / product /
+                team / resources / news / contact are removed so nobody leaves
+                the funnel. The pages still exist and still work by direct URL
+                — restore this nav to bring them back.
+
+                The email stays: FAQ answer 4 tells people to email to cancel a
+                reservation, so there has to be a way to reach you. -->
+          <nav class="footer-nav">
+            <a href="mailto:valentina@themilkshaker.com">valentina@themilkshaker.com</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--====== FOOTER END ======-->
+
+  <a href="#" class="scroll-top btn-hover">
+    <i class="lni lni-chevron-up"></i>
+  </a>
+
+  <!--====== js ======-->
+  <script src="/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+
+  <!--  The navbar-toggler and left-sidebar scripts that used to live here were
+        removed with the trimmed nav — there is no toggler, no hamburger, and no
+        off-canvas sidebar on this page any more. -->
+
+  <script>
+    /* =========================================================
+       PRICING TEST — client-side variant assignment
+
+       Assigns one of nine early access prices at random and
+       remembers it in localStorage under ms_price_variant.
+
+       PERSISTENCE, precisely: localStorage is scoped to this
+       origin AND to the browser profile it was written in. So the
+       price is stable for that person on that browser, forever,
+       across reloads and across sessions — but it is NOT stable
+       for the same person across devices, across browsers, or in
+       a private window, and it resets if they clear site data.
+       Each of those counts as a fresh visitor and draws again.
+
+       ANCHOR is the real launch price. Variants must never exceed
+       it or the struck-through anchor stops making sense.
+       No payment is collected anywhere in this flow.
+       ========================================================= */
+    (function () {
+      var PRICES = [119, 149, 199, 219, 249, 299, 319, 349, 399];
+      var ANCHOR = 399;
+      var STORAGE_KEY = "ms_price_variant";
+
+      var price = null;
+      try {
+        var stored = window.localStorage.getItem(STORAGE_KEY);
+        if (stored && PRICES.indexOf(parseInt(stored, 10)) !== -1) {
+          price = parseInt(stored, 10);
+        }
+      } catch (e) {
+        /* storage disabled — fall through to a fresh pick */
+      }
+
+      if (price === null) {
+        price = PRICES[Math.floor(Math.random() * PRICES.length)];
+        try {
+          window.localStorage.setItem(STORAGE_KEY, String(price));
+        } catch (e) {
+          /* not persistable; visitor still sees a valid price this session */
+        }
+      }
+
+      var label = "$" + price;
+
+      var display = document.getElementById("priceDisplay");
+      if (display) display.textContent = label;
+
+      var variantField = document.getElementById("priceVariant");
+      if (variantField) variantField.value = label;
+
+      var anchorField = document.getElementById("priceAnchorField");
+      if (anchorField) anchorField.value = "$" + ANCHOR;
+
+      // At the top of the ladder there is no discount to show, so drop the
+      // "Regularly $399 at launch" line rather than print it twice.
+      var anchorEl = document.getElementById("priceAnchor");
+      var anchorValue = document.getElementById("priceAnchorValue");
+      if (anchorEl) {
+        if (price >= ANCHOR) {
+          anchorEl.style.display = "none";
+        } else if (anchorValue) {
+          anchorValue.textContent = "$" + ANCHOR;
+        }
+      }
+
+      // Put the price in the email subject so the inbox is sortable by tier.
+      var subject = document.getElementById("formSubject");
+      if (subject) subject.value = "MilkShaker reservation - " + label + " tier";
+    })();
+
+    /* =========================================================
+       STEP 1 -> STEP 2 handoff
+       FormSubmit cannot interpolate submitted values into its
+       _next URL, so the two emails would otherwise be
+       unlinkable. Stash name + email on submit;
+       /reserve-questions.html reads them back into HIDDEN fields
+       so the answers join to the reservation by email address.
+       Nothing is ever re-typed by the visitor.
+       ========================================================= */
+    (function () {
+      var form = document.getElementById("reserveForm");
+      if (!form) return;
+
+      form.addEventListener("submit", function () {
+        try {
+          window.sessionStorage.setItem("ms_res_name", form.elements["name"].value);
+          window.sessionStorage.setItem("ms_res_email", form.elements["email"].value);
+        } catch (e) {
+          /* storage blocked — step 2 posts without the join key rather than
+             prompting for the address a second time */
+        }
+      });
+    })();
+
+    /* Show the confirmation banner after FormSubmit redirects back. */
+    (function () {
+      if (window.location.search.indexOf("reserved=1") === -1) return;
+      var banner = document.getElementById("reserveConfirm");
+      if (!banner) return;
+      banner.classList.add("is-visible");
+      banner.scrollIntoView({ behavior: "smooth", block: "center" });
+    })();
+  </script>
+
+  <script data-goatcounter="https://milkshaker.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!--======================================================================
+       REDIRECT STUB — not a real page.
+
+       The preorder page now lives at the site root, so themilkshaker.com
+       serves it with no redirect hop. This file only exists so links to
+       /preorder.html that were shared before the move still land in the
+       right place.
+
+       GitHub Pages cannot issue a server-side 301 (no .htaccess, no
+       _redirects file), so this does it client-side: the canonical tag
+       points search engines at "/", noindex keeps this URL from competing
+       with the root as a duplicate, and the meta refresh plus the script
+       below move real visitors. The visible link is the no-JS fallback.
+
+       Safe to delete once nothing points at /preorder.html any more.
+  =======================================================================-->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://themilkshaker.com/" />
+  <meta http-equiv="refresh" content="0; url=/" />
+
+  <title>Redirecting to MilkShaker preorder&hellip;</title>
+  <link rel="shortcut icon" href="/assets/favicon_io/favicon.ico" />
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F3AEC7;
+      color: #612F48;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+      text-align: center;
+      padding: 24px;
+    }
+
+    a {
+      color: #612F48;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    Taking you to the MilkShaker preorder page&hellip;<br />
+    <a href="/">Continue to themilkshaker.com</a>
+  </p>
+
+  <script>
+    // replace() rather than assign() so this stub does not sit in the back
+    // button and bounce the visitor straight back here.
+    window.location.replace("/");
+  </script>
+</body>
+
+</html>

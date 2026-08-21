@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--====== Required meta tags ======-->
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!--====== Step 2 of the reservation flow: a post-submit interstitial, so
+             keep it out of search results and out of link previews. ======-->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!--====== Title ======-->
+  <title>Two quick questions | MilkShaker</title>
+
+  <!--====== Favicon Icon ======-->
+  <link rel="shortcut icon" href="/assets/favicon_io/favicon.ico" />
+
+  <!--====== Bootstrap css ======-->
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+
+  <!--====== Line Icons css ======-->
+  <link rel="stylesheet" href="/assets/css/lineicons.css" />
+
+  <link rel="stylesheet" href="/style.css" />
+
+  <!--======================================================================
+       Scoped styles, same palette as the root preorder page (index.html).
+
+       Only the rules this page actually uses are copied across — the card,
+       the choice chips, the submit button and the legal block. If the
+       palette ever moves into style.css :root, delete .ms-theme here too.
+  =======================================================================-->
+  <style>
+    .ms-theme {
+      --ms-pink: #F3AEC7;
+      --ms-peri: #9F9ED5;
+      --ms-plum: #612F48;
+      --ms-pink-soft: #FDF4F7;
+      --ms-peri-soft: #F1F1FA;
+    }
+
+    .navbar-nine .navbar-brand img {
+      height: 46px;
+      width: auto;
+    }
+
+    @media (max-width: 767px) {
+      .navbar-nine .navbar-brand img {
+        height: 36px;
+      }
+    }
+
+    /* Logo only — no "Reserve my spot" CTA here. The visitor has already
+       reserved by the time they land on this page. */
+    .ms-theme .navbar-area.navbar-nine {
+      background: var(--ms-pink);
+    }
+
+    .ms-theme .navbar-area.navbar-nine .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    /* ---------- page shell ---------- */
+    .ms-questions {
+      padding: 86px 0;
+      background: var(--ms-pink-soft);
+    }
+
+    @media (max-width: 767px) {
+      .ms-questions {
+        padding: 40px 0 54px;
+      }
+    }
+
+    /* ---------- "you're on the list" ---------- */
+    .ms-done {
+      max-width: 640px;
+      margin: 0 auto 24px;
+      padding: 18px 22px;
+      border-radius: 8px;
+      border-left: 4px solid var(--ms-plum);
+      background: #fff;
+      color: var(--ms-plum);
+      font-size: 1.08rem;
+      line-height: 1.55;
+    }
+
+    /* ---------- card ---------- */
+    .ms-card {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 44px 42px 36px;
+      background: #fff;
+      border-radius: 12px;
+      border-top: 4px solid var(--ms-plum);
+      box-shadow: var(--shadow-4);
+    }
+
+    @media (max-width: 767px) {
+      .ms-card {
+        padding: 30px 20px 26px;
+      }
+    }
+
+    .ms-card h1 {
+      text-align: center;
+      color: var(--ms-plum);
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .ms-card-sub {
+      text-align: center;
+      color: var(--dark-3);
+      font-size: 1.06rem;
+      margin-bottom: 28px;
+    }
+
+    /* ---------- fields ---------- */
+    .ms-field {
+      margin-bottom: 22px;
+    }
+
+    .ms-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ms-plum);
+      font-size: 1.06rem;
+      font-weight: 700;
+    }
+
+    .ms-choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ms-choice {
+      position: relative;
+      flex: 1 1 auto;
+    }
+
+    .ms-choice input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .ms-choice span {
+      display: block;
+      padding: 12px 16px;
+      border: 1px solid #e4d8dd;
+      border-radius: 4px;
+      background: #fff;
+      color: var(--dark-2);
+      font-size: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .ms-choice span:hover {
+      border-color: var(--ms-peri);
+    }
+
+    .ms-choice input:checked + span {
+      border-color: var(--ms-plum);
+      background: var(--ms-plum);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .ms-choice input:focus-visible + span {
+      outline: 2px solid var(--ms-peri);
+      outline-offset: 2px;
+    }
+
+    .ms-submit {
+      width: 100%;
+      padding: 20px;
+      margin-top: 6px;
+      border: 2px solid var(--ms-plum);
+      border-radius: 4px;
+      cursor: pointer;
+      background: var(--ms-plum);
+      color: #fff;
+      font-family: var(--font-family);
+      font-weight: 700;
+      font-size: 1.22rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .ms-submit:hover {
+      background: transparent;
+      color: var(--ms-plum);
+    }
+
+    /* The reservation is already saved, so answering has to be optional. */
+    .ms-skip {
+      display: block;
+      margin: 18px 0 0;
+      color: var(--gray-1);
+      font-size: 0.96rem;
+      text-align: center;
+    }
+
+    .ms-skip a {
+      color: var(--ms-plum);
+      text-decoration: underline;
+    }
+
+    .ms-nopay {
+      margin: 14px 0 0;
+      color: var(--dark-3);
+      font-size: 0.94rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* ---------- legal ---------- */
+    .ms-legal {
+      padding: 40px 0 0;
+      border-top: 1px solid #f0e6ea;
+    }
+
+    .ms-legal p {
+      max-width: 900px;
+      margin: 0 auto 10px;
+      color: var(--gray-1);
+      font-size: 0.86rem;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    .ms-legal p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body class="ms-theme">
+
+  <!--====== NAVBAR START ======-->
+  <section class="navbar-area navbar-nine">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <nav class="navbar">
+            <a class="navbar-brand" href="/">
+              <img src="/assets/images/milkshaker-logo-2.png" alt="MilkShaker" />
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--====== NAVBAR END ======-->
+
+  <!--====== QUESTIONS START ======-->
+  <section class="ms-questions">
+    <div class="container">
+
+      <div class="ms-done">
+        <strong>You're on the list.</strong> Your early access spot is saved and nothing has been charged. We'll
+        email you before shipping opens.
+      </div>
+
+      <div class="ms-card">
+        <h1>Two quick questions</h1>
+        <p class="ms-card-sub">These help us set the launch price fairly. Answering is optional.</p>
+
+        <form action="https://formsubmit.co/valentina@themilkshaker.com" method="POST" id="questionsForm">
+
+          <!--  FormSubmit control fields. Back to the preorder page, which
+                shows its own confirmation banner on ?reserved=1. -->
+          <input type="hidden" name="_next" value="https://themilkshaker.com/?reserved=1">
+          <input type="hidden" name="_subject" id="formSubject" value="MilkShaker reservation - questions">
+          <input type="hidden" name="_template" value="table">
+
+          <!--  All hidden, all filled by the script below. Name and email are
+                carried from step 1 via sessionStorage so this submission can
+                be joined to the reservation; the visitor never re-types them
+                and never sees a field. price_variant is the tier they were
+                shown, read from localStorage. -->
+          <input type="hidden" name="name" id="qName" value="">
+          <input type="hidden" name="email" id="qEmail" value="">
+          <input type="hidden" name="price_variant" id="qPriceVariant" value="">
+
+          <div class="ms-field">
+            <span class="ms-label" id="sentimentLabel">At <span id="sentimentPrice">the early access
+                price</span>, this feels like&hellip;</span>
+            <div class="ms-choices" role="group" aria-labelledby="sentimentLabel">
+              <label class="ms-choice">
+                <input type="radio" name="price_sentiment" value="A great deal" required>
+                <span>A great deal</span>
+              </label>
+              <label class="ms-choice">
+                <input type="radio" name="price_sentiment" value="Fair">
+                <span>Fair</span>
+              </label>
+              <label class="ms-choice">
+                <input type="radio" name="price_sentiment" value="A stretch">
+                <span>A stretch</span>
+              </label>
+              <label class="ms-choice">
+                <input type="radio" name="price_sentiment" value="Too much">
+                <span>Too much</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="ms-field">
+            <span class="ms-label" id="historyLabel">Have you had mastitis or clogged ducts before?</span>
+            <div class="ms-choices" role="group" aria-labelledby="historyLabel">
+              <label class="ms-choice">
+                <input type="radio" name="mastitis_history" value="Yes - more than once" required>
+                <span>Yes, more than once</span>
+              </label>
+              <label class="ms-choice">
+                <input type="radio" name="mastitis_history" value="Yes - once">
+                <span>Yes, once</span>
+              </label>
+              <label class="ms-choice">
+                <input type="radio" name="mastitis_history" value="No">
+                <span>No</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="ms-submit">Send my answers</button>
+        </form>
+
+        <p class="ms-skip">
+          <a href="/?reserved=1">No thanks, I'm done</a>
+        </p>
+
+        <p class="ms-nopay">
+          Still no payment information collected and no charge will be made.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!--====== QUESTIONS END ======-->
+
+  <!--====== FOOTER START ======-->
+  <footer class="footer-area footer-eleven">
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="ms-legal">
+          <p>
+            Reserving an early access spot does not create a purchase, order, or payment obligation. No payment
+            information is collected on this page and no charge will be made. Early access pricing is indicative and
+            subject to change before shipping opens.
+          </p>
+        </div>
+
+        <div class="footer-row" style="margin-top: 36px;">
+          <p><span>MilkShaker Inc. 2026</span></p>
+          <!--  Trimmed to match the root page while the other pages are
+                dormant for the preorder test. -->
+          <nav class="footer-nav">
+            <a href="mailto:valentina@themilkshaker.com">valentina@themilkshaker.com</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--====== FOOTER END ======-->
+
+  <!--====== js ======-->
+  <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /* =========================================================
+       Rehydrate step 1: the identity to join on, and the price
+       tier the visitor was shown.
+
+       The tier is read, never re-rolled: picking a new one here
+       would ask about a price they never saw. If it is missing we
+       record "unknown" rather than guessing, so a storage-blocked
+       reply cannot be filed under the wrong tier.
+
+       PRICES must stay in step with the same array in
+       index.html (the root preorder page) — a value missing from it is treated
+       as invalid and lands in the "unknown" bucket.
+       ========================================================= */
+    (function () {
+      var PRICES = [119, 149, 199, 219, 249, 299, 319, 349, 399];
+
+      function read(store, key) {
+        try {
+          return window[store].getItem(key);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      // --- identity carried from step 1, hidden fields only ---
+      var name = read("sessionStorage", "ms_res_name");
+      var email = read("sessionStorage", "ms_res_email");
+
+      var nameField = document.getElementById("qName");
+      var emailField = document.getElementById("qEmail");
+      if (nameField && name) nameField.value = name;
+      if (emailField && email) emailField.value = email;
+
+      // --- price tier assigned on step 1 ---
+      var stored = read("localStorage", "ms_price_variant");
+      var price = stored && PRICES.indexOf(parseInt(stored, 10)) !== -1
+        ? parseInt(stored, 10)
+        : null;
+
+      var label = price === null ? "unknown" : "$" + price;
+
+      var variantField = document.getElementById("qPriceVariant");
+      if (variantField) variantField.value = label;
+
+      // Only rewrite the question wording if we actually know the price;
+      // otherwise it keeps the generic "the early access price" fallback.
+      if (price !== null) {
+        var sentimentPrice = document.getElementById("sentimentPrice");
+        if (sentimentPrice) sentimentPrice.textContent = "$" + price;
+      }
+
+      var subject = document.getElementById("formSubject");
+      if (subject) subject.value = "MilkShaker questions - " + label + " tier";
+    })();
+  </script>
+
+  <script data-goatcounter="https://milkshaker.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+
+</html>
