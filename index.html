@@ -821,6 +821,53 @@
     }
 
     /* ---------- legal ---------- */
+    /* style.css gives .footer-eleven 100px top AND bottom padding. On top of
+       the FAQ section's own 86px bottom padding that made a 186px void above
+       the contact line, and 100px of dead space under the copyright. Drop the
+       top padding entirely — the section above already supplies the gap — and
+       cut the bottom to something that reads as a page end. */
+    .ms-theme .footer-area.footer-eleven {
+      padding-top: 0;
+      padding-bottom: 40px;
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+      .ms-theme .footer-area.footer-eleven {
+        padding-top: 0;
+        padding-bottom: 28px;
+      }
+    }
+
+    /* Contact line. Sits ABOVE .ms-legal so it lands above both the rule and
+       the disclaimer text — the disclaimers read as fine print, and this
+       should not. */
+    .ms-contact {
+      margin: 0 0 34px;
+      text-align: center;
+    }
+
+    .ms-contact a {
+      color: var(--ms-plum);
+      font-size: 1.26rem;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .ms-contact a:hover {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 767px) {
+      .ms-contact {
+        margin-bottom: 26px;
+      }
+
+      .ms-contact a {
+        font-size: 1.08rem;
+      }
+    }
+
     .ms-legal {
       padding: 40px 0 0;
       border-top: 1px solid #f0e6ea;
@@ -1003,11 +1050,12 @@
         <p class="ms-reserve-sub">A limited early access group before our first production run.</p>
 
         <div class="ms-price-block">
-          <!--  The anchor is the real launch price. It is hidden by the script
-                when the drawn variant equals it, so a $399 visitor never sees
-                "Regularly $399 ... $399". -->
+          <!--  The anchor is the real launch price ($399). Every variant now
+                sits below it, so this line always shows. The script still
+                hides it if a variant ever reaches the anchor — kept as a
+                guard in case the ladder is raised later. -->
           <span class="ms-price-anchor" id="priceAnchor">Regularly <s id="priceAnchorValue">$399</s> at launch</span>
-          <span class="ms-price-now" id="priceDisplay">$399</span>
+          <span class="ms-price-now" id="priceDisplay">$299</span>
           <span class="ms-price-caption">Founding member price</span>
         </div>
 
@@ -1060,8 +1108,7 @@
         </form>
 
         <p class="ms-nopay">
-          No payment information is collected and no charge will be made. Reserving a spot is not a purchase or an
-          order.
+          You'll be the first
         </p>
       </div>
     </div>
@@ -1086,17 +1133,16 @@
           <h3 class="accordion-header" id="faqHead1">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqBody1" aria-expanded="false" aria-controls="faqBody1">
-              Is it safe to wear while nursing or pumping?
+              Can I wear MilkShaker while nursing or pumping?
             </button>
           </h3>
           <div id="faqBody1" class="accordion-collapse collapse" aria-labelledby="faqHead1"
             data-bs-parent="#faqAccordion">
             <div class="accordion-body">
               <p>
-                Yes &mdash; it is designed to be worn as your everyday nursing bra, and it is compatible with both
-                nursing and pumping. The massaging modules run one session at a time and are meant to ease
-                discomfort and support lymphatic flow. As with any wearable, stop using it if something feels
-                wrong, and check with your own clinician or lactation consultant if you are unsure.
+                Yes! The MilkShaker maternity bra is designed to be worn as your everyday nursing bra, and it is compatible with both
+                nursing and pumping. The massaging delivered by the removable modules are meant to ease
+                discomfort and support milk flow circulation while or after you express.
               </p>
             </div>
           </div>
@@ -1113,8 +1159,7 @@
             data-bs-parent="#faqAccordion">
             <div class="accordion-body">
               <p>
-                The electronics lift out and the garment goes in the wash. The two massaging modules and the
-                battery are removable, so there is nothing you have to hand-clean around.
+                The massaging modules and battery lift out, and the bra garment is completely machine-washable!
               </p>
             </div>
           </div>
@@ -1124,16 +1169,16 @@
           <h3 class="accordion-header" id="faqHead4">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqBody4" aria-expanded="false" aria-controls="faqBody4">
-              What if it is not right for me &mdash; can I get a refund on my reservation?
+              Can I get a refund on my reservation?
             </button>
           </h3>
           <div id="faqBody4" class="accordion-collapse collapse" aria-labelledby="faqHead4"
             data-bs-parent="#faqAccordion">
             <div class="accordion-body">
               <p>
-                There is nothing to refund, because there is nothing to pay. Reserving a spot collects no payment
-                information and creates no charge or obligation. If you change your mind, email us and we will
-                remove you from the list &mdash; no reason needed.
+                Reserving a spot collects no payment
+                information. If you change your mind, email us and we will
+                remove you from the list.
               </p>
             </div>
           </div>
@@ -1151,8 +1196,7 @@
             <div class="accordion-body">
               <!--  Keep this in sync with the timeline line in the pricing card. -->
               <p>
-                We are aiming for Spring 2027, after our first production run. We would rather give you an
-                honest date than an early one, so founding members get told before anything ships and before
+                Spring 2027! Founding members&mdash;collected through this form&mdash;get told before anything ships and before
                 anything is charged.
               </p>
             </div>
@@ -1169,13 +1213,20 @@
     <div class="footer-top">
       <div class="container">
 
+        <!--  Contact line, above the rule and the disclaimers. FAQ answer 4
+              tells people to email to cancel a reservation, so this needs to
+              be readable rather than buried in the fine print. -->
+        <p class="ms-contact">
+          <a href="mailto:valentina@themilkshaker.com">any questions? email us at valentina@themilkshaker.com</a>
+        </p>
+
         <!-- Regulatory + commercial disclaimer. Keep this with the copy above. -->
         <div class="ms-legal">
           <p>
-            MilkShaker is a Class I wearable device designed to support lymphatic flow and ease breast discomfort
-            during breastfeeding. It is not intended to diagnose, treat, cure, or prevent any disease. Statements on
-            this page describe the device's mechanism and comfort benefits only; any claim regarding mastitis
-            outcomes is pending completion of a post-market clinical study and a corresponding label update.
+            MilkShaker is projected as a Class I medical device designed to ease breast discomfort
+            during breastfeeding. Statements on
+            this page describe the device's mechanism and comfort benefits only; any claim regarding 
+            outcomes is pending completion of a post-market clinical study.
           </p>
           <p>
             Reserving an early access spot does not create a purchase, order, or payment obligation. No payment
@@ -1184,22 +1235,17 @@
           </p>
           <p>
             MilkShaker is not a substitute for medical care. If you have a fever, spreading redness, or breast pain
-            that is worsening or not improving, contact your physician, midwife, or lactation consultant.
+            that is worsening or not improving, contact your physician, midwife, or lactation counselor.
           </p>
         </div>
 
+        <!--  Dormant during the preorder test: the footer nav that held the
+              home / product / team / resources / news / contact links is gone
+              so nobody leaves the funnel. The pages still exist and still work
+              by direct URL — restore a <nav class="footer-nav"> here to bring
+              them back. The contact line moved above the disclaimers. -->
         <div class="footer-row" style="margin-top: 36px;">
           <p><span>MilkShaker Inc. 2026</span></p>
-          <!--  Dormant during the preorder test: the links to home / product /
-                team / resources / news / contact are removed so nobody leaves
-                the funnel. The pages still exist and still work by direct URL
-                — restore this nav to bring them back.
-
-                The email stays: FAQ answer 4 tells people to email to cancel a
-                reservation, so there has to be a way to reach you. -->
-          <nav class="footer-nav">
-            <a href="mailto:valentina@themilkshaker.com">valentina@themilkshaker.com</a>
-          </nav>
         </div>
       </div>
     </div>
@@ -1222,7 +1268,7 @@
     /* =========================================================
        PRICING TEST — client-side variant assignment
 
-       Assigns one of nine early access prices at random and
+       Assigns one of five early access prices at random and
        remembers it in localStorage under ms_price_variant.
 
        PERSISTENCE, precisely: localStorage is scoped to this
@@ -1238,7 +1284,7 @@
        No payment is collected anywhere in this flow.
        ========================================================= */
     (function () {
-      var PRICES = [119, 149, 199, 219, 249, 299, 319, 349, 399];
+      var PRICES = [219, 249, 299, 319, 349];
       var ANCHOR = 399;
       var STORAGE_KEY = "ms_price_variant";
 

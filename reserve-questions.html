@@ -225,6 +225,22 @@
       text-align: center;
     }
 
+    /* Same footer trim as the root page: style.css gives .footer-eleven 100px
+       top and bottom padding, which stacks on the section above and leaves
+       dead space under the copyright. Kept identical to index.html so step 1
+       and step 2 do not end differently. */
+    .ms-theme .footer-area.footer-eleven {
+      padding-top: 0;
+      padding-bottom: 40px;
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+      .ms-theme .footer-area.footer-eleven {
+        padding-top: 0;
+        padding-bottom: 28px;
+      }
+    }
+
     /* ---------- legal ---------- */
     .ms-legal {
       padding: 40px 0 0;
@@ -394,7 +410,7 @@
        as invalid and lands in the "unknown" bucket.
        ========================================================= */
     (function () {
-      var PRICES = [119, 149, 199, 219, 249, 299, 319, 349, 399];
+      var PRICES = [219, 249, 299, 319, 349];
 
       function read(store, key) {
         try {
