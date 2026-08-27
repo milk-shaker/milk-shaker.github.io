@@ -297,22 +297,20 @@
 
           <!--  FormSubmit control fields. Back to the preorder page, which
                 shows its own confirmation banner on ?reserved=1. -->
-          <input type="hidden" name="_next" value="https://themilkshaker.com/?reserved=1">
-          <input type="hidden" name="_subject" id="formSubject" value="MilkShaker reservation - questions">
+          <input type="hidden" name="_next" value="https://themilkshaker.com/preorder.html?reserved=1">
+          <input type="hidden" name="_subject" value="MilkShaker reservation - questions">
           <input type="hidden" name="_template" value="table">
 
-          <!--  All hidden, all filled by the script below. Name and email are
-                carried from step 1 via sessionStorage so this submission can
-                be joined to the reservation; the visitor never re-types them
-                and never sees a field. price_variant is the tier they were
-                shown, read from localStorage. -->
+          <!--  Name and email are carried from step 1 via sessionStorage by the
+                script below, so this submission can be joined to the
+                reservation; the visitor never re-types them and never sees a
+                field. member_price is static now that pricing is fixed. -->
           <input type="hidden" name="name" id="qName" value="">
           <input type="hidden" name="email" id="qEmail" value="">
-          <input type="hidden" name="price_variant" id="qPriceVariant" value="">
+          <input type="hidden" name="member_price" value="$299">
 
           <div class="ms-field">
-            <span class="ms-label" id="sentimentLabel">At <span id="sentimentPrice">the early access
-                price</span>, this feels like&hellip;</span>
+            <span class="ms-label" id="sentimentLabel">At $299, this feels like&hellip;</span>
             <div class="ms-choices" role="group" aria-labelledby="sentimentLabel">
               <label class="ms-choice">
                 <input type="radio" name="price_sentiment" value="A great deal" required>
@@ -355,7 +353,7 @@
         </form>
 
         <p class="ms-skip">
-          <a href="/?reserved=1">No thanks, I'm done</a>
+          <a href="/preorder.html?reserved=1">No thanks, I'm done</a>
         </p>
 
         <p class="ms-nopay">
@@ -397,21 +395,15 @@
 
   <script>
     /* =========================================================
-       Rehydrate step 1: the identity to join on, and the price
-       tier the visitor was shown.
+       Rehydrate step 1's identity so this submission can be
+       joined to the reservation by email address.
 
-       The tier is read, never re-rolled: picking a new one here
-       would ask about a price they never saw. If it is missing we
-       record "unknown" rather than guessing, so a storage-blocked
-       reply cannot be filed under the wrong tier.
-
-       PRICES must stay in step with the same array in
-       index.html (the root preorder page) — a value missing from it is treated
-       as invalid and lands in the "unknown" bucket.
+       Pricing is fixed at $299 now, so there is no tier to read:
+       the price in the question and in the hidden member_price
+       field are both plain markup above. The former
+       ms_price_variant lookup is gone.
        ========================================================= */
     (function () {
-      var PRICES = [219, 249, 299, 319, 349];
-
       function read(store, key) {
         try {
           return window[store].getItem(key);
@@ -428,27 +420,6 @@
       var emailField = document.getElementById("qEmail");
       if (nameField && name) nameField.value = name;
       if (emailField && email) emailField.value = email;
-
-      // --- price tier assigned on step 1 ---
-      var stored = read("localStorage", "ms_price_variant");
-      var price = stored && PRICES.indexOf(parseInt(stored, 10)) !== -1
-        ? parseInt(stored, 10)
-        : null;
-
-      var label = price === null ? "unknown" : "$" + price;
-
-      var variantField = document.getElementById("qPriceVariant");
-      if (variantField) variantField.value = label;
-
-      // Only rewrite the question wording if we actually know the price;
-      // otherwise it keeps the generic "the early access price" fallback.
-      if (price !== null) {
-        var sentimentPrice = document.getElementById("sentimentPrice");
-        if (sentimentPrice) sentimentPrice.textContent = "$" + price;
-      }
-
-      var subject = document.getElementById("formSubject");
-      if (subject) subject.value = "MilkShaker questions - " + label + " tier";
     })();
   </script>
 
