@@ -449,6 +449,22 @@ p {
 .navbar-area.navbar-nine .navbar-brand {
   margin: 0;
 }
+/*  Sized here rather than with an inline height attribute, because the
+    brand is now the 1380x232 wordmark and not the old square mark. */
+.navbar-area.navbar-nine .navbar-brand img {
+  height: 46px;
+  width: auto;
+}
+@media (max-width: 767px) {
+  .navbar-area.navbar-nine .navbar-brand img {
+    height: 36px;
+  }
+}
+/*  The off-canvas sidebar is narrow, so cap the wordmark to its column. */
+.sidebar-logo img {
+  max-width: 100%;
+  height: auto;
+}
 .navbar-area.navbar-nine .navbar {
   position: relative;
   padding: 0;
@@ -3001,4 +3017,30 @@ p {
 
 .contact-form button[type="submit"]:hover {
   background: var(--primary-dark);
+}
+
+
+/*  Home page signup confirmation. Hidden by default and switched on by the
+    ?joined=1 handler in index.html, so it never flashes for normal visitors. */
+.hp-confirm {
+  display: none;
+  margin-bottom: 28px;
+  padding: 16px 20px;
+  border: 1px solid var(--primary);
+  border-left: 4px solid var(--primary-dark);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--dark-1);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  line-height: 1.55;
+  box-shadow: var(--shadow-2);
+}
+
+.hp-confirm.is-visible {
+  display: block;
+}
+
+.hp-confirm strong {
+  color: var(--primary-dark);
 }
