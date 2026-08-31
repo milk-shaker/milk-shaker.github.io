@@ -9,15 +9,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>MilkShaker | Resources</title>
   <!--====== Icons ======
-             The droplet, in --ms-peri. droplet.svg is what any current
-             browser will pick; the .ico bundles 16/32/48 for the rest.
-             The apple-touch and manifest icons sit on an opaque blush
-             background because iOS and Android composite them onto their
-             own surfaces and handle alpha badly. ======-->
-  <link rel="icon" href="/assets/icons/favicon.ico" sizes="any" />
-  <link rel="icon" href="/assets/icons/droplet.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png" />
-  <link rel="manifest" href="/assets/icons/site.webmanifest" />
+             The droplet, in the ms-peri palette colour. droplet.svg is
+             what any current browser will pick; the .ico bundles 16/32/48
+             for the rest. The apple-touch and manifest icons sit on an
+             opaque blush background because iOS and Android composite them
+             onto their own surfaces and handle alpha badly.
+
+             The ?v= is a cache buster. Browsers hold favicons far longer
+             than a normal reload clears, so bump it whenever an icon file
+             changes or people will keep seeing the old one. ======-->
+  <link rel="icon" href="/assets/icons/favicon.ico?v=2" sizes="any" />
+  <link rel="icon" href="/assets/icons/droplet.svg?v=2" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=2" />
+  <link rel="manifest" href="/assets/icons/site.webmanifest?v=2" />
   <meta name="theme-color" content="#F3AEC7" />
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/assets/css/lineicons.css" />

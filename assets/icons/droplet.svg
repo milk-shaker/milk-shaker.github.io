@@ -1,15 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="MilkShaker">
   <title>MilkShaker</title>
-  <!--  The droplet from the MilkShaker wordmark, rebuilt as vector so it
-        stays crisp at any size.
+  <!--
+       The droplet from the MilkShaker wordmark, rebuilt as vector so it
+       stays crisp at any size.
 
-        The shape is taken from the mark itself: a circle of radius r with
-        two straight tangent lines running up to a single apex. Measured off
-        assets/images/milkshaker-wordmark.png, where the droplet occupies
-        86x126 px, this construction reproduces the silhouette to within
-        about one percent at every row.
+       The shape is taken from the mark itself: a circle of radius r with
+       two straight tangent lines running up to a single apex. Measured off
+       assets/images/milkshaker-wordmark.png, where the droplet occupies
+       86x126 px, this construction reproduces the silhouette to within
+       about one percent at every row.
 
-        The fill is --ms-peri from style.css — the exact colour the
-        wordmark's droplet already uses, so the two never drift apart.  -->
+       The fill is the ms-peri custom property from style.css, the exact
+       colour the wordmark's droplet already uses, so the icon and the
+       wordmark cannot drift apart.
+
+       Careful: a standalone .svg is parsed as XML, where a double hyphen
+       inside a comment is a fatal error that renders the whole document
+       as nothing. Inlining the same markup into HTML hides the fault,
+       because HTML parsing tolerates it. Keep this comment free of them.
+  -->
   <path d="M 256.00 30.72 L 124.48 247.86 A 153.76 153.76 0 1 0 387.52 247.86 Z" fill="#9F9ED5"/>
 </svg>
