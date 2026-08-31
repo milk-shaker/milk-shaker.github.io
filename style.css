@@ -1,65 +1,138 @@
+/* ==============================================================
+   MilkShaker — site stylesheet
+
+   Every style and color for every page lives in this file. Pages
+   carry no <style> blocks and no inline style="" attributes, so
+   this is the only place a visual change has to be made.
+
+   Colors all resolve to the brand palette declared in section 1.
+   Change the six values there and the whole site follows.
+
+   CONTENTS  (search for the number, e.g. "12." to jump)
+
+      1. BASE, RESET & BRAND PALETTE
+      2. SECTION TITLES
+      3. NAVBAR — SHARED BEHAVIOUR
+      4. NAVBAR — SITE HEADER
+      5. OFF-CANVAS SIDEBAR
+      6. HERO
+      7. ABOUT / OUR STORY
+      8. PRODUCT / SERVICES
+      9. ABOUT TABS
+     10. VIDEO BLOCK
+     11. PRICING
+     12. PDF VIEWER (dormant — no page uses .pdf-container)
+     13. CALL-TO-ACTION BAND
+     14. NEWS LIST
+     15. PARTNER LOGOS
+     16. TEAM
+     17. CONTACT BLOCKS
+     18. FOOTER
+     19. RESOURCES PAGE
+     20. CONTACT PAGE
+     21. RESERVATION FUNNEL — SHARED
+     22. PREORDER PAGE
+     23. RESERVATION — STEP 2
+     24. UTILITIES
+
+   Sub-banners inside a section are titled "Buttons Css" and are not
+   listed here.
+   ============================================================== */
+
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-/*===========================
-  COMMON css 
-===========================*/
+/* ==============================================================
+   1. BASE, RESET & BRAND PALETTE
+   ============================================================== */
 :root {
   --font-family: "Quicksand", sans-serif;
-  --primary: hsl(322, 60%, 74%);
-  --primary-dark: #b61c61;
-  --primary-light: #e2f1ff;
-  --accent: #00d4d7;
-  --accent-dark: #00bac1;
-  --accent-light: #dff9f8;
-  --success: #13d527;
-  --success-dark: #00ae11;
-  --success-light: #eafbe7;
-  --secondary: #8f15d5;
-  --secondary-dark: #6013c7;
-  --secondary-light: #f4e5fa;
-  --info: #15b2d5;
-  --info-dark: #0f8ca8;
-  --info-light: #e0f5fa;
-  --caution: #dbbb25;
-  --caution-dark: #d58f15;
-  --caution-light: #fbf9e4;
-  --error: #e6185e;
-  --error-dark: #bf1257;
-  --error-light: #fce4eb;
-  --black: #1d1d1d;
-  --dark-1: #2d2d2d;
-  --dark-2: #4d4d4d;
-  --dark-3: #6d6d6d;
-  --gray-1: #8d8d8d;
-  --gray-2: #adadad;
-  --gray-3: #cdcdcd;
-  --gray-4: #e0e0e0;
-  --light-1: #efefef;
-  --light-2: #f5f5f5;
-  --light-3: #fafafa;
+
+  /* ----------------------------------------------------------------
+     BRAND PALETTE
+     The six colors the brand is built from. Every other color in this
+     file is one of these or a shade derived from one, so a rebrand
+     starts and ends in this block.
+     ---------------------------------------------------------------- */
+  --ms-pink: #F3AEC7;   /* hero and navbar surface */
+  --ms-blush: #F7EAF2;  /* palest surface, for large calm areas */
+  --ms-petal: #FFE0ED;  /* light pink surface, cards and tints */
+  --ms-peri: #9F9ED5;   /* periwinkle accent */
+  --ms-rose: #E6939D;   /* rose accent */
+  --ms-plum: #612F48;   /* ink, and the fill that carries white text */
+
+  /* ----------------------------------------------------------------
+     DERIVED SHADES
+     Each is the palette color above shifted in lightness/saturation.
+     Contrast ratios are noted where they decide whether text may sit
+     on the color at all — WCAG AA is 4.5 for body text, 3.0 for large.
+     ---------------------------------------------------------------- */
+  --ms-pink-soft: #FDF4F7;  /* plum on it 9.7 */
+  --ms-pink-mid: #F8CDDC;   /* plum on it 7.4 */
+  --ms-pink-deep: #EC82A8;  /* decorative only, plum on it 4.1 */
+  --ms-petal-deep: #FFC8DD;
+  --ms-blush-deep: #EBD8E4;
+
+  /*  The pink darkened until white text clears AA. This is the
+      interactive accent: links, buttons, icons, focus rings. */
+  --ms-berry: #C62E65;      /* white on it 5.3, on white 5.3 */
+  --ms-berry-dark: #A52654; /* white on it 7.0 — hover partner */
+
+  --ms-peri-soft: #F1F1FA;
+  --ms-peri-deep: #6260AD;  /* white on it 5.5 */
+  --ms-rose-soft: #FCF0F1;
+  --ms-rose-deep: #C94A59;  /* white on it 4.6 */
+
+  --ms-plum-dark: #4C2539;  /* white on it 12.9 */
+  --ms-plum-mid: #834062;   /* white on it 7.3 */
+  --ms-plum-tint: #E9E2E5;  /* hairlines, disabled fills */
+
+  /*  Focus ring and modal scrim, both tinted rather than neutral black.
+      A handful of box-shadows further down still carry inline rgba()
+      values; those are palette colors with a per-use alpha, which is
+      why they are not tokens. */
+  --ms-ring: rgba(198, 46, 101, 0.22);
+  --ms-scrim: rgba(45, 20, 32, 0.55);
+
+  /* ----------------------------------------------------------------
+     ROLE ALIASES
+     Kept under their original template names because ~200 rules below
+     already reference them. Only the values changed in the rebrand.
+     --primary is the accent that has to stay legible as text, a
+     border, or a fill under white — which is why it is the berry and
+     not the pink. Large pink surfaces use --ms-pink directly.
+     ---------------------------------------------------------------- */
+  --primary: var(--ms-berry);
+  --primary-dark: var(--ms-berry-dark);
+  --primary-light: var(--ms-petal);
+
+  /*  Neutrals, warmed toward the plum so nothing reads as cold gray.
+      Each is plum mixed toward black or white. */
+  --black: #23131B;   /* body copy and headings, 17.0 on white */
+  --dark-1: #2A1620;  /* 15.8 on white */
+  --dark-2: #4C2539;  /* 12.9 on white */
+  --dark-3: #81596D;  /* secondary copy, 5.9 on white, 5.0 on blush */
+  --gray-1: #A98F9C;  /* de-emphasised labels on white only */
+  --gray-3: #D3C5CC;  /* input borders */
+  --gray-4: #E9E2E5;  /* hairlines, disabled fills */
+  --light-1: #F2EEF0;
+  --light-2: var(--ms-blush);
+  --light-3: var(--ms-pink-soft);
   --white: #ffffff;
-  --gradient-1: linear-gradient(180deg, #d5159f 0%, #b61c8a 100%);
-  --gradient-2: linear-gradient(180deg, #155bd5 13.02%, #00d4d7 85.42%);
-  --gradient-3: linear-gradient(180deg, #155bd5 0%, #8f15d5 100%);
-  --gradient-4: linear-gradient(180deg, #155bd5 0%, #13d527 100%);
-  --gradient-5: linear-gradient(180deg, #155bd5 0%, #15bbd5 100%);
-  --gradient-6: linear-gradient(180deg, #155bd5 0%, #dbbb25 100%);
-  --gradient-7: linear-gradient(180deg, #155bd5 0%, #e6185e 100%);
-  --gradient-8: linear-gradient(180deg, #1c3ab6 0%, #00bac1 100%);
-  --gradient-9: linear-gradient(180deg, #00d4d7 13.02%, #155bd5 85.42%);
-  --shadow-1: 0px 0px 1px rgba(40, 41, 61, 0.08),
-    0px 0.5px 2px rgba(96, 97, 112, 0.16);
-  --shadow-2: 0px 0px 1px rgba(40, 41, 61, 0.04),
-    0px 2px 4px rgba(96, 97, 112, 0.16);
-  --shadow-3: 0px 0px 2px rgba(40, 41, 61, 0.04),
-    0px 4px 8px rgba(96, 97, 112, 0.16);
-  --shadow-4: 0px 2px 4px rgba(40, 41, 61, 0.04),
-    0px 8px 16px rgba(96, 97, 112, 0.16);
-  --shadow-5: 0px 2px 8px rgba(40, 41, 61, 0.04),
-    0px 16px 24px rgba(96, 97, 112, 0.16);
-  --shadow-6: 0px 2px 8px rgba(40, 41, 61, 0.08),
-    0px 20px 32px rgba(96, 97, 112, 0.24);
+
+  /*  Shadows tinted with the plum rather than neutral black, so cards
+      sit on the pink surfaces without a gray halo. */
+  --shadow-2: 0px 0px 1px rgba(60, 25, 40, 0.06),
+    0px 2px 4px rgba(97, 47, 72, 0.14);
+  --shadow-3: 0px 0px 2px rgba(60, 25, 40, 0.05),
+    0px 4px 8px rgba(97, 47, 72, 0.14);
+  --shadow-4: 0px 2px 4px rgba(60, 25, 40, 0.05),
+    0px 8px 16px rgba(97, 47, 72, 0.14);
+  --shadow-5: 0px 2px 8px rgba(60, 25, 40, 0.05),
+    0px 16px 24px rgba(97, 47, 72, 0.14);
+  --shadow-6: 0px 2px 8px rgba(60, 25, 40, 0.09),
+    0px 20px 32px rgba(97, 47, 72, 0.22);
 }
+
 
 body {
   font-family: var(--font-family);
@@ -114,7 +187,7 @@ h4,
 h5,
 h6 {
   font-weight: 600;
-  color: var(--black);
+  color: var(--ms-plum);
   margin: 0px;
 }
 
@@ -313,7 +386,7 @@ p {
       -ms-flex-align: center;
           align-items: center;
   font-size: 14px;
-  color: #fff !important;
+  color: var(--white) !important;
   border-radius: 0;
   position: fixed;
   bottom: 30px;
@@ -326,16 +399,16 @@ p {
 }
 
 .scroll-top:hover {
-  -webkit-box-shadow: 0 1rem 3rem rgba(35, 38, 45, 0.15) !important;
-  box-shadow: 0 1rem 3rem rgba(35, 38, 45, 0.15) !important;
+  -webkit-box-shadow: 0 1rem 3rem rgba(97, 47, 72, 0.18) !important;
+  box-shadow: 0 1rem 3rem rgba(97, 47, 72, 0.18) !important;
   -webkit-transform: translate3d(0, -5px, 0);
   transform: translate3d(0, -5px, 0);
   background-color: var(--dark-1);
 }
 
-/*===========================
-  Section Title Five CSS
-===========================*/
+/* ==============================================================
+   2. SECTION TITLES
+   ============================================================== */
 .section-title-five {
   text-align: center;
   max-width: 550px;
@@ -396,9 +469,9 @@ p {
 }
 
 
-/*===========================
-  NAVBAR css 
-===========================*/
+/* ==============================================================
+   3. NAVBAR — SHARED BEHAVIOUR
+   ============================================================== */
 .navbar-toggler:focus {
   box-shadow: none;
 }
@@ -407,9 +480,11 @@ p {
   margin-bottom: 100px;
 }
 
-/*===== NAVBAR NINE =====*/
+/* ==============================================================
+   4. NAVBAR — SITE HEADER
+   ============================================================== */
 .navbar-area.navbar-nine {
-  background: var(--primary);
+  background: var(--ms-pink);
   padding: 10px 0;
   position: absolute;
   left: 0;
@@ -472,7 +547,7 @@ p {
 .navbar-area.navbar-nine .navbar .navbar-toggler .toggler-icon {
   width: 30px;
   height: 2px;
-  background-color: var(--white);
+  background-color: var(--ms-plum);
   margin: 5px 0;
   display: block;
   position: relative;
@@ -507,7 +582,7 @@ p {
     top: 116%;
     left: 0;
     width: 100%;
-    background-color: var(--primary);
+    background-color: var(--ms-pink);
     z-index: 8;
     padding: 10px 16px;
   }
@@ -529,7 +604,8 @@ p {
   display: flex;
   align-items: center;
   padding: 11px 16px;
-  color: var(--white);
+  /*  On the pink bar, so plum rather than white. */
+  color: var(--ms-plum);
   text-transform: capitalize;
   position: relative;
   border-radius: 5px;
@@ -586,7 +662,7 @@ p {
   -o-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s;
   z-index: 99;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: 0 2px 6px 0 rgba(60, 25, 40, 0.18);
   padding: 10px;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
@@ -772,12 +848,12 @@ p {
   font-size: 22px;
   position: relative;
   overflow: hidden;
-  color: var(--white);
+  color: var(--ms-plum);
   height: 40px;
   width: 40px;
   line-height: 40px;
   text-align: center;
-  border: 1px solid rgba(238, 238, 238, 0.425);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 50%;
   -webkit-transition: all 0.3s ease-out 0s;
   -moz-transition: all 0.3s ease-out 0s;
@@ -791,7 +867,9 @@ p {
   background-color: var(--white);
 }
 
-/*===== SIDEBAR ONE =====*/
+/* ==============================================================
+   5. OFF-CANVAS SIDEBAR
+   ============================================================== */
 .sidebar-left {
   position: fixed;
   top: 0;
@@ -898,10 +976,10 @@ p {
   width: 38px;
   line-height: 38px;
   text-align: center;
-  border: 1px solid #eee;
+  border: 1px solid var(--gray-4);
   border-radius: 50%;
   font-size: 18px;
-  color: #666;
+  color: var(--dark-3);
   -webkit-transition: all 0.3s ease-out 0s;
   -moz-transition: all 0.3s ease-out 0s;
   -ms-transition: all 0.3s ease-out 0s;
@@ -916,7 +994,7 @@ p {
 
 .overlay-left {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--ms-scrim);
   top: 0;
   left: 0;
   width: 100%;
@@ -946,13 +1024,13 @@ p {
   pointer-events: none;
 }
 
-/*======================================
-    header Area CSS
-========================================*/
+/* ==============================================================
+   6. HERO
+   ============================================================== */
 .header-eight {
   position: relative;
   padding:160px 0 100px 0;
-  background: var(--primary);
+  background: var(--ms-pink);
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .header-eight {
@@ -981,8 +1059,9 @@ p {
 }
 .header-eight .header-content h1 {
   font-weight: 700;
-  color: var(--white);
-  text-shadow: 0px 3px 8px #00000017;
+  /*  Plum, not white: white on the pink is 1.8:1, plum is 5.8:1. The
+      old text-shadow was propping up unreadable white and is gone. */
+  color: var(--ms-plum);
   text-transform: capitalize;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -1002,8 +1081,10 @@ p {
 }
 .header-eight .header-content p {
   margin-top: 30px;
-  color: var(--white);
-  opacity: 0.7;
+  /*  0.9 rather than 0.7: plum at 70% over the pink drops to 3.2:1,
+      at 90% it holds 4.7:1. */
+  color: var(--ms-plum);
+  opacity: 0.9;
 }
 .header-eight .button {
   margin-top: 40px;
@@ -1039,9 +1120,9 @@ p {
   color: var(--primary);
 }
 
-/*===========================
-  about-05 css
-===========================*/
+/* ==============================================================
+   7. ABOUT / OUR STORY
+   ============================================================== */
 .about-five {
   background-color: var(--light-3);
   padding-top: 100px;
@@ -1189,9 +1270,9 @@ p {
 }
 
 
-/*===========================
-  services css 
-===========================*/
+/* ==============================================================
+   8. PRODUCT / SERVICES
+   ============================================================== */
 .services-eight {
   padding: 100px 0;
 }
@@ -1292,7 +1373,9 @@ p {
 }
 
 
-/*=====  =======*/
+/* ==============================================================
+   9. ABOUT TABS
+   ============================================================== */
 
 .about-five-tab {
   margin-top: 40px;
@@ -1350,7 +1433,9 @@ p {
 }
 
 
-/*===== VIDEO ONE =====*/
+/* ==============================================================
+   10. VIDEO BLOCK
+   ============================================================== */
 .video-one {
   background-color: var(--light-3);
   padding: 100px 0;
@@ -1425,7 +1510,9 @@ p {
 }
 
 
-/*===== PRICING THIRTEEN =====*/
+/* ==============================================================
+   11. PRICING
+   ============================================================== */
 .pricing-fourteen {
   padding: 100px 0;
   background-color: var(--light-3);
@@ -1521,11 +1608,13 @@ p {
   color: var(--dark-3);
 }
 
-/* ==== PDF =====*/
+/* ==============================================================
+   12. PDF VIEWER (dormant — no page uses .pdf-container)
+   ============================================================== */
 .pdf-container {
   max-width: 800px; /* adjust as needed */
   margin: auto;
-  background-color: #fff;
+  background-color: var(--white);
   padding: 10px;
   font-weight: 200;
 }
@@ -1565,11 +1654,13 @@ p {
   pointer-events: none;
 }
 
-/*===== call action four =====*/
+/* ==============================================================
+   13. CALL-TO-ACTION BAND
+   ============================================================== */
 .call-action {
   z-index: 2;
   padding: 100px 0;
-  background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+  background: linear-gradient(45deg, var(--ms-berry), var(--ms-plum));
   position: relative;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -1622,7 +1713,9 @@ p {
 
 
 
-/*===== latest-news-area =====*/
+/* ==============================================================
+   14. NEWS LIST
+   ============================================================== */
 .latest-news-area {
   background: var(--white);
   padding: 160px 0 60px;
@@ -1707,9 +1800,9 @@ p {
 }
 
 
-/*======================================
-    Brand CSS
-========================================*/
+/* ==============================================================
+   15. PARTNER LOGOS
+   ============================================================== */
 .brand-area {
   padding: 60px 0;
   background: var(--light-3);
@@ -1741,10 +1834,10 @@ p {
   -ms-transition: all 0.4s ease-out 0s;
   -o-transition: all 0.4s ease-out 0s;
   transition: all 0.4s ease-out 0s;
-  border: 1px solid #eee;
+  border: 1px solid var(--gray-4);
 }
 .brand-area .clients-logos .single-image:hover {
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.096);
+  box-shadow: 0px 10px 30px rgba(60, 25, 40, 0.12);
   -webkit-transform: translateY(-5px);
   -moz-transform: translateY(-5px);
   -ms-transform: translateY(-5px);
@@ -1774,9 +1867,9 @@ p {
   pointer-events: none;
 }
 
-/*===========================
-  Team Section
-===========================*/
+/* ==============================================================
+   16. TEAM
+   ============================================================== */
 
 .team-area {
   padding: 100px 0;
@@ -1908,9 +2001,9 @@ p {
 
 
 
-/*======================================
-	Contact CSS
-========================================*/
+/* ==============================================================
+   17. CONTACT BLOCKS
+   ============================================================== */
 .contact-section {
   position: relative;
   z-index: 3;
@@ -2067,7 +2160,7 @@ p {
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: var(--ms-scrim);
   display: none;
   align-items: center;
   justify-content: center;
@@ -2086,7 +2179,7 @@ p {
   width: 100%;
   max-width: 420px;
   position: relative;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 12px 40px rgba(60, 25, 40, 0.20);
   text-align: center;
 }
 
@@ -2102,7 +2195,7 @@ p {
   width: 100%;
   padding: 12px;
   margin-bottom: 14px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--gray-3);
   border-radius: 10px;
   box-sizing: border-box;
 }
@@ -2113,7 +2206,7 @@ p {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  background: #e8aeb7;
+  background: var(--primary);
   color: white;
   font-weight: 600;
 }
@@ -2133,7 +2226,7 @@ p {
 .wl-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(20, 10, 15, 0.6);
+  background: var(--ms-scrim);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: none;
@@ -2148,14 +2241,14 @@ p {
 }
 
 .wl-card {
-  background: #fdf8f5;
+  background: var(--ms-pink-soft);
   padding: 52px 44px 44px;
   border-radius: 2px;
   width: 100%;
   max-width: 460px;
   position: relative;
   text-align: center;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 32px 80px rgba(60, 25, 40, 0.20);
   border-top: 3px solid var(--primary);
 }
 
@@ -2167,13 +2260,13 @@ p {
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: #c4a8b0;
+  color: var(--ms-plum-tint);
   line-height: 1;
   transition: color 0.2s;
 }
 
 .wl-close:hover {
-  color: #2a1a20;
+  color: var(--ms-plum-dark);
 }
 
 .wl-eyebrow {
@@ -2191,13 +2284,13 @@ p {
   font-weight: 300;
   font-size: 1.7rem;
   letter-spacing: 0.06em;
-  color: #2a1a20;
+  color: var(--ms-plum-dark);
   margin-bottom: 10px;
 }
 
 .wl-sub {
   font-size: 0.88rem;
-  color: #8a6a74;
+  color: var(--dark-3);
   letter-spacing: 0.03em;
   margin-bottom: 30px;
 }
@@ -2206,13 +2299,13 @@ p {
   width: 100%;
   padding: 13px 16px;
   margin-bottom: 12px;
-  border: 1px solid #e0d4d8;
+  border: 1px solid var(--gray-3);
   border-radius: 2px;
   box-sizing: border-box;
-  background: #fff;
+  background: var(--white);
   font-family: var(--font-family);
   font-size: 0.88rem;
-  color: #2a1a20;
+  color: var(--ms-plum-dark);
   outline: none;
   transition: border-color 0.2s;
 }
@@ -2222,7 +2315,7 @@ p {
 }
 
 .wl-form input::placeholder {
-  color: #c4a8b0;
+  color: var(--ms-plum-tint);
   font-size: 0.8rem;
   letter-spacing: 0.06em;
 }
@@ -2234,7 +2327,7 @@ p {
   border-radius: 2px;
   cursor: pointer;
   background: var(--primary);
-  color: #fff;
+  color: var(--white);
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 0.78rem;
@@ -2252,7 +2345,7 @@ p {
 .footer-eleven {
   padding-top: 100px;
   padding-bottom: 100px;
-  background-color: var(--white);
+  background-color: var(--ms-blush);
   position: relative;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
@@ -2442,16 +2535,16 @@ p {
 .social li a {
   display: flex;
   align-items: center;
-  background: #f5f5f5;
+  background: var(--light-1);
   border-radius: 30px;
   padding: 0.5rem 1.2rem;
   text-decoration: none;
-  color: #333;
+  color: var(--dark-1);
   transition: background 0.2s;
 }
 
 .social li a:hover {
-  background: #e0e0e0;
+  background: var(--gray-4);
 }
 
 .social i {
@@ -2484,7 +2577,7 @@ p {
 }
 
 .social li a:hover {
-  background: #e0e0e0;
+  background: var(--gray-4);
 }
 
 .social i {
@@ -2506,9 +2599,9 @@ p {
   }
 }
 
-/* =====================
-   Footer Nav
-   ===================== */
+/* ==============================================================
+   18. FOOTER
+   ============================================================== */
 .footer-row {
   display: flex;
   flex-direction: column;
@@ -2534,9 +2627,9 @@ p {
   color: var(--primary);
 }
 
-/* =====================
-   Resources Page
-   ===================== */
+/* ==============================================================
+   19. RESOURCES PAGE
+   ============================================================== */
 .resources-area {
   padding: 160px 0 80px;
 }
@@ -2571,17 +2664,17 @@ p {
 
 .resource-tile-color-1 {
   /* Managing Pain: soft lavender → mauve */
-  background: linear-gradient(135deg, hsl(268, 42%, 72%) 0%, hsl(312, 50%, 56%) 100%);
+  background: linear-gradient(135deg, var(--ms-peri) 0%, var(--ms-berry) 100%);
 }
 
 .resource-tile-color-2 {
   /* Milk Supply: light blush → warm rose */
-  background: linear-gradient(135deg, hsl(348, 70%, 84%) 0%, hsl(322, 62%, 58%) 100%);
+  background: linear-gradient(135deg, var(--ms-rose) 0%, var(--ms-berry) 100%);
 }
 
 .resource-tile-color-3 {
   /* Postpartum Recovery: warm peach → deep coral-rose */
-  background: linear-gradient(135deg, hsl(18, 58%, 78%) 0%, hsl(338, 58%, 52%) 100%);
+  background: linear-gradient(135deg, var(--ms-petal) 0%, var(--ms-rose-deep) 100%);
 }
 
 .resource-tile-color-4 {
@@ -2591,7 +2684,7 @@ p {
 
 .resource-tile-color-5 {
   /* For Partners: slate purple → deep plum */
-  background: linear-gradient(135deg, hsl(288, 38%, 58%) 0%, hsl(272, 46%, 38%) 100%);
+  background: linear-gradient(135deg, var(--ms-peri) 0%, var(--ms-peri-deep) 100%);
 }
 
 .resource-tile-image i {
@@ -2614,7 +2707,7 @@ p {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--ms-scrim);
   z-index: 9999;
   align-items: center;
   justify-content: center;
@@ -2670,7 +2763,7 @@ p {
   margin-bottom: 12px;
   color: var(--black);
   padding-bottom: 6px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--gray-4);
 }
 
 .resource-panel-content p {
@@ -2699,17 +2792,17 @@ p {
 }
 .resource-table th,
 .resource-table td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--gray-3);
   padding: 10px 14px;
   text-align: left;
 }
 .resource-table thead th {
   background: var(--primary);
-  color: #fff;
+  color: var(--white);
   font-weight: 600;
 }
 .resource-table tbody tr:nth-child(even) {
-  background: #f9f9f9;
+  background: var(--ms-blush);
 }
 
 .resource-citation {
@@ -2798,7 +2891,7 @@ p {
 
 .resource-tldr p,
 .resource-tldr ul li {
-  color: #555;
+  color: var(--dark-2);
   font-size: 0.95rem;
   margin-bottom: 0;
 }
@@ -2809,8 +2902,8 @@ p {
 }
 
 .resource-cta {
-  background: hsl(322, 60%, 97%);
-  border: 1px solid hsl(322, 60%, 85%);
+  background: var(--ms-pink-soft);
+  border: 1px solid var(--ms-pink-mid);
   border-radius: 10px;
   padding: 24px 28px;
   margin: 36px 0 32px;
@@ -2827,7 +2920,7 @@ p {
 .resource-cta .resource-cta-link {
   display: inline-block;
   background: var(--primary);
-  color: #fff;
+  color: var(--white);
   font-weight: 700;
   font-size: 0.9rem;
   padding: 10px 24px;
@@ -2838,7 +2931,7 @@ p {
 
 .resource-cta .resource-cta-link:hover {
   background: var(--primary-dark);
-  color: #fff;
+  color: var(--white);
 }
 
 .resources-sub-menu {
@@ -2879,7 +2972,7 @@ p {
 
 .resource-search-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px hsla(322, 60%, 74%, 0.2);
+  box-shadow: 0 0 0 4px var(--ms-ring);
 }
 
 .resource-search-input::placeholder {
@@ -2919,7 +3012,7 @@ p {
 
 .resource-search-suggestion:hover,
 .resource-search-suggestion.focused {
-  background: hsla(322, 60%, 74%, 0.15);
+  background: var(--ms-pink-soft);
 }
 
 .suggestion-title {
@@ -2957,9 +3050,9 @@ p {
   line-height: 1.7;
 }
 
-/* =====================
-   Contact Page
-   ===================== */
+/* ==============================================================
+   20. CONTACT PAGE
+   ============================================================== */
 .contact-page-area {
   padding: 160px 0 80px;
 }
@@ -3043,4 +3136,981 @@ p {
 
 .hp-confirm strong {
   color: var(--primary-dark);
+}
+
+
+/* ==============================================================
+   21. RESERVATION FUNNEL — SHARED
+   Used by both /preorder.html and /reserve-questions.html. Lifted out
+   of the two pages' <style> blocks, where 18 of these rules were
+   duplicated byte for byte.
+   ============================================================== */
+
+/* ---------- nav in the new palette ----------
+   The bar is trimmed to logo + one CTA, so the nav-link, toggler, and
+   off-canvas overrides that used to live here are gone with them.
+
+   The bar keeps a SOLID hero-pink background rather than going
+   transparent: main.js adds .sticky (position:fixed) on scroll, and a
+   transparent bar would leave the CTA floating over white content. */
+.ms-theme .navbar-area.navbar-nine {
+  background: var(--ms-pink);
+}
+
+.ms-field {
+  margin-bottom: 22px;
+}
+
+.ms-label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ms-plum);
+  font-size: 1.06rem;
+  font-weight: 700;
+}
+
+.ms-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ms-choice {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.ms-choice input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ms-choice span {
+  display: block;
+  padding: 12px 16px;
+  border: 1px solid var(--gray-3);
+  border-radius: 4px;
+  background: var(--white);
+  color: var(--dark-2);
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.ms-choice span:hover {
+  border-color: var(--ms-peri);
+}
+
+.ms-choice input:checked + span {
+  border-color: var(--ms-plum);
+  background: var(--ms-plum);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.ms-choice input:focus-visible + span {
+  outline: 2px solid var(--ms-peri);
+  outline-offset: 2px;
+}
+
+.ms-submit:hover {
+  background: transparent;
+  color: var(--ms-plum);
+}
+
+/* ---------- legal ---------- */
+/* style.css gives .footer-eleven 100px top AND bottom padding. On top of
+   the FAQ section's own 86px bottom padding that made a 186px void above
+   the contact line, and 100px of dead space under the copyright. Drop the
+   top padding entirely — the section above already supplies the gap — and
+   cut the bottom to something that reads as a page end. */
+.ms-theme .footer-area.footer-eleven {
+  padding-top: 0;
+  padding-bottom: 40px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+  .ms-theme .footer-area.footer-eleven {
+    padding-top: 0;
+    padding-bottom: 28px;
+  }
+}
+
+.ms-legal {
+  padding: 40px 0 0;
+  border-top: 1px solid var(--gray-4);
+}
+
+.ms-legal p {
+  max-width: 900px;
+  margin: 0 auto 10px;
+  color: var(--gray-1);
+  font-size: 0.86rem;
+  line-height: 1.65;
+  text-align: center;
+}
+
+.ms-legal p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ==============================================================
+   22. PREORDER PAGE
+   Only /preorder.html uses these. The page carries class="ms-theme"
+   on <body>, which is what scopes the handful of .ms-theme rules that
+   retint shared template components for this page.
+   ============================================================== */
+
+/* The trimmed bar has only two children, so drive it directly instead of
+   relying on Bootstrap's collapse layout. */
+.ms-theme .navbar-area.navbar-nine .navbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Compact sibling of .ms-cta for the bar. Same plum-fill/outline-on-hover
+   treatment as the hero and band CTAs so all four read as one button. */
+.ms-nav-cta {
+  flex: 0 0 auto;
+  padding: 13px 30px;
+  background: var(--ms-plum);
+  color: var(--white);
+  border: 2px solid var(--ms-plum);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.22s ease-out;
+}
+
+.ms-nav-cta:hover {
+  background: transparent;
+  color: var(--ms-plum);
+}
+
+@media (max-width: 767px) {
+  .ms-nav-cta {
+    padding: 11px 18px;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* ---------- HERO ---------- */
+.ms-hero {
+  position: relative;
+  padding: 100px 0 70px 0;
+  background: var(--ms-pink);
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ms-hero {
+    padding: 80px 0 60px 0;
+  }
+}
+
+/* On mobile style.css already applies `body { padding-top: 100px }` for the
+   fixed navbar, so the hero only needs a small top pad of its own. */
+@media (max-width: 767px) {
+  .ms-hero {
+    padding: 28px 0 48px 0;
+  }
+}
+
+.ms-hero h1 {
+  color: var(--ms-plum);
+  font-size: 52px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 22px 0;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ms-hero h1 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ms-hero h1 {
+    font-size: 32px;
+  }
+}
+
+/* Single centered column. There is no finished hero photograph yet, so
+   the hero is text-only by design rather than showing an empty frame.
+   To go back to the two-column text+image layout, see the commented
+   markup in the HERO section below. */
+.ms-hero-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ms-hero .ms-sub {
+  color: var(--ms-plum);
+  opacity: 0.85;
+  font-size: 1.42rem;
+  line-height: 1.6;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .ms-hero .ms-sub {
+    font-size: 1.22rem;
+  }
+}
+
+/* Bigger primary CTA */
+.ms-cta {
+  display: inline-block;
+  margin-top: 38px;
+  padding: 22px 60px;
+  background: var(--ms-plum);
+  color: var(--white);
+  border: 2px solid var(--ms-plum);
+  border-radius: 4px;
+  font-size: 1.22rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.22s ease-out;
+}
+
+.ms-cta:hover {
+  background: transparent;
+  color: var(--ms-plum);
+}
+
+/* Wider, larger variant for the band CTA. Declared BEFORE the mobile
+   override below on purpose — equal specificity means the later
+   max-width:767px rule still wins, so this stays desktop/tablet only. */
+.ms-cta--wide {
+  padding: 28px 96px;
+  font-size: 1.44rem;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ms-cta--wide {
+    padding: 24px 48px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .ms-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 20px 24px;
+    font-size: 1.08rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* Bigger supporting note */
+.ms-cta-note {
+  margin: 18px 0 0 0;
+  color: var(--ms-plum);
+  opacity: 0.9;
+  font-size: 1.16rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 767px) {
+  .ms-cta-note {
+    text-align: center;
+    font-size: 1.04rem;
+  }
+}
+
+/* Ready for a real hero image whenever there is one. */
+.ms-hero-img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+  .ms-hero-img {
+    margin-top: 40px;
+  }
+}
+
+/* ---------- generic section rhythm ---------- */
+.ms-section {
+  padding: 86px 0;
+}
+
+@media (max-width: 767px) {
+  .ms-section {
+    padding: 54px 0;
+  }
+}
+
+.ms-section--tint {
+  background: var(--ms-pink-soft);
+}
+
+.ms-section--white {
+  background: var(--white);
+}
+
+/* Section header: the lead sentence IS the heading now */
+.ms-lede {
+  max-width: 780px;
+  margin: 0 auto 48px;
+  text-align: center;
+  color: var(--ms-plum);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+@media (max-width: 767px) {
+  .ms-lede {
+    font-size: 1.4rem;
+    margin-bottom: 34px;
+  }
+}
+
+/* ---------- tiles ---------- */
+.ms-tile {
+  height: 100%;
+  padding: 32px 28px;
+  background: var(--white);
+  border: 1px solid var(--gray-4);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+/* Numbered badge. Sized so an illustration can replace the number in
+   place later without the tiles reflowing. */
+.ms-tile-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: var(--ms-peri-soft);
+  color: var(--ms-peri);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ms-tile h4 {
+  color: var(--ms-plum);
+  font-size: 1.24rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ms-tile p {
+  color: var(--dark-3);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---------- standalone CTA band (2nd CTA instance) ---------- */
+.ms-cta-band {
+  padding: 64px 0;
+  background: var(--ms-pink);
+  text-align: center;
+}
+
+.ms-cta-band .ms-cta {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  .ms-cta-band {
+    padding: 40px 0;
+  }
+}
+
+/* ---------- how it works ---------- */
+/* Product shot fills the section width, features stacked beneath it.
+   No max-width cap: the source PNG is 1536px wide, so even at the widest
+   1140px container this is still a downscale and stays sharp. */
+.ms-hiw-shot {
+  margin: 0 auto 46px;
+}
+
+/* Same max-width as .ms-hiw-shot so the badges line up with the image's
+   left edge instead of hanging outside it. */
+.ms-hiw-list {
+  list-style: none;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.ms-hiw-list li {
+  position: relative;
+  min-height: 52px;
+  padding: 0 0 28px 72px;
+  color: var(--dark-2);
+  font-size: 1.12rem;
+  line-height: 1.6;
+}
+
+.ms-hiw-list li:last-child {
+  padding-bottom: 0;
+}
+
+.ms-hiw-list li strong {
+  display: block;
+  color: var(--ms-plum);
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+/* Numbered badge in place of the old bullet dot — same treatment as the
+   tile badges, so both sets can be swapped for real art together. */
+.ms-hiw-step {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--ms-peri-soft);
+  color: var(--ms-peri);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+@media (max-width: 767px) {
+  .ms-hiw-list li {
+    padding-left: 62px;
+    font-size: 1.05rem;
+  }
+
+  .ms-hiw-step {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+}
+
+/* No top margin any more — the image is the first thing in the section
+   now, not the right-hand column of a two-column row. */
+.ms-product-shot {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* ---------- credibility bubbles (replaces the logo slots) ---------- */
+/* No top/bottom rules — the section reads as part of the white block above. */
+.ms-bubbles {
+  padding: 20px 0 76px;
+  background: var(--white);
+}
+
+.ms-bubble-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.ms-bubble {
+  padding: 18px 40px;
+  border: 2px solid var(--ms-pink);
+  border-radius: 999px;
+  background: var(--ms-pink-soft);
+  color: var(--ms-plum);
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .ms-bubbles {
+    padding: 12px 0 48px;
+  }
+
+  .ms-bubble {
+    padding: 14px 26px;
+    font-size: 1rem;
+    white-space: normal;
+  }
+}
+
+/* ---------- reserve / pricing test ---------- */
+.ms-reserve {
+  padding: 86px 0;
+  background: var(--ms-pink-soft);
+}
+
+@media (max-width: 767px) {
+  .ms-reserve {
+    padding: 54px 0;
+  }
+}
+
+.ms-reserve-card {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 44px 42px 36px;
+  background: var(--white);
+  border-radius: 12px;
+  border-top: 4px solid var(--ms-plum);
+  box-shadow: var(--shadow-4);
+}
+
+@media (max-width: 767px) {
+  .ms-reserve-card {
+    padding: 30px 20px 26px;
+  }
+}
+
+.ms-reserve-card h2 {
+  text-align: center;
+  color: var(--ms-plum);
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ms-reserve-card .ms-reserve-sub {
+  text-align: center;
+  color: var(--dark-3);
+  font-size: 1.06rem;
+  margin-bottom: 28px;
+}
+
+.ms-price-block {
+  text-align: center;
+  padding: 24px 20px;
+  margin-bottom: 28px;
+  background: var(--ms-pink-soft);
+  border-radius: 10px;
+}
+
+.ms-price-anchor {
+  color: var(--dark-3);
+  font-size: 1.02rem;
+}
+
+.ms-price-now {
+  display: block;
+  margin: 6px 0 4px;
+  color: var(--ms-plum);
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ms-price-caption {
+  color: var(--ms-plum);
+  opacity: 0.75;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---------- itemised "what founding member includes" ---------- */
+.ms-includes {
+  list-style: none;
+  margin: 0 0 22px 0;
+  padding: 0;
+}
+
+.ms-includes li {
+  position: relative;
+  padding: 0 0 12px 30px;
+  color: var(--dark-2);
+  font-size: 1.06rem;
+  line-height: 1.5;
+}
+
+.ms-includes li:last-child {
+  padding-bottom: 0;
+}
+
+.ms-includes li::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ms-peri);
+}
+
+/* Status/timeline line. Reiterates the no-payment fact inline, where the
+   decision is actually being made, not only in the footer legal block. */
+.ms-timeline {
+  display: block;
+  margin-bottom: 26px;
+  padding: 13px 18px;
+  border-radius: 6px;
+  background: var(--ms-peri-soft);
+  color: var(--ms-plum);
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Divider between the offer summary and the pricing-test questions. */
+.ms-card-rule {
+  height: 1px;
+  margin: 0 0 26px 0;
+  border: 0;
+  background: var(--gray-4);
+  opacity: 1;
+}
+
+.ms-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--gray-3);
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: var(--white);
+  font-family: var(--font-family);
+  font-size: 1.08rem;
+  color: var(--ms-plum);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ms-input:focus {
+  border-color: var(--ms-peri);
+}
+
+.ms-input::placeholder {
+  color: var(--gray-1);
+}
+
+.ms-commit {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  margin-bottom: 22px;
+  border: 1.5px solid var(--ms-peri);
+  border-radius: 6px;
+  background: var(--ms-peri-soft);
+  cursor: pointer;
+}
+
+.ms-commit input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--ms-plum);
+  cursor: pointer;
+}
+
+.ms-commit span {
+  color: var(--ms-plum);
+  font-size: 1.06rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.ms-submit {
+  width: 100%;
+  padding: 20px;
+  border: 2px solid var(--ms-plum);
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--ms-plum);
+  color: var(--white);
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 1.22rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.ms-nopay {
+  margin: 18px 0 0;
+  color: var(--dark-3);
+  font-size: 0.94rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.ms-confirm {
+  display: none;
+  max-width: 640px;
+  margin: 0 auto 24px;
+  padding: 18px 22px;
+  border-radius: 8px;
+  border-left: 4px solid var(--ms-plum);
+  background: var(--white);
+  color: var(--ms-plum);
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+.ms-confirm.is-visible {
+  display: block;
+}
+
+/* ---------- FAQ ----------
+   Bootstrap 5.0.1's accordion (already bundled in bootstrap.min.css, and
+   bootstrap.bundle.min.js is loaded at the foot of this page) does the
+   collapse behaviour. These rules only retint it: Bootstrap ships a blue
+   focus ring and blue active text that would clash with the palette. */
+.ms-faq {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.ms-faq .accordion-item {
+  margin-bottom: 12px;
+  border: 1px solid var(--gray-4);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.ms-faq .accordion-button {
+  padding: 20px 22px;
+  background: var(--white);
+  color: var(--ms-plum);
+  font-family: var(--font-family);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Bootstrap's default expanded state is blue-on-pale-blue. */
+.ms-faq .accordion-button:not(.collapsed) {
+  background: var(--ms-pink-soft);
+  color: var(--ms-plum);
+  box-shadow: none;
+}
+
+.ms-faq .accordion-button:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(159, 158, 213, 0.45);
+}
+
+/* Recolour the chevron to plum (Bootstrap inlines it as an SVG data URI). */
+.ms-faq .accordion-button::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23612F48'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.ms-faq .accordion-body {
+  padding: 4px 22px 22px;
+  color: var(--dark-3);
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+.ms-faq .accordion-body p {
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .ms-faq .accordion-button {
+    padding: 16px 18px;
+    font-size: 1rem;
+  }
+
+  .ms-faq .accordion-body {
+    padding: 2px 18px 18px;
+    font-size: 1rem;
+  }
+}
+
+/* Contact line. Sits ABOVE .ms-legal so it lands above both the rule and
+   the disclaimer text — the disclaimers read as fine print, and this
+   should not. */
+.ms-contact {
+  margin: 0 0 34px;
+  text-align: center;
+}
+
+.ms-contact a {
+  color: var(--ms-plum);
+  font-size: 1.26rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ms-contact a:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 767px) {
+  .ms-contact {
+    margin-bottom: 26px;
+  }
+
+  .ms-contact a {
+    font-size: 1.08rem;
+  }
+}
+
+
+/* ==============================================================
+   23. RESERVATION — STEP 2
+   Only /reserve-questions.html uses these. It carries class="ms-theme
+   ms-step-two" on <body>; ms-step-two exists purely to scope the three
+   places where step 2 wants different values than the preorder page.
+   ============================================================== */
+
+/* ---------- page shell ---------- */
+.ms-questions {
+  padding: 86px 0;
+  background: var(--ms-pink-soft);
+}
+
+@media (max-width: 767px) {
+  .ms-questions {
+    padding: 40px 0 54px;
+  }
+}
+
+/* ---------- "you're on the list" ---------- */
+.ms-done {
+  max-width: 640px;
+  margin: 0 auto 24px;
+  padding: 18px 22px;
+  border-radius: 8px;
+  border-left: 4px solid var(--ms-plum);
+  background: var(--white);
+  color: var(--ms-plum);
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+/* ---------- card ---------- */
+.ms-card {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 44px 42px 36px;
+  background: var(--white);
+  border-radius: 12px;
+  border-top: 4px solid var(--ms-plum);
+  box-shadow: var(--shadow-4);
+}
+
+@media (max-width: 767px) {
+  .ms-card {
+    padding: 30px 20px 26px;
+  }
+}
+
+.ms-card h1 {
+  text-align: center;
+  color: var(--ms-plum);
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ms-card-sub {
+  text-align: center;
+  color: var(--dark-3);
+  font-size: 1.06rem;
+  margin-bottom: 28px;
+}
+
+/* The reservation is already saved, so answering has to be optional. */
+.ms-skip {
+  display: block;
+  margin: 18px 0 0;
+  color: var(--gray-1);
+  font-size: 0.96rem;
+  text-align: center;
+}
+
+.ms-skip a {
+  color: var(--ms-plum);
+  text-decoration: underline;
+}
+
+.ms-step-two .navbar-area.navbar-nine .navbar {
+  justify-content: flex-start;
+}
+
+.ms-step-two .ms-submit {
+  margin-top: 6px;
+}
+
+.ms-step-two .ms-nopay {
+  margin-top: 14px;
+}
+
+
+/* ==============================================================
+   24. UTILITIES
+   Small classes that replaced inline style="" attributes in the HTML.
+   ============================================================== */
+
+/*  Footer's last row, which sits below the disclaimer stack on both
+    funnel pages and needs breathing room above it. */
+.footer-row.is-spaced {
+  margin-top: 36px;
+}
+
+/*  Home page's "Preorder Now" band button. The hover used to be two
+    inline JS handlers writing style.background; it is a :hover now.
+
+    White fill rather than the accent: this button sits on the
+    berry-to-plum gradient band, where a berry fill all but vanishes.
+    White on that band is unmissable and plum on white is 10.5:1. */
+.waitlist-cta-btn {
+  display: inline-block;
+  padding: 0.85rem 2.5rem;
+  border: 2px solid var(--white);
+  border-radius: 2px;
+  background: var(--white);
+  color: var(--ms-plum);
+  font-family: var(--font-family);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.waitlist-cta-btn:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+/*  Resource tiles for topics that are written but not published yet.
+    Named rather than inline so they can be found in one grep. */
+.resource-tile-unpublished {
+  display: none;
 }
