@@ -15,7 +15,17 @@
   <title>Two quick questions | MilkShaker</title>
 
   <!--====== Favicon Icon ======-->
-  <link rel="shortcut icon" href="/assets/favicon_io/favicon.ico" />
+  <!--====== Icons ======
+             The droplet, in --ms-peri. droplet.svg is what any current
+             browser will pick; the .ico bundles 16/32/48 for the rest.
+             The apple-touch and manifest icons sit on an opaque blush
+             background because iOS and Android composite them onto their
+             own surfaces and handle alpha badly. ======-->
+  <link rel="icon" href="/assets/icons/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/icons/droplet.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png" />
+  <link rel="manifest" href="/assets/icons/site.webmanifest" />
+  <meta name="theme-color" content="#F3AEC7" />
 
   <!--====== Bootstrap css ======-->
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
@@ -36,7 +46,7 @@
         <div class="col-lg-12">
           <nav class="navbar">
             <a class="navbar-brand" href="/">
-              <img src="/assets/images/milkshaker-logo-2.png" alt="MilkShaker" />
+              <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" />
             </a>
           </nav>
         </div>
