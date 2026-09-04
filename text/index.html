@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!--======================================================================
+       REDIRECT STUB — not a real page.
+
+       /text exists because it is a good thing to print on a card or read
+       out loud, but the opt-in page itself is served at the site root so
+       there is only ever one copy of the consent text to keep correct.
+       Two copies of a legal disclosure is how they end up disagreeing.
+
+       GitHub Pages cannot issue a server-side 301 (no .htaccess, no
+       _redirects file), so this does it client-side: the canonical tag
+       points search engines at "/", noindex stops this URL competing
+       with the root as duplicate content, and the meta refresh plus the
+       script below move real visitors. The visible link is the no-JS
+       fallback.
+
+       Living at text/index.html rather than text.html means both /text
+       and /text/ resolve, without relying on the server to strip a
+       .html extension.
+  =======================================================================-->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://themilkshaker.com/" />
+  <meta http-equiv="refresh" content="0; url=/" />
+
+  <title>Redirecting&hellip; | MilkShaker</title>
+  <link rel="icon" href="/favicon.ico?v=3" />
+
+  <style>
+    /*  Deliberately inline, unlike every other page on the site.
+
+        This stub has to render correctly in the fraction of a second
+        before the redirect fires, and waiting on a request for
+        /style.css to paint a message nobody should ever see is a worse
+        trade than the one broken rule. */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F3AEC7;
+      color: #612F48;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+      text-align: center;
+      padding: 24px;
+    }
+
+    a {
+      color: #612F48;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    Taking you to MilkShaker&hellip;<br />
+    <a href="/">Continue to themilkshaker.com</a>
+  </p>
+
+  <script>
+    // replace() rather than assign() so this stub does not sit in the
+    // back button and bounce the visitor straight back here.
+    window.location.replace("/");
+  </script>
+</body>
+
+</html>

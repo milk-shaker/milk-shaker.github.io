@@ -34,6 +34,7 @@
      22. PREORDER PAGE
      23. RESERVATION — STEP 2
      24. UTILITIES
+     25. TEXT / SMS OPT-IN PAGE
 
    Sub-banners inside a section are titled "Buttons Css" and are not
    listed here.
@@ -4113,4 +4114,380 @@ p {
     Named rather than inline so they can be found in one grep. */
 .resource-tile-unpublished {
   display: none;
+}
+
+/* ==============================================================
+   25. TEXT / SMS OPT-IN PAGE
+   Only the root page (index.html) and its /text alias use these.
+   ============================================================== */
+
+/* ---------- trimmed navbar: logo plus two links, no hamburger ---------- */
+.sms-navbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sms-nav {
+  display: flex;
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sms-nav a {
+  color: var(--ms-plum);
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+}
+
+.sms-nav a:hover {
+  opacity: 0.65;
+}
+
+@media (max-width: 767px) {
+  .sms-nav {
+    gap: 16px;
+  }
+
+  .sms-nav a {
+    font-size: 0.88rem;
+  }
+}
+
+/*  On small screens style.css pads the body by 100px to clear the fixed
+    navbar, and the navbar is shorter than that, so the body background
+    shows as a white seam between the pink bar and the pink hero. Tinting
+    the body pink closes it. Scoped to this page: every section below the
+    hero paints its own background, so nothing else is affected. */
+@media (max-width: 767px) {
+  .sms-page {
+    background: var(--ms-pink);
+  }
+}
+
+/* ---------- hero ---------- */
+.sms-hero {
+  background: var(--ms-pink);
+  padding: 88px 0 76px;
+}
+
+/*  style.css already pads the body on small screens to clear the fixed
+    navbar, so the hero only needs a modest top pad of its own. */
+@media (max-width: 767px) {
+  .sms-hero {
+    padding: 24px 0 52px;
+  }
+}
+
+.sms-hero-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sms-hero h1 {
+  color: var(--ms-plum);
+  font-size: 44px;
+  line-height: 1.16;
+  font-weight: 700;
+  margin: 0 0 20px;
+}
+
+@media (max-width: 767px) {
+  .sms-hero h1 {
+    font-size: 31px;
+  }
+}
+
+.sms-sub {
+  color: var(--ms-plum);
+  opacity: 0.9;
+  font-size: 1.22rem;
+  line-height: 1.6;
+  margin: 0 0 40px;
+}
+
+@media (max-width: 767px) {
+  .sms-sub {
+    font-size: 1.08rem;
+    margin-bottom: 32px;
+  }
+}
+
+/* ---------- the button ----------
+   The whole point of the page, so it is sized like it. Three stacked
+   lines rather than one long string, because "Text START to (555)
+   000-0000" on one line either wraps badly or forces a tiny font on a
+   narrow phone. min-height keeps it well past the 44px tap target
+   everyone recommends. */
+.sms-button {
+  display: block;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 26px 32px;
+  min-height: 44px;
+  border: 3px solid var(--ms-plum);
+  border-radius: 8px;
+  background: var(--ms-plum);
+  color: var(--white);
+  text-decoration: none;
+  box-shadow: var(--shadow-4);
+  transition: all 0.2s ease-out;
+}
+
+.sms-button:hover,
+.sms-button:focus {
+  background: var(--ms-plum-dark);
+  border-color: var(--ms-plum-dark);
+  color: var(--white);
+}
+
+/*  Visible keyboard focus. The default outline disappears against the
+    plum fill, so draw a ring outside the border instead. */
+.sms-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--ms-pink-soft), 0 0 0 7px var(--ms-plum);
+}
+
+.sms-button-kicker,
+.sms-button-main,
+.sms-button-sub {
+  display: block;
+  text-align: center;
+}
+
+.sms-button-kicker {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+
+.sms-button-main {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+}
+
+.sms-button-sub {
+  font-size: 1.16rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+@media (max-width: 767px) {
+  .sms-button {
+    padding: 22px 20px;
+  }
+
+  .sms-button-main {
+    font-size: 2.1rem;
+  }
+
+  .sms-button-sub {
+    font-size: 1.04rem;
+  }
+}
+
+.sms-button-note {
+  max-width: 460px;
+  margin: 18px auto 0;
+  color: var(--ms-plum);
+  opacity: 0.88;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+/*  sms: links do nothing on a desktop browser, so the number is spelled
+    out there instead. Shown from 768px up, hidden where the button works. */
+.sms-desktop-fallback {
+  display: none;
+  margin: 22px auto 0;
+  color: var(--ms-plum);
+  opacity: 0.85;
+  font-size: 1rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .sms-desktop-fallback {
+    display: block;
+  }
+}
+
+/* ---------- what you get ---------- */
+.sms-what {
+  background: var(--ms-pink-soft);
+  padding: 72px 0;
+}
+
+@media (max-width: 767px) {
+  .sms-what {
+    padding: 48px 0;
+  }
+}
+
+.sms-what-inner {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.sms-what h2 {
+  color: var(--ms-plum);
+  font-size: 1.68rem;
+  font-weight: 700;
+  margin: 0 0 26px;
+  text-align: center;
+}
+
+.sms-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sms-list li {
+  position: relative;
+  padding: 0 0 0 22px;
+  margin-bottom: 20px;
+  color: var(--dark-3);
+  font-size: 1.06rem;
+  line-height: 1.6;
+}
+
+.sms-list li:last-child {
+  margin-bottom: 0;
+}
+
+.sms-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ms-peri);
+}
+
+.sms-list strong {
+  display: block;
+  color: var(--ms-plum);
+}
+
+/*  style.css only colours links inside a <p>, so a link in this list
+    would otherwise fall back to default browser blue. */
+.sms-list a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* ---------- fine print / proof of consent ----------
+   Sized to be read, not to be skipped past. This block doubles as the
+   program's consent record, and an SMS provider will usually want a
+   screenshot of it, so it stays legible at normal reading size. */
+.sms-legal {
+  background: var(--white);
+  padding: 72px 0 84px;
+}
+
+@media (max-width: 767px) {
+  .sms-legal {
+    padding: 48px 0 56px;
+  }
+}
+
+.sms-legal-inner {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 38px 40px 34px;
+  border-top: 4px solid var(--ms-plum);
+  border-radius: 12px;
+  background: var(--ms-blush);
+  box-shadow: var(--shadow-2);
+}
+
+@media (max-width: 767px) {
+  .sms-legal-inner {
+    padding: 26px 22px 24px;
+  }
+}
+
+.sms-legal-inner h2 {
+  color: var(--ms-plum);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.sms-legal-lede {
+  color: var(--dark-3);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+
+.sms-legal-inner h3 {
+  color: var(--ms-plum);
+  font-size: 1.06rem;
+  font-weight: 700;
+  margin: 26px 0 8px;
+}
+
+.sms-legal-inner p,
+.sms-legal-inner li {
+  color: var(--dark-2);
+  font-size: 0.99rem;
+  line-height: 1.62;
+}
+
+.sms-legal-inner p {
+  margin: 0 0 12px;
+}
+
+/*  list-style is restored explicitly: the global reset near the top of
+    this file strips markers from every ul, which left these disclosure
+    items reading as loose indented lines rather than as a list. */
+.sms-legal-inner ul {
+  margin: 0 0 12px;
+  padding-left: 22px;
+  list-style: disc;
+}
+
+.sms-legal-inner li {
+  margin-bottom: 7px;
+}
+
+.sms-legal-inner a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.sms-legal-who {
+  margin: 28px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--gray-4);
+  color: var(--dark-3);
+  font-size: 0.94rem;
+}
+
+/* ---------- footer ---------- */
+.sms-footer.footer-eleven {
+  padding-top: 0;
+  padding-bottom: 44px;
+}
+
+@media (max-width: 767px) {
+  .sms-footer.footer-eleven {
+    padding-bottom: 30px;
+  }
 }
