@@ -10,25 +10,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <!--======================================================================
-       THE NUMBER IS A PLACEHOLDER.
+       THE PROGRAM NUMBER lives in three places on this page and they all
+       have to agree:
 
-       Every occurrence uses the 555-0000 range, which is reserved for
-       fiction and cannot dial or text a real person, so an accidental
-       deploy is harmless rather than embarrassing.
+         1. the sms: href on the button        +19178085179
+         2. the button label and fine print    (917) 808-5179
+         3. the NUMBER const in the iOS script at the foot of the page
 
-       To go live, replace both forms everywhere they appear:
+       A consent record that names a different number than the one people
+       actually text is worse than no record at all, so change all three
+       in the same edit. `grep -n 9178085179 index.html` finds them.
 
-         (555) 000-0000   the human-readable form, shown on the button
-                          and in the fine print
-         +15550000000     the E.164 form, used inside the sms: href and
-                          by the iOS rewrite script at the foot of the page
-
-       Find them all with:
-         grep -n '555' index.html
-
-       The sms: link and the fine print must agree. A consent record that
-       names a different number than the one people actually text is worse
-       than no record at all.
+       This is currently a personal mobile, sending manually. When it
+       moves to an automated sender the number changes here AND the
+       program has to be registered for A2P 10DLC with the provider
+       before carriers will reliably deliver it.
   =======================================================================-->
 
   <link rel="canonical" href="https://themilkshaker.com/" />
@@ -124,10 +120,10 @@
               pre-filled word is lost, and the button label tells people
               what to type. The button is a plain <a>, so it works with
               JavaScript disabled. -->
-        <a class="sms-button" id="smsButton" href="sms:+15550000000?body=START">
+        <a class="sms-button" id="smsButton" href="sms:+19178085179?body=START">
           <span class="sms-button-kicker">Tap to text</span>
           <span class="sms-button-main">START</span>
-          <span class="sms-button-sub">to (555) 000-0000</span>
+          <span class="sms-button-sub">to (917) 808-5179</span>
         </a>
 
         <p class="sms-button-note">
@@ -138,7 +134,7 @@
               give them the number as selectable text instead of a dead
               button. Hidden on small screens, where the button works. -->
         <p class="sms-desktop-fallback">
-          On a computer? Text <strong>START</strong> to <strong>(555) 000-0000</strong> from your phone.
+          On a computer? Text <strong>START</strong> to <strong>(917) 808-5179</strong> from your phone.
         </p>
       </div>
     </div>
@@ -198,7 +194,7 @@
 
         <h3>What you're agreeing to</h3>
         <p>
-          By texting <strong>START</strong> to <strong>(555) 000-0000</strong>, you give your express written
+          By texting <strong>START</strong> to <strong>(917) 808-5179</strong>, you give your express written
           consent to receive recurring automated marketing and informational text messages from MilkShaker Inc. at
           the mobile number you send that message from. Automated means the messages may be sent by an automatic
           telephone dialing system.
@@ -281,7 +277,7 @@
   =======================================================================-->
   <script>
     (function () {
-      var NUMBER = "+15550000000";
+      var NUMBER = "+19178085179";
       var button = document.getElementById("smsButton");
       if (!button) return;
       var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
