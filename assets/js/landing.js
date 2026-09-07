@@ -10,21 +10,6 @@
   var reduced = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* --- signup confirmation ---------------------------------------------
-     FormSubmit cannot render a message for us, so it returns people to
-     /?joined=1 and the panel is revealed here. Focus moves to it so a
-     screen reader announces the result instead of dropping the user at
-     the top of the page. */
-  if (window.location.search.indexOf('joined=1') !== -1) {
-    var panel = document.getElementById('joinConfirm');
-    if (panel) {
-      panel.classList.add('is-visible');
-      panel.setAttribute('role', 'status');
-      panel.setAttribute('tabindex', '-1');
-      panel.focus();
-    }
-  }
-
   /* --- the nudge -------------------------------------------------------
      Cleared on a timer rather than on animationend: that event is not
      reliably observable headless, and an unfired event would leave the
@@ -37,6 +22,28 @@
     window.setTimeout(function () { el.classList.remove('is-nudging'); }, NUDGE_MS);
   }
 
+
+
+  /* --- LaunchList iframe title ------------------------------------------
+     Their widget injects an <iframe> with no title attribute, which
+     leaves screen readers announcing an unlabelled frame. We cannot
+     change what they inject, so name it as it arrives. */
+  var widgets = document.querySelectorAll('.launchlist-widget');
+
+  if (widgets.length && 'MutationObserver' in window) {
+    Array.prototype.forEach.call(widgets, function (holder) {
+      var label = function () {
+        var frame = holder.querySelector('iframe:not([title])');
+        if (frame) frame.setAttribute('title', 'Join the MilkShaker list');
+        return !!frame;
+      };
+      if (label()) return;
+      var obs = new MutationObserver(function () {
+        if (label()) obs.disconnect();
+      });
+      obs.observe(holder, { childList: true });
+    });
+  }
 
   /* --- the menu ---------------------------------------------------------
      Same contract as the popup: Esc and the scrim close it, Tab is
@@ -120,8 +127,10 @@
     }
 
     function focusable() {
+      /* iframe included: with the form supplied by LaunchList it is the
+         only focusable thing in the panel besides the close button. */
       return modal.querySelectorAll(
-        'button:not([disabled]):not([tabindex="-1"]), a[href], input:not([type="hidden"]):not([tabindex="-1"])'
+        'button:not([disabled]):not([tabindex="-1"]), a[href], iframe, input:not([type="hidden"]):not([tabindex="-1"])'
       );
     }
 
@@ -149,10 +158,6 @@
         nudge(document.getElementById('lpModalCta'));
       }, 750);
     }
-
-    /* Someone who arrived from a successful signup has already done the
-       thing the popup asks for. */
-    if (window.location.search.indexOf('joined=1') !== -1) remember();
 
     if (!dismissed()) timer = window.setTimeout(open, DELAY_MS);
 

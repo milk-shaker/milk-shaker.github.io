@@ -32,6 +32,13 @@
   <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
   <meta name="theme-color" content="#F3AEC7" />
   <link rel="stylesheet" href="/style.css" />
+
+  <!--  LaunchList collects the waitlist signups. The widget injects an
+        iframe into every .launchlist-widget and auto-resizes it by
+        postMessage, so the form's own markup and styling are theirs,
+        not ours. Deferred: it only needs the container to exist. -->
+  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
+
 </head>
 
 <body class="lp">
@@ -136,11 +143,6 @@
     <section class="lp-signup" id="join" aria-labelledby="h-join">
       <div class="lp-signup-inner">
 
-        <div class="lp-confirm" id="joinConfirm">
-          <strong>You&rsquo;re on the list.</strong> We&rsquo;ll be in touch when there&rsquo;s something worth
-          telling you.
-        </div>
-
         <p class="lp-eyebrow lp-eyebrow--center">Stay in the loop</p>
         <h2 class="lp-title" id="h-join">Notes on breastfeeding, a few times a season.</h2>
         <p class="lp-signup-sub">
@@ -148,30 +150,12 @@
           when something new is ready. You can leave any time.
         </p>
 
-        <form class="lp-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
-          <input type="hidden" name="_subject" value="MilkShaker — list signup (contact page)" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://themilkshaker.com/contact.html?joined=1" />
-          <input class="lp-sr" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="launchlist-widget" data-key-id="WHgfM8"></div>
 
-          <label class="lp-sr" for="join-name">First name</label>
-          <input id="join-name" type="text" name="name" placeholder="First name" autocomplete="given-name"
-            required />
-
-          <label class="lp-sr" for="join-email">Email address</label>
-          <input id="join-email" type="email" name="email" placeholder="you@email.com" autocomplete="email"
-            required />
-
-          <button class="lp-btn lp-btn--lg lp-btn--nudge" type="submit">
-            <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
-          </button>
-
-          <p class="lp-form-note">
-            Email only. No health information, and we don&rsquo;t sell your address. See our
-            <a href="/privacy.html">Privacy Policy</a>.
-          </p>
-        </form>
+        <p class="lp-form-note">
+          Email only. No health information, and we don&rsquo;t sell your address. See our
+          <a href="/privacy.html">Privacy Policy</a>.
+        </p>
       </div>
     </section>
 
