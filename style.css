@@ -125,6 +125,13 @@
   --lp-bar-line: #E9DACD;
   --lp-bar-line-deep: #DCC7B6;
 
+  /*  The header sits on a blush of its own rather than the ivory the
+      menu panel and footer use, so it reads as a bar rather than as
+      more page. Kept light: plum on it is 9.2:1 and the periwinkle
+      button 4.9:1, both comfortably clear. */
+  --lp-header-bg: #F9EDF3;
+  --lp-header-line: #E7D5E2;
+
   /* ----------------------------------------------------------------
      ROLE ALIASES
      Kept under their original template names because a few hundred
@@ -4758,8 +4765,8 @@ p {
   position: sticky;
   top: 0;
   z-index: 40;
-  border-bottom: 1px solid var(--lp-bar-line);
-  background: var(--lp-bar);
+  border-bottom: 1px solid var(--lp-header-line);
+  background: var(--lp-header-bg);
 }
 
 .lp-header-inner {
@@ -4790,6 +4797,16 @@ p {
   gap: clamp(10px, 2vw, 16px);
 }
 
+/*  On a phone the bar is the wordmark and the menu button and nothing
+    else. The CTA is the first item in the menu, and every page already
+    carries the same button in its own content, so nothing is lost by
+    dropping it from a bar this narrow. */
+@media (max-width: 767px) {
+  .lp-header-actions .lp-btn {
+    display: none;
+  }
+}
+
 /* ---------- menu button ----------
    Three lines, drawn from one element plus its two pseudo-elements so
    there is no extra markup. */
@@ -4799,7 +4816,7 @@ p {
   width: 52px;
   height: 52px;
   padding: 0;
-  border: 1px solid var(--lp-bar-line-deep);
+  border: 1px solid var(--lp-header-line);
   border-radius: 50%;
   background: transparent;
   color: var(--ms-plum);
@@ -4808,7 +4825,7 @@ p {
 }
 
 .lp-menu-btn:hover {
-  background: var(--lp-bar-alt);
+  background: var(--ms-blush);
 }
 
 .lp-menu-btn:focus-visible {
