@@ -6404,7 +6404,9 @@ p {
 
 .lp-person {
   margin: 0;
-  padding: 0 0 22px;
+  /*  No bios on these cards, so the padding just needs to clear the
+      name and role rather than a paragraph. */
+  padding: 0 0 18px;
   border: 1px solid var(--ms-clay);
   border-radius: var(--lp-radius, 22px);
   background: var(--ms-ivory);
