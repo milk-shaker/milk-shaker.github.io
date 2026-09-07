@@ -6408,6 +6408,10 @@ p {
 }
 
 
+.lp-modal-cta {
+  margin: 1.3rem 0 0;
+}
+
 .lp-modal-caption {
   margin: 0.7rem 0 0 !important;
   color: var(--ms-ink-soft);

@@ -203,9 +203,11 @@
       el.addEventListener('click', close);
     });
 
-    /* submitting counts as dealt with, so it should not reappear */
-    var form = modal.querySelector('form');
-    if (form) form.addEventListener('submit', remember);
+    /* Following the CTA counts as dealt with, so the popup should not
+       reappear on the page they land on. The link also carries
+       data-modal-close, so the panel shuts on the way out. */
+    var cta = modal.querySelector('#lpModalCta');
+    if (cta) cta.addEventListener('click', remember);
 
     document.addEventListener('keydown', function (event) {
       if (modal.hidden) return;

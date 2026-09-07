@@ -35,12 +35,6 @@
         grep -n 'lp-ph lp-ph--' index.html lists them all. -->
   <link rel="stylesheet" href="/style.css" />
 
-  <!--  LaunchList collects the waitlist signups. The widget injects an
-        iframe into every .launchlist-widget and auto-resizes it by
-        postMessage, so the form's own markup and styling are theirs,
-        not ours. Deferred: it only needs the container to exist. -->
-  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
-
 </head>
 
 <body class="lp">
@@ -593,8 +587,8 @@
 
       <h2 class="lp-modal-panel-title" id="lpModalTitle">Stay ahead of the next one.</h2>
       <p id="lpModalSub">
-        Leave your email and we&rsquo;ll send notes on breastfeeding a few times a season, plus word when
-        MilkShaker is ready.
+        MilkShaker ships in Spring 2027. The first 300 to join the early access list get a free welcome kit
+        worth $65 &mdash; here is what is in it.
       </p>
 
       <ul class="lp-kit lp-kit--mini" tabindex="0" role="group" aria-label="A look at the welcome kit">
@@ -635,7 +629,10 @@
           </figure>
         </li>
       </ul>
-      <div class="launchlist-widget" data-key-id="WHgfM8"></div>
+      <p class="lp-modal-cta">
+        <a class="lp-btn lp-btn--lg lp-btn--block lp-btn--nudge" id="lpModalCta" href="/early-access.html"
+          data-modal-close><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
+      </p>
       <p class="lp-modal-caption">No payment, and no health information. We don&rsquo;t sell your details.</p>
     </div>
   </div>
