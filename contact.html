@@ -31,14 +31,10 @@
   <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
   <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
   <meta name="theme-color" content="#F3AEC7" />
-  <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/assets/css/lineicons.css" />
-  <link rel="stylesheet" href="/assets/css/tiny-slider.css" />
-  <link rel="stylesheet" href="/assets/css/glightbox.min.css" />
   <link rel="stylesheet" href="/style.css" />
 </head>
 
-<body>
+<body class="lp">
 
   <a class="lp-skip" href="#main">Skip to content</a>
 
@@ -105,59 +101,80 @@
 
   <main id="main">
 
-
-  <!-- Contact Section -->
-  <section class="contact-page-area">
-    <div class="section-title-five">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12">
-            <div class="content">
-              <h1 class="fw-bold">Contact Us</h1>
-              <p>We'd love to hear from you.</p>
-            </div>
-          </div>
+    <!--====== INTRO ======-->
+    <section class="lp-hero">
+      <div class="lp-wrap">
+        <div class="lp-center">
+          <p class="lp-eyebrow lp-eyebrow--center">Contact</p>
+          <h1 class="lp-title">We&rsquo;d love to hear from you.</h1>
+          <p class="lp-lede">
+            Questions about the product, partnerships or press &mdash; a real person reads every message.
+          </p>
         </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8 col-12">
-
-          <!-- Social links -->
-          <div class="contact-form-wrapper">
-            <h2>Join the early access list</h2>
+        <div class="lp-grid--two lp-grid">
+          <div class="lp-card">
+            <h2>Email</h2>
             <p>
-              Word when MilkShaker is ready, plus what we&rsquo;re reading and learning about clogged ducts,
-              mastitis and milk supply. No payment and nothing to commit to.
+              <a href="mailto:valentina@themilkshaker.com">valentina@themilkshaker.com</a><br />
+              We usually reply within a couple of days.
             </p>
-            <form class="contact-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
-              <input type="hidden" name="_subject" value="MilkShaker — list signup (contact page)">
-              <input type="hidden" name="_template" value="table">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="https://themilkshaker.com/?joined=1">
-              <label class="lp-sr" for="contact-name">First name</label>
-              <input id="contact-name" type="text" name="name" placeholder="First name" autocomplete="given-name" required>
-              <label class="lp-sr" for="contact-email">Email</label>
-              <input id="contact-email" type="email" name="email" placeholder="Email" autocomplete="email" required>
-              <button class="lp-btn lp-btn--lg lp-btn--block lp-btn--nudge" type="submit">
-                <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
-              </button>
-              <p class="contact-form-note">
-                Email only. We don&rsquo;t sell your address &mdash; see our
-                <a href="/privacy.html">Privacy Policy</a>.
-              </p>
-            </form>
           </div>
-
+          <div class="lp-card">
+            <h2>Where we are</h2>
+            <p>
+              MilkShaker Inc.<br />
+              New York, NY
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- End Contact Section -->
+    </section>
 
-  <!-- Start Footer Area -->
+    <!--====== THE LIST ======
+          The same panel and the same CTA as the home page, so the ask
+          is identical wherever someone meets it. -->
+    <section class="lp-signup" id="join" aria-labelledby="h-join">
+      <div class="lp-signup-inner">
+
+        <div class="lp-confirm" id="joinConfirm">
+          <strong>You&rsquo;re on the list.</strong> We&rsquo;ll be in touch when there&rsquo;s something worth
+          telling you.
+        </div>
+
+        <p class="lp-eyebrow lp-eyebrow--center">Stay in the loop</p>
+        <h2 class="lp-title" id="h-join">Notes on breastfeeding, a few times a season.</h2>
+        <p class="lp-signup-sub">
+          What we&rsquo;re reading and learning about maternal health care and infant feeding &mdash; plus word
+          when something new is ready. You can leave any time.
+        </p>
+
+        <form class="lp-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
+          <input type="hidden" name="_subject" value="MilkShaker — list signup (contact page)" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://themilkshaker.com/contact.html?joined=1" />
+          <input class="lp-sr" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <label class="lp-sr" for="join-name">First name</label>
+          <input id="join-name" type="text" name="name" placeholder="First name" autocomplete="given-name"
+            required />
+
+          <label class="lp-sr" for="join-email">Email address</label>
+          <input id="join-email" type="email" name="email" placeholder="you@email.com" autocomplete="email"
+            required />
+
+          <button class="lp-btn lp-btn--lg lp-btn--nudge" type="submit">
+            <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
+          </button>
+
+          <p class="lp-form-note">
+            Email only. No health information, and we don&rsquo;t sell your address. See our
+            <a href="/privacy.html">Privacy Policy</a>.
+          </p>
+        </form>
+      </div>
+    </section>
+
   </main>
 
   </main>

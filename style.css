@@ -104,6 +104,26 @@
   --ms-ring: rgba(98, 96, 173, 0.28);
   --ms-scrim: rgba(45, 20, 32, 0.55);
 
+  /*  Layout constants for the lp- components. These live on :root, not
+      on .lp: the shared header, menu and footer appear on the template
+      pages too, which do not carry that class. Scoped to .lp they
+      resolved to nothing there, so max-width and padding fell away and
+      both bars stretched the full width of the window. */
+  --lp-wrap: 1140px;
+  --lp-gutter: clamp(1.25rem, 5vw, 3rem);
+  --lp-radius: 22px;
+  --lp-radius-lg: 34px;
+
+  /*  The shared bars get their own fixed colours rather than reading
+      --ms-ivory and --ms-cream. The resources page re-points those to
+      its blush set, which would otherwise tint the header and footer
+      there and break the one thing they are meant to be: identical on
+      every page. */
+  --lp-bar: #FBF7F0;
+  --lp-bar-alt: #F5EEE4;
+  --lp-bar-line: #E9DACD;
+  --lp-bar-line-deep: #DCC7B6;
+
   /* ----------------------------------------------------------------
      ROLE ALIASES
      Kept under their original template names because a few hundred
@@ -4656,7 +4676,13 @@ p {
 .lp,
 .lp *,
 .lp *::before,
-.lp *::after {
+.lp *::after,
+.lp-header,
+.lp-header *,
+.lp-menu,
+.lp-menu *,
+.lp-footer,
+.lp-footer * {
   box-sizing: border-box;
 }
 
@@ -4671,10 +4697,6 @@ p {
 }
 
 .lp {
-  --lp-wrap: 1140px;
-  --lp-gutter: clamp(1.25rem, 5vw, 3rem);
-  --lp-radius: 22px;
-  --lp-radius-lg: 34px;
   background: var(--ms-ivory);
   color: var(--black);
   font-family: var(--font-family);
@@ -4709,8 +4731,8 @@ p {
   position: sticky;
   top: 0;
   z-index: 40;
-  border-bottom: 1px solid var(--ms-clay);
-  background: var(--ms-ivory);
+  border-bottom: 1px solid var(--lp-bar-line);
+  background: var(--lp-bar);
 }
 
 .lp-header-inner {
@@ -4750,7 +4772,7 @@ p {
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid var(--ms-clay-deep);
+  border: 1px solid var(--lp-bar-line-deep);
   border-radius: 50%;
   background: transparent;
   color: var(--ms-plum);
@@ -4759,7 +4781,7 @@ p {
 }
 
 .lp-menu-btn:hover {
-  background: var(--ms-cream);
+  background: var(--lp-bar-alt);
 }
 
 .lp-menu-btn:focus-visible {
@@ -4828,7 +4850,7 @@ p {
   height: 100%;
   overflow-y: auto;
   padding: 84px 34px 40px;
-  background: var(--ms-ivory);
+  background: var(--lp-bar);
   box-shadow: var(--shadow-6);
   animation: lp-slide 0.24s ease both;
 }
@@ -4853,7 +4875,7 @@ p {
   place-items: center;
   width: 40px;
   height: 40px;
-  border: 1px solid var(--ms-clay);
+  border: 1px solid var(--lp-bar-line);
   border-radius: 50%;
   background: transparent;
   color: var(--ms-ink-soft);
@@ -4861,7 +4883,7 @@ p {
 }
 
 .lp-menu-close:hover {
-  background: var(--ms-cream);
+  background: var(--lp-bar-alt);
   color: var(--ms-plum);
 }
 
@@ -4886,7 +4908,7 @@ p {
 .lp-menu-links a {
   display: block;
   padding: 12px 0;
-  border-bottom: 1px solid var(--ms-clay);
+  border-bottom: 1px solid var(--lp-bar-line);
   color: var(--ms-plum);
   font-size: 1.32rem;
   font-weight: 700;
@@ -4928,7 +4950,7 @@ p {
   place-items: center;
   width: 40px;
   height: 40px;
-  border: 1px solid var(--ms-clay-deep);
+  border: 1px solid var(--lp-bar-line-deep);
   border-radius: 50%;
   color: var(--ms-plum);
 }
@@ -4951,7 +4973,7 @@ p {
   gap: 6px 18px;
   margin-top: auto;
   padding-top: 20px;
-  border-top: 1px solid var(--ms-clay);
+  border-top: 1px solid var(--lp-bar-line);
 }
 
 .lp-menu-legal a {
@@ -5553,6 +5575,7 @@ p {
   background: var(--ms-ivory);
 }
 
+.lp-card h2,
 .lp-card h3 {
   margin: 0 0 8px;
   color: var(--ms-plum);
@@ -6066,8 +6089,8 @@ p {
 /* ---------- footer ---------- */
 .lp-footer {
   padding: clamp(2.5rem, 6vw, 4rem) 0 2.5rem;
-  border-top: 1px solid var(--ms-clay);
-  background: var(--ms-cream);
+  border-top: 1px solid var(--lp-bar-line);
+  background: var(--lp-bar-alt);
 }
 
 .lp-footer-top {
@@ -6123,7 +6146,7 @@ p {
 
 .lp-footer-legal {
   padding-top: 1.25rem;
-  border-top: 1px solid var(--ms-clay);
+  border-top: 1px solid var(--lp-bar-line);
   color: var(--ms-ink-soft);
   font-size: 0.82rem;
   line-height: 1.65;
