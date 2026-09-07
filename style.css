@@ -2691,30 +2691,40 @@ p {
   flex-shrink: 0;
 }
 
+/* ---------- section tile gradients ----------
+   One per section, five distinct hues rather than three shades of the
+   same periwinkle. They sit either side of the brand colours rather
+   than matching them exactly, which is the point: the sections should
+   be told apart at a glance.
+
+   Each light end is tuned so the white line icon on top clears 3:1,
+   the non-text contrast threshold. Light ends run 3.1 to 3.9, dark
+   ends 6.6 to 9.4. */
 .resource-tile-color-1 {
-  /* Managing Pain: periwinkle into its deep shade */
-  background: linear-gradient(135deg, var(--ms-peri) 0%, var(--ms-peri-deep) 100%);
+  /* Managing Pain: periwinkle, the brand accent */
+  background: linear-gradient(135deg, #8D8CCD 0%, #403FA0 100%);
 }
 
 .resource-tile-color-2 {
-  /* Milk Supply: clay into plum */
-  background: linear-gradient(135deg, var(--ms-clay-deep) 0%, var(--ms-plum) 100%);
+  /* Milk Supply: rose */
+  background: linear-gradient(135deg, #DE727F 0%, #B12435 100%);
 }
 
 .resource-tile-color-3 {
-  /* Postpartum Recovery: blush into plum, the one tile that keeps pink */
-  background: linear-gradient(135deg, var(--ms-blush) 0%, var(--ms-plum-mid) 100%);
+  /* Postpartum Recovery: plum, closest to the site ink */
+  background: linear-gradient(135deg, #A96F8C 0%, #66384F 100%);
 }
 
 .resource-tile-color-4 {
-  /* New Mom Wellness: brand pink → primary dark */
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  /* Maternal Wellness: orchid */
+  background: linear-gradient(135deg, #B07CD1 0%, #7633A0 100%);
 }
 
 .resource-tile-color-5 {
-  /* For Partners: slate purple → deep plum */
-  background: linear-gradient(135deg, var(--ms-peri) 0%, var(--ms-peri-deep) 100%);
+  /* For Partners: dusty blue, the one cool note */
+  background: linear-gradient(135deg, #6A95C6 0%, #2F5887 100%);
 }
+
 
 .resource-tile-image i {
   font-size: 64px;
@@ -6538,8 +6548,3 @@ p {
   --gray-3: #DFC8D8;
 }
 
-/*  The one tile gradient that was warm clay. The other three are
-    already periwinkle or blush. */
-.res-theme .resource-tile-color-2 {
-  background: linear-gradient(135deg, var(--ms-pink-mid) 0%, var(--ms-peri-deep) 100%);
-}
