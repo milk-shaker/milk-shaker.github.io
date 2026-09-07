@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="MilkShaker is a nursing bra with embedded massaging technology for mastitis, clogged duct and milk production support. Join the list for news and first word when it is ready." />
+    content="MilkShaker is a nursing bra with embedded massaging technology for mastitis, clogged duct, and milk production support. Join the list for word when it is ready." />
 
   <link rel="canonical" href="https://themilkshaker.com/" />
 
@@ -13,35 +13,26 @@
   <meta property="og:url" content="https://themilkshaker.com/" />
   <meta property="og:title" content="MilkShaker | Stay ahead of clogged ducts and mastitis" />
   <meta property="og:description"
-    content="A nursing bra with embedded massaging technology. Join the list for news and first word when it is ready." />
+    content="A nursing bra with embedded massaging technology. Join the list for word when it is ready." />
   <meta property="og:image" content="https://themilkshaker.com/assets/images/cover_photo.jpg" />
 
   <title>MilkShaker | Stay Ahead of Clogged Ducts &amp; Mastitis</title>
 
-  <!--====== Icons ======
-             Both the PNG sizes and the .ico are declared, not just one.
-             Safari and Firefox reach for the PNGs and handle them most
-             reliably; the .ico is the legacy fallback and carries BMP
-             payloads, because PNG inside an ICO is legal but not decoded
-             everywhere. Bump ?v= on any icon change or browsers keep
-             serving the old one. ======-->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
   <link rel="icon" type="image/svg+xml" href="/assets/icons/droplet.svg?v=3" />
   <link rel="icon" href="/favicon.ico?v=3" />
   <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
   <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
-  <meta name="theme-color" content="#F5EEE4" />
+  <meta name="theme-color" content="#FBF7F0" />
 
-  <!--  This page deliberately does not load Bootstrap. It is a grid
-        layout that needs none of it, and style.css already defines a
-        bare .btn that would collide. Everything here is namespaced lp-.
+  <!--  No Bootstrap here: this is a grid layout that needs none of it,
+        and style.css defines a bare .btn that would collide. Everything
+        is namespaced lp-.
 
         IMAGE PLACEHOLDERS: every image slot is a labelled .lp-ph box
-        saying what belongs there, pending the designer's assets. To
-        fill one, replace the div with an <img> carrying real alt text;
-        the surrounding figure keeps the framing.
-        grep -n 'lp-ph lp-ph--' index.html lists all of them. -->
+        saying what belongs there, pending the designer's assets.
+        grep -n 'lp-ph lp-ph--' index.html lists them all. -->
   <link rel="stylesheet" href="/style.css" />
 </head>
 
@@ -55,6 +46,7 @@
         <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
       </a>
       <nav class="lp-header-nav" aria-label="Main">
+        <a href="/about.html">About</a>
         <a href="/resources.html">Resources</a>
         <a href="/contact.html">Contact</a>
         <a class="lp-btn lp-btn--sm" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
@@ -65,21 +57,21 @@
   <main id="main">
 
     <!--====== HERO ======
-          Split panel: copy and CTA on the left, lifestyle image beside
-          it. Below 860px the image is ordered first, so the action shot
-          is what people meet at the top rather than a wall of type. -->
+          Type here is larger than the rest of the page and larger than
+          the reference build, at explicit request. That is what costs
+          the two-line headline an earlier review asked for. -->
     <section class="lp-hero">
       <div class="lp-hero-inner">
         <div>
-          <p class="lp-eyebrow">For mothers who know the pattern</p>
+          <p class="lp-eyebrow">For mothers who are all too familiar with the struggle</p>
           <h1 class="lp-hero-title">You shouldn&rsquo;t have to guess what&rsquo;s coming next.</h1>
           <p class="lp-hero-sub">
-            MilkShaker is a nursing bra with embedded massaging technology for mastitis, clogged duct and milk
+            MilkShaker is a nursing bra with embedded massaging technology for mastitis, clogged duct, and milk
             production support. Designed to help you stay ahead of it.
           </p>
-          <a class="lp-btn lp-btn--lg" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
+          <a class="lp-btn lp-btn--lg lp-btn--nudge" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
           <p class="lp-hero-note">
-            Not on sale yet. The list is how you hear first &mdash; no payment, nothing to commit to.
+            Shipping Spring 2027. The list is how you hear first &mdash; no payment, nothing to commit to.
           </p>
         </div>
         <figure class="lp-media lp-media--arch lp-hero-media">
@@ -91,12 +83,14 @@
       </div>
     </section>
 
-    <!--====== 01 THE PRODUCT ======-->
-    <section class="lp-section" aria-labelledby="h-product">
+    <!--====== 01 THE PRODUCT ======
+          Sunday has no headline on this panel, only the eyebrow, the
+          mockup and the three benefits. Kept that way. -->
+    <section class="lp-section lp-section--cream" aria-labelledby="h-product">
       <div class="lp-wrap">
-        <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">01</span>The product</p>
-        <h2 class="lp-title" id="h-product">One bra, and the part you dread handled for you.</h2>
-        <div class="lp-grid--two lp-grid">
+        <h2 class="lp-eyebrow" id="h-product"><span class="lp-eyebrow-num" aria-hidden="true">01</span>The
+          product</h2>
+        <div class="lp-grid--two lp-grid lp-grid--middle">
           <figure class="lp-media lp-media--soft">
             <div class="lp-ph lp-ph--square" role="img" aria-label="Product mockup: With callout labels: modules, battery, clip">
             <span class="lp-ph-label">Product mockup</span>
@@ -116,15 +110,13 @@
     </section>
 
     <!--====== 02 THE PATTERN ======-->
-    <section class="lp-section lp-section--cream" aria-labelledby="h-pattern">
+    <section class="lp-section" aria-labelledby="h-pattern">
       <div class="lp-wrap">
-        <div class="lp-center">
+        <div class="lp-center lp-center--wide">
           <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">02</span>The
             pattern</p>
-          <h2 class="lp-title" id="h-pattern">Once it has happened twice, it stops feeling like bad luck.</h2>
-          <p class="lp-lede">
-            It starts feeling like a pattern you can see coming.
-          </p>
+          <h2 class="lp-title lp-title--long" id="h-pattern">Once you have had clogged ducts or mastitis more
+            than once, it stops feeling like bad luck and starts feeling like a pattern you can see coming.</h2>
         </div>
         <ol class="lp-steps">
           <li><div><strong>It starts the same way</strong>
@@ -144,7 +136,7 @@
     <section class="lp-band" aria-labelledby="h-band">
       <div class="lp-wrap">
         <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
-        <a class="lp-btn lp-btn--lg" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
+        <a class="lp-btn lp-btn--lg lp-btn--nudge" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
       </div>
     </section>
 
@@ -173,7 +165,7 @@
       <div class="lp-wrap">
         <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">04</span>Fit &amp; fabric</p>
         <h2 class="lp-title" id="h-fit">Soft enough to forget you have it on.</h2>
-        <div class="lp-grid--two lp-grid">
+        <div class="lp-grid--two lp-grid lp-grid--middle">
           <dl class="lp-specs">
             <div>
               <dt>Fabric</dt>
@@ -182,7 +174,7 @@
             </div>
             <div>
               <dt>Sizing</dt>
-              <dd>XS through XL, with a sizing step before you order.</dd>
+              <dd>XS through XL. Every order will include a custom sizing step.</dd>
             </div>
             <div>
               <dt>Care</dt>
@@ -194,21 +186,23 @@
             </div>
           </dl>
           <figure class="lp-media lp-media--soft">
-            <div class="lp-ph lp-ph--wide" role="img" aria-label="Model shot: Fit and fabric, with her size stated">
+            <div class="lp-ph lp-ph--wide" role="img" aria-label="Model shot: Fit and fabric">
             <span class="lp-ph-label">Model shot</span>
-            <span class="lp-ph-note">Fit and fabric, with her size stated</span>
+            <span class="lp-ph-note">Fit and fabric</span>
           </div>
+            <figcaption class="lp-media-cap">Model is 5&rsquo;5&rdquo; and wears a medium &mdash; roughly a 34C
+              while breastfeeding.</figcaption>
           </figure>
         </div>
       </div>
     </section>
 
     <!--====== 05 WHAT IS BEHIND IT ======-->
-    <section class="lp-section" aria-labelledby="h-behind">
+    <section class="lp-section lp-section--wash" aria-labelledby="h-behind">
       <div class="lp-wrap">
         <div class="lp-center">
-          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">05</span>What&rsquo;s
-            behind it</p>
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num"
+              aria-hidden="true">05</span>What&rsquo;s behind it</p>
           <h2 class="lp-title" id="h-behind">A physical therapist&rsquo;s technique, run for you.</h2>
           <p class="lp-lede">
             The two massaging modules follow a lymphatic drainage pattern designed by a physical therapist
@@ -218,13 +212,11 @@
         </div>
         <div class="lp-grid--two lp-grid">
           <div class="lp-card">
-            <svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13.5 9 8.5l3.5 3.5L20 4.5"/><path d="M15 4.5h5v5"/></svg>
             <h3>Designed by a physical therapist</h3>
             <p>The drainage sequence isn&rsquo;t improvised. It follows the same path a consultant teaches by
               hand.</p>
           </div>
           <div class="lp-card">
-            <svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12.4c0 3.9-3.8 7-8.5 7a9.7 9.7 0 0 1-2.6-.35L4.5 20.5l1.2-3.4a6.6 6.6 0 0 1-2.2-4.7c0-3.9 3.8-7 8.5-7s8.5 3.1 8.5 7Z"/><path d="M8.6 11.4h6.8M8.6 14.2h4.2"/></svg>
             <h3>Built from mothers&rsquo; accounts</h3>
             <p>We designed it around what mothers with recurring episodes were already being told to do, and how
               hard that is to actually do.</p>
@@ -234,7 +226,7 @@
     </section>
 
     <!--====== 06 THE DIFFERENCE ======-->
-    <section class="lp-section lp-section--wash" aria-labelledby="h-diff">
+    <section class="lp-section" aria-labelledby="h-diff">
       <div class="lp-wrap">
         <div class="lp-center">
           <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">06</span>The
@@ -243,7 +235,7 @@
         </div>
         <div class="lp-table-wrap">
           <table class="lp-table">
-            <caption class="lp-sr">Doing the massage by hand compared with using MilkShaker, across hands
+            <caption class="lp-sr">Comparing doing a massage by hand with using MilkShaker. Rows cover hands
               needed, how long it takes, what you have to get right, where you have to be, and clearing up
               afterwards.</caption>
             <thead>
@@ -286,10 +278,10 @@
     </section>
 
     <!--====== 07 WHAT THEY TOLD US ======
-          Real quotes carried over from our sundaymaternal build. They
-          are attributed by role rather than by name, which is how they
-          were given to us. Do not add names without asking first. -->
-    <section class="lp-section" aria-labelledby="h-says">
+          Real quotes carried over from our sundaymaternal build,
+          attributed by role rather than by name, which is how they were
+          given to us. Do not add names without asking first. -->
+    <section class="lp-section lp-section--cream" aria-labelledby="h-says">
       <div class="lp-wrap">
         <div class="lp-center">
           <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">07</span>Early
@@ -314,25 +306,21 @@
     </section>
 
     <!--====== TRUST STRIP ======
-          Line-art icons, not emoji. Only claims we can stand behind
-          are here; the purchase-contingent ones (returns window,
-          warranty, card handling) are left out until there is a
-          checkout for them to apply to. -->
-    <section class="lp-trust" aria-label="What we can tell you now">
+          Sunday's three, verbatim. "Made in the USA" lived in its
+          pricing block, which is gone with the rest of the commerce. -->
+    <section class="lp-trust" aria-label="Credentials">
       <div class="lp-wrap">
         <ul class="lp-trust-row">
-          <li><svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Made in the USA</span></li>
-          <li><svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13.5 9 8.5l3.5 3.5L20 4.5"/><path d="M15 4.5h5v5"/></svg><span>PT-designed massage pattern</span></li>
-          <li><svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 20 6.4v5.1c0 5-3.4 8.2-8 9.3-4.6-1.1-8-4.3-8-9.3V6.4Z"/><path d="m8.8 11.9 2.3 2.3 4.1-4.4"/></svg><span>Lactation expert-informed</span></li>
-          <li><svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4.4"/><path d="M12 12.4V21M8.8 18h6.4"/></svg><span>Female engineer-created</span></li>
+          <li><span>Lactation expert-informed</span></li>
+          <li><span>Milk production support</span></li>
+          <li><span>Female engineer-created</span></li>
         </ul>
       </div>
     </section>
 
-    <!--====== THE LIST ======
-          The one thing this page asks for. FormSubmit posts to the
-          inbox and returns to /?joined=1, which the script at the foot
-          turns into the confirmation panel. -->
+    <!--====== 08 THE LIST ======
+          Clay with a wash, so it sits on a different ground from the
+          FAQ below it. -->
     <section class="lp-signup" id="join" aria-labelledby="h-join">
       <div class="lp-wrap">
         <div class="lp-signup-card">
@@ -344,17 +332,18 @@
 
           <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">08</span>Stay
             in the loop</p>
-          <h2 class="lp-title" id="h-join">Be the first to know.</h2>
+          <h2 class="lp-title" id="h-join">Notes on breastfeeding, a few times a season.</h2>
           <p class="lp-lede">
-            Word when MilkShaker is ready, plus what we&rsquo;re reading and learning about clogged ducts,
-            mastitis and milk supply. A few times a season, and you can leave any time.
+            What we&rsquo;re reading and learning about maternal health care and infant feeding &mdash; plus word
+            when something new is ready. You can leave any time.
           </p>
 
           <form class="lp-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
-            <input type="hidden" name="_subject" value="MilkShaker — list signup" />
+            <input type="hidden" name="_subject" value="MilkShaker — list signup (page)" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_next" value="https://themilkshaker.com/?joined=1" />
+            <input class="lp-sr" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
             <div>
               <label for="join-name">First name</label>
@@ -365,12 +354,12 @@
               <input id="join-email" type="email" name="email" autocomplete="email" required />
             </div>
             <div class="lp-form-full">
-              <button class="lp-btn lp-btn--lg lp-btn--block" type="submit">
+              <button class="lp-btn lp-btn--lg lp-btn--block lp-btn--nudge" type="submit">
                 <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
               </button>
             </div>
             <p class="lp-form-note">
-              No payment and no obligation. We don&rsquo;t sell your details &mdash; see our
+              Email only. No health information, and we don&rsquo;t sell your address. See our
               <a href="/privacy.html">Privacy Policy</a>.
             </p>
           </form>
@@ -380,11 +369,12 @@
 
     <!--====== 09 QUESTIONS ======
           Native details/summary, so it is keyboard operable and
-          announced correctly without any JavaScript. -->
-    <section class="lp-section lp-section--cream" aria-labelledby="h-faq">
+          announced correctly with no JavaScript. -->
+    <section class="lp-section" aria-labelledby="h-faq">
       <div class="lp-wrap">
         <div class="lp-center">
-          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">09</span>Questions</p>
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num"
+              aria-hidden="true">09</span>Questions</p>
           <h2 class="lp-title" id="h-faq">The things people ask us first.</h2>
         </div>
         <div class="lp-faq">
@@ -398,19 +388,15 @@
         </details>
         <details>
           <summary>What size should I get?</summary>
-          <div class="lp-faq-body"><p>MilkShaker comes in XS through XL. If you normally wear a nursing bra, the size you already wear in that is the one to go for. When it&rsquo;s ready there will be a sizing step before you order, so you don&rsquo;t have to guess.</p></div>
+          <div class="lp-faq-body"><p>MilkShaker comes in XS through XL. If you normally wear a nursing bra, order the size you already wear in that. There will be a custom sizing step before anything ships, so you won&rsquo;t have to guess.</p></div>
         </details>
         <details>
           <summary>Do I need a prescription?</summary>
-          <div class="lp-faq-body"><p>No. It&rsquo;s a device you&rsquo;ll be able to buy directly, without a prescription or a referral. If you&rsquo;re already working with a lactation consultant or a provider, it&rsquo;s worth telling them you&rsquo;re using it so it fits alongside whatever else they&rsquo;ve suggested.</p></div>
+          <div class="lp-faq-body"><p>No. MilkShaker is a device sold directly, so you&rsquo;ll be able to get it without a prescription or a referral. If you&rsquo;re already working with a lactation consultant or a provider, it&rsquo;s worth telling them you&rsquo;re using it so it fits alongside whatever else they&rsquo;ve suggested.</p></div>
         </details>
         <details>
-          <summary>When will it be available?</summary>
-          <div class="lp-faq-body"><p><span class="lp-todo">[LAUNCH TIMING &mdash; confirm before publishing]</span> We&rsquo;re not putting a date on it until we can hold to one. Joining the list is how you hear first, and we&rsquo;ll only email when there&rsquo;s something real to say.</p></div>
-        </details>
-        <details>
-          <summary>What will it cost?</summary>
-          <div class="lp-faq-body"><p><span class="lp-todo">[PRICE &mdash; confirm whether to publish pre-launch]</span> We&rsquo;re planning to launch at $299 as a one-time cost, with no subscription and nothing to refill. That&rsquo;s our intention rather than a promise, and the list is where any change would be announced.</p></div>
+          <summary>When does it ship?</summary>
+          <div class="lp-faq-body"><p>Spring 2027. We&rsquo;re not taking orders or payment before then, and the list is how you hear first &mdash; including if that date moves.</p></div>
         </details>
         <details>
           <summary>Is joining the list a commitment?</summary>
@@ -432,11 +418,12 @@
             <a href="mailto:valentina@themilkshaker.com">valentina@themilkshaker.com</a> and a real person
             answers. Or use the <a href="/contact.html">contact page</a>.
           </p>
-          <p>MilkShaker Inc.<br /><span class="lp-todo">[MAILING ADDRESS &mdash; replace before publishing]</span></p>
+          <p>MilkShaker Inc., New York, NY</p>
         </div>
         <div>
           <h2>Elsewhere</h2>
           <ul class="lp-footer-links">
+            <li><a href="/about.html">About</a></li>
             <li><a href="/resources.html">Resources</a></li>
             <li><a href="/contact.html">Contact</a></li>
             <li><a href="/privacy.html">Privacy Policy</a></li>
@@ -453,30 +440,70 @@
           lactation consultant. In an emergency, call 911.
         </p>
         <p>
-          MilkShaker is not yet available for sale. Joining the list creates no order, no payment obligation and
-          no commitment of any kind. Product details, sizing and pricing described here reflect our current
-          intentions and may change before launch.
+          MilkShaker is not yet available for sale and is expected to ship in Spring 2027. Joining the list
+          creates no order, no payment obligation and no commitment of any kind. Product details and sizing
+          described here reflect our current intentions and may change before launch.
         </p>
         <p>&copy; 2026 MilkShaker Inc.</p>
       </div>
     </div>
   </footer>
 
-  <!--  Signup confirmation. FormSubmit cannot render a message for us,
-        so it returns people to /?joined=1 and the panel is revealed
-        here. Also moves focus to it, so a screen reader announces the
-        result rather than dropping the user at the top of the page. -->
-  <script>
-    (function () {
-      if (window.location.search.indexOf("joined=1") === -1) return;
-      var panel = document.getElementById("joinConfirm");
-      if (!panel) return;
-      panel.classList.add("is-visible");
-      panel.setAttribute("role", "status");
-      panel.setAttribute("tabindex", "-1");
-      panel.focus();
-    })();
-  </script>
+  <!--====== POPUP ======
+        Opens on a timer, as requested. Worth knowing: the reference
+        build deliberately triggers on scroll depth instead, because a
+        timed interstitial can land mid-read and Google counts intrusive
+        interstitials against mobile ranking. The delay below is the one
+        knob; DEPTH-based triggering is a small change if that becomes a
+        problem.
+
+        Dismissal is remembered for the browser session, Esc and the
+        scrim close it, Tab is trapped inside while it is open, and focus
+        returns to wherever it was. -->
+  <div class="lp-modal" id="lpModal" hidden>
+    <button class="lp-modal-scrim" type="button" data-modal-close tabindex="-1" aria-hidden="true"></button>
+
+    <div class="lp-modal-panel" role="dialog" aria-modal="true" aria-labelledby="lpModalTitle"
+      aria-describedby="lpModalSub">
+      <button class="lp-modal-close" type="button" data-modal-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+
+      <span class="lp-modal-drop" aria-hidden="true"></span>
+
+      <h2 class="lp-modal-panel-title" id="lpModalTitle">Stay ahead of the next one.</h2>
+      <p id="lpModalSub">
+        Leave your email and we&rsquo;ll send notes on breastfeeding a few times a season, plus word when
+        MilkShaker is ready.
+      </p>
+
+      <form class="lp-modal-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
+        <input type="hidden" name="_subject" value="MilkShaker — list signup (popup)" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://themilkshaker.com/?joined=1" />
+        <input class="lp-sr" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <label class="lp-sr" for="modal-name">First name</label>
+        <input id="modal-name" type="text" name="name" placeholder="First name" autocomplete="given-name"
+          required />
+
+        <label class="lp-sr" for="modal-email">Email address</label>
+        <input id="modal-email" type="email" name="email" placeholder="you@email.com" autocomplete="email"
+          required />
+
+        <button class="lp-btn lp-btn--lg lp-btn--block lp-btn--nudge" type="submit" id="lpModalCta">
+          <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
+        </button>
+        <p class="lp-modal-caption">Email only. No health information, and we don&rsquo;t sell your address.</p>
+      </form>
+    </div>
+  </div>
+
+  <script src="/assets/js/landing.js" defer></script>
 
   <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
     src="//gc.zgo.at/count.js"></script>

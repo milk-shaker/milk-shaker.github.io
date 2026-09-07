@@ -61,6 +61,9 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarNine">
               <ul class="navbar-nav me-auto">
                 <li class="nav-item">
+                  <a href="/about.html">About</a>
+                </li>
+                <li class="nav-item">
                   <a href="/resources.html">Resources <i class="lni lni-chevron-down" aria-hidden="true"></i></a>
                   <ul class="sub-menu collapse resources-sub-menu">
                     <li><a href="/resources.html#section-pain">Managing Pain &amp; Complications</a></li>
@@ -101,6 +104,7 @@
       <div class="sidebar-menu">
         <ul>
           <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
           <li><a href="/resources.html">Resources</a></li>
           <li><a href="/contact.html">Contact Us</a></li>
         </ul>
@@ -151,37 +155,28 @@
         <div class="col-lg-6 col-md-8 col-12">
 
           <!-- Social links -->
-          <div class="contact-socials text-center">
-            <ul class="social">
-              <li>
-                <a href="mailto:valentina@themilkshaker.com" aria-label="Email us"><i class="lni lni-envelope" aria-hidden="true"></i></a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/company/milkshaker/" target="_blank" rel="noopener noreferrer" aria-label="MilkShaker on LinkedIn"><i class="lni lni-linkedin-original" aria-hidden="true"></i></a>
-              </li>
-              <li>
-                <a href="https://youtube.com/@the-milkshaker?si=NnYuWwyUaPmvWaLR" target="_blank" rel="noopener noreferrer" aria-label="MilkShaker on YouTube"><i class="lni lni-youtube" aria-hidden="true"></i></a>
-              </li>
-              <li>
-                <a href="https://twitter.com/theemilkshaker" target="_blank" rel="noopener noreferrer" aria-label="MilkShaker on X"><i class="lni lni-twitter-original" aria-hidden="true"></i></a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/thisisthemilkshaker" target="_blank" rel="noopener noreferrer" aria-label="MilkShaker on Instagram"><i class="lni lni-instagram-original" aria-hidden="true"></i></a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Waitlist form -->
-          <div class="contact-form">
-            <h2>Join our mailing list!</h2>
-            <p>Get latest news, product updates, and early access.</p>
-            <form action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
-              <label class="lp-sr" for="contact-name">Name</label>
-              <input id="contact-name" type="text" name="name" placeholder="Name" autocomplete="name" required>
+          <div class="contact-form-wrapper">
+            <h2>Join the early access list</h2>
+            <p>
+              Word when MilkShaker is ready, plus what we&rsquo;re reading and learning about clogged ducts,
+              mastitis and milk supply. No payment and nothing to commit to.
+            </p>
+            <form class="contact-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
+              <input type="hidden" name="_subject" value="MilkShaker — list signup (contact page)">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_next" value="https://themilkshaker.com/?joined=1">
+              <label class="lp-sr" for="contact-name">First name</label>
+              <input id="contact-name" type="text" name="name" placeholder="First name" autocomplete="given-name" required>
               <label class="lp-sr" for="contact-email">Email</label>
               <input id="contact-email" type="email" name="email" placeholder="Email" autocomplete="email" required>
-              <button type="submit">Sign Up</button>
-              <input type="hidden" name="_next" value="https://themilkshaker.com/?joined=1">
+              <button class="lp-btn lp-btn--lg lp-btn--block lp-btn--nudge" type="submit">
+                <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
+              </button>
+              <p class="contact-form-note">
+                Email only. We don&rsquo;t sell your address &mdash; see our
+                <a href="/privacy.html">Privacy Policy</a>.
+              </p>
             </form>
           </div>
 
@@ -201,6 +196,7 @@
           <p><span>MilkShaker Inc. 2026</span></p>
           <nav class="footer-nav">
             <a href="/">Home</a>
+            <a href="/about.html">About</a>
             <a href="/resources.html">Resources</a>
             <a href="/contact.html">Contact</a>
             <a href="/privacy.html">Privacy</a>
@@ -246,6 +242,8 @@
       overlayLeft.classList.add("open");
     });
   </script>
+  <script src="/assets/js/landing.js" defer></script>
+
   <script data-goatcounter="https://milkshaker.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>

@@ -37,6 +37,9 @@
      25. TEXT / SMS OPT-IN PAGE
      26. LEGAL PAGES
      27. MAIN LANDING PAGE
+     28. POPUP, NUDGE, HANGING TEXT
+     29. ABOUT PAGE
+     30. RESOURCES PAGE THEME
 
    Sub-banners inside a section are titled "Buttons Css" and are not
    listed here.
@@ -4841,17 +4844,29 @@ p {
   transform: translateX(3px);
 }
 
-/* ---------- section furniture ---------- */
+/* ---------- section furniture ----------
+   Backgrounds, type scale and the radial washes are taken from the
+   sundaymaternal build so this reads as the same page, with our palette
+   substituted: their dusty blue wash becomes the periwinkle wash, their
+   ivory/cream/clay carry over unchanged.
+
+   The alternation matters as much as the colours: ivory, cream, ivory,
+   clay, ivory, cream... so no two neighbouring panels share a ground. */
 .lp-section {
   padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+  background: var(--ms-ivory);
 }
 
 .lp-section--cream {
   background: var(--ms-cream);
 }
 
+/*  A vertical wash of the periwinkle over ivory. Sunday uses this on
+    the "what's behind it" panel. */
 .lp-section--wash {
-  background: var(--ms-peri-wash);
+  background:
+    linear-gradient(180deg, rgba(241, 241, 250, 0.8) 0%, rgba(241, 241, 250, 0.28) 100%),
+    var(--ms-ivory);
 }
 
 .lp-eyebrow {
@@ -4870,17 +4885,12 @@ p {
   justify-content: center;
 }
 
-/*  The numeral is decoration, so it is hidden from screen readers in
-    the markup and may use the faint ink that fails as text. */
+/*  Sunday sets the numeral as tabular figures in the accent, inline with
+    the label, rather than as a badge. */
 .lp-eyebrow-num {
-  display: inline-grid;
-  place-items: center;
-  width: 1.9em;
-  height: 1.9em;
-  border-radius: 50%;
-  background: var(--ms-clay);
-  color: var(--ms-plum);
-  font-size: 0.86em;
+  color: var(--ms-peri-deep);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
 }
 
 .lp-title {
@@ -4890,6 +4900,15 @@ p {
   font-weight: 700;
   line-height: 1.16;
   letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/*  Sunday's long-form section headline: wider measure, smaller size, so
+    a full sentence can be the heading without shouting. */
+.lp-title--long {
+  max-width: 56rem;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  line-height: 1.22;
 }
 
 .lp-lede {
@@ -4905,18 +4924,35 @@ p {
   text-align: center;
 }
 
+.lp-center--wide {
+  max-width: 880px;
+}
+
 /* ---------- hero ----------
-   Split panel: copy left, image right, collapsing to stacked with
-   the image first on narrow screens so the lifestyle shot is what
-   people see at the top, per the review. */
+   Split panel: copy left, image right, collapsing to stacked with the
+   image first on narrow screens so the lifestyle shot is what people
+   meet at the top.
+
+   Type is deliberately larger than the rest of the page and larger than
+   the reference build, at explicit request. It costs the two-line
+   headline the earlier review asked for: at this size the h1 runs to
+   three or four lines. Shrink the clamp maximum below to trade back. */
 .lp-hero {
-  padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 5.5rem);
-  background: var(--ms-cream);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 7vw, 6rem) 0 clamp(3.5rem, 8vw, 7rem);
+  background:
+    radial-gradient(120% 90% at 82% 8%, #FDF6EC 0%, rgba(253, 246, 236, 0) 58%),
+    radial-gradient(90% 80% at 6% 96%, var(--ms-peri-wash) 0%, rgba(241, 241, 250, 0) 62%),
+    var(--ms-ivory);
 }
 
 .lp-hero-inner {
   display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
+  /*  The copy column is given more of the row than the reference build
+      allows, because the type here is much larger and a narrow measure
+      at this size strands two-word lines. */
+  grid-template-columns: 1.32fr 0.68fr;
   align-items: center;
   gap: clamp(2rem, 6vw, 5rem);
   max-width: var(--lp-wrap);
@@ -4935,34 +4971,34 @@ p {
   }
 }
 
-/*  Two lines at desktop width, per the review. The measure is set to
-    make that happen rather than left to chance. */
-/*  Sized to break to two lines in the hero column at desktop width,
-    per the review, rather than leaving the wrap to chance. */
+.lp-hero .lp-eyebrow {
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+}
+
 .lp-hero-title {
   margin: 0 0 1.1rem;
   color: var(--ms-plum);
-  font-size: clamp(1.85rem, 3.3vw, 2.45rem);
+  font-size: clamp(2.05rem, 5.6vw, 4.3rem);
   font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.015em;
-  /*  balance evens the two lines instead of leaving one long and one
-      short; the size above is set so the headline fits in two. */
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 .lp-hero-sub {
-  margin: 0 0 2rem;
-  max-width: 34em;
+  margin: 1.35rem 0 2rem;
+  max-width: 40ch;
   color: var(--ms-ink-soft);
-  font-size: 1.16rem;
-  line-height: 1.62;
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+  line-height: 1.5;
 }
 
 .lp-hero-note {
-  margin: 1rem 0 0;
+  margin: 1.1rem 0 0;
   color: var(--ms-ink-soft);
-  font-size: 0.92rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
 /* ---------- media + placeholders ----------
@@ -4998,7 +5034,8 @@ p {
   gap: 6px;
   padding: 28px;
   border: 2px dashed var(--ms-clay-deep);
-  background: var(--ms-blush);
+  /*  Sunday fills its placeholders with a cream-to-clay gradient. */
+  background: linear-gradient(168deg, var(--ms-cream), var(--ms-clay));
   color: var(--ms-plum);
   text-align: center;
 }
@@ -5014,6 +5051,14 @@ p {
   max-width: 22em;
   color: var(--ms-ink-soft);
   font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/*  Caption under a media placeholder, e.g. the model's size. */
+.lp-media-cap {
+  margin: 10px 2px 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.92rem;
   line-height: 1.5;
 }
 
@@ -5170,37 +5215,25 @@ p {
   line-height: 1.58;
 }
 
-/* ---------- mid-page CTA band ---------- */
+/* ---------- mid-page CTA band ----------
+   Sunday's band is clay with a periwinkle wash across it, not a dark
+   slab, so the page never goes heavy. Plum on clay is 7.7:1. */
 .lp-band {
-  padding: clamp(3rem, 7vw, 4.75rem) 0;
-  background: var(--ms-plum);
+  padding: clamp(2.75rem, 6vw, 4.25rem) 0;
+  background:
+    radial-gradient(80% 130% at 88% 12%, rgba(241, 241, 250, 0.55) 0%, rgba(241, 241, 250, 0) 60%),
+    var(--ms-clay);
   text-align: center;
 }
 
 .lp-band h2 {
   max-width: 24em;
   margin: 0 auto 1.6rem;
-  color: var(--ms-ivory);
+  color: var(--ms-plum);
   font-size: clamp(1.7rem, 3.4vw, 2.4rem);
   font-weight: 700;
   line-height: 1.2;
-}
-
-/*  On the plum band the periwinkle button loses its separation, so
-    the fill flips to ivory with plum text: 9.8:1 either way round. */
-.lp-band .lp-btn {
-  background: var(--ms-ivory);
-  color: var(--ms-plum);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-.lp-band .lp-btn:hover {
-  background: var(--white);
-  color: var(--ms-plum);
-}
-
-.lp-band .lp-btn:focus-visible {
-  outline-color: var(--ms-ivory);
+  text-wrap: balance;
 }
 
 /* ---------- spec blocks (fit & fabric) ---------- */
@@ -5349,6 +5382,8 @@ p {
   list-style: none;
 }
 
+/*  Sunday sets these as three plain credential lines, separated by a
+    rule rather than by icons. */
 .lp-trust-row li {
   display: flex;
   align-items: center;
@@ -5356,6 +5391,19 @@ p {
   color: var(--ms-plum);
   font-size: 0.98rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.lp-trust-row li + li {
+  padding-left: 34px;
+  border-left: 1px solid var(--ms-clay-deep);
+}
+
+@media (max-width: 640px) {
+  .lp-trust-row li + li {
+    padding-left: 0;
+    border-left: 0;
+  }
 }
 
 .lp-trust-row .lp-icon {
@@ -5365,9 +5413,13 @@ p {
 }
 
 /* ---------- the signup, which is the point of the page ---------- */
+/*  Clay with a wash, matching sunday. This is also what keeps panel 08
+    and panel 09 on different grounds instead of one long block. */
 .lp-signup {
-  padding: clamp(3.5rem, 8vw, 6rem) 0;
-  background: var(--ms-cream);
+  padding: clamp(3rem, 7vw, 5rem) 0;
+  background:
+    radial-gradient(70% 120% at 12% 10%, rgba(241, 241, 250, 0.6) 0%, rgba(241, 241, 250, 0) 60%),
+    var(--ms-clay);
 }
 
 .lp-signup-card {
@@ -5409,7 +5461,12 @@ p {
   text-transform: uppercase;
 }
 
-.lp-form input {
+/*  Both the page form and the popup form. :not(.lp-sr) matters: the
+    honeypot field carries .lp-sr, and this selector is more specific
+    than that utility, so without the exclusion width:100% wins and
+    stretches a supposedly hidden input across the viewport. */
+.lp-form input:not(.lp-sr),
+.lp-modal-form input:not(.lp-sr) {
   width: 100%;
   padding: 15px 16px;
   border: 1px solid var(--ms-clay-deep);
@@ -5420,7 +5477,8 @@ p {
   font-size: 1rem;
 }
 
-.lp-form input:focus {
+.lp-form input:not(.lp-sr):focus,
+.lp-modal-form input:not(.lp-sr):focus {
   outline: none;
   border-color: var(--ms-peri-deep);
   box-shadow: 0 0 0 4px var(--ms-ring);
@@ -5610,7 +5668,8 @@ p {
 }
 
 /*  Screen-reader-only, for labels that would be redundant on screen. */
-.lp-sr {
+.lp-sr,
+.lp .lp-sr {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -5632,4 +5691,328 @@ p {
   .lp-btn:hover {
     transform: none;
   }
+}
+
+/* ==============================================================
+   28. POPUP, NUDGE, HANGING TEXT
+   ============================================================== */
+
+/* ---------- hanging text ----------
+   "text-wrap: pretty" stops a paragraph ending on a single orphaned
+   word; "balance" evens short headings across their lines. Both degrade
+   to normal wrapping where unsupported, so there is nothing to fall
+   back to. Applied broadly rather than per-element, because the
+   complaint was that it happens everywhere. */
+.lp p,
+.lp li,
+.lp dd,
+.lp blockquote,
+.legal-inner p,
+.legal-inner li {
+  text-wrap: pretty;
+}
+
+.lp h1,
+.lp h2,
+.lp h3,
+.lp figcaption,
+.legal-inner h1,
+.legal-inner h2,
+.legal-inner h3 {
+  text-wrap: balance;
+}
+
+/* ---------- the nudge ----------
+   A gentle shake to draw the eye to the CTA once the popup has settled.
+   Two passes, then it rests: a looping shake reads as pressure selling,
+   which is the opposite of what this is. Runs only when the class is
+   added, because a hidden element does not animate. */
+@keyframes lp-nudge {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  15%      { transform: translateX(-5px) rotate(-1deg); }
+  30%      { transform: translateX(5px) rotate(1deg); }
+  45%      { transform: translateX(-4px) rotate(-0.7deg); }
+  60%      { transform: translateX(4px) rotate(0.7deg); }
+  75%      { transform: translateX(-2px) rotate(-0.3deg); }
+}
+
+.lp-btn--nudge.is-nudging {
+  animation: lp-nudge 0.72s ease-in-out 0.15s 2;
+}
+
+/*  The nudge is decoration, so it goes entirely rather than running at
+    speed for people who asked for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .lp-btn--nudge.is-nudging {
+    animation: none;
+  }
+}
+
+/* ---------- popup ---------- */
+.lp-modal[hidden] {
+  display: none;
+}
+
+.lp-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  animation: lp-fade 0.25s ease both;
+}
+
+@keyframes lp-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lp-modal-scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--ms-scrim);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.lp-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: clamp(1.75rem, 4vw, 2.4rem);
+  border-radius: var(--lp-radius-lg, 34px);
+  background: var(--ms-ivory);
+  box-shadow: var(--shadow-6);
+  text-align: center;
+  animation: lp-rise 0.28s ease both;
+}
+
+@keyframes lp-rise {
+  from { transform: translateY(14px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-modal,
+  .lp-modal-panel {
+    animation: none;
+  }
+}
+
+.lp-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--ms-clay);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ms-ink-soft);
+  cursor: pointer;
+}
+
+.lp-modal-close:hover {
+  background: var(--ms-cream);
+  color: var(--ms-plum);
+}
+
+.lp-modal-close svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.lp-modal-close:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 2px;
+}
+
+/*  The droplet, as a small mark at the top of the panel. */
+.lp-modal-drop {
+  display: block;
+  width: 30px;
+  height: 44px;
+  margin: 0 auto 14px;
+  background: var(--ms-peri);
+  clip-path: polygon(50% 0%, 78% 34%, 92% 56%, 92% 74%, 74% 94%, 50% 100%, 26% 94%, 8% 74%, 8% 56%, 22% 34%);
+}
+
+.lp-modal-panel h2 {
+  margin: 0 0 8px;
+  color: var(--ms-plum);
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.lp-modal-panel p {
+  margin: 0 0 1.2rem;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.lp-modal-form {
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+
+.lp-modal-caption {
+  margin: 0.7rem 0 0 !important;
+  color: var(--ms-ink-soft);
+  font-size: 0.78rem !important;
+  text-align: center;
+}
+
+/*  Stop the page behind the panel scrolling while it is open. */
+.has-modal,
+.has-modal body {
+  overflow: hidden;
+}
+
+/* ==============================================================
+   29. ABOUT PAGE
+   Team grid and supporter logos on /about.html.
+   ============================================================== */
+.lp-people {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+@media (max-width: 900px) {
+  .lp-people {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .lp-people {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-person {
+  margin: 0;
+  padding: 0 0 22px;
+  border: 1px solid var(--ms-clay);
+  border-radius: var(--lp-radius, 22px);
+  background: var(--ms-ivory);
+  overflow: hidden;
+}
+
+.lp-person-media img,
+.lp-person-media .lp-ph {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+}
+
+.lp-person figcaption {
+  padding: 18px 22px 0;
+}
+
+.lp-person figcaption strong {
+  display: block;
+  color: var(--ms-plum);
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.lp-person figcaption span {
+  display: block;
+  margin-top: 2px;
+  color: var(--ms-peri-deep);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lp-person p {
+  margin: 12px 22px 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+
+/* ---------- supporter logos ----------
+   Logos come in wildly different aspect ratios and several have
+   coloured marks, so they sit on white tiles at a common height rather
+   than being forced to a common width. */
+.lp-logos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 900px) {
+  .lp-logos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .lp-logos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.lp-logos li {
+  display: grid;
+  place-items: center;
+  padding: 20px 18px;
+  border: 1px solid var(--ms-clay);
+  border-radius: 14px;
+  background: var(--white);
+}
+
+.lp-logos img {
+  display: block;
+  max-width: 100%;
+  max-height: 46px;
+  width: auto;
+  height: auto;
+}
+
+/* ==============================================================
+   30. RESOURCES PAGE THEME
+   The library reads better in the blush-and-periwinkle end of the
+   palette than in the warm neutrals the rest of the site uses.
+
+   Done by re-pointing the surface variables on the page's own body
+   class rather than by rewriting rules: everything downstream, navbar
+   and hairlines included, follows automatically, and the warm palette
+   is untouched everywhere else.
+   ============================================================== */
+.res-theme {
+  --ms-ivory: #FDF9FB;      /* barely-pink white, the page ground */
+  --ms-cream: #F7EAF2;      /* blush, alternating panels and the navbar */
+  --ms-clay: #EEDFE9;       /* deeper blush, hairlines */
+  --ms-clay-deep: #DFC8D8;  /* borders that need to be seen */
+
+  --light-1: #F7EAF2;
+  --light-2: #F7EAF2;
+  --light-3: #FDF4F7;
+  --gray-4: #EEDFE9;
+  --gray-3: #DFC8D8;
+}
+
+/*  The one tile gradient that was warm clay. The other three are
+    already periwinkle or blush. */
+.res-theme .resource-tile-color-2 {
+  background: linear-gradient(135deg, var(--ms-pink-mid) 0%, var(--ms-peri-deep) 100%);
 }
