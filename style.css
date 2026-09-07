@@ -36,6 +36,7 @@
      24. UTILITIES
      25. TEXT / SMS OPT-IN PAGE
      26. LEGAL PAGES
+     27. MAIN LANDING PAGE
 
    Sub-banners inside a section are titled "Buttons Css" and are not
    listed here.
@@ -51,89 +52,92 @@
 
   /* ----------------------------------------------------------------
      BRAND PALETTE
-     The six colors the brand is built from. Every other color in this
-     file is one of these or a shade derived from one, so a rebrand
-     starts and ends in this block.
+
+     Warm neutral surfaces, plum ink, periwinkle accent.
+
+     The surfaces come from the sundaymaternal / petal-mom builds,
+     which were made as alternative fronts for this same product and
+     whose calm neutral base is the part worth keeping. The ink is
+     MilkShaker plum and the accent is the periwinkle of the logo
+     droplet, so the palette still belongs to this brand rather than
+     to the reference build.
+
+     Rebrands start and end in this block.
      ---------------------------------------------------------------- */
-  --ms-pink: #F3AEC7;   /* hero and navbar surface */
-  --ms-blush: #F7EAF2;  /* palest surface, for large calm areas */
-  --ms-petal: #FFE0ED;  /* light pink surface, cards and tints */
-  --ms-peri: #9F9ED5;   /* periwinkle accent */
-  --ms-rose: #E6939D;   /* rose accent */
-  --ms-plum: #612F48;   /* ink, and the fill that carries white text */
 
-  /* ----------------------------------------------------------------
-     DERIVED SHADES
-     Each is the palette color above shifted in lightness/saturation.
-     Contrast ratios are noted where they decide whether text may sit
-     on the color at all — WCAG AA is 4.5 for body text, 3.0 for large.
-     ---------------------------------------------------------------- */
-  --ms-pink-soft: #FDF4F7;  /* plum on it 9.7 */
-  --ms-pink-mid: #F8CDDC;   /* plum on it 7.4 */
-  --ms-pink-deep: #EC82A8;  /* decorative only, plum on it 4.1 */
-  --ms-petal-deep: #FFC8DD;
-  --ms-blush-deep: #EBD8E4;
+  /*  surfaces  */
+  --ms-ivory: #FBF7F0;      /* page ground */
+  --ms-cream: #F5EEE4;      /* alternating panel */
+  --ms-clay: #E9DACD;       /* deeper panel, hairlines */
+  --ms-clay-deep: #DCC7B6;  /* borders that need to be seen */
 
-  /*  The pink darkened until white text clears AA. This is the
-      interactive accent: links, buttons, icons, focus rings. */
-  --ms-berry: #C62E65;      /* white on it 5.3, on white 5.3 */
-  --ms-berry-dark: #A52654; /* white on it 7.0 — hover partner */
+  /*  ink — plum, thinned toward the ivory rather than toward grey  */
+  --ms-plum: #612F48;       /* on ivory 9.8:1 */
+  --ms-ink-soft: #7E5666;   /* secondary copy, on ivory 5.3:1 */
+  --ms-ink-faint: #A88B95;  /* DECORATIVE ONLY — 2.9:1, never text */
 
-  --ms-peri-soft: #F1F1FA;
-  --ms-peri-deep: #6260AD;  /* white on it 5.5 */
+  /*  accent — the logo droplet's periwinkle.
+      --ms-peri is decorative: white text on it is 2.5:1 and fails.
+      Anything carrying text or a focus ring uses --ms-peri-deep.  */
+  --ms-peri: #9F9ED5;
+  --ms-peri-deep: #6260AD;  /* white on it 5.5:1 */
+  --ms-peri-dark: #514F9A;  /* white on it 7.2:1 — hover */
+  --ms-peri-wash: #F1F1FA;
+  --ms-blush: #F7EAF2;      /* second wash, keeps a little pink */
+
+  /*  the old pink, still used by the dormant preorder pages  */
+  --ms-pink: #F3AEC7;
+  --ms-pink-soft: #FDF4F7;
+  --ms-pink-mid: #F8CDDC;
+  --ms-rose: #E6939D;
   --ms-rose-soft: #FCF0F1;
-  --ms-rose-deep: #C94A59;  /* white on it 4.6 */
+  --ms-rose-deep: #C94A59;
+  --ms-plum-dark: #4C2539;
+  --ms-plum-mid: #834062;
+  --ms-plum-tint: #E9E2E5;
+  --ms-peri-soft: #F1F1FA;
 
-  --ms-plum-dark: #4C2539;  /* white on it 12.9 */
-  --ms-plum-mid: #834062;   /* white on it 7.3 */
-  --ms-plum-tint: #E9E2E5;  /* hairlines, disabled fills */
-
-  /*  Focus ring and modal scrim, both tinted rather than neutral black.
-      A handful of box-shadows further down still carry inline rgba()
-      values; those are palette colors with a per-use alpha, which is
-      why they are not tokens. */
-  --ms-ring: rgba(198, 46, 101, 0.22);
+  /*  focus ring and modal scrim, tinted rather than neutral black  */
+  --ms-ring: rgba(98, 96, 173, 0.28);
   --ms-scrim: rgba(45, 20, 32, 0.55);
 
   /* ----------------------------------------------------------------
      ROLE ALIASES
-     Kept under their original template names because ~200 rules below
-     already reference them. Only the values changed in the rebrand.
-     --primary is the accent that has to stay legible as text, a
-     border, or a fill under white — which is why it is the berry and
-     not the pink. Large pink surfaces use --ms-pink directly.
+     Kept under their original template names because a few hundred
+     rules below reference them. Only the values changed.
+     --primary is the accent that has to survive being text, a border
+     and a fill under white, which is why it is the deep periwinkle
+     and not the light one.
      ---------------------------------------------------------------- */
-  --primary: var(--ms-berry);
-  --primary-dark: var(--ms-berry-dark);
-  --primary-light: var(--ms-petal);
+  --primary: var(--ms-peri-deep);
+  --primary-dark: var(--ms-peri-dark);
+  --primary-light: var(--ms-peri-wash);
 
-  /*  Neutrals, warmed toward the plum so nothing reads as cold gray.
-      Each is plum mixed toward black or white. */
-  --black: #23131B;   /* body copy and headings, 17.0 on white */
-  --dark-1: #2A1620;  /* 15.8 on white */
-  --dark-2: #4C2539;  /* 12.9 on white */
-  --dark-3: #81596D;  /* secondary copy, 5.9 on white, 5.0 on blush */
-  --gray-1: #A98F9C;  /* de-emphasised labels on white only */
-  --gray-3: #D3C5CC;  /* input borders */
-  --gray-4: #E9E2E5;  /* hairlines, disabled fills */
-  --light-1: #F2EEF0;
-  --light-2: var(--ms-blush);
-  --light-3: var(--ms-pink-soft);
+  --black: #3A2029;         /* base copy, on ivory 12.4:1 */
+  --dark-1: #4C2539;
+  --dark-2: #612F48;
+  --dark-3: #7E5666;        /* secondary copy */
+  --gray-1: #A88B95;
+  --gray-3: #DCC7B6;
+  --gray-4: #E9DACD;
+  --light-1: #F5EEE4;
+  --light-2: var(--ms-cream);
+  --light-3: var(--ms-ivory);
   --white: #ffffff;
 
-  /*  Shadows tinted with the plum rather than neutral black, so cards
-      sit on the pink surfaces without a gray halo. */
-  --shadow-2: 0px 0px 1px rgba(60, 25, 40, 0.06),
-    0px 2px 4px rgba(97, 47, 72, 0.14);
-  --shadow-3: 0px 0px 2px rgba(60, 25, 40, 0.05),
-    0px 4px 8px rgba(97, 47, 72, 0.14);
-  --shadow-4: 0px 2px 4px rgba(60, 25, 40, 0.05),
-    0px 8px 16px rgba(97, 47, 72, 0.14);
-  --shadow-5: 0px 2px 8px rgba(60, 25, 40, 0.05),
-    0px 16px 24px rgba(97, 47, 72, 0.14);
-  --shadow-6: 0px 2px 8px rgba(60, 25, 40, 0.09),
-    0px 20px 32px rgba(97, 47, 72, 0.22);
+  /*  shadows tinted with the plum, so cards do not sit in a grey halo  */
+  --shadow-2: 0px 0px 1px rgba(62, 40, 48, 0.05),
+    0px 2px 4px rgba(97, 47, 72, 0.10);
+  --shadow-3: 0px 0px 2px rgba(62, 40, 48, 0.04),
+    0px 4px 8px rgba(97, 47, 72, 0.10);
+  --shadow-4: 0px 2px 4px rgba(62, 40, 48, 0.04),
+    0px 8px 16px rgba(97, 47, 72, 0.10);
+  --shadow-5: 0px 2px 8px rgba(62, 40, 48, 0.04),
+    0px 16px 24px rgba(97, 47, 72, 0.10);
+  --shadow-6: 0px 2px 8px rgba(62, 40, 48, 0.08),
+    0px 20px 32px rgba(97, 47, 72, 0.18);
 }
+
 
 
 body {
@@ -486,7 +490,7 @@ p {
    4. NAVBAR — SITE HEADER
    ============================================================== */
 .navbar-area.navbar-nine {
-  background: var(--ms-pink);
+  background: var(--ms-cream);
   padding: 10px 0;
   position: absolute;
   left: 0;
@@ -584,7 +588,7 @@ p {
     top: 116%;
     left: 0;
     width: 100%;
-    background-color: var(--ms-pink);
+    background-color: var(--ms-cream);
     z-index: 8;
     padding: 10px 16px;
   }
@@ -1032,7 +1036,7 @@ p {
 .header-eight {
   position: relative;
   padding:160px 0 100px 0;
-  background: var(--ms-pink);
+  background: var(--ms-cream);
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .header-eight {
@@ -1662,7 +1666,7 @@ p {
 .call-action {
   z-index: 2;
   padding: 100px 0;
-  background: linear-gradient(45deg, var(--ms-berry), var(--ms-plum));
+  background: linear-gradient(45deg, var(--ms-peri-deep), var(--ms-plum));
   position: relative;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2347,7 +2351,7 @@ p {
 .footer-eleven {
   padding-top: 100px;
   padding-bottom: 100px;
-  background-color: var(--ms-blush);
+  background-color: var(--ms-cream);
   position: relative;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
@@ -2665,18 +2669,18 @@ p {
 }
 
 .resource-tile-color-1 {
-  /* Managing Pain: soft lavender → mauve */
-  background: linear-gradient(135deg, var(--ms-peri) 0%, var(--ms-berry) 100%);
+  /* Managing Pain: periwinkle into its deep shade */
+  background: linear-gradient(135deg, var(--ms-peri) 0%, var(--ms-peri-deep) 100%);
 }
 
 .resource-tile-color-2 {
-  /* Milk Supply: light blush → warm rose */
-  background: linear-gradient(135deg, var(--ms-rose) 0%, var(--ms-berry) 100%);
+  /* Milk Supply: clay into plum */
+  background: linear-gradient(135deg, var(--ms-clay-deep) 0%, var(--ms-plum) 100%);
 }
 
 .resource-tile-color-3 {
-  /* Postpartum Recovery: warm peach → deep coral-rose */
-  background: linear-gradient(135deg, var(--ms-petal) 0%, var(--ms-rose-deep) 100%);
+  /* Postpartum Recovery: blush into plum, the one tile that keeps pink */
+  background: linear-gradient(135deg, var(--ms-blush) 0%, var(--ms-plum-mid) 100%);
 }
 
 .resource-tile-color-4 {
@@ -2698,7 +2702,9 @@ p {
   padding: 20px 20px 24px;
 }
 
-.resource-tile-body h4 {
+/*  h3 since the page's heading order was corrected: the tile title
+    sits under a section h2, which sits under the page h1. */
+.resource-tile-body h3 {
   margin: 0;
   color: var(--black);
   font-size: 1rem;
@@ -4167,7 +4173,7 @@ p {
     hero paints its own background, so nothing else is affected. */
 @media (max-width: 767px) {
   .sms-page {
-    background: var(--ms-pink);
+    background: var(--ms-cream);
   }
 }
 
@@ -4628,4 +4634,1002 @@ p {
   color: var(--ms-rose-deep);
   font-weight: 700;
   font-size: 0.9em;
+}
+
+/* ==============================================================
+   27. MAIN LANDING PAGE
+   The root page only. A self-contained grid layout in the spirit
+   of the sundaymaternal / petal-mom builds, written against this
+   file's palette rather than lifted from theirs.
+
+   Namespaced lp- throughout: the root page does not load
+   Bootstrap, and this file already defines a bare .btn.
+   ============================================================== */
+
+/*  This page does not load Bootstrap, and style.css has no global
+    reset of its own, so border-box has to be established here. Without
+    it every width:100% form control overflows its grid cell by its own
+    padding and border. */
+.lp,
+.lp *,
+.lp *::before,
+.lp *::after {
+  box-sizing: border-box;
+}
+
+/*  The old template pads the body by 100px under 768px to clear its
+    fixed navbar. This page's header is sticky, not fixed, so that
+    padding is just a blank band above it. Cancelled here rather than
+    changing the shared rule, which the template pages still need. */
+@media (max-width: 767px) {
+  body.lp {
+    padding-top: 0;
+  }
+}
+
+.lp {
+  --lp-wrap: 1140px;
+  --lp-gutter: clamp(1.25rem, 5vw, 3rem);
+  --lp-radius: 22px;
+  --lp-radius-lg: 34px;
+  background: var(--ms-ivory);
+  color: var(--black);
+  font-family: var(--font-family);
+}
+
+.lp-wrap {
+  max-width: var(--lp-wrap);
+  margin: 0 auto;
+  padding: 0 var(--lp-gutter);
+}
+
+/*  Keyboard users land here first. Visually hidden until focused. */
+.lp-skip {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 14px 20px;
+  border-radius: 0 0 8px 0;
+  background: var(--ms-plum);
+  color: var(--white);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.lp-skip:focus {
+  left: 0;
+  top: 0;
+}
+
+/* ---------- header ---------- */
+.lp-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--ms-clay);
+  background: var(--ms-ivory);
+}
+
+.lp-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: var(--lp-wrap);
+  margin: 0 auto;
+  padding: 14px var(--lp-gutter);
+}
+
+.lp-header img {
+  display: block;
+  height: 38px;
+  width: auto;
+}
+
+@media (max-width: 600px) {
+  .lp-header img {
+    height: 30px;
+  }
+}
+
+.lp-header-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 3vw, 30px);
+}
+
+.lp-header-nav a:not(.lp-btn) {
+  color: var(--ms-plum);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lp-header-nav a:not(.lp-btn):hover {
+  text-decoration: underline;
+}
+
+/*  Below 600px the two text links would crowd the nav button, which
+    matters more. They are still in the footer. */
+@media (max-width: 600px) {
+  .lp-header-nav a:not(.lp-btn) {
+    display: none;
+  }
+}
+
+/* ---------- buttons ----------
+   One treatment, one colour, one label, everywhere. Uppercase and
+   heavy so they read as the only actionable thing on the page. */
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  padding: 1.15rem 2.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ms-peri-deep);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(62, 40, 48, 0.08), 0 10px 24px rgba(98, 96, 173, 0.26);
+  transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.lp-btn:hover {
+  background: var(--ms-peri-dark);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.lp-btn:active {
+  transform: translateY(0);
+}
+
+.lp-btn:focus-visible {
+  outline: 3px solid var(--ms-plum);
+  outline-offset: 3px;
+}
+
+.lp-btn--sm {
+  padding: 0.7rem 1.25rem;
+  font-size: 0.82rem;
+}
+
+.lp-btn--lg {
+  padding: 1.3rem 2.6rem;
+  font-size: 1.14rem;
+}
+
+.lp-btn--block {
+  width: 100%;
+}
+
+/*  The arrow is drawn in CSS rather than set as U+2192, because
+    Quicksand's latin subset has no arrow glyph to fall back on and
+    the browser would substitute a mismatched one. */
+.lp-arrow {
+  position: relative;
+  flex: none;
+  width: 1.05em;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.18s ease;
+}
+
+.lp-arrow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  width: 0.42em;
+  height: 0.42em;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  border-radius: 1px;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.lp-btn:hover .lp-arrow {
+  transform: translateX(3px);
+}
+
+/* ---------- section furniture ---------- */
+.lp-section {
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+}
+
+.lp-section--cream {
+  background: var(--ms-cream);
+}
+
+.lp-section--wash {
+  background: var(--ms-peri-wash);
+}
+
+.lp-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 1.1rem;
+  color: var(--ms-ink-soft);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.lp-eyebrow--center {
+  justify-content: center;
+}
+
+/*  The numeral is decoration, so it is hidden from screen readers in
+    the markup and may use the faint ink that fails as text. */
+.lp-eyebrow-num {
+  display: inline-grid;
+  place-items: center;
+  width: 1.9em;
+  height: 1.9em;
+  border-radius: 50%;
+  background: var(--ms-clay);
+  color: var(--ms-plum);
+  font-size: 0.86em;
+}
+
+.lp-title {
+  margin: 0 0 1rem;
+  color: var(--ms-plum);
+  font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.lp-lede {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 1.12rem;
+  line-height: 1.65;
+}
+
+.lp-center {
+  max-width: 660px;
+  margin: 0 auto 2.6rem;
+  text-align: center;
+}
+
+/* ---------- hero ----------
+   Split panel: copy left, image right, collapsing to stacked with
+   the image first on narrow screens so the lifestyle shot is what
+   people see at the top, per the review. */
+.lp-hero {
+  padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 5.5rem);
+  background: var(--ms-cream);
+}
+
+.lp-hero-inner {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  max-width: var(--lp-wrap);
+  margin: 0 auto;
+  padding: 0 var(--lp-gutter);
+}
+
+@media (max-width: 860px) {
+  .lp-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .lp-hero-media {
+    order: -1;
+  }
+}
+
+/*  Two lines at desktop width, per the review. The measure is set to
+    make that happen rather than left to chance. */
+/*  Sized to break to two lines in the hero column at desktop width,
+    per the review, rather than leaving the wrap to chance. */
+.lp-hero-title {
+  margin: 0 0 1.1rem;
+  color: var(--ms-plum);
+  font-size: clamp(1.85rem, 3.3vw, 2.45rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  /*  balance evens the two lines instead of leaving one long and one
+      short; the size above is set so the headline fits in two. */
+  text-wrap: balance;
+}
+
+.lp-hero-sub {
+  margin: 0 0 2rem;
+  max-width: 34em;
+  color: var(--ms-ink-soft);
+  font-size: 1.16rem;
+  line-height: 1.62;
+}
+
+.lp-hero-note {
+  margin: 1rem 0 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.92rem;
+}
+
+/* ---------- media + placeholders ----------
+   Every image slot is a labelled placeholder until the designer's
+   assets land. The label says what belongs there, so an unfilled
+   slot reads as pending rather than broken. Swap the inner element
+   for an <img> and the framing is unchanged. */
+.lp-media {
+  margin: 0;
+}
+
+.lp-media > img,
+.lp-ph {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lp-media--arch > img,
+.lp-media--arch .lp-ph {
+  border-radius: 50% 50% var(--lp-radius-lg) var(--lp-radius-lg) / 32% 32% var(--lp-radius-lg) var(--lp-radius-lg);
+}
+
+.lp-media--soft > img,
+.lp-media--soft .lp-ph {
+  border-radius: var(--lp-radius);
+}
+
+.lp-ph {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  padding: 28px;
+  border: 2px dashed var(--ms-clay-deep);
+  background: var(--ms-blush);
+  color: var(--ms-plum);
+  text-align: center;
+}
+
+.lp-ph-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.lp-ph-note {
+  max-width: 22em;
+  color: var(--ms-ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.lp-ph--tall {
+  aspect-ratio: 4 / 5;
+}
+
+.lp-ph--wide {
+  aspect-ratio: 3 / 2;
+}
+
+.lp-ph--square {
+  aspect-ratio: 1 / 1;
+}
+
+/* ---------- three-up feature grid ---------- */
+.lp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.lp-grid--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/*  Where a short paragraph sits beside a tall image, centre it rather
+    than stranding it at the top of a very tall row. */
+.lp-grid--middle {
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .lp-grid,
+  .lp-grid--two {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-card {
+  padding: 26px 26px 24px;
+  border: 1px solid var(--ms-clay);
+  border-radius: var(--lp-radius);
+  background: var(--ms-ivory);
+}
+
+.lp-card h3 {
+  margin: 0 0 8px;
+  color: var(--ms-plum);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lp-card p {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/*  Icons are inline SVG, sized here. Line art rather than emoji, per
+    the review. currentColor so they inherit the accent. */
+.lp-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 14px;
+  color: var(--ms-peri-deep);
+}
+
+/* ---------- numbered steps ---------- */
+.lp-steps {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: lp-step;
+}
+
+.lp-steps li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 16px;
+  padding: 20px 22px;
+  border-radius: var(--lp-radius);
+  background: var(--ms-ivory);
+  border: 1px solid var(--ms-clay);
+}
+
+.lp-steps li::before {
+  counter-increment: lp-step;
+  content: counter(lp-step);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ms-peri-wash);
+  color: var(--ms-peri-deep);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.lp-steps strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ms-plum);
+  font-size: 1.06rem;
+}
+
+.lp-steps span {
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.58;
+}
+
+/* ---------- feature list ----------
+   Deliberately separate from .lp-steps: these are unordered benefits,
+   and borrowing the numbered-step rules stamped a counter bullet on
+   each one. */
+.lp-featlist {
+  display: grid;
+  /*  space-between rather than the default stretch: stretch grows each
+      card to fill the row beside a tall image, leaving a dead gap
+      inside every card. This keeps them at content height and spreads
+      the slack into the gaps instead. */
+  align-content: space-between;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-featlist li {
+  padding: 20px 22px;
+  border: 1px solid var(--ms-clay);
+  border-radius: var(--lp-radius);
+  background: var(--ms-ivory);
+}
+
+.lp-featlist strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ms-plum);
+  font-size: 1.06rem;
+}
+
+.lp-featlist span {
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.58;
+}
+
+/* ---------- mid-page CTA band ---------- */
+.lp-band {
+  padding: clamp(3rem, 7vw, 4.75rem) 0;
+  background: var(--ms-plum);
+  text-align: center;
+}
+
+.lp-band h2 {
+  max-width: 24em;
+  margin: 0 auto 1.6rem;
+  color: var(--ms-ivory);
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/*  On the plum band the periwinkle button loses its separation, so
+    the fill flips to ivory with plum text: 9.8:1 either way round. */
+.lp-band .lp-btn {
+  background: var(--ms-ivory);
+  color: var(--ms-plum);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.lp-band .lp-btn:hover {
+  background: var(--white);
+  color: var(--ms-plum);
+}
+
+.lp-band .lp-btn:focus-visible {
+  outline-color: var(--ms-ivory);
+}
+
+/* ---------- spec blocks (fit & fabric) ---------- */
+.lp-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 2rem;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .lp-specs {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-specs dt {
+  margin-bottom: 5px;
+  color: var(--ms-plum);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lp-specs dd {
+  margin: 0 0 4px;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.58;
+}
+
+/* ---------- comparison table ---------- */
+.lp-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--ms-clay);
+  border-radius: var(--lp-radius);
+  background: var(--ms-ivory);
+}
+
+.lp-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 33rem;
+}
+
+.lp-table th,
+.lp-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ms-clay);
+  font-size: 1rem;
+  line-height: 1.5;
+  vertical-align: top;
+}
+
+.lp-table tr:last-child th,
+.lp-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.lp-table thead th {
+  color: var(--ms-plum);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lp-table tbody th {
+  width: 32%;
+  color: var(--ms-plum);
+  font-weight: 700;
+}
+
+.lp-table td {
+  color: var(--ms-ink-soft);
+}
+
+/*  Our column, called out so the contrast is legible at a glance. */
+.lp-table .lp-ours {
+  background: var(--ms-peri-wash);
+  color: var(--ms-plum);
+  font-weight: 600;
+}
+
+.lp-table thead .lp-ours {
+  background: var(--ms-peri-deep);
+  color: var(--white);
+}
+
+/* ---------- testimonials ---------- */
+.lp-quotes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+@media (max-width: 860px) {
+  .lp-quotes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-quote {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 28px 26px 24px;
+  border: 1px solid var(--ms-clay);
+  border-radius: var(--lp-radius);
+  background: var(--ms-ivory);
+}
+
+.lp-quote blockquote {
+  margin: 0;
+  color: var(--ms-plum);
+  font-size: 1.04rem;
+  line-height: 1.6;
+}
+
+.lp-quote figcaption {
+  margin-top: auto;
+  color: var(--ms-ink-soft);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------- trust strip ---------- */
+.lp-trust {
+  padding: clamp(2.25rem, 5vw, 3.25rem) 0;
+  border-block: 1px solid var(--ms-clay);
+  background: var(--ms-ivory);
+}
+
+.lp-trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 34px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-trust-row li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ms-plum);
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.lp-trust-row .lp-icon {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+}
+
+/* ---------- the signup, which is the point of the page ---------- */
+.lp-signup {
+  padding: clamp(3.5rem, 8vw, 6rem) 0;
+  background: var(--ms-cream);
+}
+
+.lp-signup-card {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: var(--lp-radius-lg);
+  background: var(--ms-ivory);
+  box-shadow: var(--shadow-4);
+  text-align: center;
+}
+
+.lp-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 1.6rem;
+  text-align: left;
+}
+
+@media (max-width: 620px) {
+  .lp-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-form-full {
+  grid-column: 1 / -1;
+}
+
+.lp-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ms-plum);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lp-form input {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--black);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.lp-form input:focus {
+  outline: none;
+  border-color: var(--ms-peri-deep);
+  box-shadow: 0 0 0 4px var(--ms-ring);
+}
+
+.lp-form-note {
+  grid-column: 1 / -1;
+  margin: 4px 0 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.lp-form-note a {
+  color: var(--ms-plum);
+  text-decoration: underline;
+}
+
+/*  Revealed by the ?joined=1 handler after a FormSubmit round trip. */
+.lp-confirm {
+  display: none;
+  margin-bottom: 1.5rem;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border-left: 4px solid var(--ms-peri-deep);
+  background: var(--ms-peri-wash);
+  color: var(--ms-plum);
+  font-size: 1rem;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.lp-confirm.is-visible {
+  display: block;
+}
+
+/* ---------- FAQ ---------- */
+.lp-faq {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.lp-faq details {
+  border-bottom: 1px solid var(--ms-clay);
+}
+
+.lp-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 2px;
+  color: var(--ms-plum);
+  font-size: 1.06rem;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+  list-style: none;
+}
+
+.lp-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.lp-faq summary::after {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--ms-peri-deep);
+  border-bottom: 2px solid var(--ms-peri-deep);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.lp-faq details[open] summary::after {
+  transform: rotate(-135deg) translateY(-2px);
+}
+
+.lp-faq summary:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 2px;
+}
+
+.lp-faq-body {
+  padding: 0 2px 22px;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.lp-faq-body p {
+  margin: 0 0 10px;
+}
+
+.lp-faq-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- footer ---------- */
+.lp-footer {
+  padding: clamp(2.5rem, 6vw, 4rem) 0 2.5rem;
+  border-top: 1px solid var(--ms-clay);
+  background: var(--ms-cream);
+}
+
+.lp-footer-top {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 760px) {
+  .lp-footer-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-footer h2 {
+  margin: 0 0 8px;
+  color: var(--ms-plum);
+  font-size: 1.16rem;
+  font-weight: 700;
+}
+
+.lp-footer p {
+  margin: 0 0 10px;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.lp-footer a {
+  color: var(--ms-plum);
+}
+
+.lp-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-footer-links a {
+  color: var(--ms-ink-soft);
+  font-size: 0.94rem;
+  text-decoration: none;
+}
+
+.lp-footer-links a:hover {
+  color: var(--ms-plum);
+  text-decoration: underline;
+}
+
+.lp-footer-legal {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ms-clay);
+  color: var(--ms-ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.lp-footer-legal p {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+}
+
+.lp-footer-legal p:last-child {
+  margin-bottom: 0;
+}
+
+/*  Unresolved facts, marked so they cannot ship unnoticed.
+    grep -n lp-todo *.html finds them. */
+.lp-todo {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: var(--ms-rose-soft);
+  outline: 2px dashed var(--ms-rose-deep);
+  color: var(--ms-rose-deep);
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+/*  Screen-reader-only, for labels that would be redundant on screen. */
+.lp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-btn,
+  .lp-arrow,
+  .lp-faq summary::after {
+    transition: none;
+  }
+
+  .lp-btn:hover {
+    transform: none;
+  }
 }

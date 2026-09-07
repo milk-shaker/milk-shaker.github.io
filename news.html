@@ -7,6 +7,10 @@
   <meta name="description" content="The latest MilkShaker news — press coverage, milestones, and progress on our hands-free breastfeeding care device." />
   <link rel="canonical" href="https://themilkshaker.com/news.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!--====== Unlinked: the news page, kept reachable by direct URL but no
+             longer part of the site's navigation. ======-->
+  <meta name="robots" content="noindex, follow" />
   <title>MilkShaker | Latest News</title>
   <!--====== Icons ======
              The droplet, in the ms-peri palette colour. droplet.svg is
@@ -40,6 +44,8 @@
 
 <body>
 
+  <a class="lp-skip" href="#main">Skip to content</a>
+
   <!--====== NAVBAR ======-->
   <section class="navbar-area navbar-nine">
     <div class="container">
@@ -59,7 +65,7 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarNine">
               <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                  <a href="/resources.html">Resources <i class="lni lni-chevron-down"></i></a>
+                  <a href="/resources.html">Resources <i class="lni lni-chevron-down" aria-hidden="true"></i></a>
                   <ul class="sub-menu collapse resources-sub-menu">
                     <li><a href="/resources.html#section-pain">Managing Pain &amp; Complications</a></li>
                     <li><a href="/resources.html#section-milk">Milk Supply &amp; Breastfeeding Tips</a></li>
@@ -78,7 +84,7 @@
             </div>
 
             <div class="navbar-btn d-none d-lg-inline-block">
-              <a class="menu-bar" href="#side-menu-left"><i class="lni lni-menu"></i></a>
+              <a class="menu-bar" href="#side-menu-left" aria-label="Open menu"><i class="lni lni-menu" aria-hidden="true"></i></a>
             </div>
           </nav>
         </div>
@@ -87,10 +93,12 @@
   </section>
   <!--====== NAVBAR END ======-->
 
+  <main id="main">
+
   <!--====== SIDEBAR ======-->
   <div class="sidebar-left">
     <div class="sidebar-close">
-      <a class="close" href="#close"><i class="lni lni-close"></i></a>
+      <a class="close" href="#close" aria-label="Close menu"><i class="lni lni-close" aria-hidden="true"></i></a>
     </div>
     <div class="sidebar-content">
       <div class="sidebar-logo">
@@ -99,7 +107,7 @@
       <p class="text">Hands-free breastfeeding care. By women, for women.</p>
       <div class="sidebar-menu">
         <ul>
-          <li><a href="/">Text support</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/resources.html">Resources</a></li>
           <li><a href="/contact.html">Contact Us</a></li>
         </ul>
@@ -109,19 +117,19 @@
         <h5 class="social-title">Get in Touch</h5>
         <ul>
           <li>
-            <a href="mailto:valentina@themilkshaker.com"> <i class="lni lni-envelope"></i> </a>
+            <a href="mailto:valentina@themilkshaker.com" aria-label="Email us"> <i class="lni lni-envelope" aria-hidden="true"></i> </a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/company/milkshaker/"><i class="lni lni-linkedin-original"></i></a>
+            <a href="https://www.linkedin.com/company/milkshaker/" aria-label="MilkShaker on LinkedIn"><i class="lni lni-linkedin-original" aria-hidden="true"></i></a>
           </li>
           <li>
-            <a href="https://youtube.com/@the-milkshaker?si=NnYuWwyUaPmvWaLR"><i class="lni lni-youtube"></i></a>
+            <a href="https://youtube.com/@the-milkshaker?si=NnYuWwyUaPmvWaLR" aria-label="MilkShaker on YouTube"><i class="lni lni-youtube" aria-hidden="true"></i></a>
           </li>
           <li>
-            <a href="https://x.com/theemilkshaker"><i class="lni lni-twitter-original"></i></a>
+            <a href="https://x.com/theemilkshaker" aria-label="MilkShaker on X"><i class="lni lni-twitter-original" aria-hidden="true"></i></a>
           </li>
           <li>
-            <a href="https://www.instagram.com/thisisthemilkshaker"><i class="lni lni-instagram-original"></i></a>
+            <a href="https://www.instagram.com/thisisthemilkshaker" aria-label="MilkShaker on Instagram"><i class="lni lni-instagram-original" aria-hidden="true"></i></a>
           </li>
         </ul>
       </div>
@@ -137,7 +145,7 @@
         <div class="row justify-content-center team-bottom">
           <div class="col-12">
             <div class="content">
-              <h2 class="fw-bold">Latest News</h2>
+              <h1 class="fw-bold">Latest News</h1>
               <p>
                 Follow us along our journey to bring MilkShaker to life.
               </p>
@@ -157,9 +165,9 @@
               </a>
             </div>
             <div class="content-body">
-              <h4 class="title">
+              <h2 class="title">
                 <a href="https://www.linkedin.com/posts/project-2-8_projecttwoeight-venturecapital-startups-activity-7406695856969519104-rO_g?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD0NugUB23-me9eQof5IYBt-8se9xyNXCZo/" target="_blank" rel="noopener noreferrer">MilkShaker wins 2nd place at CVC's Project 2.8 Pitch Night</a>
-              </h4>
+              </h2>
               <p>November 19, 2025 — MilkShaker wins 2nd place at Columbia Venture Community's Project 2.8 Pitch Night, concluding the 2025 cohort of a program dedicated to supporting female founders who have historically received only 2.8% of VC funding.</p>
             </div>
           </div>
@@ -175,9 +183,9 @@
               </a>
             </div>
             <div class="content-body">
-              <h4 class="title">
+              <h2 class="title">
                 <a href="https://www.engineering.columbia.edu/" target="_blank" rel="noopener noreferrer">1st place awarded to MilkShaker at Columbia Engineering's Senior Design Expo</a>
-              </h4>
+              </h2>
               <p>May 08, 2025 — MilkShaker wins 1st place at Columbia's Senior Design engineering symposium.</p>
             </div>
           </div>
@@ -193,9 +201,9 @@
               </a>
             </div>
             <div class="content-body">
-              <h4 class="title">
+              <h2 class="title">
                 <a href="https://entrepreneurship.engineering.columbia.edu/startup-columbia/millard-chan-tech-challenge-2025-announcement/" target="_blank" rel="noopener noreferrer">MilkShaker wins $15,000 at the 2025 Millard Chan '99 Technology Challenge</a>
-              </h4>
+              </h2>
               <p>April 17, 2025 — MilkShaker takes home 2nd place prize at Startup Columbia's Millard Chan '99 Technology Challenge and 3rd place at the Helen Gurley Brown startup competitions.</p>
             </div>
           </div>
@@ -207,17 +215,19 @@
   <!-- End Latest News Area -->
 
   <!-- Start Footer Area -->
+  </main>
+
   <footer class="footer-area footer-eleven">
     <div class="footer-top">
       <div class="container">
         <div class="footer-row">
           <p><span>MilkShaker Inc. 2026</span></p>
           <nav class="footer-nav">
-            <a href="/">Text support</a>
+            <a href="/">Home</a>
             <a href="/resources.html">Resources</a>
             <a href="/contact.html">Contact</a>
-            <a href="/sms-terms.html">SMS Terms</a>
             <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
           </nav>
         </div>
       </div>
@@ -225,8 +235,8 @@
   </footer>
   <!-- End Footer Area -->
 
-  <a href="#" class="scroll-top btn-hover">
-    <i class="lni lni-chevron-up"></i>
+  <a href="#" class="scroll-top btn-hover" aria-label="Back to top">
+    <i class="lni lni-chevron-up" aria-hidden="true"></i>
   </a>
 
   <script src="/assets/js/bootstrap.bundle.min.js"></script>

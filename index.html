@@ -2,290 +2,482 @@
 <html lang="en">
 
 <head>
-  <!--====== Required meta tags ======-->
   <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="Free 1:1 text support for clogged ducts and mastitis discomfort, from a Certified Lactation Counselor. Text START to 917-808-5179." />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-  <!--======================================================================
-       THE PROGRAM NUMBER lives in three places on this page and they all
-       have to agree:
-
-         1. the sms: href on the button        +19178085179
-         2. the button label and fine print    (917) 808-5179
-         3. the NUMBER const in the iOS script at the foot of the page
-
-       A consent record that names a different number than the one people
-       actually text is worse than no record at all, so change all three
-       in the same edit. `grep -n 9178085179 index.html` finds them.
-
-       This is currently a personal mobile, sending manually. When it
-       moves to an automated sender the number changes here AND the
-       program has to be registered for A2P 10DLC with the provider
-       before carriers will reliably deliver it.
-  =======================================================================-->
+    content="MilkShaker is a nursing bra with embedded massaging technology for mastitis, clogged duct and milk production support. Join the list for news and first word when it is ready." />
 
   <link rel="canonical" href="https://themilkshaker.com/" />
 
-  <!--====== Open Graph: this link gets texted and posted, so give it a card ======-->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://themilkshaker.com/" />
-  <meta property="og:title" content="Free text support for clogged ducts and mastitis | MilkShaker" />
+  <meta property="og:title" content="MilkShaker | Stay ahead of clogged ducts and mastitis" />
   <meta property="og:description"
-    content="Text a Certified Lactation Counselor. Free, 1:1, no app. Text START to 917-808-5179." />
+    content="A nursing bra with embedded massaging technology. Join the list for news and first word when it is ready." />
   <meta property="og:image" content="https://themilkshaker.com/assets/images/cover_photo.jpg" />
 
-  <!--====== Title ======-->
-  <title>Free Text Support for Clogged Ducts &amp; Mastitis | MilkShaker</title>
+  <title>MilkShaker | Stay Ahead of Clogged Ducts &amp; Mastitis</title>
 
   <!--====== Icons ======
-             The droplet, in the ms-peri palette colour. droplet.svg is
-             what any current browser will pick; the .ico bundles 16/32/48
-             for the rest. The apple-touch and manifest icons sit on an
-             opaque blush background because iOS and Android composite them
-             onto their own surfaces and handle alpha badly.
-
              Both the PNG sizes and the .ico are declared, not just one.
              Safari and Firefox reach for the PNGs and handle them most
-             reliably; the .ico is the legacy fallback and now carries BMP
-             payloads rather than PNG ones, because PNG inside an ICO is
-             legal but not decoded everywhere.
-
-             The ?v= is a cache buster. Browsers hold favicons far longer
-             than a normal reload clears, so bump it on every icon change
-             or people keep seeing the old one. ======-->
+             reliably; the .ico is the legacy fallback and carries BMP
+             payloads, because PNG inside an ICO is legal but not decoded
+             everywhere. Bump ?v= on any icon change or browsers keep
+             serving the old one. ======-->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
   <link rel="icon" type="image/svg+xml" href="/assets/icons/droplet.svg?v=3" />
   <link rel="icon" href="/favicon.ico?v=3" />
   <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
   <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
-  <meta name="theme-color" content="#F3AEC7" />
+  <meta name="theme-color" content="#F5EEE4" />
 
-  <!--====== Bootstrap css ======-->
-  <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+  <!--  This page deliberately does not load Bootstrap. It is a grid
+        layout that needs none of it, and style.css already defines a
+        bare .btn that would collide. Everything here is namespaced lp-.
 
-  <!--====== Line Icons css ======-->
-  <link rel="stylesheet" href="/assets/css/lineicons.css" />
-
+        IMAGE PLACEHOLDERS: every image slot is a labelled .lp-ph box
+        saying what belongs there, pending the designer's assets. To
+        fill one, replace the div with an <img> carrying real alt text;
+        the surrounding figure keeps the framing.
+        grep -n 'lp-ph lp-ph--' index.html lists all of them. -->
   <link rel="stylesheet" href="/style.css" />
 </head>
 
-<body class="ms-theme sms-page">
+<body class="lp">
 
-  <!--====== NAVBAR ======
-        Trimmed to the logo plus the two destinations that are still
-        linked. Home, Product, Team and News are deliberately absent;
-        they remain reachable by direct URL. ======-->
-  <section class="navbar-area navbar-nine">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <nav class="navbar sms-navbar">
-            <a class="navbar-brand" href="/">
-              <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" />
-            </a>
-            <ul class="sms-nav">
-              <li><a href="/resources.html">Resources</a></li>
-              <li><a href="/contact.html">Contact</a></li>
-            </ul>
-          </nav>
+  <a class="lp-skip" href="#main">Skip to content</a>
+
+  <header class="lp-header">
+    <div class="lp-header-inner">
+      <a href="/" aria-label="MilkShaker home">
+        <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
+      </a>
+      <nav class="lp-header-nav" aria-label="Main">
+        <a href="/resources.html">Resources</a>
+        <a href="/contact.html">Contact</a>
+        <a class="lp-btn lp-btn--sm" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!--====== HERO ======
+          Split panel: copy and CTA on the left, lifestyle image beside
+          it. Below 860px the image is ordered first, so the action shot
+          is what people meet at the top rather than a wall of type. -->
+    <section class="lp-hero">
+      <div class="lp-hero-inner">
+        <div>
+          <p class="lp-eyebrow">For mothers who know the pattern</p>
+          <h1 class="lp-hero-title">You shouldn&rsquo;t have to guess what&rsquo;s coming next.</h1>
+          <p class="lp-hero-sub">
+            MilkShaker is a nursing bra with embedded massaging technology for mastitis, clogged duct and milk
+            production support. Designed to help you stay ahead of it.
+          </p>
+          <a class="lp-btn lp-btn--lg" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
+          <p class="lp-hero-note">
+            Not on sale yet. The list is how you hear first &mdash; no payment, nothing to commit to.
+          </p>
+        </div>
+        <figure class="lp-media lp-media--arch lp-hero-media">
+          <div class="lp-ph lp-ph--tall" role="img" aria-label="Action shot: Mother nursing, wearing the bra">
+            <span class="lp-ph-label">Action shot</span>
+            <span class="lp-ph-note">Mother nursing, wearing the bra</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!--====== 01 THE PRODUCT ======-->
+    <section class="lp-section" aria-labelledby="h-product">
+      <div class="lp-wrap">
+        <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">01</span>The product</p>
+        <h2 class="lp-title" id="h-product">One bra, and the part you dread handled for you.</h2>
+        <div class="lp-grid--two lp-grid">
+          <figure class="lp-media lp-media--soft">
+            <div class="lp-ph lp-ph--square" role="img" aria-label="Product mockup: With callout labels: modules, battery, clip">
+            <span class="lp-ph-label">Product mockup</span>
+            <span class="lp-ph-note">With callout labels: modules, battery, clip</span>
+          </div>
+          </figure>
+          <ul class="lp-featlist">
+            <li><strong>The one bra you actually need</strong>
+              <span>Works for nursing and for pumping.</span></li>
+            <li><strong>One session, start to finish</strong>
+              <span>Roughly ten sessions from a single overnight charge.</span></li>
+            <li><strong>Wash the bra, keep the tech dry</strong>
+              <span>Modules are removable, the rest is machine-washable.</span></li>
+          </ul>
         </div>
       </div>
-    </div>
-  </section>
-  <!--====== NAVBAR END ======-->
+    </section>
 
-  <!--====== HERO + THE BUTTON ======-->
-  <section class="sms-hero">
-    <div class="container">
-      <div class="sms-hero-inner">
-        <h1>Clogged duct at 2am? Text us.</h1>
-        <p class="sms-sub">
-          Free 1:1 text support for breastfeeding mothers dealing with clogged ducts and mastitis discomfort,
-          from a Certified Lactation Counselor. No app, no cost, no appointment.
-        </p>
-
-        <!--  The button.
-
-              href carries "?body=" because that is the form RFC 5724
-              specifies, and it is what Android and current iOS both
-              accept. Older iOS wants "&body=" instead, which the script
-              at the foot of this page swaps in when it detects iOS.
-
-              If that script never runs, the link still opens the
-              messaging app addressed to the right number, losing only
-              the pre-filled word, and the button label says what to
-              type. The button is a plain anchor, so it works with
-              JavaScript disabled. -->
-        <a class="sms-button" id="smsButton" href="sms:+19178085179?body=START">
-          <span class="sms-button-kicker">Tap to text</span>
-          <span class="sms-button-main">START</span>
-          <span class="sms-button-sub">to (917) 808-5179</span>
-        </a>
-
-        <p class="sms-button-note">
-          Opens your messaging app with <strong>START</strong> already typed. You just hit send.
-          <span class="sms-button-note-alt">JOIN and HI work too.</span>
-        </p>
-
-        <!--  Desktop visitors cannot tap through to a messaging app, so
-              give them the number as selectable text instead of a dead
-              button. Hidden on small screens, where the button works. -->
-        <p class="sms-desktop-fallback">
-          On a computer? Text <strong>START</strong> to <strong>(917) 808-5179</strong> from your phone.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!--====== WHAT THIS IS ======-->
-  <section class="sms-what">
-    <div class="container">
-      <div class="sms-what-inner">
-        <h2>What this is</h2>
-        <ul class="sms-list">
-          <li>
-            <strong>A real person, not a bot.</strong>
-            Your messages go to a Certified Lactation Counselor who answers you directly.
-          </li>
-          <li>
-            <strong>Support, education and encouragement.</strong>
-            Help thinking through what you are feeling, what tends to help, and what to keep an eye on. Plain
-            language, no judgement, at whatever hour you are awake.
-          </li>
-          <li>
-            <strong>Free, and staying free.</strong>
-            There is nothing to buy and nothing to sign up for beyond the text. Your carrier&rsquo;s usual
-            message and data rates are the only cost.
-          </li>
-          <li>
-            <strong>Not a diagnosis, and not treatment.</strong>
-            We cannot examine you or tell you what you have. When something needs a clinician, we say so and
-            point you to one.
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!--======================================================================
-       SAFETY BLOCK
-
-       This is a health-adjacent service reached by people in pain,
-       sometimes at night, and the messages are explicitly not diagnosis
-       or treatment. So the boundary belongs on the page rather than
-       buried in the fine print: what this service is not, and the
-       specific symptoms that mean stop texting and call someone.
-
-       The symptom list matches the disclaimer on the preorder page.
-       Keep the two in sync if either changes.
-  =======================================================================-->
-  <section class="sms-safety">
-    <div class="container">
-      <div class="sms-safety-inner">
-        <h2>When to call a clinician instead</h2>
-        <p>
-          Texting us is not a substitute for medical care, and we are not an emergency service. Please contact
-          your physician, midwife or lactation consultant if you have:
-        </p>
-        <ul>
-          <li>a fever, or you feel flu-like and unwell</li>
-          <li>redness that is spreading, or a hard area that keeps growing</li>
-          <li>breast pain that is getting worse rather than better</li>
-          <li>symptoms that have not improved in about 24 hours</li>
-        </ul>
-        <p class="sms-safety-emergency">
-          If this is an emergency, call 911 or go to your nearest emergency room. Do not wait for a text back.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!--======================================================================
-       FINE PRINT / CALL-TO-ACTION DISCLOSURE
-
-       Small type on purpose, the way this is conventionally presented,
-       but still on the same page as the button rather than behind a
-       link. Two reasons it stays here:
-
-       1. Consent has to be informed at the moment it is given. This is
-          the disclosure a person sees before they text.
-       2. SMS providers ask for a screenshot of the opt-in flow during
-          A2P 10DLC registration, and they want the disclosure and the
-          call to action visible together.
-
-       The six things a compliant call to action needs are all present:
-       program description, message frequency, that rates may apply,
-       HELP, STOP, and links to the terms and the privacy policy. The
-       long-form versions live at /sms-terms.html and /privacy.html;
-       this is the summary, not a replacement for them.
-
-       If the number, the keywords, the frequency or who staffs the
-       service ever changes, change it here in the same commit.
-  =======================================================================-->
-  <section class="sms-consent" id="terms">
-    <div class="container">
-      <div class="sms-consent-inner">
-        <p>
-          By texting <strong>START</strong>, <strong>JOIN</strong> or <strong>HI</strong> to
-          <strong>(917) 808-5179</strong>, you consent to receive recurring text messages from MilkShaker
-          providing breastfeeding support, education and encouragement. Messages are not medical diagnosis or
-          treatment. Message frequency varies and depends on your conversation with us. Message and data rates
-          may apply. Reply <strong>STOP</strong> to opt out at any time, or <strong>HELP</strong> for help.
-          Consent is not a condition of any purchase. Available to mobile numbers in the United States. Text
-          messages are not a secure or private channel &mdash; please do not send anything you would not want
-          read by someone else. See our <a href="/sms-terms.html">SMS Terms</a> and
-          <a href="/privacy.html">Privacy Policy</a>.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!--====== FOOTER ======-->
-  <footer class="footer-area footer-eleven sms-footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="footer-row">
-          <p><span>MilkShaker Inc. 2026</span></p>
-          <nav class="footer-nav">
-            <a href="/resources.html">Resources</a>
-            <a href="/contact.html">Contact</a>
-            <a href="/sms-terms.html">SMS Terms</a>
-            <a href="/privacy.html">Privacy</a>
-          </nav>
+    <!--====== 02 THE PATTERN ======-->
+    <section class="lp-section lp-section--cream" aria-labelledby="h-pattern">
+      <div class="lp-wrap">
+        <div class="lp-center">
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">02</span>The
+            pattern</p>
+          <h2 class="lp-title" id="h-pattern">Once it has happened twice, it stops feeling like bad luck.</h2>
+          <p class="lp-lede">
+            It starts feeling like a pattern you can see coming.
+          </p>
         </div>
+        <ol class="lp-steps">
+          <li><div><strong>It starts the same way</strong>
+              <span>A sore spot, a patch of heat, a dull ache &mdash; always before the fever.</span></div>
+          </li>
+          <li><div><strong>You run the whole list again</strong>
+              <span>Warm shower, cold compress, ibuprofen, hand expressing at two in the morning.</span></div>
+          </li>
+          <li><div><strong>And it still becomes mastitis</strong>
+              <span>Swelling, chills, a fever that climbs, another course of antibiotics.</span></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!--====== CTA BAND ======-->
+    <section class="lp-band" aria-labelledby="h-band">
+      <div class="lp-wrap">
+        <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
+        <a class="lp-btn lp-btn--lg" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
+      </div>
+    </section>
+
+    <!--====== 03 HOW IT WORKS ======-->
+    <section class="lp-section" aria-labelledby="h-how">
+      <div class="lp-wrap">
+        <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">03</span>How it works</p>
+        <h2 class="lp-title" id="h-how">Why it works this way.</h2>
+        <div class="lp-grid--two lp-grid lp-grid--middle">
+          <p class="lp-lede">
+            The two massaging modules run one automated session at a time, easing discomfort and supporting milk
+            flow. Put it on, and it gets done &mdash; which is the part that usually doesn&rsquo;t.
+          </p>
+          <figure class="lp-media lp-media--soft">
+            <div class="lp-ph lp-ph--wide" role="img" aria-label="Detail shot: Modules and battery lifted out">
+            <span class="lp-ph-label">Detail shot</span>
+            <span class="lp-ph-note">Modules and battery lifted out</span>
+          </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!--====== 04 FIT & FABRIC ======-->
+    <section class="lp-section lp-section--cream" aria-labelledby="h-fit">
+      <div class="lp-wrap">
+        <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">04</span>Fit &amp; fabric</p>
+        <h2 class="lp-title" id="h-fit">Soft enough to forget you have it on.</h2>
+        <div class="lp-grid--two lp-grid">
+          <dl class="lp-specs">
+            <div>
+              <dt>Fabric</dt>
+              <dd>92% Peruvian Pima cotton, 8% elastane. Long-staple and combed, so it stays soft through the
+                wash. Four-way stretch, matte finish, no underwire.</dd>
+            </div>
+            <div>
+              <dt>Sizing</dt>
+              <dd>XS through XL, with a sizing step before you order.</dd>
+            </div>
+            <div>
+              <dt>Care</dt>
+              <dd>Modules and battery out, garment in the wash.</dd>
+            </div>
+            <div>
+              <dt>Wear as</dt>
+              <dd>Your everyday nursing bra. Compatible with nursing and pumping.</dd>
+            </div>
+          </dl>
+          <figure class="lp-media lp-media--soft">
+            <div class="lp-ph lp-ph--wide" role="img" aria-label="Model shot: Fit and fabric, with her size stated">
+            <span class="lp-ph-label">Model shot</span>
+            <span class="lp-ph-note">Fit and fabric, with her size stated</span>
+          </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!--====== 05 WHAT IS BEHIND IT ======-->
+    <section class="lp-section" aria-labelledby="h-behind">
+      <div class="lp-wrap">
+        <div class="lp-center">
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">05</span>What&rsquo;s
+            behind it</p>
+          <h2 class="lp-title" id="h-behind">A physical therapist&rsquo;s technique, run for you.</h2>
+          <p class="lp-lede">
+            The two massaging modules follow a lymphatic drainage pattern designed by a physical therapist
+            &mdash; the same technique a lactation consultant would walk you through by hand, in the same order
+            and direction. The difference is that you don&rsquo;t have to do it yourself.
+          </p>
+        </div>
+        <div class="lp-grid--two lp-grid">
+          <div class="lp-card">
+            <svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13.5 9 8.5l3.5 3.5L20 4.5"/><path d="M15 4.5h5v5"/></svg>
+            <h3>Designed by a physical therapist</h3>
+            <p>The drainage sequence isn&rsquo;t improvised. It follows the same path a consultant teaches by
+              hand.</p>
+          </div>
+          <div class="lp-card">
+            <svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12.4c0 3.9-3.8 7-8.5 7a9.7 9.7 0 0 1-2.6-.35L4.5 20.5l1.2-3.4a6.6 6.6 0 0 1-2.2-4.7c0-3.9 3.8-7 8.5-7s8.5 3.1 8.5 7Z"/><path d="M8.6 11.4h6.8M8.6 14.2h4.2"/></svg>
+            <h3>Built from mothers&rsquo; accounts</h3>
+            <p>We designed it around what mothers with recurring episodes were already being told to do, and how
+              hard that is to actually do.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--====== 06 THE DIFFERENCE ======-->
+    <section class="lp-section lp-section--wash" aria-labelledby="h-diff">
+      <div class="lp-wrap">
+        <div class="lp-center">
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">06</span>The
+            difference</p>
+          <h2 class="lp-title" id="h-diff">Same routine, minus the wrestling.</h2>
+        </div>
+        <div class="lp-table-wrap">
+          <table class="lp-table">
+            <caption class="lp-sr">Doing the massage by hand compared with using MilkShaker, across hands
+              needed, how long it takes, what you have to get right, where you have to be, and clearing up
+              afterwards.</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="lp-sr">Aspect</span></th>
+                <th scope="col">By hand</th>
+                <th scope="col" class="lp-ours">With MilkShaker</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">Hands needed</th>
+              <td>Both, for the whole session</td>
+              <td class="lp-ours">None</td>
+            </tr>
+            <tr>
+              <th scope="row">How long it takes</th>
+              <td>As long as you can manage</td>
+              <td class="lp-ours">One automated session</td>
+            </tr>
+            <tr>
+              <th scope="row">What you have to get right</th>
+              <td>Angle, pressure, direction, timing</td>
+              <td class="lp-ours">Nothing &mdash; the same pattern every time</td>
+            </tr>
+            <tr>
+              <th scope="row">Where you have to be</th>
+              <td>At the sink or in the shower</td>
+              <td class="lp-ours">Wherever you were already sitting</td>
+            </tr>
+            <tr>
+              <th scope="row">Clearing up after</th>
+              <td>Compresses, towels, back to the sink</td>
+              <td class="lp-ours">Modules out, bra in the wash</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!--====== 07 WHAT THEY TOLD US ======
+          Real quotes carried over from our sundaymaternal build. They
+          are attributed by role rather than by name, which is how they
+          were given to us. Do not add names without asking first. -->
+    <section class="lp-section" aria-labelledby="h-says">
+      <div class="lp-wrap">
+        <div class="lp-center">
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">07</span>Early
+            testers &amp; specialists</p>
+          <h2 class="lp-title" id="h-says">What they told us.</h2>
+        </div>
+        <div class="lp-quotes">
+          <figure class="lp-quote">
+            <blockquote>&ldquo;I was so tired of going to the urgent care walk-in every time I got symptoms. Now I can just turn the massage on at home.&rdquo;</blockquote>
+            <figcaption>An early tester</figcaption>
+          </figure>
+          <figure class="lp-quote">
+            <blockquote>&ldquo;My patients come into the city to our clinic for this manual massage. I recommend this for them to use in between visits, or to keep going at home, because there isn&rsquo;t always a time that works for them to come in.&rdquo;</blockquote>
+            <figcaption>A lactation consultant</figcaption>
+          </figure>
+          <figure class="lp-quote">
+            <blockquote>&ldquo;Such a great addition to my maternity clothing collection &mdash; it&rsquo;s like an at-home, on-demand massage when I&rsquo;m getting some pain.&rdquo;</blockquote>
+            <figcaption>An early tester</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!--====== TRUST STRIP ======
+          Line-art icons, not emoji. Only claims we can stand behind
+          are here; the purchase-contingent ones (returns window,
+          warranty, card handling) are left out until there is a
+          checkout for them to apply to. -->
+    <section class="lp-trust" aria-label="What we can tell you now">
+      <div class="lp-wrap">
+        <ul class="lp-trust-row">
+          <li><svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Made in the USA</span></li>
+          <li><svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13.5 9 8.5l3.5 3.5L20 4.5"/><path d="M15 4.5h5v5"/></svg><span>PT-designed massage pattern</span></li>
+          <li><svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 20 6.4v5.1c0 5-3.4 8.2-8 9.3-4.6-1.1-8-4.3-8-9.3V6.4Z"/><path d="m8.8 11.9 2.3 2.3 4.1-4.4"/></svg><span>Lactation expert-informed</span></li>
+          <li><svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4.4"/><path d="M12 12.4V21M8.8 18h6.4"/></svg><span>Female engineer-created</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!--====== THE LIST ======
+          The one thing this page asks for. FormSubmit posts to the
+          inbox and returns to /?joined=1, which the script at the foot
+          turns into the confirmation panel. -->
+    <section class="lp-signup" id="join" aria-labelledby="h-join">
+      <div class="lp-wrap">
+        <div class="lp-signup-card">
+
+          <div class="lp-confirm" id="joinConfirm">
+            <strong>You&rsquo;re on the list.</strong> We&rsquo;ll be in touch when there&rsquo;s something worth
+            telling you.
+          </div>
+
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">08</span>Stay
+            in the loop</p>
+          <h2 class="lp-title" id="h-join">Be the first to know.</h2>
+          <p class="lp-lede">
+            Word when MilkShaker is ready, plus what we&rsquo;re reading and learning about clogged ducts,
+            mastitis and milk supply. A few times a season, and you can leave any time.
+          </p>
+
+          <form class="lp-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
+            <input type="hidden" name="_subject" value="MilkShaker — list signup" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://themilkshaker.com/?joined=1" />
+
+            <div>
+              <label for="join-name">First name</label>
+              <input id="join-name" type="text" name="name" autocomplete="given-name" required />
+            </div>
+            <div>
+              <label for="join-email">Email</label>
+              <input id="join-email" type="email" name="email" autocomplete="email" required />
+            </div>
+            <div class="lp-form-full">
+              <button class="lp-btn lp-btn--lg lp-btn--block" type="submit">
+                <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
+              </button>
+            </div>
+            <p class="lp-form-note">
+              No payment and no obligation. We don&rsquo;t sell your details &mdash; see our
+              <a href="/privacy.html">Privacy Policy</a>.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!--====== 09 QUESTIONS ======
+          Native details/summary, so it is keyboard operable and
+          announced correctly without any JavaScript. -->
+    <section class="lp-section lp-section--cream" aria-labelledby="h-faq">
+      <div class="lp-wrap">
+        <div class="lp-center">
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">09</span>Questions</p>
+          <h2 class="lp-title" id="h-faq">The things people ask us first.</h2>
+        </div>
+        <div class="lp-faq">
+        <details>
+          <summary>Is it safe to wear while I&rsquo;m nursing or pumping?</summary>
+          <div class="lp-faq-body"><p>Yes. It&rsquo;s built to be the nursing bra you were going to wear anyway, and it works for both nursing and pumping. The modules run a single session at a time, easing discomfort and supporting milk flow while you have it on. As with anything you wear, stop if something doesn&rsquo;t feel right, and check with your clinician or lactation consultant if you&rsquo;re unsure.</p></div>
+        </details>
+        <details>
+          <summary>How do I clean it?</summary>
+          <div class="lp-faq-body"><p>Take the two modules and the battery out &mdash; they lift straight out, so there&rsquo;s nothing to clean around &mdash; and the bra goes in the wash. Wipe the modules with a damp cloth and don&rsquo;t submerge them.</p></div>
+        </details>
+        <details>
+          <summary>What size should I get?</summary>
+          <div class="lp-faq-body"><p>MilkShaker comes in XS through XL. If you normally wear a nursing bra, the size you already wear in that is the one to go for. When it&rsquo;s ready there will be a sizing step before you order, so you don&rsquo;t have to guess.</p></div>
+        </details>
+        <details>
+          <summary>Do I need a prescription?</summary>
+          <div class="lp-faq-body"><p>No. It&rsquo;s a device you&rsquo;ll be able to buy directly, without a prescription or a referral. If you&rsquo;re already working with a lactation consultant or a provider, it&rsquo;s worth telling them you&rsquo;re using it so it fits alongside whatever else they&rsquo;ve suggested.</p></div>
+        </details>
+        <details>
+          <summary>When will it be available?</summary>
+          <div class="lp-faq-body"><p><span class="lp-todo">[LAUNCH TIMING &mdash; confirm before publishing]</span> We&rsquo;re not putting a date on it until we can hold to one. Joining the list is how you hear first, and we&rsquo;ll only email when there&rsquo;s something real to say.</p></div>
+        </details>
+        <details>
+          <summary>What will it cost?</summary>
+          <div class="lp-faq-body"><p><span class="lp-todo">[PRICE &mdash; confirm whether to publish pre-launch]</span> We&rsquo;re planning to launch at $299 as a one-time cost, with no subscription and nothing to refill. That&rsquo;s our intention rather than a promise, and the list is where any change would be announced.</p></div>
+        </details>
+        <details>
+          <summary>Is joining the list a commitment?</summary>
+          <div class="lp-faq-body"><p>None at all. There&rsquo;s no payment, no deposit and no obligation to buy anything later. You can leave with the unsubscribe link in any email.</p></div>
+        </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="lp-footer">
+    <div class="lp-wrap">
+      <div class="lp-footer-top">
+        <div>
+          <h2>Talk to a person</h2>
+          <p>
+            Questions about the product, partnerships or press &mdash; email
+            <a href="mailto:valentina@themilkshaker.com">valentina@themilkshaker.com</a> and a real person
+            answers. Or use the <a href="/contact.html">contact page</a>.
+          </p>
+          <p>MilkShaker Inc.<br /><span class="lp-todo">[MAILING ADDRESS &mdash; replace before publishing]</span></p>
+        </div>
+        <div>
+          <h2>Elsewhere</h2>
+          <ul class="lp-footer-links">
+            <li><a href="/resources.html">Resources</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lp-footer-legal">
+        <p>
+          <strong>MilkShaker is not a medical device and is not a substitute for medical care.</strong> Nothing
+          on this page is medical advice, a diagnosis or a treatment plan. If you have a fever, spreading
+          redness, or breast pain that is worsening or not improving, contact your physician, midwife or
+          lactation consultant. In an emergency, call 911.
+        </p>
+        <p>
+          MilkShaker is not yet available for sale. Joining the list creates no order, no payment obligation and
+          no commitment of any kind. Product details, sizing and pricing described here reflect our current
+          intentions and may change before launch.
+        </p>
+        <p>&copy; 2026 MilkShaker Inc.</p>
       </div>
     </div>
   </footer>
-  <!--====== FOOTER END ======-->
 
-  <!--======================================================================
-       iOS wants "&body=" where the spec says "?body=".
-
-       Android and current iOS both honour the spec form already in the
-       href, so this only rewrites the link on iOS, where the older
-       separator is the safer bet. Doing it in script rather than
-       hardcoding one form keeps the no-JS href spec-compliant.
-
-       Keep the number here identical to the one in the href above.
-  =======================================================================-->
+  <!--  Signup confirmation. FormSubmit cannot render a message for us,
+        so it returns people to /?joined=1 and the panel is revealed
+        here. Also moves focus to it, so a screen reader announces the
+        result rather than dropping the user at the top of the page. -->
   <script>
     (function () {
-      var NUMBER = "+19178085179";
-      var button = document.getElementById("smsButton");
-      if (!button) return;
-      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-      if (isIOS) {
-        button.setAttribute("href", "sms:" + NUMBER + "&body=START");
-      }
+      if (window.location.search.indexOf("joined=1") === -1) return;
+      var panel = document.getElementById("joinConfirm");
+      if (!panel) return;
+      panel.classList.add("is-visible");
+      panel.setAttribute("role", "status");
+      panel.setAttribute("tabindex", "-1");
+      panel.focus();
     })();
   </script>
 
-  <!--====== analytics ======-->
   <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
     src="//gc.zgo.at/count.js"></script>
 
