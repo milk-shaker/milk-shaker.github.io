@@ -4735,29 +4735,233 @@ p {
   }
 }
 
-.lp-header-nav {
+.lp-header-actions {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 3vw, 30px);
+  gap: clamp(10px, 2vw, 16px);
 }
 
-.lp-header-nav a:not(.lp-btn) {
+/* ---------- menu button ----------
+   Three lines, drawn from one element plus its two pseudo-elements so
+   there is no extra markup. */
+.lp-menu-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: 50%;
+  background: transparent;
   color: var(--ms-plum);
-  font-size: 0.95rem;
-  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.lp-menu-btn:hover {
+  background: var(--ms-cream);
+}
+
+.lp-menu-btn:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 2px;
+}
+
+.lp-menu-bars,
+.lp-menu-bars::before,
+.lp-menu-bars::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.lp-menu-bars {
+  position: relative;
+}
+
+.lp-menu-bars::before,
+.lp-menu-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.lp-menu-bars::before {
+  top: -6px;
+}
+
+.lp-menu-bars::after {
+  top: 6px;
+}
+
+/* ---------- the menu ---------- */
+.lp-menu[hidden] {
+  display: none;
+}
+
+.lp-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+}
+
+.lp-menu-scrim {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: var(--ms-scrim);
+  cursor: pointer;
+  animation: lp-fade 0.2s ease both;
+}
+
+.lp-menu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: min(360px, 88vw);
+  height: 100%;
+  overflow-y: auto;
+  padding: 84px 34px 40px;
+  background: var(--ms-ivory);
+  box-shadow: var(--shadow-6);
+  animation: lp-slide 0.24s ease both;
+}
+
+@keyframes lp-slide {
+  from { transform: translateX(18px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-menu-scrim,
+  .lp-menu-panel {
+    animation: none;
+  }
+}
+
+.lp-menu-close {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ms-clay);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ms-ink-soft);
+  cursor: pointer;
+}
+
+.lp-menu-close:hover {
+  background: var(--ms-cream);
+  color: var(--ms-plum);
+}
+
+.lp-menu-close svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.lp-menu-close:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 2px;
+}
+
+.lp-menu-links,
+.lp-menu-legal,
+.lp-menu-social {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-menu-links a {
+  display: block;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ms-clay);
+  color: var(--ms-plum);
+  font-size: 1.32rem;
+  font-weight: 700;
   text-decoration: none;
 }
 
-.lp-header-nav a:not(.lp-btn):hover {
-  text-decoration: underline;
+.lp-menu-links a:hover {
+  color: var(--ms-peri-deep);
 }
 
-/*  Below 600px the two text links would crowd the nav button, which
-    matters more. They are still in the footer. */
-@media (max-width: 600px) {
-  .lp-header-nav a:not(.lp-btn) {
-    display: none;
-  }
+.lp-menu-contact h2 {
+  margin: 0 0 10px;
+  color: var(--ms-ink-soft);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.lp-menu-contact p {
+  margin: 0 0 8px;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.lp-menu-contact a {
+  color: var(--ms-plum);
+}
+
+.lp-menu-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.lp-menu-social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: 50%;
+  color: var(--ms-plum);
+}
+
+.lp-menu-social a:hover {
+  background: var(--ms-peri-deep);
+  border-color: var(--ms-peri-deep);
+  color: var(--white);
+}
+
+.lp-menu-social svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/*  Legal sits last and quietest, pushed to the foot of the panel. */
+.lp-menu-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--ms-clay);
+}
+
+.lp-menu-legal a {
+  color: var(--ms-ink-soft);
+  font-size: 0.9rem;
+}
+
+.has-menu,
+.has-menu body {
+  overflow: hidden;
 }
 
 /* ---------- buttons ----------

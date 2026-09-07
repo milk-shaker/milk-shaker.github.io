@@ -37,6 +37,63 @@
     window.setTimeout(function () { el.classList.remove('is-nudging'); }, NUDGE_MS);
   }
 
+
+  /* --- the menu ---------------------------------------------------------
+     Same contract as the popup: Esc and the scrim close it, Tab is
+     trapped inside while it is open, focus returns to the button that
+     opened it, and the page behind cannot scroll. */
+  var menu = document.getElementById('lpMenu');
+  var menuBtn = document.getElementById('lpMenuBtn');
+
+  if (menu && menuBtn) {
+    var menuFocusable = function () {
+      return menu.querySelectorAll('a[href], button:not([disabled]):not([tabindex="-1"])');
+    };
+
+    var closeMenu = function () {
+      if (menu.hidden) return;
+      menu.hidden = true;
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.documentElement.classList.remove('has-menu');
+      menuBtn.focus();
+    };
+
+    var openMenu = function () {
+      if (!menu.hidden) return;
+      menu.hidden = false;
+      menuBtn.setAttribute('aria-expanded', 'true');
+      document.documentElement.classList.add('has-menu');
+      var first = menuFocusable()[0];
+      if (first) first.focus();
+    };
+
+    menuBtn.addEventListener('click', function () {
+      if (menu.hidden) { openMenu(); } else { closeMenu(); }
+    });
+
+    Array.prototype.forEach.call(menu.querySelectorAll('[data-menu-close]'), function (el) {
+      el.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (menu.hidden) return;
+
+      if (event.key === 'Escape') { closeMenu(); return; }
+      if (event.key !== 'Tab') return;
+
+      var items = menuFocusable();
+      if (!items.length) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first.focus();
+      }
+    });
+  }
+
   /* --- popup -----------------------------------------------------------
      Opens on a timer, per request. The reference build triggers on
      scroll depth instead, because a timed interstitial can land
@@ -78,6 +135,8 @@
 
     function open() {
       if (!modal.hidden || dismissed()) return;
+      /* not over an open menu */
+      if (menu && !menu.hidden) return;
       lastFocus = document.activeElement;
       modal.hidden = false;
       document.documentElement.classList.add('has-modal');
