@@ -3,41 +3,41 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <meta name="description" content="Get in touch with the MilkShaker team about hands-free breastfeeding care, partnerships, press, or early access." />
-  <link rel="canonical" href="https://themilkshaker.com/contact.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>MilkShaker | Contact</title>
-  <!--====== Icons ======
-             The droplet, in the ms-peri palette colour. droplet.svg is
-             what any current browser will pick; the .ico bundles 16/32/48
-             for the rest. The apple-touch and manifest icons sit on an
-             opaque blush background because iOS and Android composite them
-             onto their own surfaces and handle alpha badly.
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Join the MilkShaker early access list. The first to join receive a free maternity gift kit, and hear first when MilkShaker ships in Spring 2027." />
 
-             Both the PNG sizes and the .ico are declared, not just one.
-             Safari and Firefox reach for the PNGs and handle them most
-             reliably; the .ico is the legacy fallback and now carries BMP
-             payloads rather than PNG ones, because PNG inside an ICO is
-             legal but not decoded everywhere.
+  <link rel="canonical" href="https://themilkshaker.com/early-access.html" />
 
-             The ?v= is a cache buster. Browsers hold favicons far longer
-             than a normal reload clears, so bump it on every icon change
-             or people keep seeing the old one. ======-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://themilkshaker.com/early-access.html" />
+  <meta property="og:title" content="Early access | MilkShaker" />
+  <meta property="og:description"
+    content="Join the waitlist. The first to join receive a free maternity gift kit." />
+  <meta property="og:image" content="https://themilkshaker.com/assets/images/cover_photo.jpg" />
+
+  <title>Early Access | MilkShaker</title>
+
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
   <link rel="icon" type="image/svg+xml" href="/assets/icons/droplet.svg?v=3" />
   <link rel="icon" href="/favicon.ico?v=3" />
   <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
   <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
-  <meta name="theme-color" content="#F3AEC7" />
+  <meta name="theme-color" content="#FBF7F0" />
+
   <link rel="stylesheet" href="/style.css" />
 
+  <!--  LaunchList collects the waitlist signups. The widget injects an
+        iframe into every .launchlist-widget and auto-resizes it by
+        postMessage, so the form's markup and styling are theirs, not
+        ours. This is now the only page that carries it. -->
+  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
 </head>
 
 <body class="lp">
 
-  <a class="lp-skip" href="#main">Skip to content</a>
+<a class="lp-skip" href="#main">Skip to content</a>
 
   <!--====== HEADER ======
         Identical on every page: the wordmark home, the one CTA, and the
@@ -49,7 +49,7 @@
         <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
       </a>
       <div class="lp-header-actions">
-        <a class="lp-btn lp-btn--sm" href="/early-access.html"><span>Join the list</span><span class="lp-arrow"
+        <a class="lp-btn lp-btn--sm" href="/early-access.html" aria-current="page"><span>Join the list</span><span class="lp-arrow"
             aria-hidden="true"></span></a>
         <button class="lp-menu-btn" type="button" id="lpMenuBtn" aria-controls="lpMenu" aria-expanded="false">
           <span class="lp-menu-bars" aria-hidden="true"></span>
@@ -100,61 +100,101 @@
     </nav>
   </div>
 
-
   <main id="main">
 
-    <!--====== INTRO ======-->
+    <!--====== THE ASK ======
+          The whole page is one thing: join the waitlist. No newsletter
+          framing, no second CTA competing with it. -->
     <section class="lp-hero">
       <div class="lp-wrap">
         <div class="lp-center">
-          <p class="lp-eyebrow lp-eyebrow--center">Contact</p>
-          <h1 class="lp-title">We&rsquo;d love to hear from you.</h1>
+          <p class="lp-eyebrow lp-eyebrow--center">Early access</p>
+          <h1 class="lp-title">Be first in line, and first to be looked after.</h1>
           <p class="lp-lede">
-            Questions about the product, partnerships or press &mdash; a real person reads every message.
+            MilkShaker ships in Spring 2027. Joining the early access list puts you at the front of the queue
+            &mdash; and the first to join receive a free maternity gift kit from us when we launch.
           </p>
         </div>
-        <div class="lp-grid--two lp-grid">
-          <div class="lp-card">
-            <h2>Email</h2>
-            <p>
-              <a href="mailto:valentina@themilkshaker.com">valentina@themilkshaker.com</a><br />
-              We usually reply within a couple of days.
-            </p>
-          </div>
-          <div class="lp-card">
-            <h2>Where we are</h2>
-            <p>
-              MilkShaker Inc.<br />
-              New York, NY
-            </p>
-          </div>
+
+        <div class="lp-ea-card">
+          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
+          <p class="lp-form-note">
+            No payment and nothing to commit to. The postal address is only so we can send the gift kit; we
+            don&rsquo;t sell your details or ask for any health information. See our
+            <a href="/privacy.html">Privacy Policy</a>.
+          </p>
         </div>
       </div>
     </section>
 
-    <!--====== EARLY ACCESS ======
-          One place holds the form, and it is not here. -->
-    <section class="lp-signup" id="join" aria-labelledby="h-join">
-      <div class="lp-signup-inner">
-        <p class="lp-eyebrow lp-eyebrow--center">Early access</p>
-        <h2 class="lp-title" id="h-join">Be first in line, and first to be looked after.</h2>
-        <p class="lp-signup-sub">
-          MilkShaker ships in Spring 2027. Join the early access list to hear before anyone else &mdash; and the
-          first to join receive a free maternity gift kit from us when we launch.
-        </p>
-        <p class="lp-signup-cta">
-          <a class="lp-btn lp-btn--lg lp-btn--nudge" href="/early-access.html"><span>Join the list</span><span
-              class="lp-arrow" aria-hidden="true"></span></a>
-        </p>
-        <p class="lp-form-note">No payment and nothing to commit to.</p>
+    <!--====== WHAT JOINING GETS YOU ======-->
+    <section class="lp-section lp-section--cream" aria-labelledby="h-what">
+      <div class="lp-wrap">
+        <div class="lp-intro--center">
+          <p class="lp-eyebrow lp-eyebrow--center">What you get</p>
+          <h2 class="lp-title" id="h-what">Three things, and no inbox clutter.</h2>
+        </div>
+        <ul class="lp-benefits">
+          <li>
+            <h3>A free maternity gift kit</h3>
+            <p>For the first to join. Yours when MilkShaker ships, with nothing to buy to qualify.</p>
+          </li>
+          <li>
+            <h3>First to hear, first to order</h3>
+            <p>You get word before it goes public, so you are not competing with everyone else for the first
+              run.</p>
+          </li>
+          <li>
+            <h3>Only when it matters</h3>
+            <p>This is a waitlist, not a newsletter. We write when there is something real to tell you and not
+              otherwise.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!--====== REASSURANCE ======-->
+    <section class="lp-section" aria-labelledby="h-fine">
+      <div class="lp-wrap lp-wrap--faq">
+        <div class="lp-intro--center">
+          <p class="lp-eyebrow lp-eyebrow--center">Before you join</p>
+          <h2 class="lp-title" id="h-fine">The honest version.</h2>
+        </div>
+        <div class="lp-faq">
+          <details>
+            <summary>Is this a purchase?</summary>
+            <div class="lp-faq-body">
+              <p>No. There is no payment, no deposit and no obligation to buy anything later. Joining reserves
+                your place in the queue and nothing more.</p>
+            </div>
+          </details>
+          <details>
+            <summary>When does MilkShaker ship?</summary>
+            <div class="lp-faq-body">
+              <p>Spring 2027. If that moves, the list is where you will hear it first.</p>
+            </div>
+          </details>
+          <details>
+            <summary>What is in the gift kit?</summary>
+            <div class="lp-faq-body">
+              <p>We are still putting it together, and we would rather tell you what is in it than promise
+                something vague now. It goes to the first to join, at no cost and with nothing to buy.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Can I leave?</summary>
+            <div class="lp-faq-body">
+              <p>Any time, using the unsubscribe link in any email we send. We do not sell your address to
+                anyone.</p>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 
   </main>
 
-  </main>
-
-  <footer class="lp-footer">
+<footer class="lp-footer">
     <div class="lp-wrap">
       <div class="lp-footer-top">
         <div>
@@ -196,13 +236,12 @@
       </div>
     </div>
   </footer>
-  <!-- End Footer Area -->
-
-  <script src="/assets/js/bootstrap.bundle.min.js"></script>
 
   <script src="/assets/js/landing.js" defer></script>
 
-  <script data-goatcounter="https://milkshaker.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
+    src="//gc.zgo.at/count.js"></script>
+
 </body>
+
 </html>

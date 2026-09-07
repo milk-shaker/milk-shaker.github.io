@@ -40,6 +40,7 @@
      28. POPUP, NUDGE, HANGING TEXT
      29. ABOUT PAGE
      30. RESOURCES PAGE THEME
+     31. MOBILE: CENTRE THE SECTION HEADS
 
    Sub-banners inside a section are titled "Buttons Css" and are not
    listed here.
@@ -5995,6 +5996,28 @@ p {
   line-height: 1.65;
 }
 
+/*  The button that stands in for the form on pages that only point at
+    /early-access.html. */
+.lp-signup-cta {
+  margin: 1.9rem 0 0;
+}
+
+/*  The widget's own card on the early access page, so the form reads as
+    the object of the page rather than floating on the background. */
+.lp-ea-card {
+  max-width: 34rem;
+  margin: 2.4rem auto 0;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: var(--lp-radius-lg);
+  background: var(--ms-ivory);
+  box-shadow: var(--shadow-4);
+}
+
+.lp-ea-card .launchlist-widget {
+  margin-top: 0;
+}
+
 /*  LaunchList container. The widget injects an iframe at width 100%
     and drives its own height by postMessage, so all we set is the
     measure: a full-width form in a 720px panel reads as a mistake. */
@@ -6516,3 +6539,63 @@ p {
   --gray-3: #DFC8D8;
 }
 
+/* ==============================================================
+   31. MOBILE: CENTRE THE SECTION HEADS
+   The desktop layout ranges some panel intros left and centres
+   others, following the reference build. On a phone every panel is
+   one narrow column, so a mix of the two reads as a mistake rather
+   than a rhythm. Everything is centred below the breakpoint.
+
+   Deliberately limited to eyebrows, headings and the lead paragraph
+   directly under them. Body copy, spec rows, tiles, quotes and table
+   cells stay ranged left, because centring running text costs more
+   in readability than it gains in tidiness.
+   ============================================================== */
+@media (max-width: 767px) {
+  /*  text-align as well as justify-content: the eyebrow is a flex row,
+      so justify-content centres the text as a block but a wrapped
+      second line still sets left inside it. */
+  .lp-eyebrow {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /*  The hero CTA sits under centred copy, so left-aligning it alone
+      reads as a mistake. */
+  .lp-hero .lp-btn {
+    display: flex;
+    margin-inline: auto;
+  }
+
+  .lp-title,
+  .lp-hero-title,
+  .lp-hero-sub,
+  .lp-hero-note,
+  .lp-lede,
+  .lp-evidence-lead,
+  .lp-signup-sub,
+  .lp-section > .lp-wrap > .lp-eyebrow,
+  .lp-band h2 {
+    text-align: center;
+  }
+
+  /*  These cap their own measure and centre with auto margins on
+      desktop; the margins need restating once the text is centred. */
+  .lp-hero-sub,
+  .lp-lede,
+  .lp-evidence-lead {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /*  The band stacks here, so centre it as a whole rather than
+      leaving the droplet and headline hard left. */
+  .lp-band-inner {
+    justify-content: center;
+  }
+
+  .lp-band-copy {
+    flex: 0 1 auto;
+    justify-content: center;
+  }
+}
