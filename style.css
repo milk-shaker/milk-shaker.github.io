@@ -5218,6 +5218,11 @@ p {
    image first on narrow screens so the lifestyle shot is what people
    meet at the top.
 
+   The type here is deliberately exempt from the sitewide 50% increase.
+   The hero had already been enlarged on its own, so scaling it again
+   put it at about three times its original size. These four sizes are
+   the pre-increase values; everything else on the site is scaled.
+
    Type is deliberately larger than the rest of the page and larger than
    the reference build, at explicit request. It costs the two-line
    headline the earlier review asked for: at this size the h1 runs to
@@ -5257,14 +5262,14 @@ p {
 }
 
 .lp-hero .lp-eyebrow {
-  font-size: 1.425rem;
+  font-size: 0.95rem;
   letter-spacing: 0.14em;
 }
 
 .lp-hero-title {
   margin: 0 0 1.1rem;
   color: var(--ms-plum);
-  font-size: clamp(3.075rem, 8.4vw, 6.45rem);
+  font-size: clamp(2.05rem, 5.6vw, 4.3rem);
   font-weight: 700;
   line-height: 1.06;
   letter-spacing: -0.02em;
@@ -5275,14 +5280,14 @@ p {
   margin: 1.35rem 0 2rem;
   max-width: 40ch;
   color: var(--ms-ink-soft);
-  font-size: clamp(2.025rem, 3.15vw, 2.625rem);
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem);
   line-height: 1.5;
 }
 
 .lp-hero-note {
   margin: 1.1rem 0 0;
   color: var(--ms-ink-soft);
-  font-size: 1.65rem;
+  font-size: 1.1rem;
   line-height: 1.5;
 }
 
