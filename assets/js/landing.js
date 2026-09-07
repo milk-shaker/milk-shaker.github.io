@@ -32,7 +32,14 @@
 
      Change OFFER_ENDS and nothing else. After it passes, the banner
      removes itself rather than counting into the negative. */
-  var OFFER_ENDS = new Date('2026-09-30T23:59:59-04:00');
+  var OFFER_ENDS = new Date('2026-10-07T23:59:59-04:00');
+
+  function phrase(ms) {
+    var days = Math.ceil(ms / 86400000);
+    if (days > 1) return days + ' days left';
+    var hours = Math.ceil(ms / 3600000);
+    return hours > 1 ? hours + ' hours left' : 'Closing today';
+  }
 
   var ticker = document.getElementById('lpTicker');
   var countdown = document.getElementById('lpCountdown');
@@ -43,11 +50,20 @@
     if (msLeft <= 0) {
       ticker.remove();
     } else {
-      var days = Math.ceil(msLeft / 86400000);
-      countdown.textContent = days === 1
-        ? 'Ends tomorrow'
-        : days + ' days left';
+      countdown.textContent = phrase(msLeft);
     }
+  }
+
+  /*  The clock on the early access page. Same constant, fuller wording,
+      and the markup already carries the date so it reads correctly with
+      no JavaScript at all. */
+  var clock = document.getElementById('lpClock');
+
+  if (clock) {
+    var left = OFFER_ENDS.getTime() - Date.now();
+    clock.textContent = left <= 0
+      ? 'This offer has closed.'
+      : phrase(left) + ' to join';
   }
 
   /* The banner scrolls, so WCAG 2.2.2 wants a way to stop it. */

@@ -42,6 +42,7 @@
      30. RESOURCES PAGE THEME
      31. MOBILE: CENTRE THE SECTION HEADS
      32. PROMOTIONAL: COUNTDOWN, TIERS, KIT CAROUSEL
+     33. EARLY ACCESS LANDING PAGE
 
    Sub-banners inside a section are titled "Buttons Css" and are not
    listed here.
@@ -6973,6 +6974,307 @@ p {
 
 @media (max-width: 767px) {
   .lp-footer-legal {
+    text-align: center;
+  }
+}
+
+/* ==============================================================
+   33. EARLY ACCESS LANDING PAGE
+   A single-purpose page with no navigation, so it gets its own
+   header and footer rather than the shared ones.
+   ============================================================== */
+.lp-focus-header {
+  padding: 18px var(--lp-gutter);
+  border-bottom: 1px solid var(--lp-header-line);
+  background: var(--lp-header-bg);
+  text-align: center;
+}
+
+.lp-focus-header img {
+  display: inline-block;
+  height: 46px;
+  width: auto;
+}
+
+@media (max-width: 600px) {
+  .lp-focus-header img {
+    height: 36px;
+  }
+}
+
+/* ---------- discount ladder ----------
+   A table that reads as a stepped bar: the row is the data, the bar is
+   drawn from the same number so the two cannot disagree. --pct is set
+   per row in the markup, which is the one thing that has to be inline
+   because it is a value, not a style choice. */
+.lp-ladder-wrap {
+  border: 1px solid var(--ms-clay);
+  border-radius: var(--lp-radius);
+  background: var(--ms-ivory);
+  padding: clamp(1rem, 3vw, 1.75rem);
+}
+
+.lp-ladder {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.lp-ladder th,
+.lp-ladder td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--ms-clay);
+  vertical-align: middle;
+}
+
+.lp-ladder tr:last-child th,
+.lp-ladder tr:last-child td {
+  border-bottom: 0;
+}
+
+.lp-ladder thead th {
+  color: var(--ms-plum);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lp-ladder tbody th {
+  width: 5.5rem;
+  color: var(--ms-plum);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.lp-ladder-price {
+  width: 6.5rem;
+  color: var(--ms-plum);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+/*  The bar itself. Percentage width comes straight from the discount,
+    so the picture and the number are the same fact. */
+.lp-ladder-bar {
+  position: relative;
+}
+
+.lp-ladder-bar span {
+  display: block;
+  width: var(--pct);
+  min-width: 3px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--ms-peri);
+}
+
+.lp-ladder-bar em {
+  display: inline-block;
+  margin-top: 5px;
+  color: var(--ms-ink-soft);
+  font-size: 0.86rem;
+  font-style: normal;
+}
+
+/*  The cap row, called out so it reads as the end of the ladder. */
+.lp-ladder .is-cap th,
+.lp-ladder .is-cap .lp-ladder-price {
+  color: var(--ms-peri-deep);
+}
+
+.lp-ladder .is-cap .lp-ladder-bar span {
+  background: var(--ms-peri-deep);
+}
+
+.lp-ladder-cap {
+  margin: 1rem 0 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.86rem;
+}
+
+@media (max-width: 520px) {
+  .lp-ladder tbody th {
+    width: 3.4rem;
+  }
+
+  .lp-ladder-price {
+    width: 4.6rem;
+    font-size: 1rem;
+  }
+
+  .lp-ladder th,
+  .lp-ladder td {
+    padding: 10px 6px;
+  }
+}
+
+/* ---------- kit as a grid ----------
+   Four real photographs rather than a swipe strip: on this page they
+   are the offer, not a teaser, so they get equal weight and no
+   horizontal scroll to hide any of them. */
+.lp-kit--grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.9rem, 2.5vw, 1.5rem);
+  overflow: visible;
+  padding: 0;
+}
+
+.lp-kit--grid li {
+  flex: none;
+}
+
+/*  contain, not cover: the supplied shots are a mix of square and 2:3
+    portrait, and cropping them to a square cut the products in half.
+    A 4:5 frame on white shows each item whole and lets the different
+    source ratios sit together. */
+.lp-kit--grid img {
+  /*  height:auto is load-bearing. The markup carries real width and
+      height attributes so the browser can reserve space before the
+      image loads, but an explicit height attribute overrides
+      aspect-ratio, which is what stretched these frames. */
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  padding: 10px;
+  background: var(--white);
+}
+
+.lp-kit--grid figcaption {
+  margin-top: 10px;
+}
+
+.lp-kit--grid figcaption strong {
+  display: block;
+  color: var(--ms-plum);
+  font-size: 1rem;
+}
+
+.lp-kit--grid figcaption span {
+  display: block;
+  margin-top: 2px;
+  color: var(--ms-ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 780px) {
+  .lp-kit--grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- founders ---------- */
+.lp-founders {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 780px) {
+  .lp-founders {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lp-founders li {
+  padding: 22px 24px;
+  border: 1px solid var(--ms-clay);
+  border-radius: var(--lp-radius);
+  background: var(--ms-ivory);
+}
+
+.lp-founders strong {
+  display: block;
+  color: var(--ms-plum);
+  font-size: 1.08rem;
+  line-height: 1.3;
+}
+
+.lp-founders span {
+  display: block;
+  margin-top: 3px;
+  color: var(--ms-peri-deep);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lp-founders p {
+  margin: 10px 0 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+
+.lp-accel {
+  max-width: 46rem;
+  margin: clamp(1.5rem, 4vw, 2.25rem) auto 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ---------- countdown ---------- */
+.lp-countdown {
+  padding: clamp(3rem, 7vw, 5rem) 0;
+  background:
+    radial-gradient(70% 120% at 12% 10%, rgba(241, 241, 250, 0.6) 0%, rgba(241, 241, 250, 0) 60%),
+    var(--ms-clay);
+}
+
+.lp-clock {
+  margin: 0 0 1.2rem;
+  color: var(--ms-peri-deep);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.lp-countdown-cta {
+  margin: 1.8rem 0 0;
+}
+
+/* ---------- compliance footer ----------
+   Small, but never clipped: it wraps, has no height cap and no
+   truncation, and centres on a narrow screen. This is the one piece of
+   text on the page that has to survive every layout. */
+.lp-focus-footer {
+  padding: clamp(2rem, 5vw, 3rem) 0 2.5rem;
+  border-top: 1px solid var(--lp-bar-line);
+  background: var(--lp-bar-alt);
+}
+
+.lp-compliance {
+  max-width: 46rem;
+  margin: 0 auto;
+  color: var(--ms-ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  overflow-wrap: break-word;
+}
+
+.lp-focus-legal {
+  max-width: 46rem;
+  margin: 1rem auto 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.78rem;
+}
+
+.lp-focus-legal a {
+  color: var(--ms-plum);
+}
+
+@media (max-width: 767px) {
+  .lp-compliance,
+  .lp-focus-legal {
     text-align: center;
   }
 }
