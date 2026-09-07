@@ -24,6 +24,44 @@
 
 
 
+
+  /* --- offer countdown ---------------------------------------------------
+     One date constant drives the banner on every page. The markup ships
+     with "Limited time" already in it, so with JavaScript off the strip
+     still reads correctly and only the day count is missing.
+
+     Change OFFER_ENDS and nothing else. After it passes, the banner
+     removes itself rather than counting into the negative. */
+  var OFFER_ENDS = new Date('2026-09-30T23:59:59-04:00');
+
+  var ticker = document.getElementById('lpTicker');
+  var countdown = document.getElementById('lpCountdown');
+
+  if (ticker && countdown) {
+    var msLeft = OFFER_ENDS.getTime() - Date.now();
+
+    if (msLeft <= 0) {
+      ticker.remove();
+    } else {
+      var days = Math.ceil(msLeft / 86400000);
+      countdown.textContent = days === 1
+        ? 'Ends tomorrow'
+        : days + ' days left';
+    }
+  }
+
+  /* The banner scrolls, so WCAG 2.2.2 wants a way to stop it. */
+  var tickerPause = document.getElementById('lpTickerPause');
+
+  if (ticker && tickerPause) {
+    tickerPause.addEventListener('click', function () {
+      var paused = ticker.classList.toggle('is-paused');
+      tickerPause.setAttribute('aria-label',
+        paused ? 'Resume the scrolling banner' : 'Pause the scrolling banner');
+      tickerPause.innerHTML = paused ? '&#9654;' : '&#10073;&#10073;';
+    });
+  }
+
   /* --- LaunchList iframe title ------------------------------------------
      Their widget injects an <iframe> with no title attribute, which
      leaves screen readers announcing an unlabelled frame. We cannot

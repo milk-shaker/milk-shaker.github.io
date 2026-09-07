@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="Join the MilkShaker early access list. The first to join receive a free maternity gift kit, and hear first when MilkShaker ships in Spring 2027." />
+    content="Join the MilkShaker early access list. The first 300 to join get a free welcome kit worth $65, and hear first when MilkShaker ships in Spring 2027." />
 
   <link rel="canonical" href="https://themilkshaker.com/early-access.html" />
 
@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://themilkshaker.com/early-access.html" />
   <meta property="og:title" content="Early access | MilkShaker" />
   <meta property="og:description"
-    content="Join the waitlist. The first to join receive a free maternity gift kit." />
+    content="Join the waitlist. The first 300 to join get a free welcome kit worth $65." />
   <meta property="og:image" content="https://themilkshaker.com/assets/images/cover_photo.jpg" />
 
   <title>Early Access | MilkShaker</title>
@@ -38,6 +38,29 @@
 <body class="lp">
 
 <a class="lp-skip" href="#main">Skip to content</a>
+
+  <!--====== OFFER BANNER ======
+        Promotional only. The countdown is filled in by landing.js from
+        a single date constant; with JavaScript off the static text
+        still reads correctly, just without the days remaining. ======-->
+  <div class="lp-ticker" id="lpTicker">
+    <div class="lp-ticker-track">
+      <div class="lp-ticker-run">
+        <span>Pre-launch offer</span>
+        <span><strong id="lpCountdown">Limited time</strong></span>
+        <span>$65 welcome kit, free</span>
+        <span>Just an email to join</span>
+      </div>
+      <div class="lp-ticker-run" aria-hidden="true">
+        <span>Pre-launch offer</span>
+        <span>Limited time</span>
+        <span>$65 welcome kit, free</span>
+        <span>Just an email to join</span>
+      </div>
+    </div>
+    <button class="lp-ticker-pause" type="button" id="lpTickerPause" aria-label="Pause the scrolling banner">&#10073;&#10073;</button>
+  </div>
+
 
   <!--====== HEADER ======
         Identical on every page: the wordmark home, the one CTA, and the
@@ -111,8 +134,8 @@
           <p class="lp-eyebrow lp-eyebrow--center">Early access</p>
           <h1 class="lp-title">Be first in line, and first to be looked after.</h1>
           <p class="lp-lede">
-            MilkShaker ships in Spring 2027. Joining the early access list puts you at the front of the queue
-            &mdash; and the first to join receive a free maternity gift kit from us when we launch.
+            MilkShaker ships in Spring 2027. Joining puts you at the front of the queue, and the first 300 to
+            join get a free welcome kit worth $65. Refer people and you get more of it.
           </p>
         </div>
 
@@ -127,29 +150,115 @@
       </div>
     </section>
 
-    <!--====== WHAT JOINING GETS YOU ======-->
-    <section class="lp-section lp-section--cream" aria-labelledby="h-what">
+    <!--======================================================================
+         EARLY ACCESS TIERS
+
+         Promotional incentive only. Nothing here describes what
+         MilkShaker is or does, and nothing here is a health claim; it
+         is a list of what someone receives for joining a waitlist. The
+         third-party items are named as contents of a gift, not
+         endorsed by or affiliated with their makers.
+
+         Keep the numbers here matching whatever is actually honoured:
+         300 base places, 50 premium places, $65 stated value.
+    =======================================================================-->
+    <section class="lp-section" aria-labelledby="h-tiers">
       <div class="lp-wrap">
         <div class="lp-intro--center">
-          <p class="lp-eyebrow lp-eyebrow--center">What you get</p>
-          <h2 class="lp-title" id="h-what">Three things, and no inbox clutter.</h2>
+          <p class="lp-eyebrow lp-eyebrow--center">The welcome kit</p>
+          <h2 class="lp-title" id="h-tiers">Join early, and we send you more.</h2>
+          <p class="lp-lede">
+            Everyone on the list gets something. Bring people with you and you get more of it. No purchase at
+            any step.
+          </p>
         </div>
-        <ul class="lp-benefits">
+
+        <ol class="lp-tiers">
+        <li class="lp-tier lp-tier--base">
+          <span class="lp-tier-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8.5" width="18" height="11.5" rx="2"/><path d="M3 12.6h18M12 8.5V20"/><path d="M12 8.5S10.4 4 8.2 4a2.1 2.1 0 0 0 0 4.5ZM12 8.5S13.6 4 15.8 4a2.1 2.1 0 0 1 0 4.5Z"/></svg></span>
+          <div class="lp-tier-body">
+            <span class="lp-tier-tag">Everyone who joins</span>
+            <h3>Join the waitlist</h3>
+            <p>The first 300 people on the list get it.<span class="lp-tier-get">Two of the four welcome-kit items, your pick. The kit is worth $65 all together.</span></p>
+          </div>
+        </li>
+        <li class="lp-tier">
+          <span class="lp-tier-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V6"/><path d="m6.5 11.5 5.5-5.5 5.5 5.5"/></svg></span>
+          <div class="lp-tier-body">
+            <span class="lp-tier-tag">One referral</span>
+            <h3>Refer a friend who joins</h3>
+            <p>They join, you move up.<span class="lp-tier-get">A bump up the queue, so you are further forward when we start shipping.</span></p>
+          </div>
+        </li>
+        <li class="lp-tier">
+          <span class="lp-tier-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.4 19.5a5.9 5.9 0 0 1 11.2 0"/><path d="M16.2 6.1a3.2 3.2 0 0 1 0 6.1M17.6 14.3a5.9 5.9 0 0 1 3.1 5.2"/></svg></span>
+          <div class="lp-tier-body">
+            <span class="lp-tier-tag">Five referrals</span>
+            <h3>Refer five friends who join</h3>
+            <p>Same kit, more of it.<span class="lp-tier-get">Three of the four welcome-kit items instead of two.</span></p>
+          </div>
+        </li>
+        <li class="lp-tier lp-tier--premium">
+          <span class="lp-tier-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.6 2.5 5.3 5.7.8-4.1 4.1 1 5.8-5.1-2.8-5.1 2.8 1-5.8L3.8 9.7l5.7-.8Z"/></svg></span>
+          <div class="lp-tier-body">
+            <span class="lp-tier-tag">The best of it</span>
+            <h3>Be one of the first 50, or refer ten friends</h3>
+            <p>Either route gets you here.<span class="lp-tier-get">Your choice: a pregnancy pillow worth $65, or all four kit items.</span></p>
+          </div>
+        </li>
+        </ol>
+      </div>
+    </section>
+
+    <!--====== WHAT IS IN THE BOX ======-->
+    <section class="lp-section lp-section--cream" aria-labelledby="h-box">
+      <div class="lp-wrap">
+        <div class="lp-intro--center">
+          <p class="lp-eyebrow lp-eyebrow--center">What&rsquo;s in the box</p>
+          <h2 class="lp-title" id="h-box">Four things worth having.</h2>
+          <p class="lp-lede">
+            Swipe through. Which two you get is up to you, and the top tier gets all four.
+          </p>
+        </div>
+        <ul class="lp-kit" tabindex="0" role="group" aria-label="What is in the welcome kit">
           <li>
-            <h3>A free maternity gift kit</h3>
-            <p>For the first to join. Yours when MilkShaker ships, with nothing to buy to qualify.</p>
+            <figure>
+              <div class="lp-ph" role="img" aria-label="Photograph pending: Organic nipple balm">
+                <span class="lp-ph-label">Photo</span>
+                <span class="lp-ph-note">Organic nipple balm</span>
+              </div>
+              <figcaption>Earth Mama Organic Nipple Butter, 2 fl oz</figcaption>
+            </figure>
           </li>
           <li>
-            <h3>First to hear, first to order</h3>
-            <p>You get word before it goes public, so you are not competing with everyone else for the first
-              run.</p>
+            <figure>
+              <div class="lp-ph" role="img" aria-label="Photograph pending: Silicone milk collector">
+                <span class="lp-ph-label">Photo</span>
+                <span class="lp-ph-note">Silicone milk collector</span>
+              </div>
+              <figcaption>Standard silicone collector</figcaption>
+            </figure>
           </li>
           <li>
-            <h3>Only when it matters</h3>
-            <p>This is a waitlist, not a newsletter. We write when there is something real to tell you and not
-              otherwise.</p>
+            <figure>
+              <div class="lp-ph" role="img" aria-label="Photograph pending: Hot + cold therapy packs">
+                <span class="lp-ph-label">Photo</span>
+                <span class="lp-ph-note">Hot + cold therapy packs</span>
+              </div>
+              <figcaption>Le Lolo breast therapy packs, 2 pack</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <div class="lp-ph" role="img" aria-label="Photograph pending: Nipple shields">
+                <span class="lp-ph-label">Photo</span>
+                <span class="lp-ph-note">Nipple shields</span>
+              </div>
+              <figcaption>Le Lolo shield set, three sizes</figcaption>
+            </figure>
           </li>
         </ul>
+        <p class="lp-kit-hint">Photographs are of the actual items. $65 is the combined retail value.</p>
       </div>
     </section>
 
@@ -177,8 +286,9 @@
           <details>
             <summary>What is in the gift kit?</summary>
             <div class="lp-faq-body">
-              <p>We are still putting it together, and we would rather tell you what is in it than promise
-                something vague now. It goes to the first to join, at no cost and with nothing to buy.</p>
+              <p>An organic nipple balm, a silicone milk collector, hot and cold therapy packs and a set of
+                nipple shields &mdash; $65 of it altogether. The first 300 to join pick two, and there is a
+                ladder above for getting more. Nothing to buy at any point.</p>
             </div>
           </details>
           <details>

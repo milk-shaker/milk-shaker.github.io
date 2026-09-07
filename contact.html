@@ -39,6 +39,29 @@
 
   <a class="lp-skip" href="#main">Skip to content</a>
 
+  <!--====== OFFER BANNER ======
+        Promotional only. The countdown is filled in by landing.js from
+        a single date constant; with JavaScript off the static text
+        still reads correctly, just without the days remaining. ======-->
+  <div class="lp-ticker" id="lpTicker">
+    <div class="lp-ticker-track">
+      <div class="lp-ticker-run">
+        <span>Pre-launch offer</span>
+        <span><strong id="lpCountdown">Limited time</strong></span>
+        <span>$65 welcome kit, free</span>
+        <span>Just an email to join</span>
+      </div>
+      <div class="lp-ticker-run" aria-hidden="true">
+        <span>Pre-launch offer</span>
+        <span>Limited time</span>
+        <span>$65 welcome kit, free</span>
+        <span>Just an email to join</span>
+      </div>
+    </div>
+    <button class="lp-ticker-pause" type="button" id="lpTickerPause" aria-label="Pause the scrolling banner">&#10073;&#10073;</button>
+  </div>
+
+
   <!--====== HEADER ======
         Identical on every page: the wordmark home, the one CTA, and the
         menu button. Every other destination lives behind the menu, so
@@ -140,7 +163,7 @@
         <h2 class="lp-title" id="h-join">Be first in line, and first to be looked after.</h2>
         <p class="lp-signup-sub">
           MilkShaker ships in Spring 2027. Join the early access list to hear before anyone else &mdash; and the
-          first to join receive a free maternity gift kit from us when we launch.
+          first 300 to join get a free welcome kit worth $65.
         </p>
         <p class="lp-signup-cta">
           <a class="lp-btn lp-btn--lg lp-btn--nudge" href="/early-access.html"><span>Join the list</span><span

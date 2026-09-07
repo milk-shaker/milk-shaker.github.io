@@ -41,6 +41,7 @@
      29. ABOUT PAGE
      30. RESOURCES PAGE THEME
      31. MOBILE: CENTRE THE SECTION HEADS
+     32. PROMOTIONAL: COUNTDOWN, TIERS, KIT CAROUSEL
 
    Sub-banners inside a section are titled "Buttons Css" and are not
    listed here.
@@ -6614,5 +6615,360 @@ p {
   .lp-band-copy {
     flex: 0 1 auto;
     justify-content: center;
+  }
+}
+
+/* ==============================================================
+   32. PROMOTIONAL: COUNTDOWN BANNER, TIER LADDER, KIT CAROUSEL
+
+   All of this is promotional incentive copy for the waitlist. It
+   describes what someone receives for joining, not what MilkShaker
+   is or does, and it is kept structurally separate from the product
+   copy for that reason.
+   ============================================================== */
+
+/* ---------- countdown banner ----------
+   Sits above the sticky header on every page. Deliberately short: it
+   is a strip, not a section. */
+.lp-ticker {
+  position: relative;
+  z-index: 50;
+  overflow: hidden;
+  padding: 7px 0;
+  background: var(--ms-plum);
+  color: var(--ms-ivory);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.lp-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: lp-ticker 38s linear infinite;
+}
+
+.lp-ticker-run {
+  display: flex;
+  flex: none;
+  gap: 2.5rem;
+  padding-right: 2.5rem;
+  white-space: nowrap;
+}
+
+.lp-ticker-run span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/*  The separator is decorative, so it is a pseudo-element and never
+    reaches the accessibility tree. */
+.lp-ticker-run span::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ms-peri);
+}
+
+@keyframes lp-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/*  WCAG 2.2.2 asks for a way to stop moving content. The button is the
+    honest answer to that; reduced-motion covers people who have already
+    said they do not want it, and the text is fully legible standing
+    still either way. */
+.lp-ticker.is-paused .lp-ticker-track,
+.lp-ticker-track:hover,
+.lp-ticker-track:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-ticker-track {
+    animation: none;
+    width: auto;
+    justify-content: center;
+  }
+
+  .lp-ticker-run + .lp-ticker-run {
+    display: none;
+  }
+}
+
+.lp-ticker-pause {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid rgba(251, 247, 240, 0.35);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 0.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lp-ticker-pause:hover {
+  background: rgba(251, 247, 240, 0.14);
+}
+
+.lp-ticker-pause:focus-visible {
+  outline: 2px solid var(--ms-ivory);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .lp-ticker {
+    font-size: 0.7rem;
+  }
+
+  .lp-ticker-pause {
+    display: none;
+  }
+}
+
+/* ---------- tier ladder ----------
+   A vertical ladder: each rung is a card, joined by a rule down the
+   badge column so the four read as steps rather than four options. */
+.lp-tiers {
+  display: grid;
+  gap: 0;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  counter-reset: lp-tier;
+}
+
+.lp-tier {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.4rem 1fr;
+  gap: 1.25rem;
+  padding: 0 0 1.5rem;
+}
+
+.lp-tier:last-child {
+  padding-bottom: 0;
+}
+
+/*  The rung between one badge and the next. Drawn on the row rather
+    than between them so it cannot fall out of step with the gap. */
+.lp-tier:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 3.4rem;
+  bottom: 0.4rem;
+  left: 1.7rem;
+  width: 2px;
+  transform: translateX(-1px);
+  background: var(--ms-clay-deep);
+}
+
+.lp-tier-badge {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  border: 2px solid var(--ms-clay-deep);
+  background: var(--ms-ivory);
+  color: var(--ms-plum);
+}
+
+.lp-tier-badge svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/*  The top rung is the one most people land on, and the bottom rung is
+    the one worth reaching, so those two are called out. */
+.lp-tier--base .lp-tier-badge {
+  border-color: var(--ms-peri-deep);
+  background: var(--ms-peri-wash);
+  color: var(--ms-peri-deep);
+}
+
+.lp-tier--premium .lp-tier-badge {
+  border-color: var(--ms-plum);
+  background: var(--ms-plum);
+  color: var(--ms-ivory);
+}
+
+.lp-tier-body {
+  padding: 0.3rem 0 0;
+}
+
+.lp-tier-tag {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--ms-peri-wash);
+  color: var(--ms-peri-deep);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lp-tier--premium .lp-tier-tag {
+  background: var(--ms-plum);
+  color: var(--ms-ivory);
+}
+
+.lp-tier h3 {
+  margin: 0 0 0.35rem;
+  color: var(--ms-plum);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lp-tier p {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.lp-tier-get {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--ms-plum);
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .lp-tier {
+    grid-template-columns: 2.6rem 1fr;
+    gap: 0.9rem;
+  }
+
+  .lp-tier-badge {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .lp-tier-badge svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .lp-tier:not(:last-child)::before {
+    top: 2.6rem;
+    left: 1.3rem;
+  }
+}
+
+/* ---------- kit carousel ----------
+   Scroll-snap rather than a slider library: it swipes natively on a
+   phone, scrolls with a trackpad, and works with the keyboard through
+   the scroll container, with no JavaScript to load or break. */
+.lp-kit {
+  display: flex;
+  gap: 14px;
+  margin: 0;
+  padding: 4px 0 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  list-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lp-kit li {
+  flex: 0 0 clamp(9rem, 34vw, 12rem);
+  scroll-snap-align: start;
+}
+
+.lp-kit figure {
+  margin: 0;
+}
+
+.lp-kit img,
+.lp-kit .lp-ph {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--ms-clay);
+}
+
+.lp-kit img {
+  display: block;
+}
+
+/*  Stays a grid: setting display:block here collapsed the label and the
+    note onto one line. */
+.lp-kit .lp-ph {
+  display: grid;
+  border-style: dashed;
+  padding: 12px;
+}
+
+.lp-kit .lp-ph-label {
+  font-size: 0.62rem;
+}
+
+.lp-kit .lp-ph-note {
+  font-size: 0.72rem;
+}
+
+.lp-kit figcaption {
+  margin-top: 8px;
+  color: var(--ms-ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.lp-kit-hint {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.8rem;
+}
+
+/*  A tighter set for the popup, where there is far less room. */
+.lp-kit--mini li {
+  flex: 0 0 6.5rem;
+}
+
+.lp-kit--mini figcaption {
+  font-size: 0.74rem;
+}
+
+/* ---------- footer disclaimer ----------
+   Small print, set small. It is a standing legal note rather than
+   something anyone reads on the way past, so it does not need the
+   weight it had. */
+.lp-footer-legal {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--lp-bar-line);
+  color: var(--ms-ink-soft);
+  font-size: 0.68rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.lp-footer-legal p {
+  margin: 0 0 6px;
+  font-size: 0.68rem;
+}
+
+@media (max-width: 767px) {
+  .lp-footer-legal {
+    text-align: center;
   }
 }

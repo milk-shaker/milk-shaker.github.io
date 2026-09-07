@@ -47,6 +47,29 @@
 
   <a class="lp-skip" href="#main">Skip to content</a>
 
+  <!--====== OFFER BANNER ======
+        Promotional only. The countdown is filled in by landing.js from
+        a single date constant; with JavaScript off the static text
+        still reads correctly, just without the days remaining. ======-->
+  <div class="lp-ticker" id="lpTicker">
+    <div class="lp-ticker-track">
+      <div class="lp-ticker-run">
+        <span>Pre-launch offer</span>
+        <span><strong id="lpCountdown">Limited time</strong></span>
+        <span>$65 welcome kit, free</span>
+        <span>Just an email to join</span>
+      </div>
+      <div class="lp-ticker-run" aria-hidden="true">
+        <span>Pre-launch offer</span>
+        <span>Limited time</span>
+        <span>$65 welcome kit, free</span>
+        <span>Just an email to join</span>
+      </div>
+    </div>
+    <button class="lp-ticker-pause" type="button" id="lpTickerPause" aria-label="Pause the scrolling banner">&#10073;&#10073;</button>
+  </div>
+
+
   <!--====== HEADER ======
         Identical on every page: the wordmark home, the one CTA, and the
         menu button. Every other destination lives behind the menu, so
@@ -410,13 +433,52 @@
         <h2 class="lp-title" id="h-join">Be first in line, and first to be looked after.</h2>
         <p class="lp-signup-sub">
           MilkShaker ships in Spring 2027. Join the early access list to hear before anyone else &mdash; and the
-          first to join receive a free maternity gift kit from us when we launch.
+          first 300 to join get a free welcome kit worth $65.
         </p>
         <p class="lp-signup-cta">
           <a class="lp-btn lp-btn--lg lp-btn--nudge" href="/early-access.html"><span>Join the list</span><span
               class="lp-arrow" aria-hidden="true"></span></a>
         </p>
-        <p class="lp-form-note">No payment and nothing to commit to.</p>
+        <ul class="lp-kit" tabindex="0" role="group" aria-label="A look at the welcome kit">
+          <li>
+            <figure>
+              <div class="lp-ph" role="img" aria-label="Photograph pending: Organic nipple balm">
+                <span class="lp-ph-label">Photo</span>
+                <span class="lp-ph-note">Organic nipple balm</span>
+              </div>
+              <figcaption>Earth Mama Organic Nipple Butter, 2 fl oz</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <div class="lp-ph" role="img" aria-label="Photograph pending: Silicone milk collector">
+                <span class="lp-ph-label">Photo</span>
+                <span class="lp-ph-note">Silicone milk collector</span>
+              </div>
+              <figcaption>Standard silicone collector</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <div class="lp-ph" role="img" aria-label="Photograph pending: Hot + cold therapy packs">
+                <span class="lp-ph-label">Photo</span>
+                <span class="lp-ph-note">Hot + cold therapy packs</span>
+              </div>
+              <figcaption>Le Lolo breast therapy packs, 2 pack</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <div class="lp-ph" role="img" aria-label="Photograph pending: Nipple shields">
+                <span class="lp-ph-label">Photo</span>
+                <span class="lp-ph-note">Nipple shields</span>
+              </div>
+              <figcaption>Le Lolo shield set, three sizes</figcaption>
+            </figure>
+          </li>
+        </ul>
+        <p class="lp-form-note">No payment and nothing to commit to. Kit worth $65, free for the first to
+          join.</p>
       </div>
     </section>
 
@@ -535,6 +597,44 @@
         MilkShaker is ready.
       </p>
 
+      <ul class="lp-kit lp-kit--mini" tabindex="0" role="group" aria-label="A look at the welcome kit">
+        <li>
+          <figure>
+            <div class="lp-ph" role="img" aria-label="Photograph pending: Organic nipple balm">
+              <span class="lp-ph-label">Photo</span>
+              <span class="lp-ph-note">Organic nipple balm</span>
+            </div>
+            <figcaption>Organic nipple balm</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <div class="lp-ph" role="img" aria-label="Photograph pending: Silicone milk collector">
+              <span class="lp-ph-label">Photo</span>
+              <span class="lp-ph-note">Silicone milk collector</span>
+            </div>
+            <figcaption>Silicone milk collector</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <div class="lp-ph" role="img" aria-label="Photograph pending: Hot + cold therapy packs">
+              <span class="lp-ph-label">Photo</span>
+              <span class="lp-ph-note">Hot + cold therapy packs</span>
+            </div>
+            <figcaption>Hot + cold therapy packs</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <div class="lp-ph" role="img" aria-label="Photograph pending: Nipple shields">
+              <span class="lp-ph-label">Photo</span>
+              <span class="lp-ph-note">Nipple shields</span>
+            </div>
+            <figcaption>Nipple shields</figcaption>
+          </figure>
+        </li>
+      </ul>
       <div class="launchlist-widget" data-key-id="WHgfM8"></div>
       <p class="lp-modal-caption">No payment, and no health information. We don&rsquo;t sell your details.</p>
     </div>
