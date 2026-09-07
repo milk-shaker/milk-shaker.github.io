@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 86 126" width="86" height="126">
+  <!--
+       The MilkShaker droplet, cropped tight to the shape with no
+       padding, for use as a mark or as a CSS mask. /assets/icons/
+       droplet.svg is the padded square version used as the favicon;
+       this one exists so the shape can be sized and positioned
+       precisely against type.
+
+       Same construction as the favicon: a circle of radius 43 centred
+       at (43, 83) with two straight tangent lines up to the apex,
+       measured off the wordmark. Fill is set to currentColor so an
+       inline copy inherits its colour; used as a mask the fill is
+       ignored and the CSS background-color shows through.
+
+       Careful: no double hyphen anywhere in this comment. A standalone
+       .svg is parsed as XML, where one inside a comment is fatal and
+       the whole file renders as nothing.
+  -->
+  <path d="M 43.00 0 L 6.22 60.72 A 43.00 43.00 0 1 0 79.78 60.72 Z" fill="currentColor"/>
+</svg>

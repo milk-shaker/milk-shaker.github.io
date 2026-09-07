@@ -4885,12 +4885,61 @@ p {
   justify-content: center;
 }
 
-/*  Sunday sets the numeral as tabular figures in the accent, inline with
-    the label, rather than as a badge. */
+/* ---------- panel numerals ----------
+   The numeral sits inside a droplet rather than the circle it had
+   before. The droplet is drawn on a ::before so the mask applies to
+   the shape alone and not to the digits, which would otherwise be
+   clipped along with it.
+
+   The numeral is nudged down because a droplet's mass is in the lower
+   bulge; optically centred, not box centred.
+
+   Behind @supports so that a browser without mask support gets the
+   plain tabular figures the reference uses, rather than a rectangle. */
 .lp-eyebrow-num {
   color: var(--ms-peri-deep);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.1em;
+}
+
+@supports ((-webkit-mask-image: url("/assets/icons/droplet-mark.svg")) or (mask-image: url("/assets/icons/droplet-mark.svg"))) {
+  .lp-eyebrow-num {
+    position: relative;
+    /*  isolate, so the z-index:-1 droplet below sits behind the digits
+        but cannot escape further back and disappear behind the
+        section's own background, which is what it did without this. */
+    isolation: isolate;
+    display: inline-grid;
+    place-items: center;
+    width: 2.05em;
+    height: 3em;
+    padding-top: 0.7em;
+    color: var(--ms-plum);
+    letter-spacing: 0.04em;
+  }
+
+  .lp-eyebrow-num::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    /*  A step stronger than --ms-peri-wash, which at 1.03:1 against the
+        cream panels was invisible. This reads as a soft tint and still
+        holds the numeral at 7.1:1. */
+    background: #D4D3EC;
+    -webkit-mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
+    mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
+  }
+
+  /*  The eyebrow is a flex row, so the taller badge would otherwise
+      stretch the line. Pull the extra height back out of the flow. */
+  .lp-eyebrow {
+    margin-block: -0.35em 0.9rem;
+  }
+
+  .lp-hero .lp-eyebrow {
+    margin-block: 0 1.1rem;
+  }
 }
 
 .lp-title {
@@ -5437,14 +5486,19 @@ p {
   gap: 0.85rem;
 }
 
-/*  The droplet, as the mark beside the band headline. */
+/*  The droplet beside the band headline. Masked from the real shape
+    rather than approximated with a clip-path polygon, which was
+    visibly faceted. The aspect ratio is the mark's own 86:126, so it
+    is taller than it is wide; forcing it square was the other half of
+    why it looked wrong. */
 .lp-band-mark {
   flex: none;
-  width: 2.1rem;
-  height: 2.1rem;
-  margin-top: 0.12em;
+  width: 1.55rem;
+  height: 2.27rem;
+  margin-top: 0.1em;
   background: var(--ms-peri);
-  clip-path: polygon(50% 0%, 78% 34%, 92% 56%, 92% 74%, 74% 94%, 50% 100%, 26% 94%, 8% 74%, 8% 56%, 22% 34%);
+  -webkit-mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
+  mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
 }
 
 .lp-band h2 {
@@ -6059,14 +6113,15 @@ p {
   outline-offset: 2px;
 }
 
-/*  The droplet, as a small mark at the top of the panel. */
+/*  The droplet at the top of the popup panel, same masked shape. */
 .lp-modal-drop {
   display: block;
   width: 30px;
   height: 44px;
   margin: 0 auto 14px;
   background: var(--ms-peri);
-  clip-path: polygon(50% 0%, 78% 34%, 92% 56%, 92% 74%, 74% 94%, 50% 100%, 26% 94%, 8% 74%, 8% 56%, 22% 34%);
+  -webkit-mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
+  mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
 }
 
 .lp-modal-panel h2 {
