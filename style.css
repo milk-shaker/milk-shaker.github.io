@@ -5091,6 +5091,201 @@ p {
   align-items: center;
 }
 
+/* ---------- 01 the product ----------
+   A wide image on its own, centred and capped, with the three benefits
+   in a row underneath. Not image-beside-list, which is what I had. */
+.lp-product-media {
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.lp-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin: clamp(2rem, 5vw, 3.25rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-benefits h3 {
+  margin: 0 0 0.4rem;
+  color: var(--ms-plum);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.lp-benefits p {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ---------- 02 the tiles ----------
+   Icon in a circle, then title, then body. Borderless: the reference
+   has no card around these, which is most of why mine looked wrong. */
+.lp-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  margin: clamp(2.25rem, 5vw, 3.25rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-tile-icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--ms-ivory);
+  color: var(--ms-peri-deep);
+  box-shadow: inset 0 0 0 1px rgba(98, 96, 173, 0.16);
+}
+
+.lp-tile-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.lp-tiles h3 {
+  margin: 0.9rem 0 0.4rem;
+  color: var(--ms-plum);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.lp-tiles p {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ---------- 03 how it works ---------- */
+.lp-how-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-top: clamp(1.5rem, 3.5vw, 2.25rem);
+}
+
+.lp-how-media {
+  width: 100%;
+  max-width: 24rem;
+  margin: 0;
+  justify-self: end;
+}
+
+/* ---------- 04 fit & fabric ----------
+   Image left, copy right, and the copy column is the wider of the two. */
+.lp-fit-inner {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 4.5rem);
+}
+
+@media (max-width: 860px) {
+  .lp-how-grid,
+  .lp-fit-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-how-media {
+    justify-self: start;
+    max-width: none;
+  }
+
+  /*  Image above the copy when it stacks, as in the hero. */
+  .lp-fit-media {
+    order: -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .lp-benefits,
+  .lp-tiles {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 05 what's behind it ----------
+   Centred throughout, with a narrow measure on the heading and lead,
+   and the two supporting points borderless in a capped 2-up. */
+.lp-evidence-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--lp-gutter);
+  text-align: center;
+}
+
+.lp-evidence-inner .lp-title {
+  max-width: 28ch;
+  margin-inline: auto;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+}
+
+.lp-evidence-lead {
+  max-width: 54ch;
+  margin: 1.2rem auto 0;
+  color: var(--ms-ink-soft);
+  font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  line-height: 1.65;
+}
+
+.lp-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+  max-width: 44rem;
+  margin: clamp(2.25rem, 5vw, 3.25rem) auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-stats h3 {
+  margin: 0 0 0.4rem;
+  color: var(--ms-plum);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.lp-stats p {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 620px) {
+  .lp-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- narrow measures + centred intros ----------
+   The reference centres the intro on panels 05, 06, 07, 08 and 09 and
+   leaves 01, 02, 03 and 04 ranged left. Mine centred the wrong ones. */
+.lp-intro--center {
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  text-align: center;
+}
+
+.lp-wrap--compare {
+  max-width: 860px;
+}
+
+.lp-wrap--faq {
+  max-width: 760px;
+}
+
 @media (max-width: 860px) {
   .lp-grid,
   .lp-grid--two {
@@ -5216,54 +5411,90 @@ p {
 }
 
 /* ---------- mid-page CTA band ----------
-   Sunday's band is clay with a periwinkle wash across it, not a dark
-   slab, so the page never goes heavy. Plum on clay is 7.7:1. */
+   Copy left, button right, on clay with a periwinkle wash. Not centred
+   and not a dark slab: both were mine, neither is the reference. */
 .lp-band {
   padding: clamp(2.75rem, 6vw, 4.25rem) 0;
   background:
     radial-gradient(80% 130% at 88% 12%, rgba(241, 241, 250, 0.55) 0%, rgba(241, 241, 250, 0) 60%),
     var(--ms-clay);
-  text-align: center;
+}
+
+.lp-band-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem 2.5rem;
+  max-width: var(--lp-wrap);
+  margin: 0 auto;
+  padding: 0 var(--lp-gutter);
+}
+
+.lp-band-copy {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+/*  The droplet, as the mark beside the band headline. */
+.lp-band-mark {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-top: 0.12em;
+  background: var(--ms-peri);
+  clip-path: polygon(50% 0%, 78% 34%, 92% 56%, 92% 74%, 74% 94%, 50% 100%, 26% 94%, 8% 74%, 8% 56%, 22% 34%);
 }
 
 .lp-band h2 {
-  max-width: 24em;
-  margin: 0 auto 1.6rem;
+  margin: 0;
   color: var(--ms-plum);
-  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;
-  text-wrap: balance;
 }
 
-/* ---------- spec blocks (fit & fabric) ---------- */
+/* ---------- spec blocks (fit & fabric) ----------
+   A single stack of label/value rows separated by hairlines, with the
+   label in a fixed first column. Mine was a 2-up grid, which left the
+   rows at uneven heights and read nothing like the reference. */
 .lp-specs {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem 2rem;
-  margin: 0;
+  gap: 0;
+  margin: clamp(1.75rem, 4vw, 2.5rem) 0 0;
 }
 
-@media (max-width: 700px) {
-  .lp-specs {
-    grid-template-columns: 1fr;
-  }
+.lp-specs > div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--ms-clay-deep);
 }
 
 .lp-specs dt {
-  margin-bottom: 5px;
-  color: var(--ms-plum);
-  font-size: 0.74rem;
+  margin: 0;
+  padding-top: 0.18rem;
+  color: var(--ms-ink-soft);
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .lp-specs dd {
-  margin: 0 0 4px;
+  margin: 0;
   color: var(--ms-ink-soft);
   font-size: 1rem;
-  line-height: 1.58;
+  line-height: 1.6;
+}
+
+@media (max-width: 520px) {
+  .lp-specs > div {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
 }
 
 /* ---------- comparison table ---------- */
@@ -5339,11 +5570,12 @@ p {
 }
 
 .lp-quote {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-height: 11rem;
   margin: 0;
-  padding: 28px 26px 24px;
+  padding: clamp(1.5rem, 3vw, 2rem);
   border: 1px solid var(--ms-clay);
   border-radius: var(--lp-radius);
   background: var(--ms-ivory);
@@ -5357,7 +5589,6 @@ p {
 }
 
 .lp-quote figcaption {
-  margin-top: auto;
   color: var(--ms-ink-soft);
   font-size: 0.88rem;
   font-weight: 600;
@@ -5413,8 +5644,10 @@ p {
 }
 
 /* ---------- the signup, which is the point of the page ---------- */
-/*  Clay with a wash, matching sunday. This is also what keeps panel 08
-    and panel 09 on different grounds instead of one long block. */
+/* ---------- 08 the list ----------
+   Centred copy straight onto the clay band with an inline row of pill
+   inputs. The reference has no card here; the white panel was mine and
+   is most of why this section read differently. */
 .lp-signup {
   padding: clamp(3rem, 7vw, 5rem) 0;
   background:
@@ -5422,71 +5655,63 @@ p {
     var(--ms-clay);
 }
 
-.lp-signup-card {
-  max-width: 680px;
+.lp-signup-inner {
+  max-width: 720px;
   margin: 0 auto;
-  padding: clamp(1.75rem, 4vw, 2.75rem);
-  border: 1px solid var(--ms-clay-deep);
-  border-radius: var(--lp-radius-lg);
-  background: var(--ms-ivory);
-  box-shadow: var(--shadow-4);
+  padding: 0 var(--lp-gutter);
   text-align: center;
 }
 
+.lp-signup-inner .lp-title {
+  max-width: 24ch;
+  margin-inline: auto;
+}
+
+.lp-signup-sub {
+  max-width: 54ch;
+  margin: 1.1rem auto 0;
+  color: var(--ms-ink-soft);
+  font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  line-height: 1.65;
+}
+
 .lp-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 1.6rem;
-  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.9rem;
 }
 
-@media (max-width: 620px) {
-  .lp-form {
-    grid-template-columns: 1fr;
-  }
-}
-
-.lp-form-full {
-  grid-column: 1 / -1;
-}
-
-.lp-form label {
-  display: block;
-  margin-bottom: 5px;
-  color: var(--ms-plum);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-/*  Both the page form and the popup form. :not(.lp-sr) matters: the
-    honeypot field carries .lp-sr, and this selector is more specific
-    than that utility, so without the exclusion width:100% wins and
-    stretches a supposedly hidden input across the viewport. */
-.lp-form input:not(.lp-sr),
-.lp-modal-form input:not(.lp-sr) {
-  width: 100%;
-  padding: 15px 16px;
+.lp-form input:not(.lp-sr) {
+  flex: 1 1 16rem;
+  max-width: 22rem;
+  padding: 1.15rem 1.4rem;
   border: 1px solid var(--ms-clay-deep);
-  border-radius: 10px;
-  background: var(--white);
+  border-radius: 999px;
+  background: var(--ms-ivory);
   color: var(--black);
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 1.0625rem;
 }
 
-.lp-form input:not(.lp-sr):focus,
-.lp-modal-form input:not(.lp-sr):focus {
-  outline: none;
+.lp-form input:not(.lp-sr)::placeholder {
+  color: var(--ms-ink-soft);
+}
+
+.lp-form input:not(.lp-sr):focus-visible {
   border-color: var(--ms-peri-deep);
-  box-shadow: 0 0 0 4px var(--ms-ring);
+  outline: 2px solid var(--ms-peri-deep);
+  outline-offset: 1px;
+}
+
+.lp-form .lp-btn {
+  flex: 0 0 auto;
 }
 
 .lp-form-note {
-  grid-column: 1 / -1;
-  margin: 4px 0 0;
+  flex: 1 1 100%;
+  margin: 0.4rem 0 0;
   color: var(--ms-ink-soft);
   font-size: 0.86rem;
   line-height: 1.55;
@@ -5501,11 +5726,12 @@ p {
 /*  Revealed by the ?joined=1 handler after a FormSubmit round trip. */
 .lp-confirm {
   display: none;
-  margin-bottom: 1.5rem;
+  max-width: 40rem;
+  margin: 0 auto 1.5rem;
   padding: 16px 20px;
   border-radius: 12px;
   border-left: 4px solid var(--ms-peri-deep);
-  background: var(--ms-peri-wash);
+  background: var(--ms-ivory);
   color: var(--ms-plum);
   font-size: 1rem;
   line-height: 1.55;
@@ -5862,6 +6088,25 @@ p {
   display: grid;
   gap: 10px;
   text-align: left;
+}
+
+/*  The popup stacks and squares off its fields; the page form is an
+    inline pill row and they should not share a shape. */
+.lp-modal-form input:not(.lp-sr) {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--black);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.lp-modal-form input:not(.lp-sr):focus {
+  outline: none;
+  border-color: var(--ms-peri-deep);
+  box-shadow: 0 0 0 4px var(--ms-ring);
 }
 
 .lp-modal-caption {

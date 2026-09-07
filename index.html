@@ -84,151 +84,179 @@
     </section>
 
     <!--====== 01 THE PRODUCT ======
-          Sunday has no headline on this panel, only the eyebrow, the
-          mockup and the three benefits. Kept that way. -->
+          A wide image on its own, capped and centred, with the three
+          benefits in a row beneath it. No headline on this panel. -->
     <section class="lp-section lp-section--cream" aria-labelledby="h-product">
       <div class="lp-wrap">
         <h2 class="lp-eyebrow" id="h-product"><span class="lp-eyebrow-num" aria-hidden="true">01</span>The
           product</h2>
-        <div class="lp-grid--two lp-grid lp-grid--middle">
-          <figure class="lp-media lp-media--soft">
-            <div class="lp-ph lp-ph--square" role="img" aria-label="Product mockup: With callout labels: modules, battery, clip">
+        <figure class="lp-media lp-media--soft lp-product-media">
+          <div class="lp-ph lp-ph--wide" role="img"
+            aria-label="Product mockup: with callout labels for modules, battery and clip">
             <span class="lp-ph-label">Product mockup</span>
             <span class="lp-ph-note">With callout labels: modules, battery, clip</span>
           </div>
-          </figure>
-          <ul class="lp-featlist">
-            <li><strong>The one bra you actually need</strong>
-              <span>Works for nursing and for pumping.</span></li>
-            <li><strong>One session, start to finish</strong>
-              <span>Roughly ten sessions from a single overnight charge.</span></li>
-            <li><strong>Wash the bra, keep the tech dry</strong>
-              <span>Modules are removable, the rest is machine-washable.</span></li>
-          </ul>
-        </div>
+        </figure>
+        <ul class="lp-benefits">
+          <li>
+            <h3>The one bra you actually need</h3>
+            <p>Works for nursing and for pumping.</p>
+          </li>
+          <li>
+            <h3>One session, start to finish</h3>
+            <p>Roughly ten sessions from a single overnight charge.</p>
+          </li>
+          <li>
+            <h3>Wash the bra, keep the tech dry</h3>
+            <p>Modules are removable, the rest is machine-washable.</p>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!--====== 02 THE PATTERN ======-->
+    <!--====== 02 THE PATTERN ======
+          Intro ranged left, then three borderless tiles: icon in a
+          circle, title, body. -->
     <section class="lp-section" aria-labelledby="h-pattern">
       <div class="lp-wrap">
-        <div class="lp-center lp-center--wide">
-          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">02</span>The
-            pattern</p>
+        <div>
+          <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">02</span>The pattern</p>
           <h2 class="lp-title lp-title--long" id="h-pattern">Once you have had clogged ducts or mastitis more
             than once, it stops feeling like bad luck and starts feeling like a pattern you can see coming.</h2>
         </div>
-        <ol class="lp-steps">
-          <li><div><strong>It starts the same way</strong>
-              <span>A sore spot, a patch of heat, a dull ache &mdash; always before the fever.</span></div>
+        <ul class="lp-tiles">
+          <li>
+            <span class="lp-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.1" fill="currentColor" stroke="none"/><path d="M8.1 8.1a5.5 5.5 0 0 0 0 7.8M15.9 15.9a5.5 5.5 0 0 0 0-7.8"/><path d="M5.4 5.4a9.3 9.3 0 0 0 0 13.2M18.6 18.6a9.3 9.3 0 0 0 0-13.2"/></svg></span>
+            <h3>It starts the same way</h3>
+            <p>A sore spot, a patch of heat, a dull ache &mdash; always before the fever.</p>
           </li>
-          <li><div><strong>You run the whole list again</strong>
-              <span>Warm shower, cold compress, ibuprofen, hand expressing at two in the morning.</span></div>
+          <li>
+            <span class="lp-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/></svg></span>
+            <h3>You run the whole list again</h3>
+            <p>Warm shower, cold compress, ibuprofen, hand expressing at two in the morning.</p>
           </li>
-          <li><div><strong>And it still becomes mastitis</strong>
-              <span>Swelling, chills, a fever that climbs, another course of antibiotics.</span></div>
+          <li>
+            <span class="lp-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5 21 19.5H3Z"/><path d="M12 10v4.2"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></svg></span>
+            <h3>And it still becomes mastitis</h3>
+            <p>Swelling, chills, a fever that climbs, another course of antibiotics.</p>
           </li>
-        </ol>
+        </ul>
       </div>
     </section>
 
     <!--====== CTA BAND ======-->
     <section class="lp-band" aria-labelledby="h-band">
-      <div class="lp-wrap">
-        <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
-        <a class="lp-btn lp-btn--lg lp-btn--nudge" href="#join"><span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span></a>
+      <div class="lp-band-inner">
+        <div class="lp-band-copy">
+          <span class="lp-band-mark" aria-hidden="true"></span>
+          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
+        </div>
+        <a class="lp-btn lp-btn--lg lp-btn--nudge" href="#join"><span>Join the list</span><span class="lp-arrow"
+            aria-hidden="true"></span></a>
       </div>
     </section>
 
-    <!--====== 03 HOW IT WORKS ======-->
+    <!--====== 03 HOW IT WORKS ======
+          Intro ranged left, then copy beside a square detail shot that
+          is capped and pushed to the right edge of its column. -->
     <section class="lp-section" aria-labelledby="h-how">
       <div class="lp-wrap">
-        <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">03</span>How it works</p>
-        <h2 class="lp-title" id="h-how">Why it works this way.</h2>
-        <div class="lp-grid--two lp-grid lp-grid--middle">
-          <p class="lp-lede">
-            The two massaging modules run one automated session at a time, easing discomfort and supporting milk
-            flow. Put it on, and it gets done &mdash; which is the part that usually doesn&rsquo;t.
-          </p>
-          <figure class="lp-media lp-media--soft">
-            <div class="lp-ph lp-ph--wide" role="img" aria-label="Detail shot: Modules and battery lifted out">
-            <span class="lp-ph-label">Detail shot</span>
-            <span class="lp-ph-note">Modules and battery lifted out</span>
+        <div>
+          <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">03</span>How it works</p>
+          <h2 class="lp-title" id="h-how">Why it works this way.</h2>
+        </div>
+        <div class="lp-how-grid">
+          <div>
+            <p class="lp-lede">
+              The two massaging modules run one automated session at a time, easing discomfort and supporting
+              milk flow. Put it on, and it gets done &mdash; which is the part that usually doesn&rsquo;t.
+            </p>
           </div>
+          <figure class="lp-media lp-media--soft lp-how-media">
+            <div class="lp-ph lp-ph--square" role="img" aria-label="Detail shot: modules and battery lifted out">
+              <span class="lp-ph-label">Detail shot</span>
+              <span class="lp-ph-note">Modules and battery lifted out</span>
+            </div>
           </figure>
         </div>
       </div>
     </section>
 
-    <!--====== 04 FIT & FABRIC ======-->
+    <!--====== 04 FIT & FABRIC ======
+          Image on the left, copy on the right, copy column the wider
+          of the two. Mine had these the other way round. -->
     <section class="lp-section lp-section--cream" aria-labelledby="h-fit">
       <div class="lp-wrap">
-        <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">04</span>Fit &amp; fabric</p>
-        <h2 class="lp-title" id="h-fit">Soft enough to forget you have it on.</h2>
-        <div class="lp-grid--two lp-grid lp-grid--middle">
-          <dl class="lp-specs">
-            <div>
-              <dt>Fabric</dt>
-              <dd>92% Peruvian Pima cotton, 8% elastane. Long-staple and combed, so it stays soft through the
-                wash. Four-way stretch, matte finish, no underwire.</dd>
+        <div class="lp-fit-inner">
+          <figure class="lp-media lp-media--soft lp-fit-media">
+            <div class="lp-ph lp-ph--tall" role="img" aria-label="Model shot: fit and fabric">
+              <span class="lp-ph-label">Model shot</span>
+              <span class="lp-ph-note">Fit &amp; fabric, state her size</span>
             </div>
-            <div>
-              <dt>Sizing</dt>
-              <dd>XS through XL. Every order will include a custom sizing step.</dd>
-            </div>
-            <div>
-              <dt>Care</dt>
-              <dd>Modules and battery out, garment in the wash.</dd>
-            </div>
-            <div>
-              <dt>Wear as</dt>
-              <dd>Your everyday nursing bra. Compatible with nursing and pumping.</dd>
-            </div>
-          </dl>
-          <figure class="lp-media lp-media--soft">
-            <div class="lp-ph lp-ph--wide" role="img" aria-label="Model shot: Fit and fabric">
-            <span class="lp-ph-label">Model shot</span>
-            <span class="lp-ph-note">Fit and fabric</span>
-          </div>
-            <figcaption class="lp-media-cap">Model is 5&rsquo;5&rdquo; and wears a medium &mdash; roughly a 34C
-              while breastfeeding.</figcaption>
           </figure>
+          <div>
+            <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">04</span>Fit &amp; fabric</p>
+            <h2 class="lp-title" id="h-fit">Soft enough to forget you have it on.</h2>
+            <dl class="lp-specs">
+              <div>
+                <dt>Fabric</dt>
+                <dd>92% Peruvian Pima cotton, 8% elastane. Long-staple and combed, so it stays soft through the
+                  wash. Four-way stretch, matte finish, no underwire.</dd>
+              </div>
+              <div>
+                <dt>Sizing</dt>
+                <dd>XS through XL. Every order will include a custom sizing step.</dd>
+              </div>
+              <div>
+                <dt>Care</dt>
+                <dd>Modules and battery out, garment in the wash.</dd>
+              </div>
+              <div>
+                <dt>Wear as</dt>
+                <dd>Your everyday nursing bra. Compatible with nursing and pumping.</dd>
+              </div>
+              <div>
+                <dt>Model</dt>
+                <dd>Model is 5&rsquo;5&rdquo; and wears a medium &mdash; roughly a 34C while breastfeeding.</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </div>
     </section>
 
-    <!--====== 05 WHAT IS BEHIND IT ======-->
+    <!--====== 05 WHAT IS BEHIND IT ======
+          Centred throughout, heading on a 28ch measure, lead on 54ch,
+          and the two points borderless in a capped 2-up. -->
     <section class="lp-section lp-section--wash" aria-labelledby="h-behind">
-      <div class="lp-wrap">
-        <div class="lp-center">
-          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num"
-              aria-hidden="true">05</span>What&rsquo;s behind it</p>
-          <h2 class="lp-title" id="h-behind">A physical therapist&rsquo;s technique, run for you.</h2>
-          <p class="lp-lede">
-            The two massaging modules follow a lymphatic drainage pattern designed by a physical therapist
-            &mdash; the same technique a lactation consultant would walk you through by hand, in the same order
-            and direction. The difference is that you don&rsquo;t have to do it yourself.
-          </p>
-        </div>
-        <div class="lp-grid--two lp-grid">
-          <div class="lp-card">
+      <div class="lp-evidence-inner">
+        <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num"
+            aria-hidden="true">05</span>What&rsquo;s behind it</p>
+        <h2 class="lp-title" id="h-behind">A physical therapist&rsquo;s technique, run for you.</h2>
+        <p class="lp-evidence-lead">
+          The two massaging modules follow a lymphatic drainage pattern designed by a physical therapist &mdash;
+          the same technique a lactation consultant would walk you through by hand, in the same order and
+          direction. The difference is that you don&rsquo;t have to do it yourself.
+        </p>
+        <ul class="lp-stats">
+          <li>
             <h3>Designed by a physical therapist</h3>
             <p>The drainage sequence isn&rsquo;t improvised. It follows the same path a consultant teaches by
               hand.</p>
-          </div>
-          <div class="lp-card">
+          </li>
+          <li>
             <h3>Built from mothers&rsquo; accounts</h3>
             <p>We designed it around what mothers with recurring episodes were already being told to do, and how
               hard that is to actually do.</p>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </section>
 
     <!--====== 06 THE DIFFERENCE ======-->
     <section class="lp-section" aria-labelledby="h-diff">
-      <div class="lp-wrap">
-        <div class="lp-center">
+      <div class="lp-wrap lp-wrap--compare">
+        <div class="lp-intro--center">
           <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">06</span>The
             difference</p>
           <h2 class="lp-title" id="h-diff">Same routine, minus the wrestling.</h2>
@@ -283,7 +311,7 @@
           given to us. Do not add names without asking first. -->
     <section class="lp-section lp-section--cream" aria-labelledby="h-says">
       <div class="lp-wrap">
-        <div class="lp-center">
+        <div class="lp-intro--center">
           <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">07</span>Early
             testers &amp; specialists</p>
           <h2 class="lp-title" id="h-says">What they told us.</h2>
@@ -319,51 +347,48 @@
     </section>
 
     <!--====== 08 THE LIST ======
-          Clay with a wash, so it sits on a different ground from the
-          FAQ below it. -->
+          Centred copy straight onto the clay band with an inline row of
+          pill inputs. No white card: the reference does not have one. -->
     <section class="lp-signup" id="join" aria-labelledby="h-join">
-      <div class="lp-wrap">
-        <div class="lp-signup-card">
+      <div class="lp-signup-inner">
 
-          <div class="lp-confirm" id="joinConfirm">
-            <strong>You&rsquo;re on the list.</strong> We&rsquo;ll be in touch when there&rsquo;s something worth
-            telling you.
-          </div>
-
-          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">08</span>Stay
-            in the loop</p>
-          <h2 class="lp-title" id="h-join">Notes on breastfeeding, a few times a season.</h2>
-          <p class="lp-lede">
-            What we&rsquo;re reading and learning about maternal health care and infant feeding &mdash; plus word
-            when something new is ready. You can leave any time.
-          </p>
-
-          <form class="lp-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
-            <input type="hidden" name="_subject" value="MilkShaker — list signup (page)" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://themilkshaker.com/?joined=1" />
-            <input class="lp-sr" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
-
-            <div>
-              <label for="join-name">First name</label>
-              <input id="join-name" type="text" name="name" autocomplete="given-name" required />
-            </div>
-            <div>
-              <label for="join-email">Email</label>
-              <input id="join-email" type="email" name="email" autocomplete="email" required />
-            </div>
-            <div class="lp-form-full">
-              <button class="lp-btn lp-btn--lg lp-btn--block lp-btn--nudge" type="submit">
-                <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
-              </button>
-            </div>
-            <p class="lp-form-note">
-              Email only. No health information, and we don&rsquo;t sell your address. See our
-              <a href="/privacy.html">Privacy Policy</a>.
-            </p>
-          </form>
+        <div class="lp-confirm" id="joinConfirm">
+          <strong>You&rsquo;re on the list.</strong> We&rsquo;ll be in touch when there&rsquo;s something worth
+          telling you.
         </div>
+
+        <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">08</span>Stay in
+          the loop</p>
+        <h2 class="lp-title" id="h-join">Notes on breastfeeding, a few times a season.</h2>
+        <p class="lp-signup-sub">
+          What we&rsquo;re reading and learning about maternal health care and infant feeding &mdash; plus word
+          when something new is ready. You can leave any time.
+        </p>
+
+        <form class="lp-form" action="https://formsubmit.co/valentina@themilkshaker.com" method="POST">
+          <input type="hidden" name="_subject" value="MilkShaker — list signup (page)" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://themilkshaker.com/?joined=1" />
+          <input class="lp-sr" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <label class="lp-sr" for="join-name">First name</label>
+          <input id="join-name" type="text" name="name" placeholder="First name" autocomplete="given-name"
+            required />
+
+          <label class="lp-sr" for="join-email">Email address</label>
+          <input id="join-email" type="email" name="email" placeholder="you@email.com" autocomplete="email"
+            required />
+
+          <button class="lp-btn lp-btn--lg lp-btn--nudge" type="submit">
+            <span>Join the list</span><span class="lp-arrow" aria-hidden="true"></span>
+          </button>
+
+          <p class="lp-form-note">
+            Email only. No health information, and we don&rsquo;t sell your address. See our
+            <a href="/privacy.html">Privacy Policy</a>.
+          </p>
+        </form>
       </div>
     </section>
 
@@ -371,8 +396,8 @@
           Native details/summary, so it is keyboard operable and
           announced correctly with no JavaScript. -->
     <section class="lp-section" aria-labelledby="h-faq">
-      <div class="lp-wrap">
-        <div class="lp-center">
+      <div class="lp-wrap lp-wrap--faq">
+        <div class="lp-intro--center">
           <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num"
               aria-hidden="true">09</span>Questions</p>
           <h2 class="lp-title" id="h-faq">The things people ask us first.</h2>
