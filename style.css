@@ -5989,10 +5989,36 @@ p {
 
 /*  flex-basis rather than a percentage width so the gap is subtracted
     once per visible slide instead of stretching the row past 100%. */
+/*  Snapped on the centre, not the start: the highlighted quote is the
+    middle one on screen, so that is the edge the track has to rest on. */
 .lp-quotes-slide {
   display: flex;
   flex: 0 0 calc((100% - 2 * clamp(1.25rem, 3vw, 2rem)) / 3);
-  scroll-snap-align: start;
+  scroll-snap-align: center;
+  transition: opacity 0.5s ease;
+}
+
+/*  Everything but the middle quote is held back, so the eye is told
+    which one the dots refer to. Opacity rather than a colour change, so
+    it works on the plain cards and the dashed pending ones alike. */
+.lp-quotes-slide {
+  opacity: 0.32;
+}
+
+.lp-quotes-slide.is-current {
+  opacity: 1;
+}
+
+/*  Before the script runs there is no current slide, so nothing would be
+    legible. Full strength until it marks one. */
+.lp-quotes-track:not(.is-live) .lp-quotes-slide {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-quotes-slide {
+    transition: none;
+  }
 }
 
 .lp-quotes-slide > .lp-quote {
@@ -6379,6 +6405,73 @@ p {
 .lp-footer-links a:hover {
   color: var(--ms-plum);
   text-decoration: underline;
+}
+
+/*  Three named piles instead of one run of every URL on the site.
+
+    This rule is the one that went missing the first time: the script
+    that wrote the markup threw before it reached the stylesheet, so the
+    columns shipped as plain block divs and stacked at every width. Worth
+    checking the computed display, not just the markup, when a grid does
+    not look like a grid. */
+.lp-footer-cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2.5vw, 2rem);
+  margin-bottom: 1.5rem;
+}
+
+/*  Three narrow columns of links do not survive a phone. Two below
+    560px, one below 380px where even two are cramped. */
+@media (max-width: 560px) {
+  .lp-footer-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.35rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .lp-footer-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*  Quiet labels: small, uppercase, tracked, and not bold. They are there
+    to name the pile, not to compete with the links under them. */
+.lp-footer-cols h3 {
+  margin: 0 0 0.7rem;
+  color: var(--ms-ink-soft);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/*  Stacked, where the old single list ran as a wrapping row. Flat rows
+    made the columns impossible to read as columns. */
+.lp-footer-cols .lp-footer-links {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+}
+
+/*  The wordmark in place of the typed company line. Capped narrow: it is
+    a sign-off, not a second header logo. */
+.lp-footer-brand {
+  display: inline-block;
+  max-width: 9.5rem;
+  margin-top: 0.35rem;
+}
+
+.lp-footer-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lp-footer-brand:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 4px;
 }
 
 /*  The same four accounts as the menu, repeated in the footer because
@@ -6826,9 +6919,18 @@ p {
 @media (max-width: 767px) {
   /*  text-align as well as justify-content: the eyebrow is a flex row,
       so justify-content centres the text as a block but a wrapped
-      second line still sets left inside it. */
+      second line still sets left inside it.
+
+      Stacked rather than side by side, because these labels wrap on a
+      phone. Panel 02's runs to three lines at 420px and four at 360, and
+      a droplet sitting halfway down a three-line block reads as
+      misaligned no matter how well the block itself is centred. Above
+      the text it is unambiguous. */
   .lp-eyebrow {
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 0.45rem;
     text-align: center;
   }
 
@@ -7636,17 +7738,23 @@ p {
 
 .has-reveal .lp-reveal {
   opacity: 0;
-  transform: translateY(34px);
+  transform: translateY(30px);
 }
 
 /*  Transition rather than animation so an element interrupted
-    mid-reveal settles instead of restarting. The slight delay on
-    transform makes the fade lead the movement, which reads as
-    arriving rather than sliding. */
+    mid-reveal settles instead of restarting.
+
+    Slower and gentler than the first pass, which was 0.72s on an ease
+    that still had speed in it at the end and read as a jolt. This is an
+    ease-out-expo: almost all the distance is covered early and it
+    decelerates for a long time, which is what makes it feel like it
+    settles rather than stops. The opacity is quicker than the movement
+    on purpose, so a section has finished fading before it finishes
+    travelling. */
 .has-reveal .lp-reveal {
   transition:
-    opacity 0.72s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.72s cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -7665,10 +7773,10 @@ p {
 /*  Staggered children, for the panels that are a row of cards. */
 .has-reveal .lp-reveal--stagger > * {
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(22px);
   transition:
-    opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 0.68s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .has-reveal .lp-reveal--stagger.is-visible > * {
@@ -7676,9 +7784,22 @@ p {
   transform: none;
 }
 
-.has-reveal .lp-reveal--stagger.is-visible > :nth-child(2) { transition-delay: 0.08s; }
-.has-reveal .lp-reveal--stagger.is-visible > :nth-child(3) { transition-delay: 0.16s; }
-.has-reveal .lp-reveal--stagger.is-visible > :nth-child(4) { transition-delay: 0.24s; }
+.has-reveal .lp-reveal--stagger.is-visible > :nth-child(2) { transition-delay: 0.1s; }
+.has-reveal .lp-reveal--stagger.is-visible > :nth-child(3) { transition-delay: 0.2s; }
+.has-reveal .lp-reveal--stagger.is-visible > :nth-child(4) { transition-delay: 0.3s; }
+
+/*  Less travel on a phone. 30px is a small move on a desktop section and
+    a large one relative to a 700px viewport, where it reads as the page
+    lurching rather than settling. */
+@media (max-width: 640px) {
+  .has-reveal .lp-reveal {
+    transform: translateY(18px);
+  }
+
+  .has-reveal .lp-reveal--stagger > * {
+    transform: translateY(14px);
+  }
+}
 
 /*  2.3.3 and 2.2.2 both point the same way here: if someone has asked
     for less motion, there is no reason to move anything. The script

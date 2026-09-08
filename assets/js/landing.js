@@ -306,18 +306,17 @@
      which is why the nav container ships empty and hidden: no
      JavaScript, no inert buttons.
 
-     The cycle is continuous. A second copy of the six quotes is appended
-     to the track, so stepping past the sixth scrolls forward into a
-     duplicate of the first rather than rewinding to it. Once that scroll
-     settles we jump the track back by one full set with no animation.
-     The slide on screen is identical either side of the jump, so it is
-     invisible, and the rotation only ever moves forward.
+     The highlighted quote is the middle one on screen. Everything else
+     is dimmed by CSS, so this has to keep .is-current on whichever quote
+     is centred, whether the rotation put it there or a swipe did.
 
-     The copies are what make the dots line up as well. With three cards
-     visible and only six slides the track ran out of room, so quotes 4,
-     5 and 6 all came to rest in the same place and their dots pointed at
-     the same view. With twelve there is always somewhere further to
-     scroll, so every dot has its own position. */
+     Continuous, with a copy of the six on each side. Copies after mean
+     stepping past the sixth quote moves forward into a duplicate of the
+     first rather than rewinding; copies before mean the first quote has
+     something to its left and can sit in the middle at all. Once a step
+     leaves the middle set, the track is shifted a whole set with no
+     animation: the quote on screen is identical either side of the
+     shift, so it cannot be seen. */
   var quotes = document.getElementById('lpQuotes');
   var qTrack = document.getElementById('lpQuotesTrack');
   var qNav = document.getElementById('lpQuotesNav');
@@ -331,44 +330,37 @@
     var COUNT = real.length;
 
     /*  Hidden from assistive tech and from the tab order: the same six
-        quotes read twice is noise, and the originals are already there. */
-    real.forEach(function (slide) {
+        quotes read three times is noise, and the originals are there. */
+    var clone = function (slide) {
       var copy = slide.cloneNode(true);
       copy.classList.add('is-clone');
       copy.setAttribute('aria-hidden', 'true');
       copy.removeAttribute('role');
       copy.removeAttribute('aria-roledescription');
       copy.removeAttribute('aria-label');
-      qTrack.appendChild(copy);
-    });
+      return copy;
+    };
+
+    real.forEach(function (slide) { qTrack.appendChild(clone(slide)); });
+    for (var c = COUNT - 1; c >= 0; c--) {
+      qTrack.insertBefore(clone(real[c]), qTrack.firstChild);
+    }
 
     var slides = [].slice.call(qTrack.querySelectorAll('.lp-quotes-slide'));
+    var BASE = COUNT;              /* index of the first real slide */
 
-    /*  Index we intend to be on, kept rather than read back off
-        scrollLeft, which cannot express every index while a smooth
-        scroll is still travelling. */
-    var at = 0;
+    var at = 0;                    /* real index, 0 to COUNT-1 */
     var driving = false;
     var settle = null;
 
-    /*  How far slide k sits from the track's left edge, right now.
-        Measured off getBoundingClientRect rather than offsetLeft,
-        because offsetLeft is rounded to whole pixels: a slide is
-        326.656px wide here, so the rounded step alternates 359, 358,
-        359 and the sixth slide lands a fraction off the true multiple.
-        That fraction is invisible on its own, but it is the difference
-        between a reset that lands exactly on the matching slide and one
-        that is always slightly out. */
+    /*  Distance from a slide's centre to the track's centre. Centre
+        rather than left edge, because the middle slide is the subject. */
     var deltaTo = function (k) {
-      return slides[k].getBoundingClientRect().left -
-             qTrack.getBoundingClientRect().left;
+      var sr = slides[k].getBoundingClientRect();
+      var tr = qTrack.getBoundingClientRect();
+      return (sr.left + sr.right) / 2 - (tr.left + tr.right) / 2;
     };
 
-    /*  The slide the track is actually resting on, 0 to 11, copies
-        included. Not reduced to a real index here: a swipe that ends up
-        among the copies has to be told apart from the same quote in the
-        first set, or the next automatic step scrolls backwards to reach
-        an index it is already past. */
     var nearestRaw = function () {
       var best = 0, dist = Infinity;
       slides.forEach(function (_, k) {
@@ -388,6 +380,9 @@
       qDots.forEach(function (dot, i) {
         dot.setAttribute('aria-current', i === n ? 'true' : 'false');
       });
+      slides.forEach(function (sl, i) {
+        sl.classList.toggle('is-current', (i % COUNT) === n);
+      });
     };
 
     /*  scrollTo with options is ignored wholesale by browsers without
@@ -395,7 +390,7 @@
         back to assigning scrollLeft. */
     var smooth = 'scrollBehavior' in document.documentElement.style;
 
-    var scrollTo = function (k, animate) {
+    var scrollToSlide = function (k, animate) {
       var left = qTrack.scrollLeft + deltaTo(k);
       if (smooth && animate && !reduced) {
         qTrack.scrollTo({ left: left, behavior: 'smooth' });
@@ -410,38 +405,37 @@
       settle = window.setTimeout(function () { driving = false; }, ms);
     };
 
-    var goTo = function (k) {
-      at = k;
-      hold(700);
-      scrollTo(k, true);
-      mark(k);
+    /*  Bring the track back into the middle set if a step or a swipe has
+        left it. Relative, by exactly one set width, so whatever
+        sub-pixel phase the track is in is preserved: an absolute target
+        gets rounded and lands about a pixel out, which is a visible
+        twitch at the one moment that has to be seamless. */
+    var recentre = function (slideIndex) {
+      if (slideIndex >= BASE && slideIndex < BASE + COUNT) return slideIndex;
+      var shift = slideIndex < BASE ? setWidth() : -setWidth();
+      qTrack.scrollLeft = qTrack.scrollLeft - shift;
+      return slideIndex + (slideIndex < BASE ? COUNT : -COUNT);
     };
 
-    /*  Step forward one, and when that step lands on the first copy,
-        rewind a whole set instantly so the next step has room again. */
+    var goTo = function (realIndex) {
+      at = ((realIndex % COUNT) + COUNT) % COUNT;
+      hold(800);
+      scrollToSlide(BASE + at, true);
+      mark(at);
+    };
+
+    /*  One step forward. When that step leaves the middle set the shift
+        happens after the scroll has landed, so the movement itself is
+        always forward and always one slide. */
     var advance = function () {
-      var next = at + 1;
-      at = next % COUNT;
-      hold(1100);
-      scrollTo(next, true);
+      var target = BASE + at + 1;
+      at = (at + 1) % COUNT;
+      hold(1200);
+      scrollToSlide(target, true);
       mark(at);
 
-      if (next >= COUNT) {
-        window.setTimeout(function () {
-          /*  Subtract one whole set from wherever the track has come to
-              rest, rather than scrolling to slide 0's own position.
-              A slide is a fractional width, so an absolute target gets
-              rounded and the content lands about a pixel out, which is
-              a visible twitch at the one moment that has to be
-              seamless. Moving by exactly the set width keeps whatever
-              sub-pixel phase the track is already in. */
-          qTrack.scrollLeft = qTrack.scrollLeft - setWidth();
-          /*  This lands within about a sixteenth of a pixel rather than
-              exactly. Chrome quantises scrollLeft, and a slide here is
-              326.656px wide, so a whole set is not a whole number of
-              pixels. Turning snapping off across the move was tried and
-              made no difference to the residual. */
-        }, reduced ? 0 : 620);
+      if (target >= BASE + COUNT) {
+        window.setTimeout(function () { recentre(target); }, reduced ? 0 : 640);
       }
     };
 
@@ -470,9 +464,9 @@
         dot.setAttribute('aria-label', 'Show quote ' + (k + 1) + ' of ' + COUNT);
         dot.addEventListener('click', function () {
           goTo(k);
-          /*  Restart rather than kill the timer: with no pause control,
-              a tap must not end the rotation for good. It just buys
-              another full interval on the quote you picked. */
+          /*  Restart rather than kill the timer: with no pause control, a
+              tap must not end the rotation for good. It buys another full
+              interval on the quote you picked. */
           start();
         });
         li.appendChild(dot);
@@ -482,8 +476,6 @@
 
       qNav.appendChild(list);
       qNav.hidden = false;
-      mark(at);
-      start();
     };
 
     /*  Hovering or tabbing into the quotes means someone is reading one. */
@@ -494,45 +486,40 @@
       if (!quotes.contains(e.relatedTarget)) start();
     });
 
-    /*  Autoplay gets out of the way for the duration of a drag. Touch
-        never fires mouseenter, so without this the timer would advance
+    /*  Autoplay gets out of the way for the length of a drag. Touch never
+        fires mouseenter, so without this the timer would advance
         mid-swipe and fight whoever is scrolling. */
     qTrack.addEventListener('pointerdown', stop);
     qTrack.addEventListener('pointerup', start);
     qTrack.addEventListener('pointercancel', start);
 
-    /*  A real swipe redefines where we are, and the rotation picks up
-        from there rather than from wherever it had got to on its own.
-        start() at the end is what gives the quote just swiped to a full
-        interval before it moves on, instead of whatever fraction of one
-        was left. */
+    /*  A swipe decides where the rotation carries on from, and the quote
+        swiped to gets a full interval before it moves on. */
     qTrack.addEventListener('scroll', debounce(function () {
       if (driving) return;
-
-      var raw = nearestRaw();
-
-      /*  Swiped into the copies. Slide back one whole set so there is
-          room ahead again; the quote on screen is the same either side
-          of the move, so it is not visible. */
-      if (raw >= COUNT) {
-        qTrack.scrollLeft = qTrack.scrollLeft - setWidth();
-        raw = raw - COUNT;
-      }
-
-      at = raw;
+      var landed = recentre(nearestRaw());
+      at = ((landed - BASE) % COUNT + COUNT) % COUNT;
       mark(at);
       start();
     }, 120));
 
-    /*  Slide widths change with the breakpoint, so the resting offsets
-        do too. Re-seat on the current index rather than leaving the
-        track parked between two slides. */
+    /*  Slide widths change with the breakpoint, so the resting offsets do
+        too. Re-seat on the current quote rather than leaving the track
+        parked between two. */
     window.addEventListener('resize', debounce(function () {
-      scrollTo(at, false);
+      scrollToSlide(BASE + at, false);
       mark(at);
     }, 150));
 
     buildDots();
+    /*  Start on the first real quote, which is a set in from the left.
+        is-live is what lets the dimming apply: without the class every
+        quote stays at full strength, so a browser that never runs this
+        shows six readable quotes rather than five faded ones. */
+    qTrack.classList.add('is-live');
+    scrollToSlide(BASE, false);
+    mark(0);
+    start();
   }
 
   /* --- scroll reveal ----------------------------------------------------
@@ -555,16 +542,25 @@
         el.classList.add('is-visible');
         revealer.unobserve(el);
         /*  Drop will-change once it has arrived: holding it on every
-            section is a standing cost for a one-off animation. The delay
-            covers the longest transition plus the last stagger step. */
-        window.setTimeout(function () { el.classList.add('is-settled'); }, 1100);
+            section is a standing cost for a one-off animation. 1500ms
+            covers the 1.05s travel plus the 0.3s last stagger step, with
+            a little slack. */
+        window.setTimeout(function () { el.classList.add('is-settled'); }, 1500);
       });
     }, {
-      /*  Bottom margin pulled in so a section starts moving a little
-          before its top edge reaches the viewport floor, rather than
-          only once it is already on screen. */
-      rootMargin: '0px 0px -12% 0px',
-      threshold: 0.08
+      /*  Fires a little before the section reaches the viewport floor,
+          so the movement is mostly over by the time it is properly in
+          view. The first pass used -12% and 0.08, which on a phone meant
+          a tall section was already well on screen before it started,
+          and you watched it animate rather than finding it settled.
+
+          Threshold 0 with a negative bottom margin, rather than a
+          fraction of the element: a section taller than the viewport
+          cannot reach 8% visible at the moment it enters, so a
+          proportional threshold delays exactly the sections that need
+          the most warning. */
+      rootMargin: '0px 0px -8% 0px',
+      threshold: 0
     });
 
     Array.prototype.forEach.call(revealable, function (el) { revealer.observe(el); });
