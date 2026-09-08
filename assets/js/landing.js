@@ -198,11 +198,11 @@
   }
 
   /* --- popup -----------------------------------------------------------
-     Opens on a timer, per request. The reference build triggers on
-     scroll depth instead, because a timed interstitial can land
-     mid-read and Google counts intrusive interstitials against mobile
-     ranking. To switch, replace the setTimeout below with a scroll
-     handler that fires once past ~20% of the scrollable height.
+     Opens once the visitor is a little way into panel 01, rather than on
+     a timer. A timed interstitial lands whenever it lands, which can be
+     mid-sentence; this one waits until someone has actually started
+     reading. It is also the friendlier signal for mobile ranking, where
+     an interstitial that appears unprompted counts against you.
 
      Dismissal is remembered for the browser session, so closing it once
      keeps it closed until the tab is gone. */
@@ -255,7 +255,28 @@
       }, 750);
     }
 
-    if (!dismissed()) timer = window.setTimeout(open, DELAY_MS);
+    /*  The trigger. rootMargin pulls the top of the observed area down
+        40% of the viewport, so this fires when panel 01's top edge has
+        passed 40% of the way up the screen: a little way in, whatever
+        the panel's height, which a threshold could not promise because
+        a panel taller than the viewport never reaches a high one.
+
+        The timer is the fallback for a browser without
+        IntersectionObserver, so the popup still happens there. */
+    if (!dismissed()) {
+      var trigger = document.querySelector('[aria-labelledby="h-product"]');
+
+      if (trigger && 'IntersectionObserver' in window) {
+        var watcher = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          watcher.disconnect();
+          open();
+        }, { rootMargin: '-40% 0px 0px 0px', threshold: 0 });
+        watcher.observe(trigger);
+      } else {
+        timer = window.setTimeout(open, DELAY_MS);
+      }
+    }
 
     Array.prototype.forEach.call(modal.querySelectorAll('[data-modal-close]'), function (el) {
       el.addEventListener('click', close);
@@ -638,7 +659,16 @@
      revealing with. */
   var revealable = document.querySelectorAll('.lp-reveal, .lp-reveal--stagger');
 
-  if (revealable.length && 'IntersectionObserver' in window && !reduced) {
+  /*  Where the browser can drive an animation from scroll position, the
+      stylesheet does the reveal on its own and this must stay out of the
+      way: the two would fight over opacity and transform, and the CSS
+      version is the better one because it tracks the scroll rather than
+      running on its own clock. Same test the stylesheet's @supports
+      makes, so exactly one of them is ever live. */
+  var scrollDriven = window.CSS && CSS.supports &&
+    CSS.supports('animation-timeline', 'view()');
+
+  if (revealable.length && !scrollDriven && 'IntersectionObserver' in window && !reduced) {
     document.documentElement.classList.add('has-reveal');
 
     var revealer = new IntersectionObserver(function (entries) {

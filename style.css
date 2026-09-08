@@ -6048,12 +6048,16 @@ p {
     file and ties on specificity, so a single-class rule here loses the
     border, the background and the alignment to it and the placeholders
     render as ordinary cards. */
+/*  The unfilled slots keep an outline. Everything else is bare text now,
+    so without one there would be nothing to say these are waiting on
+    content rather than just short. */
 .lp-quote.lp-quote--empty {
   place-content: center;
   gap: 8px;
-  border-style: dashed;
-  border-color: var(--ms-clay-deep);
-  background: linear-gradient(168deg, var(--ms-cream), var(--ms-clay));
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px dashed var(--ms-clay-deep);
+  border-radius: var(--lp-radius);
+  background: none;
   text-align: center;
 }
 
@@ -6123,16 +6127,19 @@ p {
   }
 }
 
+/*  Standalone text, not a card. The border and the ivory fill made three
+    tiles competing with the dimming, which is what actually says which
+    quote is the subject. Centred, because without a card edge to range
+    against, left-aligned text of three different lengths reads as
+    ragged rather than aligned. */
 .lp-quote {
   display: grid;
   gap: 1rem;
   align-content: start;
   min-height: 11rem;
   margin: 0;
-  padding: clamp(1.5rem, 3vw, 2rem);
-  border: 1px solid var(--ms-clay);
-  border-radius: var(--lp-radius);
-  background: var(--ms-ivory);
+  padding: clamp(0.5rem, 1.5vw, 1rem);
+  text-align: center;
 }
 
 .lp-quote blockquote {
@@ -7732,35 +7739,84 @@ p {
 
 /* ==============================================================
    35. SCROLL REVEAL
-   Sections fade up as they come into view, the way the Framer
-   reference does it (it starts elements at opacity 0 with a
-   translateY and animates to none). No library: an
-   IntersectionObserver in landing.js adds .is-visible once.
+   Sections rise and fade as they come into view.
 
-   The hidden state is gated behind .has-reveal on <html>, which the
-   script sets before paint. With JavaScript off, or on a browser
-   without IntersectionObserver, that class never lands and every
-   section renders normally. Hiding by default and revealing with
-   script would mean a blank page for anyone the script does not
-   reach, which is too high a price for an entrance animation.
+   Two mechanisms, and exactly one of them runs.
+
+   Where the browser has scroll-driven animations, the reveal is tied
+   to scroll position: progress is a function of where the section sits
+   in the viewport, so it advances precisely as fast as you scroll and
+   stops when you stop. That is Chrome and Edge 115 and up.
+
+   Where it does not, landing.js falls back to the timed version below:
+   an IntersectionObserver adds .is-visible and a transition plays at
+   its own speed regardless of how fast you scrolled. The script checks
+   for the same feature this file does, so the two never both apply.
    ============================================================== */
 
+@keyframes lp-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lp-reveal {
+      /*  Longhands, and animation-duration: auto in particular. The
+          "animation" shorthand sets duration to 0s when it is omitted,
+          and a scroll-driven animation with a zero duration never
+          progresses: every section sat at opacity 0 forever. auto is
+          what tells it to fill the range instead. The shorthand also
+          resets animation-timeline, which is a second reason not to mix
+          the two. */
+      animation-name: lp-rise-in;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      /*  Bounded to the first part of the entry, not all of it. "entry"
+          runs until the element's far edge clears the viewport floor,
+          which for a section taller than the screen is a whole
+          viewport's worth of scrolling: the fade would still be
+          finishing long after the section was in front of you. */
+      animation-range: entry 0% entry 38%;
+    }
+
+    /*  Rows of cards get the same treatment per child, offset slightly,
+        so a row assembles instead of arriving as one block. The ranges
+        are staggered rather than the delays, because a scroll-driven
+        animation has no delay to give it. */
+    .lp-reveal--stagger > * {
+      animation-name: lp-rise-in;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 42%;
+    }
+
+    .lp-reveal--stagger > :nth-child(2) { animation-range: entry 4% entry 46%; }
+    .lp-reveal--stagger > :nth-child(3) { animation-range: entry 8% entry 50%; }
+    .lp-reveal--stagger > :nth-child(4) { animation-range: entry 12% entry 54%; }
+  }
+}
+
+/* ---------- the timed fallback ----------
+   Only reachable when .has-reveal is on <html>, which landing.js adds
+   only where scroll-driven animations are missing. With no JavaScript
+   at all the class never lands and every section renders normally,
+   which is why the hidden state is gated on it rather than applied by
+   default: hiding first and revealing with script would mean a blank
+   page for anyone the script does not reach. */
 .has-reveal .lp-reveal {
   opacity: 0;
   transform: translateY(30px);
-}
-
-/*  Transition rather than animation so an element interrupted
-    mid-reveal settles instead of restarting.
-
-    Slower and gentler than the first pass, which was 0.72s on an ease
-    that still had speed in it at the end and read as a jolt. This is an
-    ease-out-expo: almost all the distance is covered early and it
-    decelerates for a long time, which is what makes it feel like it
-    settles rather than stops. The opacity is quicker than the movement
-    on purpose, so a section has finished fading before it finishes
-    travelling. */
-.has-reveal .lp-reveal {
   transition:
     opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
     transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
@@ -7772,14 +7828,10 @@ p {
   transform: none;
 }
 
-/*  Dropped once the element has arrived: will-change on a dozen
-    sections at once is a standing cost for an animation that only
-    happens the first time. */
 .has-reveal .lp-reveal.is-settled {
   will-change: auto;
 }
 
-/*  Staggered children, for the panels that are a row of cards. */
 .has-reveal .lp-reveal--stagger > * {
   opacity: 0;
   transform: translateY(22px);
@@ -7797,9 +7849,6 @@ p {
 .has-reveal .lp-reveal--stagger.is-visible > :nth-child(3) { transition-delay: 0.2s; }
 .has-reveal .lp-reveal--stagger.is-visible > :nth-child(4) { transition-delay: 0.3s; }
 
-/*  Less travel on a phone. 30px is a small move on a desktop section and
-    a large one relative to a 700px viewport, where it reads as the page
-    lurching rather than settling. */
 @media (max-width: 640px) {
   .has-reveal .lp-reveal {
     transform: translateY(18px);
@@ -7810,29 +7859,15 @@ p {
   }
 }
 
-/*  2.3.3 and 2.2.2 both point the same way here: if someone has asked
-    for less motion, there is no reason to move anything. The script
-    also skips observing, so nothing is left at opacity 0. */
+/*  Nothing moves for anyone who has asked for less motion, on either
+    path. The scroll-driven rules are inside a no-preference query, so
+    they simply do not apply; these cancel the timed ones. */
 @media (prefers-reduced-motion: reduce) {
   .has-reveal .lp-reveal,
   .has-reveal .lp-reveal--stagger > * {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-}
-
-
-/*  In-page jumps land clear of the sticky header instead of under it.
-    Set on the scroll container, so it applies to the closing band's link
-    back up to the form on the early access page and to the skip link. */
-html {
-  scroll-padding-top: clamp(5rem, 12vh, 7.5rem);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
   }
 }
 
