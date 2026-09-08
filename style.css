@@ -7551,6 +7551,16 @@ p {
   }
 }
 
+/*  The small print under the discount table. */
+.lp-ladder-note {
+  max-width: 40rem;
+  margin: 0.9rem auto 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
 /* ---------- founders ---------- */
 .lp-founders {
   display: grid;
