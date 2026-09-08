@@ -5226,8 +5226,12 @@ p {
 
 /*  Sunday's long-form section headline: wider measure, smaller size, so
     a full sentence can be the heading without shouting. */
+/*  No measure cap: this headline is a whole sentence, and capping it
+    at 56rem left short lines in a wide container. It fills the wrap
+    now and only the container holds it in. */
 .lp-title--long {
-  max-width: 56rem;
+  max-width: none;
+  text-wrap: pretty;
   font-size: clamp(1.8rem, 3.375vw, 2.5875rem);
   line-height: 1.22;
 }
@@ -5434,6 +5438,15 @@ p {
   list-style: none;
 }
 
+/*  balance evens these three-to-five word titles instead of leaving one
+    word on a line of its own, which "Wash the bra, keep the tech dry"
+    was doing in a narrow column. */
+.lp-benefits h3,
+.lp-tiles h3,
+.lp-featlist strong {
+  text-wrap: balance;
+}
+
 .lp-benefits h3 {
   margin: 0 0 0.4rem;
   color: var(--ms-plum);
@@ -5492,20 +5505,24 @@ p {
   line-height: 1.6;
 }
 
-/* ---------- 03 how it works ---------- */
-.lp-how-grid {
+/* ---------- 03 how it works ----------
+   Image above, copy below, at every width. It was copy-beside-image,
+   which on a phone left a narrow column of text next to nothing and at
+   desktop gave the paragraph a measure it did not need. */
+.lp-how-stack {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
-  gap: clamp(2rem, 5vw, 4rem);
+  gap: clamp(1.5rem, 4vw, 2.25rem);
   margin-top: clamp(1.5rem, 3.5vw, 2.25rem);
 }
 
 .lp-how-media {
   width: 100%;
-  max-width: 24rem;
+  max-width: 34rem;
   margin: 0;
-  justify-self: end;
+}
+
+.lp-how-copy {
+  max-width: 46rem;
 }
 
 /* ---------- 04 fit & fabric ----------
@@ -5518,14 +5535,8 @@ p {
 }
 
 @media (max-width: 860px) {
-  .lp-how-grid,
   .lp-fit-inner {
     grid-template-columns: 1fr;
-  }
-
-  .lp-how-media {
-    justify-self: start;
-    max-width: none;
   }
 
   /*  Image above the copy when it stacks, as in the hero. */
@@ -6672,6 +6683,7 @@ p {
 
 .lp-ticker-run {
   display: flex;
+  align-items: center;
   flex: none;
   gap: 2.5rem;
   padding-right: 2.5rem;
@@ -6686,12 +6698,19 @@ p {
 
 /*  The separator is decorative, so it is a pseudo-element and never
     reaches the accessibility tree. */
+/*  The separator is the logo droplet rather than a dot, masked from the
+    same file the mark uses so the two cannot diverge. Sized on the
+    mark's own 86:126 ratio, and nudged up a touch because a droplet's
+    mass sits low and box-centring it leaves it looking dropped. */
 .lp-ticker-run span::after {
   content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
+  flex: none;
+  width: 6px;
+  height: 9px;
+  transform: translateY(-1px);
   background: var(--ms-peri);
+  -webkit-mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
+  mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
 }
 
 @keyframes lp-ticker {
