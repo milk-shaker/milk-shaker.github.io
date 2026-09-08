@@ -522,6 +522,33 @@
     start();
   }
 
+  /* --- FAQ: one answer open at a time -----------------------------------
+     The markup does this on its own: a shared name= makes native
+     <details> mutually exclusive. That landed in Chrome 120, Safari 17.2
+     and Firefox 130, so anything older simply leaves several open, which
+     is the old behaviour rather than a broken one.
+
+     This closes that gap, and only where it exists: if the browser knows
+     about details.name there is nothing to do and the listener is never
+     attached. */
+  if (!('name' in document.createElement('details'))) {
+    var exclusive = document.querySelectorAll('details[name]');
+
+    if (exclusive.length) {
+      Array.prototype.forEach.call(exclusive, function (item) {
+        item.addEventListener('toggle', function () {
+          if (!item.open) return;
+          var group = item.getAttribute('name');
+          Array.prototype.forEach.call(exclusive, function (other) {
+            if (other !== item && other.open && other.getAttribute('name') === group) {
+              other.open = false;
+            }
+          });
+        });
+      });
+    }
+  }
+
   /* --- scroll reveal ----------------------------------------------------
      Sections fade up the first time they come into view.
 

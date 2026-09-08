@@ -5995,7 +5995,10 @@ p {
   display: flex;
   flex: 0 0 calc((100% - 2 * clamp(1.25rem, 3vw, 2rem)) / 3);
   scroll-snap-align: center;
-  transition: opacity 0.5s ease;
+  /*  Quick. This is a state change telling you which quote is the
+      subject, not an animation to watch: at 0.5s the dimming was still
+      catching up after the slide had arrived. */
+  transition: opacity 0.22s ease-out;
 }
 
 /*  Everything but the middle quote is held back, so the eye is told
