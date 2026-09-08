@@ -7749,27 +7749,30 @@ p {
 
 /* ==============================================================
    35. SCROLL REVEAL
-   Sections rise and fade as they come into view, and hold until the
-   panel above them is about half read.
+   Section contents rise and fade as they come into view, holding
+   until the panel above is about half read.
 
-   Nothing here applies to a bare .lp-reveal. The animation is opt-in
-   per section: landing.js adds .is-deferred to the sections that begin
-   below the fold when the page loads, and only those animate.
+   The animation is on the section's inner wrapper, never on the
+   section. Every one of these panels paints its own background:
+   ivory, cream, or a gradient. Fading the section faded its
+   background with it, so a panel arrived as a pale gap in the colour
+   banding and then the whole band faded in mid-screen. Moving the
+   animation one level in leaves the background painted the whole
+   time, so the colour change between panels stays crisp and only the
+   words and images move.
 
-   That is not decoration, it is the safety property. The range below
-   deliberately starts late, which means a section that is already on
-   screen at load would be sitting at opacity 0 while plainly visible.
-   Measured: on four pages the first content section is 236 to 383px
-   visible at load, and on a phone the FAQ page has two sections in the
-   first viewport. Opting in per section means anything above the fold
-   is simply never animated, and a browser that never runs the script
-   animates nothing at all rather than hiding everything.
+   It is also opt-in per section: landing.js adds .is-deferred to the
+   sections that begin below the fold, and only those animate. The
+   range starts late, so a section already on screen at load would
+   otherwise sit invisible; on four pages the first content section is
+   236 to 383px visible at load. Opting in means anything above the
+   fold is never animated, and a browser that never runs the script
+   animates nothing rather than hiding everything.
 
-   Two mechanisms, and exactly one runs. Where the browser has
-   scroll-driven animations the reveal is tied to scroll position, so it
-   advances exactly as fast as you scroll. Where it does not, landing.js
-   falls back to an IntersectionObserver and a timed transition; it
-   tests for the same feature this file's @supports does.
+   Two mechanisms, exactly one live. Scroll-driven where the browser
+   has it, so progress tracks the scroll; otherwise landing.js falls
+   back to an observer and a timed transition, testing for the same
+   feature this file's @supports does.
    ============================================================== */
 
 @keyframes lp-rise-in {
@@ -7785,56 +7788,40 @@ p {
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .lp-reveal.is-deferred {
-      /*  Longhands, and animation-duration: auto in particular: the
-          shorthand sets duration to 0s when omitted, and a scroll-driven
+    /*  The wrapper, not the section. See the note above. */
+    .lp-reveal.is-deferred > * {
+      /*  Longhands, and duration: auto in particular: the shorthand
+          sets duration to 0s when omitted and a scroll-driven
           animation with zero duration never progresses. The shorthand
           also resets animation-timeline. */
       animation-name: lp-rise-in;
       animation-duration: auto;
       animation-timing-function: linear;
       animation-fill-mode: both;
+
+      /*  view() on the child still measures the child, which is the
+          full width and nearly the full height of its section, so the
+          timing is effectively the same as measuring the section. */
       animation-timeline: view();
 
-      /*  Anchored on cover, not entry, and this is why.
+      /*  Anchored on cover rather than entry. A section's entry phase
+          is over far earlier than it sounds: measured at 1280 by 900,
+          panel 02's entire entry is finished by the time you are 58%
+          through panel 01, so no offset within entry can hold the
+          reveal that long and still leave range to animate over.
 
-          A section's entry phase is over far earlier than it sounds.
-          Measured on the home page at 1280 by 900, panel 02's entire
-          entry is finished by the time you are 58% of the way through
-          panel 01, so no offset within entry can hold the reveal until
-          the panel above is past halfway and still leave any range to
-          animate over.
-
-          Cover runs from the section touching the viewport floor to it
-          leaving the top, which is long enough to place the animation
-          late. Measured against panel 01: this starts 50% of the way
-          through it and finishes at 79%, and 47% to 84% on a phone. */
-      animation-range: cover 32% cover 50%;
+          Measured against panel 01: this starts at about 47% of the
+          way through it and finishes around 75%. */
+      animation-range: cover 30% cover 48%;
     }
-
-    /*  Rows of cards animate per child, offset slightly, so a row
-        assembles rather than arriving as a block. Staggered by range
-        rather than by delay: a scroll-driven animation has no delay. */
-    .lp-reveal--stagger.is-deferred > * {
-      animation-name: lp-rise-in;
-      animation-duration: auto;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: cover 33% cover 51%;
-    }
-
-    .lp-reveal--stagger.is-deferred > :nth-child(2) { animation-range: cover 35% cover 53%; }
-    .lp-reveal--stagger.is-deferred > :nth-child(3) { animation-range: cover 37% cover 55%; }
-    .lp-reveal--stagger.is-deferred > :nth-child(4) { animation-range: cover 39% cover 57%; }
   }
 }
 
 /* ---------- the timed fallback ----------
    Reachable only when .has-reveal is on <html>, which landing.js adds
-   only where scroll-driven animations are missing, and only on sections
-   it has marked .is-deferred. */
-.has-reveal .lp-reveal.is-deferred {
+   only where scroll-driven animations are missing, and only on the
+   sections it marked .is-deferred. Same one-level-in rule. */
+.has-reveal .lp-reveal.is-deferred > * {
   opacity: 0;
   transform: translateY(30px);
   transition:
@@ -7843,45 +7830,23 @@ p {
   will-change: opacity, transform;
 }
 
-.has-reveal .lp-reveal.is-deferred.is-visible {
+.has-reveal .lp-reveal.is-deferred.is-visible > * {
   opacity: 1;
   transform: none;
 }
 
-.has-reveal .lp-reveal.is-deferred.is-settled {
+.has-reveal .lp-reveal.is-deferred.is-settled > * {
   will-change: auto;
 }
 
-.has-reveal .lp-reveal--stagger.is-deferred > * {
-  opacity: 0;
-  transform: translateY(22px);
-  transition:
-    opacity 0.68s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.has-reveal .lp-reveal--stagger.is-deferred.is-visible > * {
-  opacity: 1;
-  transform: none;
-}
-
-.has-reveal .lp-reveal--stagger.is-deferred.is-visible > :nth-child(2) { transition-delay: 0.1s; }
-.has-reveal .lp-reveal--stagger.is-deferred.is-visible > :nth-child(3) { transition-delay: 0.2s; }
-.has-reveal .lp-reveal--stagger.is-deferred.is-visible > :nth-child(4) { transition-delay: 0.3s; }
-
 @media (max-width: 640px) {
-  .has-reveal .lp-reveal.is-deferred {
+  .has-reveal .lp-reveal.is-deferred > * {
     transform: translateY(18px);
-  }
-
-  .has-reveal .lp-reveal--stagger.is-deferred > * {
-    transform: translateY(14px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .has-reveal .lp-reveal.is-deferred,
-  .has-reveal .lp-reveal--stagger.is-deferred > * {
+  .has-reveal .lp-reveal.is-deferred > * {
     opacity: 1;
     transform: none;
     transition: none;

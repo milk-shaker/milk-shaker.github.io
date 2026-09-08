@@ -657,7 +657,7 @@
      reaches renders every section normally instead of a blank page. It
      is set before observing, and only when there is something to do the
      revealing with. */
-  var revealable = document.querySelectorAll('.lp-reveal, .lp-reveal--stagger');
+  var revealable = document.querySelectorAll('.lp-reveal');
 
   /*  Where the browser can drive an animation from scroll position, the
       stylesheet does the reveal on its own and this must stay out of the
