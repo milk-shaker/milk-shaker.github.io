@@ -32,6 +32,9 @@
         injects an iframe and auto-resizes it by postMessage, so the
         form's fields and styling are configured in their dashboard,
         not here. -->
+  <!--  Blocking, and in the head, on purpose: it has to rewrite the URL
+        before LaunchList's deferred widget script reads it. See the file. -->
+  <script src="/assets/js/ref.js"></script>
   <script src="https://getlaunchlist.com/js/widget.js" defer></script>
 </head>
 

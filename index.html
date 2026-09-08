@@ -35,6 +35,9 @@
         grep -n 'lp-ph lp-ph--' index.html lists them all. -->
   <link rel="stylesheet" href="/style.css" />
 
+  <!--  Blocking, and in the head, on purpose: it has to rewrite the URL
+        before LaunchList's deferred widget script reads it. See the file. -->
+  <script src="/assets/js/ref.js"></script>
 </head>
 
 <body class="lp">
