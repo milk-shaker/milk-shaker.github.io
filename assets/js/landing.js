@@ -302,15 +302,22 @@
 
   /* --- 07 quotes carousel ------------------------------------------------
      The track is a scroll-snap strip in the markup and scrolls without
-     any of this. What gets added here is the dot row and the autoplay,
+     any of this. What gets added here is the dot row and the rotation,
      which is why the nav container ships empty and hidden: no
      JavaScript, no inert buttons.
 
-     One dot per quote, six of them, whatever the width. Three cards are
-     visible at once on a desktop, so a dot means "bring quote N into
-     view" rather than "jump to page N" -- the highlighted dot is the
-     leftmost quote showing. Paging by threes was tidier arithmetic but
-     gave two dots on a desktop, which is the opposite of obvious. */
+     The cycle is continuous. A second copy of the six quotes is appended
+     to the track, so stepping past the sixth scrolls forward into a
+     duplicate of the first rather than rewinding to it. Once that scroll
+     settles we jump the track back by one full set with no animation.
+     The slide on screen is identical either side of the jump, so it is
+     invisible, and the rotation only ever moves forward.
+
+     The copies are what make the dots line up as well. With three cards
+     visible and only six slides the track ran out of room, so quotes 4,
+     5 and 6 all came to rest in the same place and their dots pointed at
+     the same view. With twelve there is always somewhere further to
+     scroll, so every dot has its own position. */
   var quotes = document.getElementById('lpQuotes');
   var qTrack = document.getElementById('lpQuotesTrack');
   var qNav = document.getElementById('lpQuotesNav');
@@ -319,48 +326,57 @@
     var QUOTE_MS = 5000;
     var qTimer = null;
     var qDots = [];
-    var qSlides = [].slice.call(qTrack.querySelectorAll('.lp-quotes-slide'));
 
-    /*  Scrolling to the last slide's offset would stop short: the track
-        cannot scroll past its own end, so the final slides share a
-        resting position. Clamping to maxScroll keeps the dot honest
-        about where the track actually is. */
-    var maxScroll = function () {
-      return Math.max(0, qTrack.scrollWidth - qTrack.clientWidth);
-    };
+    var real = [].slice.call(qTrack.querySelectorAll('.lp-quotes-slide'));
+    var COUNT = real.length;
 
-    var offsetOf = function (k) {
-      return Math.min(qSlides[k].offsetLeft - qSlides[0].offsetLeft, maxScroll());
-    };
+    /*  Hidden from assistive tech and from the tab order: the same six
+        quotes read twice is noise, and the originals are already there. */
+    real.forEach(function (slide) {
+      var copy = slide.cloneNode(true);
+      copy.classList.add('is-clone');
+      copy.setAttribute('aria-hidden', 'true');
+      copy.removeAttribute('role');
+      copy.removeAttribute('aria-roledescription');
+      copy.removeAttribute('aria-label');
+      qTrack.appendChild(copy);
+    });
 
-    /*  The index we intend to be on, kept rather than derived.
+    var slides = [].slice.call(qTrack.querySelectorAll('.lp-quotes-slide'));
 
-        It has to be kept, because at the wide end the trailing slides
-        share a resting position: the track cannot scroll past its own
-        end, so quotes 4, 5 and 6 all sit at maxScroll. Reading the index
-        back off scrollLeft there returns the first of them every time,
-        which pinned the rotation between 4 and 5 and meant it never
-        reached the end to wrap. */
+    /*  Index we intend to be on, kept rather than read back off
+        scrollLeft, which cannot express every index while a smooth
+        scroll is still travelling. */
     var at = 0;
-
-    /*  Set while we are the ones scrolling, so the scroll listener does
-        not immediately overwrite the intended index with a position that
-        cannot express it. */
     var driving = false;
     var settle = null;
 
+    /*  How far slide k sits from the track's left edge, right now.
+        Measured off getBoundingClientRect rather than offsetLeft,
+        because offsetLeft is rounded to whole pixels: a slide is
+        326.656px wide here, so the rounded step alternates 359, 358,
+        359 and the sixth slide lands a fraction off the true multiple.
+        That fraction is invisible on its own, but it is the difference
+        between a reset that lands exactly on the matching slide and one
+        that is always slightly out. */
+    var deltaTo = function (k) {
+      return slides[k].getBoundingClientRect().left -
+             qTrack.getBoundingClientRect().left;
+    };
+
     var nearest = function () {
-      var x = qTrack.scrollLeft, best = 0, dist = Infinity;
-      qSlides.forEach(function (_, k) {
-        var d = Math.abs(offsetOf(k) - x);
+      var best = 0, dist = Infinity;
+      slides.forEach(function (_, k) {
+        var d = Math.abs(deltaTo(k));
         if (d < dist - 1) { dist = d; best = k; }
       });
-      return best;
+      return best % COUNT;
     };
 
     var mark = function (k) {
-      qDots.forEach(function (dot, n) {
-        dot.setAttribute('aria-current', n === k ? 'true' : 'false');
+      var n = ((k % COUNT) + COUNT) % COUNT;
+      qDots.forEach(function (dot, i) {
+        dot.setAttribute('aria-current', i === n ? 'true' : 'false');
       });
     };
 
@@ -369,33 +385,66 @@
         back to assigning scrollLeft. */
     var smooth = 'scrollBehavior' in document.documentElement.style;
 
-    var goTo = function (k) {
-      at = k;
-      driving = true;
-      if (settle) window.clearTimeout(settle);
-      settle = window.setTimeout(function () { driving = false; }, 700);
-
-      var left = offsetOf(k);
-      if (smooth) {
-        qTrack.scrollTo({ left: left, behavior: reduced ? 'auto' : 'smooth' });
+    var scrollTo = function (k, animate) {
+      var left = qTrack.scrollLeft + deltaTo(k);
+      if (smooth && animate && !reduced) {
+        qTrack.scrollTo({ left: left, behavior: 'smooth' });
       } else {
         qTrack.scrollLeft = left;
       }
+    };
+
+    var hold = function (ms) {
+      driving = true;
+      if (settle) window.clearTimeout(settle);
+      settle = window.setTimeout(function () { driving = false; }, ms);
+    };
+
+    var goTo = function (k) {
+      at = k;
+      hold(700);
+      scrollTo(k, true);
       mark(k);
+    };
+
+    /*  Step forward one, and when that step lands on the first copy,
+        rewind a whole set instantly so the next step has room again. */
+    var advance = function () {
+      var next = at + 1;
+      at = next % COUNT;
+      hold(1100);
+      scrollTo(next, true);
+      mark(at);
+
+      if (next >= COUNT) {
+        window.setTimeout(function () {
+          /*  Subtract one whole set from wherever the track has come to
+              rest, rather than scrolling to slide 0's own position.
+              A slide is a fractional width, so an absolute target gets
+              rounded and the content lands about a pixel out, which is
+              a visible twitch at the one moment that has to be
+              seamless. Moving by exactly the set width keeps whatever
+              sub-pixel phase the track is already in. */
+          var set = slides[COUNT].getBoundingClientRect().left -
+                    slides[0].getBoundingClientRect().left;
+          qTrack.scrollLeft = qTrack.scrollLeft - set;
+          /*  This lands within about a sixteenth of a pixel rather than
+              exactly. Chrome quantises scrollLeft, and a slide here is
+              326.656px wide, so a whole set is not a whole number of
+              pixels. Turning snapping off across the move was tried and
+              made no difference to the residual. */
+        }, reduced ? 0 : 620);
+      }
     };
 
     var stop = function () {
       if (qTimer) { window.clearInterval(qTimer); qTimer = null; }
     };
 
-    /*  Endless: the step after the last slide is the first one, so it
-        always comes back round rather than parking on the end. */
     var start = function () {
       stop();
-      if (reduced || qSlides.length < 2) return;
-      qTimer = window.setInterval(function () {
-        goTo((at + 1) % qSlides.length);
-      }, QUOTE_MS);
+      if (reduced || COUNT < 2) return;
+      qTimer = window.setInterval(advance, QUOTE_MS);
     };
 
     var buildDots = function () {
@@ -405,18 +454,17 @@
       var list = document.createElement('ul');
       list.className = 'lp-quotes-dots';
 
-      qSlides.forEach(function (_, k) {
+      real.forEach(function (_, k) {
         var li = document.createElement('li');
         var dot = document.createElement('button');
         dot.type = 'button';
         dot.className = 'lp-quotes-dot';
-        dot.setAttribute('aria-label', 'Show quote ' + (k + 1) + ' of ' + qSlides.length);
+        dot.setAttribute('aria-label', 'Show quote ' + (k + 1) + ' of ' + COUNT);
         dot.addEventListener('click', function () {
           goTo(k);
-          /*  Restart rather than kill the timer. With the pause control
-              gone this is the only way back to rotating, so a tap must
-              not end the loop for good -- it just buys another full
-              interval on the quote you picked. */
+          /*  Restart rather than kill the timer: with no pause control,
+              a tap must not end the rotation for good. It just buys
+              another full interval on the quote you picked. */
           start();
         });
         li.appendChild(dot);
@@ -430,9 +478,7 @@
       start();
     };
 
-    /*  Hovering or tabbing into the quotes means someone is reading one.
-        This is now the whole of the pause behaviour, the button having
-        been removed. */
+    /*  Hovering or tabbing into the quotes means someone is reading one. */
     quotes.addEventListener('mouseenter', stop);
     quotes.addEventListener('mouseleave', start);
     quotes.addEventListener('focusin', stop);
@@ -440,14 +486,20 @@
       if (!quotes.contains(e.relatedTarget)) start();
     });
 
-    /*  A real swipe is the only thing that should redefine where we are. */
+    /*  A real swipe is the only thing that redefines where we are. */
     qTrack.addEventListener('scroll', debounce(function () {
       if (driving) return;
       at = nearest();
       mark(at);
     }, 90));
 
-    window.addEventListener('resize', debounce(function () { mark(at); }, 150));
+    /*  Slide widths change with the breakpoint, so the resting offsets
+        do too. Re-seat on the current index rather than leaving the
+        track parked between two slides. */
+    window.addEventListener('resize', debounce(function () {
+      scrollTo(at, false);
+      mark(at);
+    }, 150));
 
     buildDots();
   }
