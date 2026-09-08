@@ -6021,6 +6021,17 @@ p {
   margin: 1.9rem 0 0;
 }
 
+/*  The kit grid sits directly under the CTA in the early access panel,
+    and neither had a margin on the facing edge, so the button was
+    landing on top of the image cards. */
+.lp-signup-inner .lp-kit {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.lp-signup-inner .lp-form-note {
+  margin-top: 1.5rem;
+}
+
 /*  The widget's own card on the early access page, so the form reads as
     the object of the page rather than floating on the background. */
 .lp-ea-card {
