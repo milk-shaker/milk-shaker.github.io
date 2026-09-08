@@ -5229,11 +5229,27 @@ p {
 /*  No measure cap: this headline is a whole sentence, and capping it
     at 56rem left short lines in a wide container. It fills the wrap
     now and only the container holds it in. */
+/*  A sentence on its own line with air above it. A span rather than a
+    second block, because in the panel 03 stack a real sibling element
+    would pick up the grid's gap, which is far too much space for two
+    sentences of the same paragraph. */
+.lp-line {
+  display: block;
+}
+
+.lp-line + .lp-line {
+  margin-top: 0.5em;
+}
+
+/*  Sized down from the standard title so a long sentence uses the width
+    it has instead of stacking. text-wrap:pretty rather than balance:
+    balance evens the line lengths, which is the opposite of what is
+    wanted here, because it holds lines back from the right edge. */
 .lp-title--long {
   max-width: none;
   text-wrap: pretty;
-  font-size: clamp(1.8rem, 3.375vw, 2.5875rem);
-  line-height: 1.22;
+  font-size: clamp(1.6rem, 2.7vw, 2.15rem);
+  line-height: 1.24;
 }
 
 .lp-lede {
@@ -6096,14 +6112,24 @@ p {
   background: var(--ms-ivory);
 }
 
+/*  Three equal columns across the whole wrap rather than three items
+    huddled in the middle, which is how every other panel on the page
+    uses its width. */
 .lp-trust-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px 34px;
-  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  max-width: var(--lp-wrap);
+  margin: 0 auto;
   padding: 0;
   list-style: none;
+}
+
+@media (max-width: 640px) {
+  .lp-trust-row {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
 }
 
 /*  Sunday sets these as three plain credential lines, separated by a
@@ -6111,28 +6137,19 @@ p {
 .lp-trust-row li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 12px;
   color: var(--ms-plum);
-  font-size: 1.1025rem;
+  font-size: clamp(1.1025rem, 1.5vw, 1.35rem);
   font-weight: 600;
   letter-spacing: 0.02em;
 }
 
-.lp-trust-row li + li {
-  padding-left: 34px;
-  border-left: 1px solid var(--ms-clay-deep);
-}
 
-@media (max-width: 640px) {
-  .lp-trust-row li + li {
-    padding-left: 0;
-    border-left: 0;
-  }
-}
 
 .lp-trust-row .lp-icon {
-  width: 22px;
-  height: 22px;
+  width: clamp(22px, 1.9vw, 27px);
+  height: clamp(22px, 1.9vw, 27px);
   margin: 0;
 }
 
@@ -6154,7 +6171,7 @@ p {
     wider now and every child except the kit is held at the old measure,
     so only the pictures grew. */
 .lp-signup-inner {
-  max-width: 900px;
+  max-width: var(--lp-wrap);
   margin: 0 auto;
   padding: 0 var(--lp-gutter);
   text-align: center;
