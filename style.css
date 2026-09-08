@@ -5329,11 +5329,19 @@ p {
   line-height: 1.5;
 }
 
+/*  Shrink-wrapped around the button so the note below it centres on the
+    button rather than across the full copy column. Without this the
+    button sits left and a centred note under it reads as misaligned. */
+.lp-hero-cta {
+  width: fit-content;
+}
+
 .lp-hero-note {
-  margin: 1.1rem 0 0;
+  margin: 0.7rem 0 0;
   color: var(--ms-ink-soft);
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: 0.8375rem;
+  line-height: 1.45;
+  text-align: center;
 }
 
 /* ---------- media + placeholders ----------
@@ -6659,7 +6667,12 @@ p {
   }
 
   /*  The hero CTA sits under centred copy, so left-aligning it alone
-      reads as a mistake. */
+      reads as a mistake. The wrapper is what carries the width now, so
+      it takes the auto margins and the button fills it. */
+  .lp-hero-cta {
+    margin-inline: auto;
+  }
+
   .lp-hero .lp-btn {
     display: flex;
     margin-inline: auto;
