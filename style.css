@@ -7617,3 +7617,77 @@ p {
     transform: none;
   }
 }
+
+
+/* ==============================================================
+   35. SCROLL REVEAL
+   Sections fade up as they come into view, the way the Framer
+   reference does it (it starts elements at opacity 0 with a
+   translateY and animates to none). No library: an
+   IntersectionObserver in landing.js adds .is-visible once.
+
+   The hidden state is gated behind .has-reveal on <html>, which the
+   script sets before paint. With JavaScript off, or on a browser
+   without IntersectionObserver, that class never lands and every
+   section renders normally. Hiding by default and revealing with
+   script would mean a blank page for anyone the script does not
+   reach, which is too high a price for an entrance animation.
+   ============================================================== */
+
+.has-reveal .lp-reveal {
+  opacity: 0;
+  transform: translateY(34px);
+}
+
+/*  Transition rather than animation so an element interrupted
+    mid-reveal settles instead of restarting. The slight delay on
+    transform makes the fade lead the movement, which reads as
+    arriving rather than sliding. */
+.has-reveal .lp-reveal {
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.has-reveal .lp-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/*  Dropped once the element has arrived: will-change on a dozen
+    sections at once is a standing cost for an animation that only
+    happens the first time. */
+.has-reveal .lp-reveal.is-settled {
+  will-change: auto;
+}
+
+/*  Staggered children, for the panels that are a row of cards. */
+.has-reveal .lp-reveal--stagger > * {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.has-reveal .lp-reveal--stagger.is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+.has-reveal .lp-reveal--stagger.is-visible > :nth-child(2) { transition-delay: 0.08s; }
+.has-reveal .lp-reveal--stagger.is-visible > :nth-child(3) { transition-delay: 0.16s; }
+.has-reveal .lp-reveal--stagger.is-visible > :nth-child(4) { transition-delay: 0.24s; }
+
+/*  2.3.3 and 2.2.2 both point the same way here: if someone has asked
+    for less motion, there is no reason to move anything. The script
+    also skips observing, so nothing is left at opacity 0. */
+@media (prefers-reduced-motion: reduce) {
+  .has-reveal .lp-reveal,
+  .has-reveal .lp-reveal--stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

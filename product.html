@@ -4,11 +4,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="What MilkShaker collects, why, who we share it with, and what you can ask us to delete." />
+  <meta name="description"
+    content="Two internal massage modules following a lymphatic drainage pattern designed by a physical therapist, in a nursing bra you would have worn anyway." />
 
-  <link rel="canonical" href="https://themilkshaker.com/privacy.html" />
+  <link rel="canonical" href="https://themilkshaker.com/product.html" />
 
-  <title>Privacy Policy | MilkShaker</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://themilkshaker.com/product.html" />
+  <meta property="og:title" content="MilkShaker | How the massage bra works" />
+  <meta property="og:description"
+    content="Two internal massage modules following a lymphatic drainage pattern designed by a physical therapist, in a nursing bra you would have worn anyway." />
+  <meta property="og:image" content="https://themilkshaker.com/assets/images/cover_photo.jpg" />
+
+  <title>The Product | MilkShaker</title>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
@@ -16,9 +24,17 @@
   <link rel="icon" href="/favicon.ico?v=3" />
   <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
   <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
-  <meta name="theme-color" content="#F5EEE4" />
+  <meta name="theme-color" content="#FBF7F0" />
 
+  <!--  No Bootstrap here: this is a grid layout that needs none of it,
+        and style.css defines a bare .btn that would collide. Everything
+        is namespaced lp-.
+
+        IMAGE PLACEHOLDERS: every image slot is a labelled .lp-ph box
+        saying what belongs there, pending the designer's assets.
+        grep -n 'lp-ph lp-ph--' index.html lists them all. -->
   <link rel="stylesheet" href="/style.css" />
+
   <!--  Blocking, and in the head, on purpose: it has to rewrite the URL
         before LaunchList's deferred widget script reads it. See the file. -->
   <script src="/assets/js/ref.js"></script>
@@ -114,169 +130,183 @@
       </ul>
     </nav>
   </div>
-<main id="main">
-    <article class="legal-page">
-      <div class="legal-inner">
-        <h1>Privacy Policy</h1>
-        <p class="legal-updated">Last updated 7 September 2026</p>
+  <main id="main">
 
-        <!--  Written from what the code actually does, not from a
-              template. Every collection point below is a real form or
-              script in this repo:
-
-                index.html               the list signup (FormSubmit)
-                contact.html             FormSubmit, name + email
-                preorder.html            unlinked, name + email + price
-                reserve-questions.html   unlinked, + mastitis history
-                every page               GoatCounter analytics
-
-              If a form is added, removed, or its fields change, update
-              the matching paragraph here in the same commit. A privacy
-              policy that does not match the forms is worse than none. -->
-
-        <p class="legal-lede">
-          This policy explains what MilkShaker Inc. collects, why, and what you can ask us to do about it. It
-          covers themilkshaker.com and our email list.
-        </p>
-
-        <h2>1. The short version</h2>
-        <p>
-          We collect an email address if you give us one, and anonymous statistics about which pages get read.
-          We use them to send you the thing you asked for and to understand what is useful. We do not sell your
-          details to anyone, and you can have them deleted by asking.
-        </p>
-
-        <h2>2. What we collect</h2>
-
-        <h3>If you join the list</h3>
-        <p>
-          The form is provided by <strong>LaunchList</strong> and, as currently configured, asks for your first
-          and last name, email address, city and state, and optionally a phone number. It also asks whether the
-          product is for you or for a friend, and how you heard about us. It is an embedded frame served by
-          LaunchList rather than by us, so what you type into it goes to them and they hold the list on our
-          behalf. Their handling of it is governed by their own terms and privacy policy.
-        </p>
-        <p>
-          The phone number is so we can reach you about your order at launch. It is optional, it is not used
-          for marketing calls or messages, and we do not sell it. The city and state tell us where the list is,
-          which is how we plan shipping and sizing.
-        </p>
-        <p>
-          The form does not ask for a street address. Once the offer period closes we will email the people
-          who are getting a welcome kit to ask for a delivery address, and use it for that one delivery. We do
-          not ask for it up front, and we do not ask the people who are not getting one.
-        </p>
-        <p>
-          Because the list has a referral programme, LaunchList also records who referred whom and how many
-          referrals each person has, so that the discount can be worked out. If we ever publish a referrers&rsquo;
-          leaderboard we will show first names or initials only, and we will tell the list before we turn it on.
-          If you would rather not appear on one, email us and we will exclude you.
-        </p>
-
-        <h3>If you reach a page we no longer link to</h3>
-        <p>
-          A few older pages remain reachable by direct link and still have working forms on them, delivered by a
-          different service, <strong>FormSubmit</strong>, which emails the submission to us. One collects name,
-          email and whether you would reserve the product at a given price. A follow-up page also asks how a
-          price feels to you and whether you have had mastitis or clogged ducts before, which is health
-          information. We mention it because it is still collectable, not because we are asking for it.
-        </p>
-
-<h3>When you browse</h3>
-        <p>
-          We use <strong>GoatCounter</strong> for analytics. It records which pages are viewed, roughly which
-          country from, and which site referred you. It sets no tracking cookies and does not follow you between
-          sites.
-        </p>
-        <p>
-          If you arrive by someone&rsquo;s referral link, your browser stores their referral code for
-          <strong>two days</strong> so that the credit survives moving between pages, closing the tab, and
-          coming back the next day. It is kept in your browser&rsquo;s local storage, not in a cookie, it holds
-          nothing about you, and it is discarded automatically once the two days are up. Clearing your browser
-          storage removes it, and if you do that before signing up the referral simply will not be counted.
-        </p>
-
-        <h2>3. Health information</h2>
-        <p>
-          Some of what people choose to tell us is health information. We are not a healthcare provider, we do
-          not bill insurance, and we are not a HIPAA covered entity, so HIPAA does not apply to anything you
-          send us. The protections you would expect from a doctor&rsquo;s office do not automatically apply here.
-        </p>
-        <p>
-          What does apply: we use it only to reply to you, we do not sell it, we do not use it for advertising,
-          and we share it only with the services in section 5. Email is also not an encrypted channel, so please
-          bear that in mind before writing something sensitive.
-        </p>
-
-        <h2>4. Why we collect it</h2>
-        <ul>
-          <li>To send the list emails you asked for.</li>
-          <li>To answer messages sent through the contact form.</li>
-          <li>To see which pages are useful, in aggregate.</li>
-        </ul>
-        <p>
-          We do not use your details for advertising and we do not build profiles on people. Joining the list
-          does not sign you up to anything else.
-        </p>
-
-        <h2>5. Who we share it with</h2>
-        <p>
-          We do not sell, rent or trade your information. We share it only with the services that make the site
-          work:
-        </p>
-        <ul>
-          <li><strong>LaunchList</strong> &mdash; runs the signup form and holds the waitlist.</li>
-          <li><strong>FormSubmit</strong> &mdash; delivers submissions from the older unlinked pages to our
-            inbox.</li>
-          <li><strong>GoatCounter</strong> &mdash; aggregate analytics.</li>
-          <li><strong>GitHub Pages</strong> &mdash; hosts this site and, like any host, sees request logs.</li>
-        </ul>
-        <p>We may also disclose information if the law requires it, or to protect someone&rsquo;s safety.</p>
-
-        <h2>6. How long we keep it</h2>
-        <p>
-          We keep list subscriptions, and the referral counts attached to them, until you unsubscribe or the programme ends. They are held with LaunchList. Emails you send us, and
-          submissions from the older pages, are kept for up to three years and deleted sooner if you ask.</p>
-
-        <h2>7. What you can ask us to do</h2>
-        <p>Email <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a> and we will:</p>
-        <ul>
-          <li>tell you what we hold about you;</li>
-          <li>correct anything wrong;</li>
-          <li>delete it, unless we are required to keep it;</li>
-          <li>take you off the list, though the unsubscribe link is faster.</li>
-        </ul>
-        <p>
-          We do not sell personal information, so there is nothing to opt out of on that front, and we will not
-          treat you differently for exercising any of this.
-        </p>
-
-        <h2>8. Children</h2>
-        <p>
-          This site is meant for adults. We do not knowingly collect information from anyone under 13. If you
-          believe a child has sent us something, email us and we will delete it.
-        </p>
-
-        <h2>9. Where we operate</h2>
-        <p>
-          We are based in the United States, and anything you send us is processed there.
-        </p>
-
-        <h2>10. Changes</h2>
-        <p>
-          If we change this policy we will update the date above. If a change materially affects people on the
-          list, we will say so in a list email.
-        </p>
-
-        <h2>11. Contact</h2>
-        <p>
-          MilkShaker Inc.<br />
-          New York, NY<br />
-          <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
-        </p>
-
+    <!--====== INTRO ======
+          The product story, split off the home page and ordered the way
+          it reads best: what it does, where the technique comes from,
+          what it replaces, then how it fits. Renumbered 01 to 04 for
+          this page, because carrying 03, 05, 06, 04 across from the old
+          single page would read as a mistake. -->
+    <section class="lp-hero">
+      <div class="lp-wrap">
+        <div class="lp-center">
+          <p class="lp-eyebrow lp-eyebrow--center">The product</p>
+          <h1 class="lp-title">How the MilkShaker massage bra works.</h1>
+          <p class="lp-lede">
+            Two internal massage modules, a lymphatic drainage pattern designed by a physical
+            therapist, and a bra you would have worn anyway.
+          </p>
+        </div>
       </div>
-    </article>
+    </section>
+
+    <!--====== 01 HOW IT WORKS ======
+          Intro ranged left, then copy beside a square detail shot that
+          is capped and pushed to the right edge of its column. -->
+    <section class="lp-reveal lp-section" aria-labelledby="h-how">
+      <div class="lp-wrap">
+        <div class="lp-intro--center">
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">01</span>How it works</p>
+          <h2 class="lp-title" id="h-how">Why we designed it this way</h2>
+        </div>
+        <div class="lp-how-stack">
+          <figure class="lp-media lp-media--soft lp-how-media">
+            <div class="lp-ph lp-ph--wide" role="img" aria-label="Detail shot: modules and battery lifted out">
+              <span class="lp-ph-label">Detail shot</span>
+              <span class="lp-ph-note">Modules and battery lifted out</span>
+            </div>
+          </figure>
+          <p class="lp-lede lp-how-copy">
+            <span class="lp-line">The two patented internal massage modules apply light pressure on the chest,
+              easing discomfort and supporting milk production.</span><span class="lp-line">Put it on, and
+              leave the rest to your new favorite bra.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--====== 02 WHAT IS BEHIND IT ======
+          Centred throughout, heading on a 28ch measure, lead on 54ch,
+          and the two points borderless in a capped 2-up. -->
+    <section class="lp-reveal lp-section lp-section--wash" aria-labelledby="h-behind">
+      <div class="lp-evidence-inner">
+        <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num"
+            aria-hidden="true">02</span>Researched &amp; designed for mom</p>
+        <h2 class="lp-title" id="h-behind">Clinical-grade therapy, from home</h2>
+        <p class="lp-evidence-lead">
+          The two patented internal massaging modules provide a clinically proven technique recommended by physical therapists and lactation experts&mdash;the same technique a lactation consultant would walk you through by hand, in the same order and
+          direction. The difference is that you don&rsquo;t have to do it yourself.
+        </p>
+        <ul class="lp-stats">
+          <li>
+            <h3>Designed by experts</h3>
+            <p>Our patented technology is backed by clinical recommendations.</p>
+          </li>
+          <li>
+            <h3>Built for mothers</h3>
+            <p>Mothers told us what they wanted in a perfect nursing bra, and we listened.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!--====== 03 THE DIFFERENCE ======-->
+    <section class="lp-reveal lp-section" aria-labelledby="h-diff">
+      <div class="lp-wrap lp-wrap--compare">
+        <div class="lp-intro--center">
+          <p class="lp-eyebrow lp-eyebrow--center"><span class="lp-eyebrow-num" aria-hidden="true">03</span>The
+            difference</p>
+          <h2 class="lp-title" id="h-diff">What you would otherwise be doing by hand.</h2>
+        </div>
+        <div class="lp-table-wrap">
+          <table class="lp-table">
+            <caption class="lp-sr">Comparing doing a massage by hand with using MilkShaker. Rows cover hands
+              needed, how long it takes, what you have to get right, where you have to be, and clearing up
+              afterwards.</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="lp-sr">Aspect</span></th>
+                <th scope="col">By hand</th>
+                <th scope="col" class="lp-ours">With MilkShaker</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">Hands needed</th>
+              <td>Both, for the whole session</td>
+              <td class="lp-ours">None</td>
+            </tr>
+            <tr>
+              <th scope="row">How long it takes</th>
+              <td>As long as you can manage</td>
+              <td class="lp-ours">One automated session</td>
+            </tr>
+            <tr>
+              <th scope="row">What you have to get right</th>
+              <td>Angle, pressure, direction, timing</td>
+              <td class="lp-ours">Nothing &mdash; the same pattern every time</td>
+            </tr>
+            <tr>
+              <th scope="row">Where you have to be</th>
+              <td>At the sink or in the shower</td>
+              <td class="lp-ours">Wherever you were already sitting</td>
+            </tr>
+            <tr>
+              <th scope="row">Clearing up after</th>
+              <td>Compresses, towels, back to the sink</td>
+              <td class="lp-ours">Modules out, bra in the wash</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!--====== 04 FIT & FABRIC ======
+          Image on the left, copy on the right, copy column the wider
+          of the two. Mine had these the other way round. -->
+    <section class="lp-reveal lp-section lp-section--cream" aria-labelledby="h-fit">
+      <div class="lp-wrap">
+        <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">04</span>Fit &amp; fabric</p>
+        <div class="lp-fit-inner">
+          <figure class="lp-media lp-media--soft lp-fit-media">
+            <div class="lp-ph lp-ph--tall" role="img" aria-label="Model shot: fit and fabric">
+              <span class="lp-ph-label">Model shot</span>
+              <span class="lp-ph-note">Fit &amp; fabric, state her size</span>
+            </div>
+          </figure>
+          <div>
+            <h2 class="lp-title" id="h-fit">Butter soft and premium comfort</h2>
+            <dl class="lp-specs">
+              <div>
+                <dt>Fabric</dt>
+                <dd>92% Peruvian Pima cotton, 8% elastane. Stays soft through the
+                  wash. Breathable, stretchy, and&mdash;best of all&mdash;no underwire.</dd>
+              </div>
+              <div>
+                <dt>Sizing</dt>
+                <dd>XS through XL. Once orders are ready, you'll receive a custom sizing questionnaire.</dd>
+              </div>
+              <div>
+                <dt>Care</dt>
+                <dd>Removable internal tech and battery. Bra goes in the wash.</dd>
+              </div>
+              <div>
+                <dt>Wear as</dt>
+                <dd>Your everyday nursing bra. Compatible with pumping as well.</dd>
+              </div>
+              <div>
+                <dt>Model</dt>
+                <dd>Model is 5&rsquo;5&rdquo; and wears M&mdash;roughly a 34D while breastfeeding. More size details once orders are ready to ship.</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--====== CTA BAND ======-->
+    <section class="lp-reveal lp-band" aria-labelledby="h-band">
+      <div class="lp-band-inner">
+        <div class="lp-band-copy">
+          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
+        </div>
+        <a class="lp-btn lp-btn--lg lp-btn--nudge" href="/early-access.html"><span>Secure yours now</span><span class="lp-arrow"
+            aria-hidden="true"></span></a>
+      </div>
+    </section>
+
   </main>
 
     <footer class="lp-footer">
@@ -341,6 +371,7 @@
       </div>
     </div>
   </footer>
+
 
   <script src="/assets/js/landing.js" defer></script>
 

@@ -535,6 +535,46 @@
     buildDots();
   }
 
+  /* --- scroll reveal ----------------------------------------------------
+     Sections fade up the first time they come into view.
+
+     The hidden state lives behind .has-reveal on <html>, set here rather
+     than written into the markup, so that a browser this script never
+     reaches renders every section normally instead of a blank page. It
+     is set before observing, and only when there is something to do the
+     revealing with. */
+  var revealable = document.querySelectorAll('.lp-reveal, .lp-reveal--stagger');
+
+  if (revealable.length && 'IntersectionObserver' in window && !reduced) {
+    document.documentElement.classList.add('has-reveal');
+
+    var revealer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        el.classList.add('is-visible');
+        revealer.unobserve(el);
+        /*  Drop will-change once it has arrived: holding it on every
+            section is a standing cost for a one-off animation. The delay
+            covers the longest transition plus the last stagger step. */
+        window.setTimeout(function () { el.classList.add('is-settled'); }, 1100);
+      });
+    }, {
+      /*  Bottom margin pulled in so a section starts moving a little
+          before its top edge reaches the viewport floor, rather than
+          only once it is already on screen. */
+      rootMargin: '0px 0px -12% 0px',
+      threshold: 0.08
+    });
+
+    Array.prototype.forEach.call(revealable, function (el) { revealer.observe(el); });
+
+    /*  Anything already on screen at load should not animate in: it was
+        there before the visitor could scroll. Observing covers this on
+        its own because the callback fires immediately for intersecting
+        elements, which is why the class is added rather than removed. */
+  }
+
   /* --- nudge in-page CTAs as they scroll into view --------------------- */
   var pending = [].slice.call(document.querySelectorAll('.lp-btn--nudge'))
     .filter(function (el) { return !modal || !modal.contains(el); });
