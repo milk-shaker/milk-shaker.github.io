@@ -6413,21 +6413,22 @@ p {
   line-height: 1.6;
 }
 
-/*  The popup's widget sits flush; the container's own top margin is
-    enough separation from the copy above it. */
-.lp-modal .launchlist-widget {
-  margin-top: 1.4rem;
+
+/*  Scoped to the panel so it outranks ".lp-modal-panel p", which sets
+    "margin: 0 0 1.2rem" and was cancelling the top margin entirely: the
+    button sat flush against the image cards with no gap at all. Same
+    specificity trap as the one in the early access panel. */
+.lp-modal-panel .lp-modal-cta {
+  margin: clamp(1.6rem, 5vw, 2.2rem) 0 0;
 }
 
-
-.lp-modal-cta {
-  margin: 1.3rem 0 0;
-}
-
-.lp-modal-caption {
-  margin: 0.7rem 0 0 !important;
+/*  Scoped to the panel rather than carrying !important. It needs to
+    outrank ".lp-modal-panel p", and doing that with specificity leaves
+    the rule overridable later; !important does not. */
+.lp-modal-panel .lp-modal-caption {
+  margin: 1.1rem 0 0;
   color: var(--ms-ink-soft);
-  font-size: 0.8775rem !important;
+  font-size: 0.8775rem;
   text-align: center;
 }
 
