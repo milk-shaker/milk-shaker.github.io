@@ -668,7 +668,25 @@
   var scrollDriven = window.CSS && CSS.supports &&
     CSS.supports('animation-timeline', 'view()');
 
-  if (revealable.length && !scrollDriven && 'IntersectionObserver' in window && !reduced) {
+  /*  Mark the sections that begin below the fold. Only those animate, on
+      either path.
+
+      This runs whatever the browser supports, because it is what keeps
+      the late range safe: a section already on screen at load would
+      otherwise sit at opacity 0 while plainly visible. Marking instead
+      of excluding also means a browser that never gets here animates
+      nothing rather than hiding everything. */
+  if (revealable.length && !reduced) {
+    Array.prototype.forEach.call(revealable, function (el) {
+      if (el.getBoundingClientRect().top >= window.innerHeight) {
+        el.classList.add('is-deferred');
+      }
+    });
+  }
+
+  var deferred = document.querySelectorAll('.lp-reveal.is-deferred');
+
+  if (deferred.length && !scrollDriven && 'IntersectionObserver' in window && !reduced) {
     document.documentElement.classList.add('has-reveal');
 
     var revealer = new IntersectionObserver(function (entries) {
@@ -695,11 +713,14 @@
           cannot reach 8% visible at the moment it enters, so a
           proportional threshold delays exactly the sections that need
           the most warning. */
-      rootMargin: '0px 0px -8% 0px',
+      /*  Held back to match the scroll-driven version: the section has
+          to be nearly halfway up the screen before it reveals, rather
+          than firing the moment its top edge appears at the bottom. */
+      rootMargin: '0px 0px -45% 0px',
       threshold: 0
     });
 
-    Array.prototype.forEach.call(revealable, function (el) { revealer.observe(el); });
+    Array.prototype.forEach.call(deferred, function (el) { revealer.observe(el); });
 
     /*  Anything already on screen at load should not animate in: it was
         there before the visitor could scroll. Observing covers this on

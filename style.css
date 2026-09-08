@@ -7749,19 +7749,27 @@ p {
 
 /* ==============================================================
    35. SCROLL REVEAL
-   Sections rise and fade as they come into view.
+   Sections rise and fade as they come into view, and hold until the
+   panel above them is about half read.
 
-   Two mechanisms, and exactly one of them runs.
+   Nothing here applies to a bare .lp-reveal. The animation is opt-in
+   per section: landing.js adds .is-deferred to the sections that begin
+   below the fold when the page loads, and only those animate.
 
-   Where the browser has scroll-driven animations, the reveal is tied
-   to scroll position: progress is a function of where the section sits
-   in the viewport, so it advances precisely as fast as you scroll and
-   stops when you stop. That is Chrome and Edge 115 and up.
+   That is not decoration, it is the safety property. The range below
+   deliberately starts late, which means a section that is already on
+   screen at load would be sitting at opacity 0 while plainly visible.
+   Measured: on four pages the first content section is 236 to 383px
+   visible at load, and on a phone the FAQ page has two sections in the
+   first viewport. Opting in per section means anything above the fold
+   is simply never animated, and a browser that never runs the script
+   animates nothing at all rather than hiding everything.
 
-   Where it does not, landing.js falls back to the timed version below:
-   an IntersectionObserver adds .is-visible and a transition plays at
-   its own speed regardless of how fast you scrolled. The script checks
-   for the same feature this file does, so the two never both apply.
+   Two mechanisms, and exactly one runs. Where the browser has
+   scroll-driven animations the reveal is tied to scroll position, so it
+   advances exactly as fast as you scroll. Where it does not, landing.js
+   falls back to an IntersectionObserver and a timed transition; it
+   tests for the same feature this file's @supports does.
    ============================================================== */
 
 @keyframes lp-rise-in {
@@ -7777,54 +7785,56 @@ p {
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .lp-reveal {
-      /*  Longhands, and animation-duration: auto in particular. The
-          "animation" shorthand sets duration to 0s when it is omitted,
-          and a scroll-driven animation with a zero duration never
-          progresses: every section sat at opacity 0 forever. auto is
-          what tells it to fill the range instead. The shorthand also
-          resets animation-timeline, which is a second reason not to mix
-          the two. */
+    .lp-reveal.is-deferred {
+      /*  Longhands, and animation-duration: auto in particular: the
+          shorthand sets duration to 0s when omitted, and a scroll-driven
+          animation with zero duration never progresses. The shorthand
+          also resets animation-timeline. */
       animation-name: lp-rise-in;
       animation-duration: auto;
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: view();
-      /*  Bounded to the first part of the entry, not all of it. "entry"
-          runs until the element's far edge clears the viewport floor,
-          which for a section taller than the screen is a whole
-          viewport's worth of scrolling: the fade would still be
-          finishing long after the section was in front of you. */
-      animation-range: entry 0% entry 38%;
+
+      /*  Anchored on cover, not entry, and this is why.
+
+          A section's entry phase is over far earlier than it sounds.
+          Measured on the home page at 1280 by 900, panel 02's entire
+          entry is finished by the time you are 58% of the way through
+          panel 01, so no offset within entry can hold the reveal until
+          the panel above is past halfway and still leave any range to
+          animate over.
+
+          Cover runs from the section touching the viewport floor to it
+          leaving the top, which is long enough to place the animation
+          late. Measured against panel 01: this starts 50% of the way
+          through it and finishes at 79%, and 47% to 84% on a phone. */
+      animation-range: cover 32% cover 50%;
     }
 
-    /*  Rows of cards get the same treatment per child, offset slightly,
-        so a row assembles instead of arriving as one block. The ranges
-        are staggered rather than the delays, because a scroll-driven
-        animation has no delay to give it. */
-    .lp-reveal--stagger > * {
+    /*  Rows of cards animate per child, offset slightly, so a row
+        assembles rather than arriving as a block. Staggered by range
+        rather than by delay: a scroll-driven animation has no delay. */
+    .lp-reveal--stagger.is-deferred > * {
       animation-name: lp-rise-in;
       animation-duration: auto;
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: view();
-      animation-range: entry 0% entry 42%;
+      animation-range: cover 33% cover 51%;
     }
 
-    .lp-reveal--stagger > :nth-child(2) { animation-range: entry 4% entry 46%; }
-    .lp-reveal--stagger > :nth-child(3) { animation-range: entry 8% entry 50%; }
-    .lp-reveal--stagger > :nth-child(4) { animation-range: entry 12% entry 54%; }
+    .lp-reveal--stagger.is-deferred > :nth-child(2) { animation-range: cover 35% cover 53%; }
+    .lp-reveal--stagger.is-deferred > :nth-child(3) { animation-range: cover 37% cover 55%; }
+    .lp-reveal--stagger.is-deferred > :nth-child(4) { animation-range: cover 39% cover 57%; }
   }
 }
 
 /* ---------- the timed fallback ----------
-   Only reachable when .has-reveal is on <html>, which landing.js adds
-   only where scroll-driven animations are missing. With no JavaScript
-   at all the class never lands and every section renders normally,
-   which is why the hidden state is gated on it rather than applied by
-   default: hiding first and revealing with script would mean a blank
-   page for anyone the script does not reach. */
-.has-reveal .lp-reveal {
+   Reachable only when .has-reveal is on <html>, which landing.js adds
+   only where scroll-driven animations are missing, and only on sections
+   it has marked .is-deferred. */
+.has-reveal .lp-reveal.is-deferred {
   opacity: 0;
   transform: translateY(30px);
   transition:
@@ -7833,16 +7843,16 @@ p {
   will-change: opacity, transform;
 }
 
-.has-reveal .lp-reveal.is-visible {
+.has-reveal .lp-reveal.is-deferred.is-visible {
   opacity: 1;
   transform: none;
 }
 
-.has-reveal .lp-reveal.is-settled {
+.has-reveal .lp-reveal.is-deferred.is-settled {
   will-change: auto;
 }
 
-.has-reveal .lp-reveal--stagger > * {
+.has-reveal .lp-reveal--stagger.is-deferred > * {
   opacity: 0;
   transform: translateY(22px);
   transition:
@@ -7850,31 +7860,28 @@ p {
     transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.has-reveal .lp-reveal--stagger.is-visible > * {
+.has-reveal .lp-reveal--stagger.is-deferred.is-visible > * {
   opacity: 1;
   transform: none;
 }
 
-.has-reveal .lp-reveal--stagger.is-visible > :nth-child(2) { transition-delay: 0.1s; }
-.has-reveal .lp-reveal--stagger.is-visible > :nth-child(3) { transition-delay: 0.2s; }
-.has-reveal .lp-reveal--stagger.is-visible > :nth-child(4) { transition-delay: 0.3s; }
+.has-reveal .lp-reveal--stagger.is-deferred.is-visible > :nth-child(2) { transition-delay: 0.1s; }
+.has-reveal .lp-reveal--stagger.is-deferred.is-visible > :nth-child(3) { transition-delay: 0.2s; }
+.has-reveal .lp-reveal--stagger.is-deferred.is-visible > :nth-child(4) { transition-delay: 0.3s; }
 
 @media (max-width: 640px) {
-  .has-reveal .lp-reveal {
+  .has-reveal .lp-reveal.is-deferred {
     transform: translateY(18px);
   }
 
-  .has-reveal .lp-reveal--stagger > * {
+  .has-reveal .lp-reveal--stagger.is-deferred > * {
     transform: translateY(14px);
   }
 }
 
-/*  Nothing moves for anyone who has asked for less motion, on either
-    path. The scroll-driven rules are inside a no-preference query, so
-    they simply do not apply; these cancel the timed ones. */
 @media (prefers-reduced-motion: reduce) {
-  .has-reveal .lp-reveal,
-  .has-reveal .lp-reveal--stagger > * {
+  .has-reveal .lp-reveal.is-deferred,
+  .has-reveal .lp-reveal--stagger.is-deferred > * {
     opacity: 1;
     transform: none;
     transition: none;
