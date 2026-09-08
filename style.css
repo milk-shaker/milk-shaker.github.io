@@ -72,10 +72,10 @@
      ---------------------------------------------------------------- */
 
   /*  surfaces  */
-  --ms-ivory: #FBF7F0;      /* page ground */
-  --ms-cream: #F5EEE4;      /* alternating panel */
-  --ms-clay: #E9DACD;       /* deeper panel, hairlines */
-  --ms-clay-deep: #DCC7B6;  /* borders that need to be seen */
+  --ms-ivory: #F8F5FA;      /* page ground */
+  --ms-cream: #F0EAF4;      /* alternating panel */
+  --ms-clay: #E2D8E9;       /* deeper panel, hairlines */
+  --ms-clay-deep: #C9BAD5;  /* borders that need to be seen */
 
   /*  ink — plum, thinned toward the ivory rather than toward grey  */
   --ms-plum: #612F48;       /* on ivory 9.8:1 */
@@ -122,10 +122,10 @@
       its blush set, which would otherwise tint the header and footer
       there and break the one thing they are meant to be: identical on
       every page. */
-  --lp-bar: #FBF7F0;
-  --lp-bar-alt: #F5EEE4;
-  --lp-bar-line: #E9DACD;
-  --lp-bar-line-deep: #DCC7B6;
+  --lp-bar: #F8F5FA;
+  --lp-bar-alt: #F0EAF4;
+  --lp-bar-line: #E2D8E9;
+  --lp-bar-line-deep: #C9BAD5;
 
   /*  The header sits on a blush of its own rather than the ivory the
       menu panel and footer use, so it reads as a bar rather than as
@@ -151,8 +151,8 @@
   --dark-2: #612F48;
   --dark-3: #7E5666;        /* secondary copy */
   --gray-1: #A88B95;
-  --gray-3: #DCC7B6;
-  --gray-4: #E9DACD;
+  --gray-3: #C9BAD5;
+  --gray-4: #E2D8E9;
   --light-1: #F5EEE4;
   --light-2: var(--ms-cream);
   --light-3: var(--ms-ivory);
@@ -5272,7 +5272,7 @@ p {
   overflow: hidden;
   padding: clamp(3rem, 7vw, 6rem) 0 clamp(3.5rem, 8vw, 7rem);
   background:
-    radial-gradient(120% 90% at 82% 8%, #FDF6EC 0%, rgba(253, 246, 236, 0) 58%),
+    radial-gradient(120% 90% at 82% 8%, #F2ECF7 0%, rgba(242, 236, 247, 0) 58%),
     radial-gradient(90% 80% at 6% 96%, var(--ms-peri-wash) 0%, rgba(241, 241, 250, 0) 62%),
     var(--ms-ivory);
 }
@@ -6000,7 +6000,6 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 2vw, 16px);
   margin-top: clamp(1.1rem, 2.5vw, 1.6rem);
 }
 
@@ -6026,52 +6025,31 @@ p {
   cursor: pointer;
 }
 
+/*  Bigger and higher contrast than the first pass, which was a 9px ring
+    that barely registered. Six of these are the only indication of
+    where you are, so the active one has to be unmistakable. */
 .lp-quotes-dot::before {
   content: "";
-  width: 9px;
-  height: 9px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 1.5px var(--ms-peri-deep);
-  transition: background 0.18s ease, transform 0.18s ease;
+  background: var(--ms-clay-deep);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.lp-quotes-dot:hover::before {
+  background: var(--ms-ink-soft);
 }
 
 .lp-quotes-dot[aria-current="true"]::before {
   background: var(--ms-peri-deep);
-  transform: scale(1.15);
+  transform: scale(1.45);
 }
 
 .lp-quotes-dot:focus-visible {
   outline: 3px solid var(--ms-peri-deep);
   outline-offset: 1px;
   border-radius: 50%;
-}
-
-/*  WCAG 2.2.2: the quotes advance on their own, so there has to be a way
-    to stop them. Same control the offer banner carries, restyled for a
-    light background. */
-.lp-quotes-pause {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  border: 1px solid var(--ms-clay-deep);
-  border-radius: 50%;
-  background: transparent;
-  color: var(--ms-ink-soft);
-  font-size: 0.58rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.lp-quotes-pause:hover {
-  border-color: var(--ms-peri-deep);
-  color: var(--ms-peri-deep);
-}
-
-.lp-quotes-pause:focus-visible {
-  outline: 3px solid var(--ms-peri-deep);
-  outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6956,43 +6934,12 @@ p {
   }
 }
 
-.lp-ticker-pause {
-  position: absolute;
-  top: 50%;
-  right: 8px;
-  transform: translateY(-50%);
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  padding: 0;
-  border: 1px solid rgba(251, 247, 240, 0.35);
-  border-radius: 50%;
-  background: transparent;
-  color: inherit;
-  font-size: 0.6rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.lp-ticker-pause:hover {
-  background: rgba(251, 247, 240, 0.14);
-}
-
-.lp-ticker-pause:focus-visible {
-  outline: 2px solid var(--ms-ivory);
-  outline-offset: 2px;
-}
-
 @media (max-width: 600px) {
   .lp-ticker {
     font-size: 0.7rem;
   }
 
-  .lp-ticker-pause {
-    display: none;
   }
-}
 
 /* ---------- tier ladder ----------
    A vertical ladder: each rung is a card, joined by a rule down the

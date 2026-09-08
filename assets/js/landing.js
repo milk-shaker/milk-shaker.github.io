@@ -120,18 +120,6 @@
       : phrase(left) + ' to join';
   }
 
-  /* The banner scrolls, so WCAG 2.2.2 wants a way to stop it. */
-  var tickerPause = document.getElementById('lpTickerPause');
-
-  if (ticker && tickerPause) {
-    tickerPause.addEventListener('click', function () {
-      var paused = ticker.classList.toggle('is-paused');
-      tickerPause.setAttribute('aria-label',
-        paused ? 'Resume the scrolling banner' : 'Pause the scrolling banner');
-      tickerPause.innerHTML = paused ? '&#9654;' : '&#10073;&#10073;';
-    });
-  }
-
   /* --- LaunchList iframe title ------------------------------------------
      Their widget injects an <iframe> with no title attribute, which
      leaves screen readers announcing an unlabelled frame. We cannot
@@ -314,143 +302,137 @@
 
   /* --- 07 quotes carousel ------------------------------------------------
      The track is a scroll-snap strip in the markup and scrolls without
-     any of this. What gets added here is the dot row, the pause control
-     and the autoplay, which is why the nav container ships empty and
-     hidden: no JavaScript, no inert buttons.
+     any of this. What gets added here is the dot row and the autoplay,
+     which is why the nav container ships empty and hidden: no
+     JavaScript, no inert buttons.
 
-     Pages, not slides. Three slides are visible at once on a desktop and
-     one on a phone, so a dot per slide would leave four of six dots
-     doing nothing at the wide end. Page count is measured from the
-     track's own geometry and recomputed on resize. */
+     One dot per quote, six of them, whatever the width. Three cards are
+     visible at once on a desktop, so a dot means "bring quote N into
+     view" rather than "jump to page N" -- the highlighted dot is the
+     leftmost quote showing. Paging by threes was tidier arithmetic but
+     gave two dots on a desktop, which is the opposite of obvious. */
   var quotes = document.getElementById('lpQuotes');
   var qTrack = document.getElementById('lpQuotesTrack');
   var qNav = document.getElementById('lpQuotesNav');
 
   if (quotes && qTrack && qNav) {
-    var QUOTE_MS = 6000;
+    var QUOTE_MS = 5000;
     var qTimer = null;
-    var qStopped = reduced;   /* reduced motion: never starts */
     var qDots = [];
-    var qPages = 1;
+    var qSlides = [].slice.call(qTrack.querySelectorAll('.lp-quotes-slide'));
 
-    var pageCount = function () {
-      /*  Round rather than ceil: a fractional last page from sub-pixel
-          widths would otherwise add a dot that scrolls nowhere. */
-      return Math.max(1, Math.round(qTrack.scrollWidth / qTrack.clientWidth));
+    /*  Scrolling to the last slide's offset would stop short: the track
+        cannot scroll past its own end, so the final slides share a
+        resting position. Clamping to maxScroll keeps the dot honest
+        about where the track actually is. */
+    var maxScroll = function () {
+      return Math.max(0, qTrack.scrollWidth - qTrack.clientWidth);
     };
 
-    var currentPage = function () {
-      if (qTrack.clientWidth === 0) return 0;
-      var p = Math.round(qTrack.scrollLeft / qTrack.clientWidth);
-      return Math.min(Math.max(p, 0), qPages - 1);
+    var offsetOf = function (k) {
+      return Math.min(qSlides[k].offsetLeft - qSlides[0].offsetLeft, maxScroll());
     };
 
-    /*  Takes the page rather than always reading it back off scrollLeft.
-        Anything that drives the scroll knows where it is going, and
-        smooth scrolling means scrollLeft has not arrived yet at the
-        moment it is asked. The no-argument form is for manual swipes,
-        where the scroll event is the only thing that knows. */
-    var mark = function (page) {
-      var at = typeof page === 'number' ? page : currentPage();
-      qDots.forEach(function (dot, k) {
-        dot.setAttribute('aria-current', k === at ? 'true' : 'false');
+    /*  The index we intend to be on, kept rather than derived.
+
+        It has to be kept, because at the wide end the trailing slides
+        share a resting position: the track cannot scroll past its own
+        end, so quotes 4, 5 and 6 all sit at maxScroll. Reading the index
+        back off scrollLeft there returns the first of them every time,
+        which pinned the rotation between 4 and 5 and meant it never
+        reached the end to wrap. */
+    var at = 0;
+
+    /*  Set while we are the ones scrolling, so the scroll listener does
+        not immediately overwrite the intended index with a position that
+        cannot express it. */
+    var driving = false;
+    var settle = null;
+
+    var nearest = function () {
+      var x = qTrack.scrollLeft, best = 0, dist = Infinity;
+      qSlides.forEach(function (_, k) {
+        var d = Math.abs(offsetOf(k) - x);
+        if (d < dist - 1) { dist = d; best = k; }
+      });
+      return best;
+    };
+
+    var mark = function (k) {
+      qDots.forEach(function (dot, n) {
+        dot.setAttribute('aria-current', n === k ? 'true' : 'false');
       });
     };
 
     /*  scrollTo with options is ignored wholesale by browsers without
-        scroll-behavior, which would leave the carousel stuck on page one,
-        so fall back to assigning scrollLeft. */
+        scroll-behavior, which would leave the carousel stuck, so fall
+        back to assigning scrollLeft. */
     var smooth = 'scrollBehavior' in document.documentElement.style;
 
-    var goTo = function (page) {
-      var left = page * qTrack.clientWidth;
+    var goTo = function (k) {
+      at = k;
+      driving = true;
+      if (settle) window.clearTimeout(settle);
+      settle = window.setTimeout(function () { driving = false; }, 700);
+
+      var left = offsetOf(k);
       if (smooth) {
         qTrack.scrollTo({ left: left, behavior: reduced ? 'auto' : 'smooth' });
       } else {
         qTrack.scrollLeft = left;
       }
-      mark(page);
-    };
-
-    var pauseBtn = document.createElement('button');
-    pauseBtn.type = 'button';
-    pauseBtn.className = 'lp-quotes-pause';
-
-    var setPauseLabel = function () {
-      pauseBtn.setAttribute('aria-label',
-        qStopped ? 'Play the rotating quotes' : 'Pause the rotating quotes');
-      pauseBtn.innerHTML = qStopped ? '&#9654;' : '&#10073;&#10073;';
+      mark(k);
     };
 
     var stop = function () {
       if (qTimer) { window.clearInterval(qTimer); qTimer = null; }
     };
 
+    /*  Endless: the step after the last slide is the first one, so it
+        always comes back round rather than parking on the end. */
     var start = function () {
       stop();
-      if (qStopped || qPages < 2) return;
+      if (reduced || qSlides.length < 2) return;
       qTimer = window.setInterval(function () {
-        goTo((currentPage() + 1) % qPages);
+        goTo((at + 1) % qSlides.length);
       }, QUOTE_MS);
     };
 
     var buildDots = function () {
-      qPages = pageCount();
       qNav.textContent = '';
       qDots = [];
-
-      /*  One page means nothing to page through, so the whole control row
-          stays out of the accessibility tree rather than showing a single
-          dot and a pause button for a strip that cannot move. */
-      if (qPages < 2) {
-        qNav.hidden = true;
-        stop();
-        return;
-      }
-
-      setPauseLabel();
-      qNav.appendChild(pauseBtn);
 
       var list = document.createElement('ul');
       list.className = 'lp-quotes-dots';
 
-      for (var k = 0; k < qPages; k++) {
-        (function (page) {
-          var li = document.createElement('li');
-          var dot = document.createElement('button');
-          dot.type = 'button';
-          dot.className = 'lp-quotes-dot';
-          dot.setAttribute('aria-label', 'Show quotes ' + (page + 1) + ' of ' + qPages);
-          dot.addEventListener('click', function () {
-            goTo(page);
-            /*  Clicking a dot is a choice about what to read. Kill the
-                autoplay rather than yanking the slide away a moment
-                later, and reflect that in the control. */
-            qStopped = true;
-            setPauseLabel();
-            stop();
-          });
-          li.appendChild(dot);
-          list.appendChild(li);
-          qDots.push(dot);
-        })(k);
-      }
+      qSlides.forEach(function (_, k) {
+        var li = document.createElement('li');
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'lp-quotes-dot';
+        dot.setAttribute('aria-label', 'Show quote ' + (k + 1) + ' of ' + qSlides.length);
+        dot.addEventListener('click', function () {
+          goTo(k);
+          /*  Restart rather than kill the timer. With the pause control
+              gone this is the only way back to rotating, so a tap must
+              not end the loop for good -- it just buys another full
+              interval on the quote you picked. */
+          start();
+        });
+        li.appendChild(dot);
+        list.appendChild(li);
+        qDots.push(dot);
+      });
 
       qNav.appendChild(list);
       qNav.hidden = false;
-      mark();
+      mark(at);
       start();
     };
 
-    pauseBtn.addEventListener('click', function () {
-      qStopped = !qStopped;
-      setPauseLabel();
-      if (qStopped) { stop(); } else { start(); }
-    });
-
     /*  Hovering or tabbing into the quotes means someone is reading one.
-        This does not touch qStopped, so an explicit pause is not undone
-        by the pointer leaving. */
+        This is now the whole of the pause behaviour, the button having
+        been removed. */
     quotes.addEventListener('mouseenter', stop);
     quotes.addEventListener('mouseleave', start);
     quotes.addEventListener('focusin', stop);
@@ -458,8 +440,14 @@
       if (!quotes.contains(e.relatedTarget)) start();
     });
 
-    qTrack.addEventListener('scroll', debounce(mark, 90));
-    window.addEventListener('resize', debounce(buildDots, 150));
+    /*  A real swipe is the only thing that should redefine where we are. */
+    qTrack.addEventListener('scroll', debounce(function () {
+      if (driving) return;
+      at = nearest();
+      mark(at);
+    }, 90));
+
+    window.addEventListener('resize', debounce(function () { mark(at); }, 150));
 
     buildDots();
   }
