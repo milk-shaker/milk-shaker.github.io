@@ -5930,15 +5930,157 @@ p {
 }
 
 /* ---------- testimonials ---------- */
+/* ---------- 07 quotes carousel ----------
+   A scroll-snap strip rather than a slider library. Three across on
+   desktop, one on a phone, six slides either way, so the panel keeps the
+   shape it had while holding twice the quotes. Everything the dots and
+   the autoplay add is on top of a strip that already scrolls on its own,
+   which is why it still works with JavaScript off. */
 .lp-quotes {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+}
+
+.lp-quotes-track {
+  display: flex;
   gap: clamp(1.25rem, 3vw, 2rem);
+  margin: 0;
+  padding: 0 0 4px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lp-quotes-track::-webkit-scrollbar {
+  display: none;
+}
+
+.lp-quotes-track:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 4px;
+}
+
+/*  flex-basis rather than a percentage width so the gap is subtracted
+    once per visible slide instead of stretching the row past 100%. */
+.lp-quotes-slide {
+  display: flex;
+  flex: 0 0 calc((100% - 2 * clamp(1.25rem, 3vw, 2rem)) / 3);
+  scroll-snap-align: start;
+}
+
+.lp-quotes-slide > .lp-quote {
+  flex: 1;
 }
 
 @media (max-width: 860px) {
-  .lp-quotes {
-    grid-template-columns: 1fr;
+  .lp-quotes-slide {
+    flex-basis: 100%;
+  }
+}
+
+/*  The three unfilled slots. Same dashed treatment as the image
+    placeholders, so an empty quote reads as pending rather than as a
+    card that failed to load.
+
+    Two class names on purpose. ".lp-quote" is declared further down this
+    file and ties on specificity, so a single-class rule here loses the
+    border, the background and the alignment to it and the placeholders
+    render as ordinary cards. */
+.lp-quote.lp-quote--empty {
+  place-content: center;
+  gap: 8px;
+  border-style: dashed;
+  border-color: var(--ms-clay-deep);
+  background: linear-gradient(168deg, var(--ms-cream), var(--ms-clay));
+  text-align: center;
+}
+
+.lp-quotes-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2vw, 16px);
+  margin-top: clamp(1.1rem, 2.5vw, 1.6rem);
+}
+
+.lp-quotes-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*  28px of hit area around a 9px dot: the dot is the affordance, but a
+    9px tap target would fail WCAG 2.5.8, which wants 24px. */
+.lp-quotes-dot {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.lp-quotes-dot::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px var(--ms-peri-deep);
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.lp-quotes-dot[aria-current="true"]::before {
+  background: var(--ms-peri-deep);
+  transform: scale(1.15);
+}
+
+.lp-quotes-dot:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 1px;
+  border-radius: 50%;
+}
+
+/*  WCAG 2.2.2: the quotes advance on their own, so there has to be a way
+    to stop them. Same control the offer banner carries, restyled for a
+    light background. */
+.lp-quotes-pause {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ms-ink-soft);
+  font-size: 0.58rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lp-quotes-pause:hover {
+  border-color: var(--ms-peri-deep);
+  color: var(--ms-peri-deep);
+}
+
+.lp-quotes-pause:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-quotes-track {
+    scroll-behavior: auto;
+  }
+
+  .lp-quotes-dot::before {
+    transition: none;
   }
 }
 

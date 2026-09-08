@@ -312,6 +312,158 @@
     }
   }
 
+  /* --- 07 quotes carousel ------------------------------------------------
+     The track is a scroll-snap strip in the markup and scrolls without
+     any of this. What gets added here is the dot row, the pause control
+     and the autoplay, which is why the nav container ships empty and
+     hidden: no JavaScript, no inert buttons.
+
+     Pages, not slides. Three slides are visible at once on a desktop and
+     one on a phone, so a dot per slide would leave four of six dots
+     doing nothing at the wide end. Page count is measured from the
+     track's own geometry and recomputed on resize. */
+  var quotes = document.getElementById('lpQuotes');
+  var qTrack = document.getElementById('lpQuotesTrack');
+  var qNav = document.getElementById('lpQuotesNav');
+
+  if (quotes && qTrack && qNav) {
+    var QUOTE_MS = 6000;
+    var qTimer = null;
+    var qStopped = reduced;   /* reduced motion: never starts */
+    var qDots = [];
+    var qPages = 1;
+
+    var pageCount = function () {
+      /*  Round rather than ceil: a fractional last page from sub-pixel
+          widths would otherwise add a dot that scrolls nowhere. */
+      return Math.max(1, Math.round(qTrack.scrollWidth / qTrack.clientWidth));
+    };
+
+    var currentPage = function () {
+      if (qTrack.clientWidth === 0) return 0;
+      var p = Math.round(qTrack.scrollLeft / qTrack.clientWidth);
+      return Math.min(Math.max(p, 0), qPages - 1);
+    };
+
+    /*  Takes the page rather than always reading it back off scrollLeft.
+        Anything that drives the scroll knows where it is going, and
+        smooth scrolling means scrollLeft has not arrived yet at the
+        moment it is asked. The no-argument form is for manual swipes,
+        where the scroll event is the only thing that knows. */
+    var mark = function (page) {
+      var at = typeof page === 'number' ? page : currentPage();
+      qDots.forEach(function (dot, k) {
+        dot.setAttribute('aria-current', k === at ? 'true' : 'false');
+      });
+    };
+
+    /*  scrollTo with options is ignored wholesale by browsers without
+        scroll-behavior, which would leave the carousel stuck on page one,
+        so fall back to assigning scrollLeft. */
+    var smooth = 'scrollBehavior' in document.documentElement.style;
+
+    var goTo = function (page) {
+      var left = page * qTrack.clientWidth;
+      if (smooth) {
+        qTrack.scrollTo({ left: left, behavior: reduced ? 'auto' : 'smooth' });
+      } else {
+        qTrack.scrollLeft = left;
+      }
+      mark(page);
+    };
+
+    var pauseBtn = document.createElement('button');
+    pauseBtn.type = 'button';
+    pauseBtn.className = 'lp-quotes-pause';
+
+    var setPauseLabel = function () {
+      pauseBtn.setAttribute('aria-label',
+        qStopped ? 'Play the rotating quotes' : 'Pause the rotating quotes');
+      pauseBtn.innerHTML = qStopped ? '&#9654;' : '&#10073;&#10073;';
+    };
+
+    var stop = function () {
+      if (qTimer) { window.clearInterval(qTimer); qTimer = null; }
+    };
+
+    var start = function () {
+      stop();
+      if (qStopped || qPages < 2) return;
+      qTimer = window.setInterval(function () {
+        goTo((currentPage() + 1) % qPages);
+      }, QUOTE_MS);
+    };
+
+    var buildDots = function () {
+      qPages = pageCount();
+      qNav.textContent = '';
+      qDots = [];
+
+      /*  One page means nothing to page through, so the whole control row
+          stays out of the accessibility tree rather than showing a single
+          dot and a pause button for a strip that cannot move. */
+      if (qPages < 2) {
+        qNav.hidden = true;
+        stop();
+        return;
+      }
+
+      setPauseLabel();
+      qNav.appendChild(pauseBtn);
+
+      var list = document.createElement('ul');
+      list.className = 'lp-quotes-dots';
+
+      for (var k = 0; k < qPages; k++) {
+        (function (page) {
+          var li = document.createElement('li');
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'lp-quotes-dot';
+          dot.setAttribute('aria-label', 'Show quotes ' + (page + 1) + ' of ' + qPages);
+          dot.addEventListener('click', function () {
+            goTo(page);
+            /*  Clicking a dot is a choice about what to read. Kill the
+                autoplay rather than yanking the slide away a moment
+                later, and reflect that in the control. */
+            qStopped = true;
+            setPauseLabel();
+            stop();
+          });
+          li.appendChild(dot);
+          list.appendChild(li);
+          qDots.push(dot);
+        })(k);
+      }
+
+      qNav.appendChild(list);
+      qNav.hidden = false;
+      mark();
+      start();
+    };
+
+    pauseBtn.addEventListener('click', function () {
+      qStopped = !qStopped;
+      setPauseLabel();
+      if (qStopped) { stop(); } else { start(); }
+    });
+
+    /*  Hovering or tabbing into the quotes means someone is reading one.
+        This does not touch qStopped, so an explicit pause is not undone
+        by the pointer leaving. */
+    quotes.addEventListener('mouseenter', stop);
+    quotes.addEventListener('mouseleave', start);
+    quotes.addEventListener('focusin', stop);
+    quotes.addEventListener('focusout', function (e) {
+      if (!quotes.contains(e.relatedTarget)) start();
+    });
+
+    qTrack.addEventListener('scroll', debounce(mark, 90));
+    window.addEventListener('resize', debounce(buildDots, 150));
+
+    buildDots();
+  }
+
   /* --- nudge in-page CTAs as they scroll into view --------------------- */
   var pending = [].slice.call(document.querySelectorAll('.lp-btn--nudge'))
     .filter(function (el) { return !modal || !modal.contains(el); });
