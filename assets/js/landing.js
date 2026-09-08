@@ -32,7 +32,7 @@
 
      Change OFFER_ENDS and nothing else. After it passes, the banner
      removes itself rather than counting into the negative. */
-  var OFFER_ENDS = new Date('2026-10-07T23:59:59-04:00');
+  var OFFER_ENDS = new Date('2026-10-14T23:59:59-04:00');
 
   /*  floor, not ceil: rounding up told people they had 31 days left
       when 30 days and 8 hours remained. A countdown on an offer should
