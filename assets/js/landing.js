@@ -375,8 +375,13 @@
              slides[0].getBoundingClientRect().left;
     };
 
-    var mark = function (k) {
-      var n = ((k % COUNT) + COUNT) % COUNT;
+    /*  Which quote the highlight is currently on. Kept so the classes are
+        only rewritten when it actually changes: a scroll fires often, and
+        re-toggling the same class on eighteen slides every frame is what
+        makes an opacity transition stutter. */
+    var shown = -1;
+
+    var paint = function (n) {
       qDots.forEach(function (dot, i) {
         dot.setAttribute('aria-current', i === n ? 'true' : 'false');
       });
@@ -385,18 +390,52 @@
       });
     };
 
+    /*  The highlight follows where the track actually is, rather than
+        being set when a move starts.
+
+        Setting it up front was the glitch: a smooth scroll takes a few
+        hundred milliseconds, so the next quote lit up and the current one
+        dimmed while the slide was still travelling. The highlight arrived
+        before the quote did, then the quote slid in under it. */
+    var syncFrame = null;
+
+    var sync = function () {
+      syncFrame = null;
+      var n = nearestRaw() % COUNT;
+      if (n === shown) return;
+      shown = n;
+      paint(n);
+    };
+
+    /*  requestAnimationFrame rather than a debounce: the highlight has to
+        keep up with the movement, and a debounce would only update it
+        once the scrolling had already stopped. */
+    var queueSync = function () {
+      if (syncFrame === null) syncFrame = window.requestAnimationFrame(sync);
+    };
+
     /*  scrollTo with options is ignored wholesale by browsers without
         scroll-behavior, which would leave the carousel stuck, so fall
         back to assigning scrollLeft. */
     var smooth = 'scrollBehavior' in document.documentElement.style;
 
     var scrollToSlide = function (k, animate) {
+      var animated = smooth && animate && !reduced;
       var left = qTrack.scrollLeft + deltaTo(k);
-      if (smooth && animate && !reduced) {
+
+      if (animated) {
         qTrack.scrollTo({ left: left, behavior: 'smooth' });
       } else {
         qTrack.scrollLeft = left;
       }
+
+      /*  The highlight normally rides the scroll events the movement
+          generates, which is what keeps it in step with the slide. Those
+          events are not guaranteed to all arrive though, so confirm the
+          final state once the travel is over. Trailing, never leading:
+          this fires after the slide has landed, so it cannot put the
+          highlight somewhere the quote has not reached yet. */
+      window.setTimeout(sync, animated ? 560 : 60);
     };
 
     var hold = function (ms) {
@@ -421,7 +460,6 @@
       at = ((realIndex % COUNT) + COUNT) % COUNT;
       hold(800);
       scrollToSlide(BASE + at, true);
-      mark(at);
     };
 
     /*  One step forward. When that step leaves the middle set the shift
@@ -432,7 +470,6 @@
       at = (at + 1) % COUNT;
       hold(1200);
       scrollToSlide(target, true);
-      mark(at);
 
       if (target >= BASE + COUNT) {
         window.setTimeout(function () { recentre(target); }, reduced ? 0 : 640);
@@ -495,11 +532,12 @@
 
     /*  A swipe decides where the rotation carries on from, and the quote
         swiped to gets a full interval before it moves on. */
+    qTrack.addEventListener('scroll', queueSync);
+
     qTrack.addEventListener('scroll', debounce(function () {
       if (driving) return;
       var landed = recentre(nearestRaw());
       at = ((landed - BASE) % COUNT + COUNT) % COUNT;
-      mark(at);
       start();
     }, 120));
 
@@ -508,18 +546,48 @@
         parked between two. */
     window.addEventListener('resize', debounce(function () {
       scrollToSlide(BASE + at, false);
-      mark(at);
+      sync();
     }, 150));
 
     buildDots();
-    /*  Start on the first real quote, which is a set in from the left.
-        is-live is what lets the dimming apply: without the class every
-        quote stays at full strength, so a browser that never runs this
-        shows six readable quotes rather than five faded ones. */
-    qTrack.classList.add('is-live');
-    scrollToSlide(BASE, false);
-    mark(0);
-    start();
+
+    /*  Seat the track on the first real quote, which is a whole set in
+        from the left.
+
+        In a frame rather than straight away. This script is deferred, so
+        it runs before the first paint but the slides have not necessarily
+        been laid out at their final widths yet, and centring off
+        measurements taken too early put the track slightly wrong and left
+        a later handler to correct it, which was visible. A frame is
+        enough for layout to have happened.
+
+        is-live is added at the same time, and is what lets the dimming
+        apply at all: without it every quote stays at full strength, so a
+        browser that never runs this shows six readable quotes rather than
+        five faded ones, and there is no dimmed flash before the track has
+        been positioned. */
+    var seat = function () {
+      scrollToSlide(BASE, false);
+      qTrack.classList.add('is-live');
+      shown = -1;
+      sync();
+      start();
+    };
+
+    /*  Twice on purpose. Straight away, so the track is seated even in a
+        context where animation frames never run and the carousel would
+        otherwise be left parked on the copies with no highlight; then
+        again in a frame, once the slides have their final widths, which
+        is what makes the centring exact. Seating is idempotent. */
+    seat();
+    window.requestAnimationFrame(seat);
+
+    /*  Again once everything has loaded: a web font or an image landing
+        late changes the slide widths, and with them where the centre is. */
+    window.addEventListener('load', function () {
+      scrollToSlide(BASE + at, false);
+      sync();
+    }, { once: true });
   }
 
   /* --- FAQ: one answer open at a time -----------------------------------

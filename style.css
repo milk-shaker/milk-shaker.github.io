@@ -6462,8 +6462,8 @@ p {
     a sign-off, not a second header logo. */
 .lp-footer-brand {
   display: inline-block;
-  max-width: 9.5rem;
-  margin-top: 0.35rem;
+  max-width: 12.5rem;
+  margin-top: 0.5rem;
 }
 
 .lp-footer-brand img {
