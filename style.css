@@ -5306,12 +5306,17 @@ p {
   letter-spacing: 0.14em;
 }
 
+/*  Sized for a long headline. The 4.3rem cap here was set for a
+    six-word line; at ninety-odd characters it filled most of the
+    viewport before the subtitle got a look in. Line height opens up a
+    little too, because 1.06 was set for two or three big lines and
+    reads as cramped once there are four smaller ones. */
 .lp-hero-title {
   margin: 0 0 1.1rem;
   color: var(--ms-plum);
-  font-size: clamp(2.05rem, 5.6vw, 4.3rem);
+  font-size: clamp(1.7rem, 3.4vw, 2.85rem);
   font-weight: 700;
-  line-height: 1.06;
+  line-height: 1.14;
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
