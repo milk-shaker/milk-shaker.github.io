@@ -5522,8 +5522,12 @@ p {
    Image above, copy below, at every width. It was copy-beside-image,
    which on a phone left a narrow column of text next to nothing and at
    desktop gave the paragraph a measure it did not need. */
+/*  Both children cap their own width, so without the auto margins they
+    sit hard left under a centred-looking section and the stack reads as
+    misaligned rather than ranged left. */
 .lp-how-stack {
   display: grid;
+  justify-items: center;
   gap: clamp(1.5rem, 4vw, 2.25rem);
   margin-top: clamp(1.5rem, 3.5vw, 2.25rem);
 }
@@ -5531,11 +5535,16 @@ p {
 .lp-how-media {
   width: 100%;
   max-width: 34rem;
-  margin: 0;
+  margin: 0 auto;
 }
 
+/*  Centred text, not just a centred box. The paragraph caps at 46rem, so
+    left-aligning it under a centred image left a ragged right edge that
+    read as an alignment bug rather than a measure. */
 .lp-how-copy {
   max-width: 46rem;
+  margin-inline: auto;
+  text-align: center;
 }
 
 /* ---------- 04 fit & fabric ----------
