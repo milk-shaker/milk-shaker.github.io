@@ -173,7 +173,13 @@
 
 
 
+/*  margin: 0 is not cosmetic here. Nothing in this stylesheet reset the
+    browser's default 8px body margin, so every full-width band on every
+    page, the offer ticker and the sticky header included, was sitting
+    inside an 8px frame of page background. Visible as a pale border
+    down both sides of every coloured section. */
 body {
+  margin: 0;
   font-family: var(--font-family);
   color: var(--black);
   font-size: 1.2656rem;
@@ -7813,5 +7819,115 @@ p {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+
+/*  In-page jumps land clear of the sticky header instead of under it.
+    Set on the scroll container, so it applies to the closing band's link
+    back up to the form on the early access page and to the skip link. */
+html {
+  scroll-padding-top: clamp(5rem, 12vh, 7.5rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ==============================================================
+   36. MOBILE REFINEMENTS
+   Adjustments that only make sense on a phone, gathered rather than
+   scattered through the sections they belong to.
+   ============================================================== */
+
+@media (max-width: 767px) {
+  /*  The footer reads as one centred column on a phone rather than a
+      left-ranged block with a wide empty right side. */
+  .lp-footer-top,
+  .lp-footer-top > div,
+  .lp-footer-legal {
+    text-align: center;
+  }
+
+  .lp-footer-social,
+  .lp-footer-brand {
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  .lp-footer-social {
+    display: flex;
+  }
+
+  /*  Three across, not two-and-one. The lists are short enough, and the
+      wrapped odd column out was the untidy part. */
+  .lp-footer-cols {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .lp-footer-cols .lp-footer-links {
+    justify-items: center;
+  }
+
+  /*  Panel 01's three benefits, centred like the panel 02 tiles they sit
+      opposite, rather than one ranged-left column. */
+  .lp-benefits li,
+  .lp-featlist li {
+    text-align: center;
+  }
+
+  /*  The legal pages are wall-to-wall text, and the wrap's own gutter is
+      the only thing between it and the screen edge. A little more room
+      on the sides makes them readable rather than cramped. */
+  /*  The legal pages do not use .lp-wrap: their content sits in
+      .legal-inner, which is what actually holds the text away from the
+      screen edge. */
+  .lp-legal .legal-inner {
+    padding-inline: max(var(--lp-gutter), 1.6rem);
+  }
+}
+
+/*  The comparison table was a scroll-snap strip on a phone, on the
+    grounds that shrinking a five-row table would make it illegible.
+    Shown whole instead, at whatever size fits: a table you have to
+    discover you can swipe is a table most people never read. */
+@media (max-width: 767px) {
+  .lp-table-wrap {
+    overflow-x: visible;
+  }
+
+  .lp-table {
+    min-width: 0;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .lp-table th,
+  .lp-table td {
+    padding: 10px 8px;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    /*  overflow-wrap, not word-break or hyphens. Those two broke ordinary
+        words that fit perfectly well: "already" was coming out as
+        "al-ready". This only breaks a word that genuinely cannot fit. */
+    overflow-wrap: break-word;
+  }
+
+  .lp-table thead th {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (max-width: 420px) {
+  .lp-table th,
+  .lp-table td {
+    padding: 8px 6px;
+    font-size: 0.74rem;
   }
 }

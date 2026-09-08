@@ -451,9 +451,20 @@
         twitch at the one moment that has to be seamless. */
     var recentre = function (slideIndex) {
       if (slideIndex >= BASE && slideIndex < BASE + COUNT) return slideIndex;
-      var shift = slideIndex < BASE ? setWidth() : -setWidth();
-      qTrack.scrollLeft = qTrack.scrollLeft - shift;
-      return slideIndex + (slideIndex < BASE ? COUNT : -COUNT);
+
+      /*  Spelled out rather than folded into a ternary, because the
+          ternary had the sign the wrong way round and it was not obvious
+          by eye. Past the end of the middle set the track has to move
+          BACK a set; before the start it has to move FORWARD. Inverted,
+          it ran off the end of the copies at the wrap, which showed as
+          the rotation skipping quote 1 every time round. */
+      if (slideIndex < BASE) {
+        qTrack.scrollLeft = qTrack.scrollLeft + setWidth();
+        return slideIndex + COUNT;
+      }
+
+      qTrack.scrollLeft = qTrack.scrollLeft - setWidth();
+      return slideIndex - COUNT;
     };
 
     var goTo = function (realIndex) {
