@@ -6148,11 +6148,21 @@ p {
     var(--ms-clay);
 }
 
+/*  720px is a reading measure for the headline and the sub-line, and it
+    was also squeezing the four kit cards: the same four pictures render
+    243px wide on the early access page and were 138px here. The panel is
+    wider now and every child except the kit is held at the old measure,
+    so only the pictures grew. */
 .lp-signup-inner {
-  max-width: 720px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 var(--lp-gutter);
   text-align: center;
+}
+
+.lp-signup-inner > :not(.lp-kit) {
+  max-width: 720px;
+  margin-inline: auto;
 }
 
 .lp-signup-inner .lp-title {
@@ -7368,7 +7378,7 @@ p {
   height: auto;
   aspect-ratio: 4 / 5;
   object-fit: contain;
-  padding: 10px;
+  padding: 8px;
   background: var(--white);
 }
 
