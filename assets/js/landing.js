@@ -364,13 +364,23 @@
              qTrack.getBoundingClientRect().left;
     };
 
-    var nearest = function () {
+    /*  The slide the track is actually resting on, 0 to 11, copies
+        included. Not reduced to a real index here: a swipe that ends up
+        among the copies has to be told apart from the same quote in the
+        first set, or the next automatic step scrolls backwards to reach
+        an index it is already past. */
+    var nearestRaw = function () {
       var best = 0, dist = Infinity;
       slides.forEach(function (_, k) {
         var d = Math.abs(deltaTo(k));
         if (d < dist - 1) { dist = d; best = k; }
       });
-      return best % COUNT;
+      return best;
+    };
+
+    var setWidth = function () {
+      return slides[COUNT].getBoundingClientRect().left -
+             slides[0].getBoundingClientRect().left;
     };
 
     var mark = function (k) {
@@ -425,9 +435,7 @@
               a visible twitch at the one moment that has to be
               seamless. Moving by exactly the set width keeps whatever
               sub-pixel phase the track is already in. */
-          var set = slides[COUNT].getBoundingClientRect().left -
-                    slides[0].getBoundingClientRect().left;
-          qTrack.scrollLeft = qTrack.scrollLeft - set;
+          qTrack.scrollLeft = qTrack.scrollLeft - setWidth();
           /*  This lands within about a sixteenth of a pixel rather than
               exactly. Chrome quantises scrollLeft, and a slide here is
               326.656px wide, so a whole set is not a whole number of
@@ -486,12 +494,35 @@
       if (!quotes.contains(e.relatedTarget)) start();
     });
 
-    /*  A real swipe is the only thing that redefines where we are. */
+    /*  Autoplay gets out of the way for the duration of a drag. Touch
+        never fires mouseenter, so without this the timer would advance
+        mid-swipe and fight whoever is scrolling. */
+    qTrack.addEventListener('pointerdown', stop);
+    qTrack.addEventListener('pointerup', start);
+    qTrack.addEventListener('pointercancel', start);
+
+    /*  A real swipe redefines where we are, and the rotation picks up
+        from there rather than from wherever it had got to on its own.
+        start() at the end is what gives the quote just swiped to a full
+        interval before it moves on, instead of whatever fraction of one
+        was left. */
     qTrack.addEventListener('scroll', debounce(function () {
       if (driving) return;
-      at = nearest();
+
+      var raw = nearestRaw();
+
+      /*  Swiped into the copies. Slide back one whole set so there is
+          room ahead again; the quote on screen is the same either side
+          of the move, so it is not visible. */
+      if (raw >= COUNT) {
+        qTrack.scrollLeft = qTrack.scrollLeft - setWidth();
+        raw = raw - COUNT;
+      }
+
+      at = raw;
       mark(at);
-    }, 90));
+      start();
+    }, 120));
 
     /*  Slide widths change with the breakpoint, so the resting offsets
         do too. Re-seat on the current index rather than leaving the

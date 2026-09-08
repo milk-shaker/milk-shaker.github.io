@@ -20,9 +20,11 @@
     for it to be read. Deferring this file, or moving it to the end of
     the body, would put it after widget.js and silently do nothing.
 
-    Session-scoped on purpose: sessionStorage, so it lasts as long as the
-    tab and does not attribute a signup next week to a link clicked
-    today.  */
+    Held for two days, in localStorage with a timestamp rather than in
+    sessionStorage, so closing the tab and coming back tomorrow still
+    credits the referrer. The timestamp is what stops it running
+    forever: a stored code past its window is discarded on read, so a
+    signup next month is not attributed to a link clicked today.  */
 (function () {
   'use strict';
 
@@ -30,6 +32,7 @@
       nothing and are only forwarded if a link actually carries them. */
   var KEYS = ['ref', 'referral', 'via'];
   var STORE = 'ms-ref';
+  var MAX_AGE = 2 * 24 * 60 * 60 * 1000;   /* two days */
 
   /*  Pulls only the referral pairs out of a query string and returns them
       re-encoded. Deliberately not the whole query string: forwarding
@@ -51,15 +54,37 @@
     return found.join('&');
   }
 
-  var inUrl = refPairs(window.location.search);
-  var stored = '';
+  /*  Stored as code and timestamp together. Anything unparseable or past
+      its window is treated as absent and cleared, so a stale entry from
+      an older version of this file cannot linger. */
+  function load() {
+    var raw = null;
+    try { raw = window.localStorage.getItem(STORE); } catch (e) { return ''; }
+    if (!raw) return '';
+    var saved;
+    try { saved = JSON.parse(raw); } catch (e) { saved = null; }
+    if (!saved || !saved.code || !saved.at || (Date.now() - saved.at) > MAX_AGE) {
+      try { window.localStorage.removeItem(STORE); } catch (e) { /* private mode */ }
+      return '';
+    }
+    return saved.code;
+  }
 
-  try { stored = window.sessionStorage.getItem(STORE) || ''; } catch (e) { /* private mode */ }
+  function save(code) {
+    try {
+      window.localStorage.setItem(STORE, JSON.stringify({ code: code, at: Date.now() }));
+    } catch (e) { /* private mode, or storage full */ }
+  }
+
+  var inUrl = refPairs(window.location.search);
+  var stored = load();
 
   /*  A code in the URL always wins: someone following a second person's
-      link should be attributed to that second person. */
-  if (inUrl && inUrl !== stored) {
-    try { window.sessionStorage.setItem(STORE, inUrl); } catch (e) { /* private mode */ }
+      link should be attributed to that second person. Re-saving also
+      restarts the two days, which is the right call for someone who has
+      just clicked a fresh link. */
+  if (inUrl) {
+    save(inUrl);
     stored = inUrl;
   }
 
