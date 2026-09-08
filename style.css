@@ -6202,6 +6202,42 @@ p {
   text-decoration: underline;
 }
 
+/*  The same four accounts as the menu, repeated in the footer because
+    someone who has read to the bottom of a page should not have to
+    reopen the menu to find them. Sized down from the menu's 48px
+    circles: this is a quiet row under the links, not a call to
+    action. */
+.lp-footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-footer-social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--lp-bar-line-deep);
+  border-radius: 50%;
+  color: var(--ms-plum);
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.lp-footer-social a:hover {
+  background: var(--ms-peri-deep);
+  border-color: var(--ms-peri-deep);
+  color: #FFFFFF;
+}
+
+.lp-footer-social svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
 .lp-footer-legal {
   padding-top: 1.25rem;
   border-top: 1px solid var(--lp-bar-line);
@@ -6324,7 +6360,7 @@ p {
   z-index: 200;
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: clamp(14px, 4vw, 44px);
   animation: lp-fade 0.25s ease both;
 }
 
@@ -6342,10 +6378,14 @@ p {
   cursor: pointer;
 }
 
+/*  Near-full-width on purpose. At 440px the panel floated in the middle
+    of a desktop screen with the kit strip clipped inside it, which read
+    as a broken element rather than a deliberate one. It now takes the
+    width it needs and stops short of the edges. */
 .lp-modal-panel {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: min(64rem, 100%);
   max-height: calc(100vh - 40px);
   overflow-y: auto;
   padding: clamp(1.75rem, 4vw, 2.4rem);
@@ -6409,8 +6449,14 @@ p {
   mask: url("/assets/icons/droplet-mark.svg") center / contain no-repeat;
 }
 
+/*  The panel is wide now; the reading line inside it is not. The auto
+    side margins live inside the shorthand rather than in a separate
+    "margin-inline" rule: a later "margin: 0 0 x" shorthand resets the
+    sides to zero, which is exactly how the first attempt at this left
+    every line stacked against the panel's left padding. */
 .lp-modal-panel h2 {
-  margin: 0 0 8px;
+  max-width: 34rem;
+  margin: 0 auto 8px;
   color: var(--ms-plum);
   font-size: clamp(1.575rem, 3.375vw, 1.9688rem);
   font-weight: 700;
@@ -6418,7 +6464,8 @@ p {
 }
 
 .lp-modal-panel p {
-  margin: 0 0 1.2rem;
+  max-width: 34rem;
+  margin: 0 auto 1.2rem;
   color: var(--ms-ink-soft);
   font-size: 1.125rem;
   line-height: 1.6;
@@ -6430,14 +6477,14 @@ p {
     button sat flush against the image cards with no gap at all. Same
     specificity trap as the one in the early access panel. */
 .lp-modal-panel .lp-modal-cta {
-  margin: clamp(1.6rem, 5vw, 2.2rem) 0 0;
+  margin: clamp(1.6rem, 5vw, 2.2rem) auto 0;
 }
 
 /*  Scoped to the panel rather than carrying !important. It needs to
     outrank ".lp-modal-panel p", and doing that with specificity leaves
     the rule overridable later; !important does not. */
 .lp-modal-panel .lp-modal-caption {
-  margin: 1.1rem 0 0;
+  margin: 1.1rem auto 0;
   color: var(--ms-ink-soft);
   font-size: 0.8775rem;
   text-align: center;
@@ -6987,9 +7034,24 @@ p {
   font-size: 0.8rem;
 }
 
-/*  A tighter set for the popup, where there is far less room. */
+/*  A tighter set for the popup, where there is far less room.
+
+    "safe center" centres the row on a wide panel but falls back to
+    start-aligned the moment it overflows, so the first thumbnail is
+    never scrolled out of reach on a phone. A browser without the
+    keyword drops the declaration and gets the old left alignment. */
+.lp-kit--mini {
+  justify-content: safe center;
+}
+
 .lp-kit--mini li {
   flex: 0 0 6.5rem;
+}
+
+@media (min-width: 640px) {
+  .lp-kit--mini li {
+    flex: 0 0 8.5rem;
+  }
 }
 
 /*  Same contain-on-white treatment as the full grid, so the products
@@ -7328,5 +7390,77 @@ p {
   .lp-compliance,
   .lp-focus-legal {
     text-align: center;
+  }
+}
+
+
+/* ============================================================
+   34. CONTACT PAGE SOCIAL PANEL
+   Replaces the early-access panel that used to close this page. The
+   form lives on one page only, and a contact page that ends by
+   pointing somewhere else is a contact page that does not answer the
+   question it was opened for.
+   ============================================================ */
+
+.lp-social {
+  padding: clamp(3rem, 7vw, 4.5rem) 0 clamp(3.5rem, 8vw, 5.5rem);
+}
+
+/*  A grid rather than wrapping flex. Flex wrapped these four to 3 + 1
+    on a phone and left the last tile stranded on its own row; an
+    explicit two-up beats whatever the available width happens to
+    produce. */
+.lp-social-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2.5vw, 1.5rem);
+  max-width: 23rem;
+  margin: clamp(1.75rem, 4vw, 2.5rem) auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 620px) {
+  .lp-social-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 44rem;
+  }
+}
+
+.lp-social-row a {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  padding: clamp(1.1rem, 3vw, 1.5rem) 0.75rem;
+  border: 1px solid var(--lp-bar-line-deep);
+  border-radius: var(--lp-radius, 22px);
+  background: #FFFFFF;
+  color: var(--ms-plum);
+  font-size: 1.0125rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.lp-social-row a:hover {
+  border-color: var(--ms-peri-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(97, 47, 72, 0.12);
+}
+
+.lp-social-row a:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 3px;
+}
+
+.lp-social-row svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--ms-peri-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-social-row a:hover {
+    transform: none;
   }
 }
