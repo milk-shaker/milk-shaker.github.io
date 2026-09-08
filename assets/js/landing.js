@@ -34,24 +34,78 @@
      removes itself rather than counting into the negative. */
   var OFFER_ENDS = new Date('2026-10-07T23:59:59-04:00');
 
+  /*  floor, not ceil: rounding up told people they had 31 days left
+      when 30 days and 8 hours remained. A countdown on an offer should
+      never claim more time than there is. */
   function phrase(ms) {
-    var days = Math.ceil(ms / 86400000);
+    var days = Math.floor(ms / 86400000);
     if (days > 1) return days + ' days left';
-    var hours = Math.ceil(ms / 3600000);
-    return hours > 1 ? hours + ' hours left' : 'Closing today';
+    var hours = Math.floor(ms / 3600000);
+    if (hours > 1) return hours + ' hours left';
+    return 'Closing today';
   }
 
   var ticker = document.getElementById('lpTicker');
-  var countdown = document.getElementById('lpCountdown');
+  var track = ticker && ticker.querySelector('.lp-ticker-track');
 
-  if (ticker && countdown) {
+  if (ticker && track) {
     var msLeft = OFFER_ENDS.getTime() - Date.now();
 
     if (msLeft <= 0) {
       ticker.remove();
+      ticker = null;
     } else {
-      countdown.textContent = phrase(msLeft);
+      /*  Every run has to say the same thing. The countdown used to be
+          written into the first run only, which made the two runs
+          different widths, so translating by half the track no longer
+          landed on a matching frame and the loop visibly jumped. */
+      var text = phrase(msLeft);
+      Array.prototype.forEach.call(track.querySelectorAll('[data-countdown]'), function (el) {
+        el.textContent = text;
+      });
+
+      layoutTicker();
+      window.addEventListener('resize', debounce(layoutTicker, 200));
     }
+  }
+
+  /*  Repeat the run until the track is at least one run wider than the
+      window, so there is always something entering as something leaves,
+      then loop by exactly one run's width. Below that threshold a
+      marquee runs out of content and shows a gap on wide screens. */
+  function layoutTicker() {
+    if (!track) return;
+
+    var runs = track.querySelectorAll('.lp-ticker-run');
+    var first = runs[0];
+    if (!first) return;
+
+    var runWidth = first.getBoundingClientRect().width;
+    if (!runWidth) return;
+
+    var needed = Math.ceil((window.innerWidth + runWidth) / runWidth) + 1;
+
+    for (var i = runs.length; i < needed; i++) {
+      var copy = first.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      /*  Duplicated ids would be invalid, and the copies are decorative. */
+      Array.prototype.forEach.call(copy.querySelectorAll('[id]'), function (el) {
+        el.removeAttribute('id');
+      });
+      track.appendChild(copy);
+    }
+
+    track.style.setProperty('--lp-run', runWidth + 'px');
+    /*  Constant speed regardless of how wide a run turns out to be. */
+    track.style.setProperty('--lp-dur', (runWidth / 55).toFixed(2) + 's');
+  }
+
+  function debounce(fn, wait) {
+    var t;
+    return function () {
+      window.clearTimeout(t);
+      t = window.setTimeout(fn, wait);
+    };
   }
 
   /*  The clock on the early access page. Same constant, fuller wording,

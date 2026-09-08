@@ -6650,7 +6650,12 @@ p {
 .lp-ticker-track {
   display: flex;
   width: max-content;
-  animation: lp-ticker 38s linear infinite;
+  /*  The loop distance is exactly one run's width, measured by
+      landing.js and set as --lp-run, with the duration scaled to it so
+      the speed is the same whatever the width. The 50% and 38s
+      fallbacks are what a no-JS browser gets from the two runs in the
+      markup. */
+  animation: lp-ticker var(--lp-dur, 38s) linear infinite;
 }
 
 .lp-ticker-run {
@@ -6679,7 +6684,7 @@ p {
 
 @keyframes lp-ticker {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  to   { transform: translateX(calc(-1 * var(--lp-run, 50%))); }
 }
 
 /*  WCAG 2.2.2 asks for a way to stop moving content. The button is the
@@ -6912,8 +6917,14 @@ p {
   border: 1px solid var(--ms-clay);
 }
 
+/*  height:auto belongs on the base rule, not just the grid variant:
+    the markup carries real width and height attributes so space is
+    reserved before load, and an explicit height attribute otherwise
+    overrides aspect-ratio and renders the image at full intrinsic
+    size. That is what stretched the popup. */
 .lp-kit img {
   display: block;
+  height: auto;
 }
 
 /*  Stays a grid: setting display:block here collapsed the label and the
@@ -6948,6 +6959,16 @@ p {
 /*  A tighter set for the popup, where there is far less room. */
 .lp-kit--mini li {
   flex: 0 0 6.5rem;
+}
+
+/*  Same contain-on-white treatment as the full grid, so the products
+    read whole at thumbnail size instead of being cropped to a square. */
+.lp-kit--mini img {
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  padding: 6px;
+  background: var(--white);
+  border-radius: 10px;
 }
 
 .lp-kit--mini figcaption {
