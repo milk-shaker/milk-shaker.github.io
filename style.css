@@ -63,6 +63,10 @@
   font-weight: 400;
   font-display: swap;
   unicode-range: U+0026, U+0066, U+0073;
+  /*  Young Serif runs heavier and taller than Fraunces at the same em.
+      92% was picked from a rendered side-by-side at 64px: 100% reads
+      bold, 86% reads small; 92% sits flush. */
+  size-adjust: 92%;
 }
 
 /* ==============================================================
@@ -128,8 +132,12 @@
   --ms-peri-dark: #514F9A;  /* white on it 7.2:1 — hover */
   --ms-peri-wash: #F1F1FA;
   --ms-blush: #F8E7E3;      /* warm blush, panel ground */
-  --ms-sage: #E9F0E3;       /* soft sage, panel ground */
-  --ms-peach: #FBEBDC;      /* soft apricot, panel ground */
+  --ms-peri-panel: #E7E8F7; /* soft periwinkle, panel ground */
+  /*  Not --ms-rose: that name was already taken six lines down by the
+      deeper accent rose, and a duplicate custom property silently loses
+      to whichever declaration comes last -- which is exactly how the
+      first cut of this panel shipped salmon. */
+  --ms-rose-panel: #F5DFE3; /* dusty rose, panel ground */
 
   /*  the old pink, still used by the dormant preorder pages  */
   --ms-pink: #F3AEC7;
@@ -5202,12 +5210,12 @@ p {
   background: var(--ms-blush);
 }
 
-.lp-section--sage {
-  background: var(--ms-sage);
+.lp-section--peri {
+  background: var(--ms-peri-panel);
 }
 
-.lp-section--peach {
-  background: var(--ms-peach);
+.lp-section--rose {
+  background: var(--ms-rose-panel);
 }
 
 /*  A vertical wash of the periwinkle over ivory. Sunday uses this on
