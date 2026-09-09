@@ -6220,6 +6220,12 @@ p {
     against, left-aligned text of three different lengths reads as
     ragged rather than aligned. */
 .lp-quote {
+  /*  Positioning context for the .lp-sr labels in the figcaption. They
+      are position: absolute; without this their containing block is
+      outside the scroll track, so their static position -- at the
+      slide's x-offset, up to ~6500px into the strip -- escaped the
+      track's clipping and stretched the whole document sideways. */
+  position: relative;
   display: grid;
   gap: 1rem;
   align-content: start;
