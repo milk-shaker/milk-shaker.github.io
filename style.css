@@ -7404,6 +7404,7 @@ p {
   color: var(--ms-ink-soft);
   font-size: 0.86rem;
   line-height: 1.4;
+  text-align: center;
 }
 
 .lp-kit-hint {
