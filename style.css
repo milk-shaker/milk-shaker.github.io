@@ -48,7 +48,7 @@
    listed here.
    ============================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,60,0&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 /* ==============================================================
    1. BASE, RESET & BRAND PALETTE
@@ -56,21 +56,20 @@
 :root {
   --font-family: "Quicksand", sans-serif;
 
-  /*  The display face, headings only.
+  /*  The display face, headings only. Back to the body font, so headings
+      are Quicksand again. The soft serif that was here briefly was a
+      free stand-in and its s and f were the problem with it.
 
-      Fraunces, from Google Fonts, as the stand-in for Recoleta: a soft
-      serif of much the same warmth, and free. Requested at SOFT 60 for
-      rounded terminals and WONK 0 to leave the swashy alternates off,
-      which is what keeps it close to Recoleta rather than playful. It
-      rides on the existing Quicksand request, so it costs no extra
-      round trip.
+      Roca is the face wanted. It is on Adobe Fonts from My Creative
+      Land, web use supported, included with a Creative Cloud
+      subscription, so it needs a web project from that account rather
+      than anything fetchable from here. Once there is a kit this is two
+      lines: the @import above becomes the kit's stylesheet URL, and this
+      becomes roca, Georgia, serif.
 
-      The fallbacks are real serifs rather than the generic, so the
-      moment before it loads is a serif too and the swap does not jump
-      between two different shapes of letter.
-
-      To move to Recoleta later, load it and change this one line. */
-  --font-accent: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      "Roca Two" is one of the family's two stylistic sets, so the web
+      project needs that set selected, not just the family. */
+  --font-accent: var(--font-family);
 
   /* ----------------------------------------------------------------
      BRAND PALETTE
