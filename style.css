@@ -8632,7 +8632,7 @@ h3,
     point. */
 .lp-sym-row {
   position: relative;
-  width: min(68vw, 350px);
+  width: min(74vw, 385px);
   height: min(68vw, 350px);
   margin: 0 auto;
   padding: 0;
@@ -8652,13 +8652,13 @@ h3,
     with Intense breast pain in the centre cell. The half-cell offset
     between rows is what lets each label drop into the valley beneath
     it instead of crossing a bubble. */
-.lp-sym-row li:nth-child(1) { left: 39%; top: 16%; }
-.lp-sym-row li:nth-child(2) { left: 61%; top: 16%; }
-.lp-sym-row li:nth-child(3) { left: 28%; top: 48%; }
+.lp-sym-row li:nth-child(1) { left: 36.5%; top: 16%; }
+.lp-sym-row li:nth-child(2) { left: 63.5%; top: 16%; }
+.lp-sym-row li:nth-child(3) { left: 23%; top: 48%; }
 .lp-sym-row li:nth-child(4) { left: 50%; top: 48%; }
-.lp-sym-row li:nth-child(5) { left: 72%; top: 48%; }
-.lp-sym-row li:nth-child(6) { left: 39%; top: 80%; }
-.lp-sym-row li:nth-child(7) { left: 61%; top: 80%; }
+.lp-sym-row li:nth-child(5) { left: 77%; top: 48%; }
+.lp-sym-row li:nth-child(6) { left: 36.5%; top: 80%; }
+.lp-sym-row li:nth-child(7) { left: 63.5%; top: 80%; }
 
 .lp-sym-bubble {
   display: grid;
