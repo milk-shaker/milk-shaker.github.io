@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!--======================================================================
+       REDIRECT STUB — not a real page.
+
+       The contact page is gone: there is one email address, it is in the
+       footer and the sidebar of every page, and a form that posted to
+       the same inbox was a longer route to the same place.
+
+       This file exists only because that URL was linked from every page
+       for a while, so it may sit in someone's history or an index. A 404
+       there is a dead end for no reason.
+
+       Same technique as /text, for the same reason: GitHub Pages cannot
+       issue a server-side 301, so this is client-side. The canonical tag
+       points search engines at "/", noindex stops this URL competing
+       with the root as duplicate content, and the meta refresh plus the
+       script below move real visitors. The visible link is the no-JS
+       fallback, and it names the email address so that even a visitor
+       who lands here with no JavaScript and ignores the link gets what
+       they came for.
+  =======================================================================-->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://themilkshaker.com/" />
+  <meta http-equiv="refresh" content="0; url=/" />
+
+  <title>Redirecting&hellip; | MilkShaker</title>
+  <link rel="icon" href="/favicon.ico?v=3" />
+
+  <style>
+    /*  Deliberately inline, matching /text. This has to render correctly
+        in the fraction of a second before the redirect fires, and waiting
+        on a request for /style.css to paint a message nobody should ever
+        see is a worse trade than the one broken rule. */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F8F5FA;
+      color: #612F48;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      text-align: center;
+      padding: 24px;
+    }
+
+    a {
+      color: #612F48;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    Taking you to MilkShaker&hellip;<br />
+    <a href="/">Continue to themilkshaker.com</a><br />
+    Or email <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
+  </p>
+
+  <script>
+    // replace() rather than assign() so this stub does not sit in the
+    // back button and bounce the visitor straight back here.
+    window.location.replace("/");
+  </script>
+</body>
+
+</html>

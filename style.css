@@ -56,6 +56,16 @@
 :root {
   --font-family: "Quicksand", sans-serif;
 
+  /*  The display face, for headings and eyebrows only. Set to the body
+      font today, so this changes nothing on its own: it exists so that
+      dropping in a second face is one declaration rather than a hunt
+      through 28 font-family rules.
+
+      To use Recoleta: load it (Adobe Fonts link, or an @font-face
+      pointing at a licensed woff2 in assets/fonts) and change this to
+      recoleta, Georgia, serif. Nothing else needs touching. */
+  --font-accent: var(--font-family);
+
   /* ----------------------------------------------------------------
      BRAND PALETTE
 
@@ -7851,6 +7861,17 @@ p {
     transform: none;
     transition: none;
   }
+}
+
+/*  Headings and eyebrows take the display face. Identical to the body
+    font until --font-accent is pointed at something else. */
+h1,
+h2,
+h3,
+.lp-hero-title,
+.lp-title,
+.lp-eyebrow {
+  font-family: var(--font-accent);
 }
 
 /* ==============================================================
