@@ -48,7 +48,7 @@
    listed here.
    ============================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Young+Serif&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400,100&family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 /* ==============================================================
    1. BASE, RESET & BRAND PALETTE
@@ -69,13 +69,15 @@
 
       "Roca Two" is one of the family's two stylistic sets, so the web
       project needs that set selected, not just the family. */
-  /*  Young Serif: the closest Google-Fonts neighbour to Recoleta /
-      Roca while the Adobe kit is pending. When that kit exists, its
+  /*  Fraunces with its SOFT axis pinned to 100: the rounded-terminal
+      cut, which is the variant nearest Recoleta / Roca and softens the
+      s and f that the default cut was rejected over. Loaded at a single
+      400 weight, which is why the accent rules at the end of section 35
+      force heading weights down: anything left at 700 would render as
+      smeared synthetic bold. When the Adobe kit for Roca exists, its
       stylesheet URL replaces the family in the @import above and this
-      one line changes. It ships a single 400 weight, which is why the
-      accent rules at the end of section 35 force the weight down:
-      anything left at 700 would render as smeared synthetic bold. */
-  --font-accent: "Young Serif", Georgia, serif;
+      one line changes. */
+  --font-accent: "Fraunces", Georgia, serif;
 
   /* ----------------------------------------------------------------
      BRAND PALETTE
