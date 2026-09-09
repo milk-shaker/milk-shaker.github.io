@@ -8516,17 +8516,17 @@ h3,
    ============================================================== */
 
 .lp-story {
-  margin-top: clamp(2.25rem, 5vw, 3.25rem);
+  margin-top: clamp(0.8rem, 2vw, 1.2rem);
 }
 
 .lp-story-track {
   display: flex;
-  gap: clamp(0.9rem, 2.5vw, 1.4rem);
+  gap: clamp(1.2rem, 3vw, 2rem);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   /*  The inline padding is what lets the first and last card sit
       centred when snapped. */
-  padding: 4px calc((100% - min(78vw, 350px)) / 2) 10px;
+  padding: 4px calc((100% - min(88vw, 560px)) / 2) 10px;
   scrollbar-width: none;
 }
 
@@ -8540,7 +8540,7 @@ h3,
 }
 
 .lp-story-slide {
-  flex: 0 0 min(78vw, 350px);
+  flex: 0 0 min(88vw, 560px);
   scroll-snap-align: center;
   display: flex;
   flex-direction: column;
@@ -8558,11 +8558,9 @@ h3,
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: clamp(1rem, 2.5vw, 1.5rem);
+  gap: clamp(1.2rem, 3vw, 1.8rem);
   padding: clamp(1.5rem, 4vw, 2.4rem);
-  border: 1px solid var(--ms-clay-deep);
-  border-radius: var(--lp-radius);
-  background: var(--ms-ivory);
+  min-height: min(76vw, 400px);
   text-align: center;
 }
 
@@ -8612,15 +8610,12 @@ h3,
    nothing aloud. */
 .lp-symptoms {
   flex: 1;
-  min-height: clamp(300px, 58vw, 390px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: clamp(1.2rem, 3vw, 1.8rem);
-  padding: clamp(1.2rem, 3vw, 1.8rem);
-  border: 1px solid var(--ms-clay-deep);
-  border-radius: var(--lp-radius);
-  background: #fff;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(0.8rem, 2vw, 1.2rem);
+  padding: clamp(0.6rem, 1.5vw, 1rem) 0 0;
 }
 
 .lp-sym-line {
@@ -8628,42 +8623,57 @@ h3,
   text-align: center;
   color: var(--ms-plum);
   font-family: var(--font-accent);
-  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.7rem);
 }
 
+/*  A ring, not a row: five bubbles on a pentagon, and slide three's
+    culmination bubble takes the centre of its ring. Coordinates are
+    percentages of the square cluster box, items centred on their
+    point. */
 .lp-sym-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 14px 12px;
-  margin: 0;
+  position: relative;
+  width: min(76vw, 400px);
+  height: min(76vw, 400px);
+  margin: 0 auto;
   padding: 0;
   list-style: none;
 }
 
 .lp-sym-row li {
+  position: absolute;
+  transform: translate(-50%, -50%);
   display: grid;
   justify-items: center;
-  gap: 6px;
-  width: 62px;
+  gap: 7px;
+  width: 108px;
+}
+
+.lp-sym-row li:nth-child(1) { left: 50%; top: 13%; }
+.lp-sym-row li:nth-child(2) { left: 87%; top: 40%; }
+.lp-sym-row li:nth-child(3) { left: 73%; top: 82%; }
+.lp-sym-row li:nth-child(4) { left: 27%; top: 82%; }
+.lp-sym-row li:nth-child(5) { left: 13%; top: 40%; }
+
+.lp-sym-row li.is-peak {
+  left: 50%;
+  top: 47%;
 }
 
 .lp-sym-bubble {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
 }
 
 .lp-sym-bubble svg {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
 }
 
 .lp-sym-label {
-  font-size: 12px;
+  font-size: 13.5px;
   line-height: 1.25;
   text-align: center;
   font-weight: 600;
@@ -8709,19 +8719,19 @@ h3,
 
 /*  The culmination bubble, slide 4 only: bigger, deepest red, its own
     starburst rather than a symptom glyph. */
-.lp-sym-row .is-peak {
-  width: 76px;
+.lp-sym-row li.is-peak {
+  width: 120px;
 }
 
 .lp-sym-row .is-peak .lp-sym-bubble {
-  width: 64px;
-  height: 64px;
+  width: 92px;
+  height: 92px;
   background: #791F1F;
 }
 
 .lp-sym-row .is-peak .lp-sym-bubble svg {
-  width: 34px;
-  height: 34px;
+  width: 48px;
+  height: 48px;
 }
 
 .lp-sym-row .is-peak .lp-sym-label {
@@ -8799,7 +8809,7 @@ h3,
 }
 
 .lp-flow-line {
-  margin: 0 auto;
+  margin: clamp(0.9rem, 2vw, 1.3rem) auto 0;
   max-width: 34rem;
   color: var(--ms-plum);
   font-size: clamp(1.1rem, 2vw, 1.35rem);
