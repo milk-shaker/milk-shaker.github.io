@@ -6237,11 +6237,27 @@ p {
 }
 
 .lp-quote figcaption {
-  color: var(--ms-ink-soft);
-  font-size: 0.99rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+}
+
+/*  The attribution is an icon now -- a mom (varied) for moms and
+    testers, a stethoscope for the lactation consultant -- with the old
+    wording kept for screen readers in the .lp-sr span beside it. */
+.lp-quote-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--ms-ivory);
+  color: var(--ms-peri-deep);
+  box-shadow: inset 0 0 0 1px rgba(97, 47, 72, 0.14);
+}
+
+.lp-quote-icon svg {
+  width: 1.7rem;
+  height: 1.7rem;
 }
 
 /* ---------- trust strip ---------- */
