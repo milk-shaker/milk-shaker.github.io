@@ -5079,7 +5079,8 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 18px;
-  margin-top: auto;
+  /*  The wordmark above carries the margin-top: auto now; this hugs
+      beneath it, keeping its rule as the separator. */
   padding-top: 20px;
   border-top: 1px solid var(--lp-bar-line);
 }
@@ -8753,7 +8754,10 @@ h3,
   align-items: flex-start;
   gap: 2px;
   max-width: 10.5rem;
+  /*  Anchors the bottom cluster: logo, then the rule, then the legal
+      links beneath it. */
   margin-top: auto;
+  margin-bottom: 4px;
 }
 
 .lp-menu-brand img {
