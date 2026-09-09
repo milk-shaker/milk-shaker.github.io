@@ -8187,3 +8187,159 @@ h3,
     gap: 1.6rem;
   }
 }
+
+/* ==============================================================
+   38. THE SYMPTOM CYCLE
+   Section 01's three stages as a loop. Two layouts from one
+   markup:
+
+     default   three columns side by side, the old tiles. This is
+               what a browser without JavaScript renders, so
+               nothing is ever hidden from it.
+
+     .is-live  added by landing.js: the stages stack into one grid
+               cell and cross-fade, one visible at a time, with
+               arrows and dots below. The rotation never stops
+               looping, because the return to stage one is the
+               message.
+   ============================================================== */
+
+.lp-cycle {
+  margin: clamp(2.25rem, 5vw, 3.25rem) 0 0;
+}
+
+.lp-cycle-track {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.lp-cycle-stage {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.lp-ph--stage {
+  aspect-ratio: 4 / 3;
+}
+
+.lp-cycle-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0;
+  color: var(--ms-plum);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lp-cycle-step {
+  display: block;
+  color: var(--ms-ink-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lp-cycle-body {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  line-height: 1.65;
+}
+
+.lp-cycle-loop {
+  margin: clamp(1.5rem, 3.5vw, 2.25rem) auto 0;
+  max-width: 34rem;
+  color: var(--ms-plum);
+  font-weight: 600;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* ---------- live: one stage at a time ---------- */
+
+.lp-cycle.is-live .lp-cycle-track {
+  grid-template-columns: none;
+}
+
+.lp-cycle.is-live .lp-cycle-stage {
+  /*  All three share the one cell, so the track holds the height of
+      the tallest stage and nothing jumps between fades. */
+  grid-area: 1 / 1;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  max-width: 56rem;
+  margin: 0 auto;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.lp-cycle.is-live .lp-cycle-stage.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-cycle.is-live .lp-cycle-stage {
+    transition: none;
+  }
+}
+
+/* ---------- the nav: arrow, dots, arrow ---------- */
+
+.lp-cycle-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.5vw, 1.4rem);
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+}
+
+.lp-cycle-arrow {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: 50%;
+  background: var(--ms-ivory);
+  color: var(--ms-plum);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.lp-cycle-arrow svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.lp-cycle-arrow:hover {
+  background: var(--ms-clay);
+  border-color: var(--ms-plum);
+}
+
+.lp-cycle-arrow:focus-visible {
+  outline: 2px solid var(--ms-plum);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  /*  Stacked stage on small screens: image above, words below,
+      centred like the rest of the page is at this width. */
+  .lp-cycle.is-live .lp-cycle-stage {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+    text-align: center;
+  }
+
+  .lp-cycle.is-live .lp-cycle-kicker {
+    justify-content: center;
+  }
+}

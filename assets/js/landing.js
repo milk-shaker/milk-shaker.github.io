@@ -622,6 +622,104 @@
     }, { once: true });
   }
 
+  /* --- the symptom cycle -------------------------------------------------
+     Section 01's three stages, one at a time on a fade, looping without
+     end because the return to stage one is the message. Arrows and dots
+     are built here rather than written into the markup, so a browser
+     that never runs this sees the three stages side by side with no
+     inert controls.
+
+     Same courtesy rules as the quotes: hovering or tabbing in pauses
+     the clock, a manual pick restarts it rather than killing it, and
+     under prefers-reduced-motion nothing moves on its own but the
+     arrows still work. */
+  var cycle = document.getElementById('lpCycle');
+  var cycleNav = document.getElementById('lpCycleNav');
+
+  if (cycle && cycleNav) {
+    var stages = cycle.querySelectorAll('.lp-cycle-stage');
+    var STAGE_MS = 5000;
+
+    if (stages.length > 1) {
+      var cIdx = 0;
+      var cTimer = null;
+      var cDots = [];
+
+      var cPaint = function () {
+        Array.prototype.forEach.call(stages, function (el, k) {
+          el.classList.toggle('is-active', k === cIdx);
+          el.setAttribute('aria-hidden', k === cIdx ? 'false' : 'true');
+        });
+        cDots.forEach(function (dot, k) {
+          if (k === cIdx) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+      };
+
+      var cStop = function () {
+        if (cTimer) { window.clearInterval(cTimer); cTimer = null; }
+      };
+
+      var cStart = function () {
+        cStop();
+        if (reduced) return;
+        cTimer = window.setInterval(function () {
+          cIdx = (cIdx + 1) % stages.length;
+          cPaint();
+        }, STAGE_MS);
+      };
+
+      var cGo = function (k) {
+        cIdx = (k + stages.length) % stages.length;
+        cPaint();
+        cStart();
+      };
+
+      var arrow = function (dir, label) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'lp-cycle-arrow';
+        btn.setAttribute('aria-label', label);
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+          + ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+          + (dir < 0 ? '<path d="M15 5l-7 7 7 7"/>' : '<path d="M9 5l7 7-7 7"/>')
+          + '</svg>';
+        btn.addEventListener('click', function () { cGo(cIdx + dir); });
+        return btn;
+      };
+
+      var cList = document.createElement('ul');
+      cList.className = 'lp-quotes-dots';
+      Array.prototype.forEach.call(stages, function (_, k) {
+        var li = document.createElement('li');
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'lp-quotes-dot';
+        dot.setAttribute('aria-label', 'Show stage ' + (k + 1) + ' of ' + stages.length);
+        dot.addEventListener('click', function () { cGo(k); });
+        li.appendChild(dot);
+        cList.appendChild(li);
+        cDots.push(dot);
+      });
+
+      cycleNav.appendChild(arrow(-1, 'Previous stage'));
+      cycleNav.appendChild(cList);
+      cycleNav.appendChild(arrow(1, 'Next stage'));
+      cycleNav.hidden = false;
+
+      cycle.classList.add('is-live');
+      cPaint();
+      cStart();
+
+      cycle.addEventListener('mouseenter', cStop);
+      cycle.addEventListener('mouseleave', cStart);
+      cycle.addEventListener('focusin', cStop);
+      cycle.addEventListener('focusout', function (e) {
+        if (!cycle.contains(e.relatedTarget)) cStart();
+      });
+    }
+  }
+
   /* --- FAQ: one answer open at a time -----------------------------------
      The markup does this on its own: a shared name= makes native
      <details> mutually exclusive. That landed in Chrome 120, Safari 17.2
