@@ -8648,13 +8648,17 @@ h3,
   width: 104px;
 }
 
-/*  Six on a hexagon, intense breast pain at the foot. */
-.lp-sym-row li:nth-child(1) { left: 50%; top: 16%; }
-.lp-sym-row li:nth-child(2) { left: 79%; top: 33%; }
-.lp-sym-row li:nth-child(3) { left: 79%; top: 67%; }
-.lp-sym-row li:nth-child(4) { left: 21%; top: 67%; }
-.lp-sym-row li:nth-child(5) { left: 21%; top: 33%; }
-.lp-sym-row li:nth-child(6) { left: 50%; top: 84%; }
+/*  A honeycomb, not a ring: offset rows of 1, 2 and 3, packed to
+    near-touching. Each row's labels drop into the valley between the
+    cells of the row beneath, which is what lets the pitch stay tight
+    without any label crossing a bubble. Intense breast pain holds the
+    bottom-centre of the mass. */
+.lp-sym-row li:nth-child(1) { left: 50%; top: 15%; }
+.lp-sym-row li:nth-child(2) { left: 39%; top: 45%; }
+.lp-sym-row li:nth-child(3) { left: 61%; top: 45%; }
+.lp-sym-row li:nth-child(4) { left: 28%; top: 75%; }
+.lp-sym-row li:nth-child(5) { left: 72%; top: 75%; }
+.lp-sym-row li:nth-child(6) { left: 50%; top: 75%; }
 
 .lp-sym-bubble {
   display: grid;

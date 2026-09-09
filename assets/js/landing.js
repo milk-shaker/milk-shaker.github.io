@@ -767,18 +767,44 @@
         sPaint();
       };
 
-      /*  The swipe: a horizontal drag of 40px or more, measured from
-          pointerdown to pointerup on the track. touch-action: pan-y in
-          the styles keeps vertical scrolling native. */
+      /*  The swipe. Two channels, deliberately:
+
+          Touch gets touchstart/touchend, because with touch-action:
+          pan-y the browser claims any gesture with a vertical
+          component and fires pointercancel -- which is why the first
+          pointer-events-only version dropped most real finger swipes.
+          touchend still arrives even when the page scrolled, so the
+          test is horizontal dominance: 40px or more sideways and
+          more sideways than up-down.
+
+          Mice keep pointerdown/up, gated on pointerType so a finger
+          (which fires both channels) cannot advance twice. */
       var sX = null;
-      sTrack.addEventListener('pointerdown', function (e) { sX = e.clientX; });
-      sTrack.addEventListener('pointerup', function (e) {
-        if (sX === null) return;
-        var dx = e.clientX - sX;
-        sX = null;
-        if (Math.abs(dx) > 40) sGo(sAt + (dx < 0 ? 1 : -1));
+      var sY = null;
+      var sSwipe = function (dx, dy) {
+        if (Math.abs(dx) > 40 && Math.abs(dx) > 1.5 * Math.abs(dy)) {
+          sGo(sAt + (dx < 0 ? 1 : -1));
+        }
+      };
+      sTrack.addEventListener('touchstart', function (e) {
+        sX = e.touches[0].clientX;
+        sY = e.touches[0].clientY;
+      }, { passive: true });
+      sTrack.addEventListener('touchend', function (e) {
+        if (sX === null || !e.changedTouches.length) return;
+        sSwipe(e.changedTouches[0].clientX - sX, e.changedTouches[0].clientY - sY);
+        sX = sY = null;
+      }, { passive: true });
+      sTrack.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'touch') return;
+        sX = e.clientX;
+        sY = e.clientY;
       });
-      sTrack.addEventListener('pointercancel', function () { sX = null; });
+      sTrack.addEventListener('pointerup', function (e) {
+        if (e.pointerType === 'touch' || sX === null) return;
+        sSwipe(e.clientX - sX, e.clientY - sY);
+        sX = sY = null;
+      });
 
       sTrack.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowRight') { e.preventDefault(); sGo(sAt + 1); }
