@@ -756,6 +756,9 @@
           if (k === sAt) dot.setAttribute('aria-current', 'true');
           else dot.removeAttribute('aria-current');
         });
+        Array.prototype.forEach.call(sSlides, function (el, k) {
+          el.classList.toggle('is-current', k === sAt);
+        });
         if (sPrev) sPrev.disabled = sAt === 0;
         if (sNext) sNext.disabled = sAt === sSlides.length - 1;
       };
@@ -826,6 +829,7 @@
       sNav.appendChild(sList);
       sNav.appendChild(sNext);
       sNav.hidden = false;
+      story.classList.add('is-live');
       sPaint();
     }
   }

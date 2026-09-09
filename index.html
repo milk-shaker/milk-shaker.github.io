@@ -187,14 +187,16 @@
         <div>
           <p class="lp-eyebrow"><span class="lp-eyebrow-num" aria-hidden="true">01</span>Recognize the symptoms</p>
         </div>
-        <div class="lp-stat">
+        <!--  One immersive column: the stat, an arrow, the escalation line,
+              an arrow, the untiled story strip, and then the resolution.
+              The ABM sentence closes the cycle rather than opening it. -->
+        <div class="lp-stat lp-stat--flow">
           <h2 class="lp-stat-head" id="h-pattern"><span class="lp-stat-num">2&nbsp;in&nbsp;3</span>
             breastfeeding moms face painful clogged ducts.</h2>
-          <div class="lp-stat-copy">
-            <p>Up to half of these cases progress into mastitis: weeks of pain, fever, and flu symptoms.</p>
-            <p>The Academy of Breastfeeding Medicine and lactation specialists recommend the clinically proven therapy that
-              MilkShaker&trade; automates and delivers to the home.</p>
-          </div>
+          <p class="lp-flow-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v14M6 13l6 6 6-6"/></svg></p>
+          <p class="lp-flow-line">Up to half of these cases progress into mastitis: weeks of pain,
+            fever, and flu symptoms.</p>
+          <p class="lp-flow-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v14M6 13l6 6 6-6"/></svg></p>
         </div>
 <!--  ONE MOM'S STORY: six swipeable cards. An invitation-card cover,
               four frames of an accumulating text thread, and a closing card
@@ -268,6 +270,9 @@
           </div>
           <div class="lp-story-nav" id="lpStoryNav" hidden></div>
         </div>
+        <p class="lp-flow-resolve">The Academy of Breastfeeding Medicine and lactation specialists
+          recommend the clinically proven therapy that MilkShaker&trade; automates and delivers to
+          the home.</p>
         </div>
       </div>
     </section>
