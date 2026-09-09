@@ -8632,8 +8632,8 @@ h3,
     point. */
 .lp-sym-row {
   position: relative;
-  width: min(76vw, 400px);
-  height: min(76vw, 400px);
+  width: min(68vw, 350px);
+  height: min(68vw, 350px);
   margin: 0 auto;
   padding: 0;
   list-style: none;
@@ -8644,20 +8644,17 @@ h3,
   transform: translate(-50%, -50%);
   display: grid;
   justify-items: center;
-  gap: 7px;
-  width: 108px;
+  gap: 6px;
+  width: 104px;
 }
 
-.lp-sym-row li:nth-child(1) { left: 50%; top: 13%; }
-.lp-sym-row li:nth-child(2) { left: 87%; top: 40%; }
-.lp-sym-row li:nth-child(3) { left: 73%; top: 82%; }
-.lp-sym-row li:nth-child(4) { left: 27%; top: 82%; }
-.lp-sym-row li:nth-child(5) { left: 13%; top: 40%; }
-
-.lp-sym-row li.is-peak {
-  left: 50%;
-  top: 47%;
-}
+/*  Six on a hexagon, intense breast pain at the foot. */
+.lp-sym-row li:nth-child(1) { left: 50%; top: 16%; }
+.lp-sym-row li:nth-child(2) { left: 79%; top: 33%; }
+.lp-sym-row li:nth-child(3) { left: 79%; top: 67%; }
+.lp-sym-row li:nth-child(4) { left: 21%; top: 67%; }
+.lp-sym-row li:nth-child(5) { left: 21%; top: 33%; }
+.lp-sym-row li:nth-child(6) { left: 50%; top: 84%; }
 
 .lp-sym-bubble {
   display: grid;
@@ -8717,21 +8714,11 @@ h3,
   color: var(--ms-plum);
 }
 
-/*  The culmination bubble, slide 4 only: bigger, deepest red, its own
-    starburst rather than a symptom glyph. */
-.lp-sym-row li.is-peak {
-  width: 120px;
-}
-
+/*  Intense breast pain at its worst: same size as its neighbours,
+    only the deepest red is its own. */
 .lp-sym-row .is-peak .lp-sym-bubble {
-  width: 92px;
-  height: 92px;
   background: #791F1F;
-}
-
-.lp-sym-row .is-peak .lp-sym-bubble svg {
-  width: 48px;
-  height: 48px;
+  color: #fff;
 }
 
 .lp-sym-row .is-peak .lp-sym-label {
@@ -8841,13 +8828,44 @@ h3,
   box-shadow: inset 0 0 0 1px rgba(163, 45, 45, 0.28);
 }
 
-/*  Neighbour dimming, quotes-style. Only when the script runs: a
-    no-JS strip stays fully readable. */
+/*  In place, not sliding: when the script runs, the slides stack in
+    one grid cell and cross-fade -- the leaver drops quickly, the
+    arriver waits a beat, so the colour ramp reads as one smooth
+    transition. Without the script the base scroll-snap strip still
+    works untouched. */
+.lp-story.is-live .lp-story-track {
+  display: grid;
+  overflow: visible;
+  padding: 4px 0 10px;
+  touch-action: pan-y;
+}
+
 .lp-story.is-live .lp-story-slide {
-  opacity: 0.28;
-  transition: opacity 0.3s ease;
+  grid-area: 1 / 1;
+  justify-self: center;
+  width: min(88vw, 560px);
+  opacity: 0;
+  transition: opacity 0.22s ease-out;
+  pointer-events: none;
 }
 
 .lp-story.is-live .lp-story-slide.is-current {
   opacity: 1;
+  transition: opacity 0.5s ease 0.18s;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-story.is-live .lp-story-slide {
+    transition: none;
+  }
+}
+
+/*  The line under the closing headline in the last card. */
+.lp-story-sub {
+  margin: 0;
+  max-width: 30rem;
+  color: var(--ms-ink-soft);
+  font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+  line-height: 1.6;
 }

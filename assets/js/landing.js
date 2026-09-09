@@ -731,13 +731,14 @@
     }
   }
 
-  /* --- one mom's story: the swipeable cards ------------------------------
-     Finite, six cards, no autoplay: the reader sets the pace. Swipe is
-     the track's own scroll (snap handles the settling), so this block
-     only adds what scroll cannot: arrows, dots, arrow keys, and keeping
-     them in sync with wherever a swipe landed. Controls are built here
-     rather than in the markup so a browser with no script gets a plain
-     strip and no dead buttons. */
+  /* --- one mom's story: the crossfading cards --------------------------
+     Finite, four cards, no autoplay. The slides sit stacked in one grid
+     cell (see the is-live styles) and cross-fade in place, so the
+     colour ramp of the symptom rings reads as one smooth transition
+     instead of a sideways shuffle. A horizontal swipe, the dots, or the
+     arrow keys move it; there are no arrow buttons by request. Without
+     this script the base scroll-snap strip still works, so nothing is
+     ever unreachable and no dead controls ship in the markup. */
   var story = document.getElementById('lpStory');
   var sTrack = document.getElementById('lpStoryTrack');
   var sNav = document.getElementById('lpStoryNav');
@@ -748,8 +749,6 @@
     if (sSlides.length > 1) {
       var sAt = 0;
       var sDots = [];
-      var sPrev = null;
-      var sNext = null;
 
       var sPaint = function () {
         sDots.forEach(function (dot, k) {
@@ -758,56 +757,33 @@
         });
         Array.prototype.forEach.call(sSlides, function (el, k) {
           el.classList.toggle('is-current', k === sAt);
+          el.setAttribute('aria-hidden', k === sAt ? 'false' : 'true');
         });
-        if (sPrev) sPrev.disabled = sAt === 0;
-        if (sNext) sNext.disabled = sAt === sSlides.length - 1;
       };
 
-      var sGo = function (k, animate) {
+      var sGo = function (k) {
         sAt = Math.max(0, Math.min(sSlides.length - 1, k));
-        var slide = sSlides[sAt];
-        sTrack.scrollTo({
-          left: slide.offsetLeft - (sTrack.clientWidth - slide.clientWidth) / 2,
-          behavior: animate === false || reduced ? 'auto' : 'smooth'
-        });
+        story.classList.add('is-touched');
         sPaint();
       };
 
-      /*  A swipe decides where things stand; the dots follow. Nearest
-          card by centre distance, read after the scroll settles. */
-      var sSync = debounce(function () {
-        var mid = sTrack.scrollLeft + sTrack.clientWidth / 2;
-        var best = 0;
-        var gap = Infinity;
-        Array.prototype.forEach.call(sSlides, function (el, k) {
-          var d = Math.abs(el.offsetLeft + el.clientWidth / 2 - mid);
-          if (d < gap) { gap = d; best = k; }
-        });
-        sAt = best;
-        sPaint();
-      }, 110);
-      sTrack.addEventListener('scroll', function () {
-        story.classList.add('is-touched');
-        sSync();
+      /*  The swipe: a horizontal drag of 40px or more, measured from
+          pointerdown to pointerup on the track. touch-action: pan-y in
+          the styles keeps vertical scrolling native. */
+      var sX = null;
+      sTrack.addEventListener('pointerdown', function (e) { sX = e.clientX; });
+      sTrack.addEventListener('pointerup', function (e) {
+        if (sX === null) return;
+        var dx = e.clientX - sX;
+        sX = null;
+        if (Math.abs(dx) > 40) sGo(sAt + (dx < 0 ? 1 : -1));
       });
+      sTrack.addEventListener('pointercancel', function () { sX = null; });
 
       sTrack.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowRight') { e.preventDefault(); sGo(sAt + 1); }
         if (e.key === 'ArrowLeft') { e.preventDefault(); sGo(sAt - 1); }
       });
-
-      var sArrow = function (dir, label) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'lp-cycle-arrow';
-        btn.setAttribute('aria-label', label);
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
-          + ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-          + (dir < 0 ? '<path d="M15 5l-7 7 7 7"/>' : '<path d="M9 5l7 7-7 7"/>')
-          + '</svg>';
-        btn.addEventListener('click', function () { sGo(sAt + dir); });
-        return btn;
-      };
 
       var sList = document.createElement('ul');
       sList.className = 'lp-quotes-dots';
@@ -823,11 +799,7 @@
         sDots.push(dot);
       });
 
-      sPrev = sArrow(-1, 'Previous card');
-      sNext = sArrow(1, 'Next card');
-      sNav.appendChild(sPrev);
       sNav.appendChild(sList);
-      sNav.appendChild(sNext);
       sNav.hidden = false;
       story.classList.add('is-live');
       sPaint();
