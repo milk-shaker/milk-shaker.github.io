@@ -192,55 +192,82 @@
               MilkShaker automates and delivers to the home.</p>
           </div>
         </div>
-        <!--  The symptom cycle. Three stages shown one at a time, fading,
-              with arrows, and it never stops looping: the loop back to
-              stage one is the point, because recurrence is the story.
-              landing.js adds .is-live and builds the nav; without it the
-              three stages render side by side exactly as the old tiles
-              did, and nothing is hidden or unreachable. -->
-        <div class="lp-cycle" id="lpCycle" role="group" aria-roledescription="carousel"
-          aria-label="The cycle of symptoms">
-          <div class="lp-cycle-track">
-            <div class="lp-cycle-stage" role="group" aria-roledescription="slide" aria-label="Stage 1 of 3">
-            <figure class="lp-media lp-media--soft lp-cycle-media">
-              <div class="lp-ph lp-ph--stage" role="img" aria-label="Stage image: mom noticing the first sore spot, hand to chest">
-                <span class="lp-ph-label">Stage image</span>
-                <span class="lp-ph-note">Mom noticing the first sore spot &mdash; hand to chest, baby near</span>
+<!--  ONE MOM'S STORY: six swipeable cards. An invitation-card cover,
+              four frames of an accumulating text thread, and a closing card
+              with the CTA. Swipe is the native scroll-snap gesture, so with
+              no JavaScript this is still a strip you can drag or arrow-key
+              through; landing.js adds the dots and arrow buttons.
+
+              Two spec adaptations: no envelope/invitation component exists
+              in this repo, so the letter card is built fresh in the site's
+              system; and the LaunchList widget is not on this page any
+              more, so the CTA anchors to the form on /early-access.html.
+
+              Compliance: cards 2 to 5 are one person's texts, not product
+              claims; card 6 says "built to help break the cycle", hedged,
+              with no treats/cures/prevents anywhere. -->
+        <div class="lp-story" id="lpStory" role="group" aria-roledescription="carousel"
+          aria-label="One mom&rsquo;s story, in six cards">
+          <div class="lp-story-track" id="lpStoryTrack" tabindex="0">
+            <div class="lp-story-slide" role="group" aria-roledescription="slide" aria-label="Card 1 of 6">
+              <div class="lp-story-letter">
+                <p class="lp-story-letter-text">Dear expecting mom &mdash; here&rsquo;s the part of
+                  postpartum nobody puts in the baby book.</p>
+                <p class="lp-story-hint" aria-hidden="true"><span>Swipe</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></p>
               </div>
-            </figure>
-            <div class="lp-cycle-copy">
-              <p class="lp-cycle-kicker"><span class="lp-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.1" fill="currentColor" stroke="none"/><path d="M8.1 8.1a5.5 5.5 0 0 0 0 7.8M15.9 15.9a5.5 5.5 0 0 0 0-7.8"/><path d="M5.4 5.4a9.3 9.3 0 0 0 0 13.2M18.6 18.6a9.3 9.3 0 0 0 0-13.2"/></svg></span><span><span class="lp-cycle-step" aria-hidden="true">Stage 1</span>It starts small</span></p>
-              <p class="lp-cycle-body">A sore spot, a patch of heat, less milk than usual.</p>
+            </div>
+            <div class="lp-story-slide" role="group" aria-roledescription="slide" aria-label="Card 2 of 6">
+              <p class="lp-story-day" aria-hidden="true">Day 1</p>
+              <div class="lp-phone">
+                <div class="lp-phone-screen">
+                <p class="lp-msg">everything&rsquo;s fine today, just a little sore spot lol</p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-story-slide" role="group" aria-roledescription="slide" aria-label="Card 3 of 6">
+              <p class="lp-story-day" aria-hidden="true">Day 4</p>
+              <div class="lp-phone">
+                <div class="lp-phone-screen">
+                <p class="lp-msg">everything&rsquo;s fine today, just a little sore spot lol</p>
+                <p class="lp-msg">ok not fine</p>
+                <p class="lp-msg">fever. can&rsquo;t get out of bed.</p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-story-slide" role="group" aria-roledescription="slide" aria-label="Card 4 of 6">
+              <p class="lp-story-day" aria-hidden="true">Day 7</p>
+              <div class="lp-phone">
+                <div class="lp-phone-screen">
+                <p class="lp-msg">everything&rsquo;s fine today, just a little sore spot lol</p>
+                <p class="lp-msg">ok not fine</p>
+                <p class="lp-msg">fever. can&rsquo;t get out of bed.</p>
+                <p class="lp-msg">antibiotics. exhausted but ok</p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-story-slide" role="group" aria-roledescription="slide" aria-label="Card 5 of 6">
+              <p class="lp-story-day" aria-hidden="true">Week 3</p>
+              <div class="lp-phone">
+                <div class="lp-phone-screen">
+                <p class="lp-msg">everything&rsquo;s fine today, just a little sore spot lol</p>
+                <p class="lp-msg">ok not fine</p>
+                <p class="lp-msg">fever. can&rsquo;t get out of bed.</p>
+                <p class="lp-msg">antibiotics. exhausted but ok</p>
+                <p class="lp-msg">&hellip;it&rsquo;s back.</p>
+                </div>
+              </div>
+            </div>
+            <div class="lp-story-slide" role="group" aria-roledescription="slide" aria-label="Card 6 of 6">
+              <div class="lp-story-letter">
+                <p class="lp-story-letter-text">MilkShaker is built to help break the cycle.</p>
+                <p class="lp-story-cta">
+                  <a class="lp-btn" href="/early-access.html#join"><span>Get early access</span><span class="lp-arrow" aria-hidden="true"></span></a>
+                </p>
+              </div>
             </div>
           </div>
-            <div class="lp-cycle-stage" role="group" aria-roledescription="slide" aria-label="Stage 2 of 3">
-            <figure class="lp-media lp-media--soft lp-cycle-media">
-              <div class="lp-ph lp-ph--stage" role="img" aria-label="Stage image: the 2am arsenal &mdash; compress, ibuprofen, phone glow">
-                <span class="lp-ph-label">Stage image</span>
-                <span class="lp-ph-note">The 2am arsenal &mdash; warm compress, ibuprofen, phone glow</span>
-              </div>
-            </figure>
-            <div class="lp-cycle-copy">
-              <p class="lp-cycle-kicker"><span class="lp-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/></svg></span><span><span class="lp-cycle-step" aria-hidden="true">Stage 2</span>You try everything</span></p>
-              <p class="lp-cycle-body">Warm showers, cold compresses, ibuprofen, 2am searches.</p>
-            </div>
-          </div>
-            <div class="lp-cycle-stage" role="group" aria-roledescription="slide" aria-label="Stage 3 of 3">
-            <figure class="lp-media lp-media--soft lp-cycle-media">
-              <div class="lp-ph lp-ph--stage" role="img" aria-label="Stage image: mom sick in bed with chills and fever, baby nearby">
-                <span class="lp-ph-label">Stage image</span>
-                <span class="lp-ph-note">Mom sick in bed &mdash; chills, fever, baby nearby</span>
-              </div>
-            </figure>
-            <div class="lp-cycle-copy">
-              <p class="lp-cycle-kicker"><span class="lp-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5 21 19.5H3Z"/><path d="M12 10v4.2"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></svg></span><span><span class="lp-cycle-step" aria-hidden="true">Stage 3</span>It takes over</span></p>
-              <p class="lp-cycle-body">Weeks of swelling, chills, and fever. Pain moms rate 11 out of 10.</p>
-            </div>
-          </div>
-          </div>
-          <div class="lp-cycle-nav" id="lpCycleNav" hidden></div>
-          <p class="lp-cycle-loop">And then it comes back &mdash; often two or three times. MilkShaker is
-            designed to interrupt the loop.</p>
+          <div class="lp-story-nav" id="lpStoryNav" hidden></div>
+        </div>
         </div>
       </div>
     </section>
@@ -306,7 +333,7 @@
         <ul class="lp-ethos">
           <li>
             <h3>Grounded in research</h3>
-            <p>Automated, built-in massage follows the manual therapy technique specialists use</p>
+            <p>Automated, built-in massage follows the manual therapy technique specialists use.</p>
           </li>
           <li>
             <h3>Clinically partnered</h3>

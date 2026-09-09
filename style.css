@@ -6277,29 +6277,18 @@ p {
     huddled in the middle, which is how every other panel on the page
     uses its width. */
 .lp-trust-row {
-  display: grid;
-  /*  Four credentials since 2026-09: expert, clinical, mom-tested,
-      engineer. Two by two on middling screens, one column small. */
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1rem, 2.5vw, 2rem);
+  /*  Centred flex, not a grid: four labels of different lengths sit as
+      one centred cluster at every width, wrapping two-and-two and then
+      one-per-line as the screen narrows. */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 1.4rem) clamp(1.5rem, 3.5vw, 3rem);
   max-width: var(--lp-wrap);
   margin: 0 auto;
   padding: 0;
   list-style: none;
-}
-
-@media (max-width: 960px) {
-  .lp-trust-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 0.9rem;
-  }
-}
-
-@media (max-width: 520px) {
-  .lp-trust-row {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
 }
 
 /*  Sunday sets these as three plain credential lines, separated by a
@@ -8481,4 +8470,157 @@ h3,
     vertical padding of the standard one. */
 .lp-hero--slim {
   padding: clamp(1.6rem, 3.5vw, 3rem) 0 clamp(1.8rem, 4vw, 3.25rem);
+}
+
+/* ==============================================================
+   39. ONE MOM'S STORY: THE SWIPEABLE CARDS
+   Six cards on a scroll-snap strip in panel 01: an invitation-card
+   cover, four frames of an accumulating text thread in a phone
+   mockup, and a closing card carrying the CTA. Swiping is the
+   scroll gesture itself, so touch works with no script at all;
+   landing.js adds arrows and dots. Every card is the same height
+   -- the phone is fixed and the letter stretches -- so nothing
+   shifts as you move through.
+   ============================================================== */
+
+.lp-story {
+  margin-top: clamp(2.25rem, 5vw, 3.25rem);
+}
+
+.lp-story-track {
+  display: flex;
+  gap: clamp(0.9rem, 2.5vw, 1.4rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /*  The inline padding is what lets the first and last card sit
+      centred when snapped. */
+  padding: 4px calc((100% - min(78vw, 350px)) / 2) 10px;
+  scrollbar-width: none;
+}
+
+.lp-story-track::-webkit-scrollbar {
+  display: none;
+}
+
+.lp-story-track:focus-visible {
+  outline: 2px solid var(--ms-plum);
+  outline-offset: 2px;
+}
+
+.lp-story-slide {
+  flex: 0 0 min(78vw, 350px);
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- the letter cards (1 and 6) ---------- */
+.lp-story-letter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  padding: clamp(1.5rem, 4vw, 2.4rem);
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: var(--lp-radius);
+  background: var(--ms-ivory);
+  text-align: center;
+}
+
+.lp-story-letter-text {
+  margin: 0;
+  font-family: var(--font-accent);
+  font-size: clamp(1.3rem, 2.6vw, 1.6rem);
+  line-height: 1.35;
+  color: var(--ms-plum);
+  text-wrap: balance;
+}
+
+.lp-story-hint {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: opacity 0.4s ease;
+}
+
+.lp-story-hint svg {
+  width: 15px;
+  height: 15px;
+}
+
+/*  The hint has done its job the moment the strip first moves. */
+.lp-story.is-touched .lp-story-hint {
+  opacity: 0;
+}
+
+.lp-story-cta {
+  margin: 0;
+}
+
+/* ---------- the phone cards (2 to 5) ---------- */
+.lp-story-day {
+  margin: 0 0 10px;
+  text-align: center;
+  color: var(--ms-ink-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lp-phone {
+  flex: 1;
+  min-height: clamp(300px, 58vw, 390px);
+  display: flex;
+  padding: 16px 14px;
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: 30px;
+  background: var(--white, #fff);
+}
+
+.lp-phone-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/*  Outgoing bubbles only: right-aligned, one colour, the tail on the
+    trailing corner. Deliberately the sans, not the display face --
+    these should read as real texts. */
+.lp-msg {
+  align-self: flex-end;
+  max-width: 88%;
+  margin: 0;
+  padding: 9px 13px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--ms-peri-deep);
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+/* ---------- nav: arrow, dots, arrow (built by landing.js) ---------- */
+.lp-story-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.5vw, 1.4rem);
+  margin-top: clamp(1.2rem, 2.5vw, 1.6rem);
+}
+
+/*  The story is finite, so its arrows can genuinely run out of road. */
+.lp-cycle-arrow[disabled] {
+  opacity: 0.35;
+  pointer-events: none;
 }
