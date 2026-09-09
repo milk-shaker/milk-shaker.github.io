@@ -48,7 +48,7 @@
    listed here.
    ============================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,60,0&display=swap");
 
 /* ==============================================================
    1. BASE, RESET & BRAND PALETTE
@@ -56,15 +56,21 @@
 :root {
   --font-family: "Quicksand", sans-serif;
 
-  /*  The display face, for headings and eyebrows only. Set to the body
-      font today, so this changes nothing on its own: it exists so that
-      dropping in a second face is one declaration rather than a hunt
-      through 28 font-family rules.
+  /*  The display face, headings only.
 
-      To use Recoleta: load it (Adobe Fonts link, or an @font-face
-      pointing at a licensed woff2 in assets/fonts) and change this to
-      recoleta, Georgia, serif. Nothing else needs touching. */
-  --font-accent: var(--font-family);
+      Fraunces, from Google Fonts, as the stand-in for Recoleta: a soft
+      serif of much the same warmth, and free. Requested at SOFT 60 for
+      rounded terminals and WONK 0 to leave the swashy alternates off,
+      which is what keeps it close to Recoleta rather than playful. It
+      rides on the existing Quicksand request, so it costs no extra
+      round trip.
+
+      The fallbacks are real serifs rather than the generic, so the
+      moment before it loads is a serif too and the swap does not jump
+      between two different shapes of letter.
+
+      To move to Recoleta later, load it and change this one line. */
+  --font-accent: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
 
   /* ----------------------------------------------------------------
      BRAND PALETTE
@@ -7863,14 +7869,14 @@ p {
   }
 }
 
-/*  Headings and eyebrows take the display face. Identical to the body
-    font until --font-accent is pointed at something else. */
+/*  Headings take the display face. Eyebrows deliberately do not: they
+    are small uppercase labels on wide tracking, which is what the sans
+    is for, and a serif at that size reads as an accident. */
 h1,
 h2,
 h3,
 .lp-hero-title,
-.lp-title,
-.lp-eyebrow {
+.lp-title {
   font-family: var(--font-accent);
 }
 
