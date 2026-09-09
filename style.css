@@ -6253,17 +6253,31 @@ p {
 .lp-quote-icon {
   display: grid;
   place-items: center;
-  width: 3rem;
-  height: 3rem;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: var(--ms-ivory);
-  color: var(--ms-peri-deep);
-  box-shadow: inset 0 0 0 1px rgba(97, 47, 72, 0.14);
 }
 
-.lp-quote-icon svg {
-  width: 1.85rem;
-  height: 1.85rem;
+/*  Moms: the spec's own figure -- hair, a face cut out in the bubble's
+    exact background, shoulders -- red on blush. */
+.lp-quote-icon--mom {
+  background: #FCEBEB;
+}
+
+.lp-quote-icon--mom svg {
+  width: 30px;
+  height: 30px;
+}
+
+/*  Specialists: the stethoscope on the periwinkle pair from the spec. */
+.lp-quote-icon--spec {
+  background: #EEEDFE;
+  color: #534AB7;
+}
+
+.lp-quote-icon--spec svg {
+  width: 22px;
+  height: 22px;
 }
 
 /* ---------- trust strip ---------- */
