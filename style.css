@@ -6278,15 +6278,24 @@ p {
     uses its width. */
 .lp-trust-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 3vw, 2rem);
+  /*  Four credentials since 2026-09: expert, clinical, mom-tested,
+      engineer. Two by two on middling screens, one column small. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
   max-width: var(--lp-wrap);
   margin: 0 auto;
   padding: 0;
   list-style: none;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 960px) {
+  .lp-trust-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 0.9rem;
+  }
+}
+
+@media (max-width: 520px) {
   .lp-trust-row {
     grid-template-columns: 1fr;
     justify-items: center;
@@ -8465,4 +8474,11 @@ h3,
   .lp-cycle.is-live .lp-cycle-kicker {
     justify-content: center;
   }
+}
+
+
+/*  FAQs asks for less ceremony up top: same hero, about half the
+    vertical padding of the standard one. */
+.lp-hero--slim {
+  padding: clamp(1.6rem, 3.5vw, 3rem) 0 clamp(1.8rem, 4vw, 3.25rem);
 }
