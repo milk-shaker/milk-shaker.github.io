@@ -728,6 +728,51 @@
         elements, which is why the class is added rather than removed. */
   }
 
+  /* --- nudge a CTA that is hovered but not clicked ----------------------
+     Three seconds of hovering the wear-it band's button, or the early
+     access button on the home page, and it shakes once. The same shake
+     the scroll-into-view nudge uses.
+
+     Gated on (hover: hover). Touch browsers fire mouseenter on tap, so
+     without that a phone would arm the timer on the way to a click and
+     shake three seconds later, by which time the visitor is on another
+     page. A pointer that can hover is the only one that can hover
+     without clicking, which is the whole premise.
+
+     Armed per hover, cleared on leaving or on any attempt to press, so
+     it fires once for a visitor who hesitates and never for one who
+     does not. */
+  var DWELL_MS = 3000;
+
+  var hoverable = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+  var dwellers = document.querySelectorAll('.lp-band .lp-btn, .lp-signup .lp-btn');
+
+  if (hoverable && dwellers.length && !reduced) {
+    Array.prototype.forEach.call(dwellers, function (el) {
+      var timer = null;
+
+      var cancel = function () {
+        if (timer) { window.clearTimeout(timer); timer = null; }
+      };
+
+      el.addEventListener('mouseenter', function () {
+        cancel();
+        timer = window.setTimeout(function () {
+          timer = null;
+          /*  Skip if the scroll nudge happens to be mid-shake: adding the
+              class again would not restart the animation, and its own
+              timeout would strip it early. */
+          if (!el.classList.contains('is-nudging')) nudge(el);
+        }, DWELL_MS);
+      });
+
+      el.addEventListener('mouseleave', cancel);
+      el.addEventListener('pointerdown', cancel);
+      el.addEventListener('click', cancel);
+      el.addEventListener('blur', cancel);
+    });
+  }
+
   /* --- nudge in-page CTAs as they scroll into view --------------------- */
   var pending = [].slice.call(document.querySelectorAll('.lp-btn--nudge'))
     .filter(function (el) { return !modal || !modal.contains(el); });
