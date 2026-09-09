@@ -48,7 +48,7 @@
    listed here.
    ============================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Young+Serif&display=swap");
 
 /* ==============================================================
    1. BASE, RESET & BRAND PALETTE
@@ -69,7 +69,13 @@
 
       "Roca Two" is one of the family's two stylistic sets, so the web
       project needs that set selected, not just the family. */
-  --font-accent: var(--font-family);
+  /*  Young Serif: the closest Google-Fonts neighbour to Recoleta /
+      Roca while the Adobe kit is pending. When that kit exists, its
+      stylesheet URL replaces the family in the @import above and this
+      one line changes. It ships a single 400 weight, which is why the
+      accent rules at the end of section 35 force the weight down:
+      anything left at 700 would render as smeared synthetic bold. */
+  --font-accent: "Young Serif", Georgia, serif;
 
   /* ----------------------------------------------------------------
      BRAND PALETTE
@@ -7913,15 +7919,49 @@ p {
   }
 }
 
-/*  Headings take the display face. Eyebrows deliberately do not: they
-    are small uppercase labels on wide tracking, which is what the sans
-    is for, and a serif at that size reads as an accident. */
+/*  Headings and pull-quotes take the display face. Eyebrows and the
+    small label-style headings deliberately do not: they are little
+    uppercase labels on wide tracking, which is what the sans is for,
+    and a serif at that size reads as an accident.
+
+    The weight-400 list repeats, selector for selector, every heading
+    rule in this file that declares 600 or 700: the display face ships
+    one weight, and anything left heavier gets a synthetic bold. New
+    heading rule with a weight? Add it here too. */
 h1,
 h2,
 h3,
 .lp-hero-title,
-.lp-title {
+.lp-title,
+.lp-quote blockquote {
   font-family: var(--font-accent);
+  font-weight: 400;
+}
+
+.lp-hero-title,
+.lp-title,
+.lp-benefits h3,
+.lp-tiles h3,
+.lp-stats h3,
+.lp-card h2,
+.lp-card h3,
+.lp-band h2,
+.lp-footer h2,
+.lp-modal-panel h2,
+.lp-tier h3,
+.legal-inner h1,
+.legal-inner h2,
+.legal-inner h3,
+.lp-ethos h3,
+.resource-section-title,
+.resource-tile-body h3 {
+  font-weight: 400;
+}
+
+.lp-eyebrow,
+.lp-footer-cols h3,
+.lp-menu-contact h2 {
+  font-family: var(--font-family);
 }
 
 /* ==============================================================
@@ -8017,5 +8057,133 @@ h3,
   .lp-table td {
     padding: 8px 6px;
     font-size: 0.74rem;
+  }
+}
+
+
+/* ==============================================================
+   37. EDITORIAL REFRESH: STAT, HERO TRUST STRIP, ETHOS
+   The 2026-09 pass toward warm-editorial: the health stat writ
+   large at the top of the page, the credential strip moved up
+   under the hero, and the who's-behind-it columns.
+   ============================================================== */
+
+/*  The big number and its supporting copy, side by side and
+    baseline-aligned; the copy column reads as the footnote to the
+    numeral. Stacks below 860px, where the numeral scales with the
+    viewport instead. */
+.lp-stat {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: end;
+  margin: 0 0 clamp(2.5rem, 6vw, 4rem);
+}
+
+.lp-stat-head {
+  margin: 0;
+  color: var(--ms-plum);
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.lp-stat-num {
+  display: block;
+  margin: 0 0 0.9rem;
+  font-size: clamp(4.2rem, 10vw, 8rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.lp-stat-copy p {
+  margin: 0 0 1em;
+  color: var(--ms-ink-soft);
+  font-size: clamp(0.99rem, 1.3vw, 1.1rem);
+  line-height: 1.7;
+}
+
+.lp-stat-copy p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 860px) {
+  .lp-stat {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+}
+
+/*  The credential strip in its under-the-hero position: same three
+    items, slimmed. The hero's gradient runs into it, so no top rule;
+    the bottom rule separates it from panel 01. */
+.lp-trust--hero {
+  border-top: 0;
+  padding: clamp(1.3rem, 2.6vw, 1.9rem) 0;
+}
+
+.lp-trust--hero .lp-trust-row li {
+  font-size: clamp(0.9rem, 1.1vw, 1.02rem);
+  font-weight: 600;
+}
+
+.lp-trust--hero .lp-icon {
+  width: 21px;
+  height: 21px;
+}
+
+/*  Who's behind it: three columns behind thin clay rules, the
+    editorial cousin of the benefit cards. */
+.lp-ethos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin: clamp(2rem, 5vw, 3.25rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-ethos li {
+  border-top: 2px solid var(--ms-clay-deep);
+  padding-top: 1.15rem;
+}
+
+.lp-ethos h3 {
+  margin: 0 0 0.5rem;
+  color: var(--ms-plum);
+  font-size: 1.22rem;
+  line-height: 1.3;
+}
+
+.lp-ethos p {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  line-height: 1.65;
+}
+
+.lp-ethos-more {
+  margin: clamp(1.9rem, 4vw, 2.7rem) 0 0;
+}
+
+.lp-ethos-more a {
+  color: var(--ms-plum);
+  font-weight: 600;
+  /*  Explicit: a global reset strips underlines, and without one this
+      is indistinguishable from the body copy above it. */
+  text-decoration: underline;
+  text-decoration-color: var(--ms-clay-deep);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.lp-ethos-more a:hover {
+  text-decoration-color: var(--ms-plum);
+}
+
+@media (max-width: 760px) {
+  .lp-ethos {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
   }
 }
