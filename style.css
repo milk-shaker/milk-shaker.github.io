@@ -6970,42 +6970,65 @@ p {
    Logos come in wildly different aspect ratios and several have
    coloured marks, so they sit on white tiles at a common height rather
    than being forced to a common width. */
-.lp-logos {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+/*  The partner strip. Bare logos, no cards, moving constantly like
+    the offer banner: the track holds two identical runs and slides by
+    half its own width, which is exactly one run, so the loop has no
+    seam. No hover pause, at explicit request (the standing WCAG 2.2.2
+    note on the ticker covers this strip too); reduced-motion below
+    stills it into a wrapped, centred row. */
+.lp-logos-marquee {
+  overflow: hidden;
+  margin-top: clamp(2rem, 4.5vw, 3rem);
+}
+
+.lp-logos-track {
+  display: flex;
+  width: max-content;
+  animation: lp-logos-scroll 32s linear infinite;
+}
+
+.lp-logos-run {
+  display: flex;
+  align-items: center;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-@media (max-width: 900px) {
-  .lp-logos {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.lp-logos-run li {
+  margin-right: clamp(2.75rem, 6vw, 5rem);
 }
 
-@media (max-width: 560px) {
-  .lp-logos {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.lp-logos li {
-  display: grid;
-  place-items: center;
-  padding: 20px 18px;
-  border: 1px solid var(--ms-clay);
-  border-radius: 14px;
-  background: var(--white);
-}
-
-.lp-logos img {
+/*  46px in the old tiles; half again bigger on desktop. */
+.lp-logos-run img {
   display: block;
-  max-width: 100%;
-  max-height: 46px;
   width: auto;
-  height: auto;
+  height: clamp(2.6rem, 5.4vw, 4.3rem);
+}
+
+@keyframes lp-logos-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-logos-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .lp-logos-track > [aria-hidden="true"] {
+    display: none;
+  }
+
+  .lp-logos-run {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1.5rem;
+  }
 }
 
 /* ==============================================================

@@ -158,22 +158,37 @@
     <section class="lp-reveal lp-section lp-section--peri" aria-labelledby="h-clinical">
       <div class="lp-wrap">
         <div class="lp-center lp-center--wide">
-          <h2 id="h-clinical" class="lp-title lp-title--long">We are partnered with gynecologists, women&rsquo;s health researchers, and certified physical and
-            occupational therapists from FemFirst Health.</h2>
+          <h2 id="h-clinical" class="lp-title lp-title--long">We are partnered with OB/GYNs, pediatricians, women&rsquo;s health researchers, and certified physical and
+            occupational therapists.</h2>
           <p class="lp-lede">
             Their insight keeps MilkShaker grounded in the real needs of breastfeeding women.
           </p>
         </div>
-        <ul class="lp-logos">
-          <li><img src="/assets/images/partner-logo/femfirst-logo.png" alt="FemFirst Health" loading="lazy" /></li>
-          <li><img src="/assets/images/partner-logo/columbiaengineering-logo.png" alt="Columbia Engineering" loading="lazy" /></li>
-          <li><img src="/assets/images/partner-logo/nyutandon.png" alt="NYU Tandon" loading="lazy" /></li>
-          <li><img src="/assets/images/partner-logo/nycedc-logo.png" alt="NYCEDC" loading="lazy" /></li>
-          <li><img src="/assets/images/partner-logo/startupcolumbia-logo.png" alt="Startup Columbia" loading="lazy" /></li>
-          <li><img src="/assets/images/partner-logo/hgb-logo.png" alt="HGB" loading="lazy" /></li>
-          <li><img src="/assets/images/partner-logo/projecttwoeight-logo.png" alt="Project Two Eight" loading="lazy" /></li>
-          <li><img src="/assets/images/partner-logo/hearstlab-logo.png" alt="HearstLab" loading="lazy" /></li>
-        </ul>
+        <!--  A marquee, not a grid: the logos ride an endless strip like
+              the offer banner. Two identical runs, the second hidden from
+              assistive tech, and the loop is a translateX(-50%) over the
+              doubled track. Deliberately no hover pause, at explicit
+              request; reduced-motion stills it into a wrapped row. -->
+        <div class="lp-logos-marquee" aria-label="Our partners">
+          <div class="lp-logos-track">
+            <ul class="lp-logos-run">
+            <li><img src="/assets/images/partner-logo/femfirst-logo.png" alt="FemFirst Health" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/columbiaengineering-logo.png" alt="Columbia Engineering" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/nycedc-logo.png" alt="NYCEDC" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/ucsf-logo.svg" alt="UCSF" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/nyulangone-logo.svg" alt="NYU Langone Health" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/stanford-logo.svg" alt="Stanford Engineering" loading="lazy" /></li>
+            </ul>
+            <ul class="lp-logos-run" aria-hidden="true">
+            <li><img src="/assets/images/partner-logo/femfirst-logo.png" alt="" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/columbiaengineering-logo.png" alt="" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/nycedc-logo.png" alt="" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/ucsf-logo.svg" alt="" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/nyulangone-logo.svg" alt="" loading="lazy" /></li>
+            <li><img src="/assets/images/partner-logo/stanford-logo.svg" alt="" loading="lazy" /></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
