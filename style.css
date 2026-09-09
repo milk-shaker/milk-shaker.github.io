@@ -2774,27 +2774,27 @@ p {
    ends 6.6 to 9.4. */
 .resource-tile-color-1 {
   /* Managing Pain: periwinkle, the brand accent */
-  background: linear-gradient(135deg, #8D8CCD 0%, #403FA0 100%);
+  background: linear-gradient(135deg, #A9A9DC 0%, #6E6EB8 100%);
 }
 
 .resource-tile-color-2 {
   /* Milk Supply: rose */
-  background: linear-gradient(135deg, #DE727F 0%, #B12435 100%);
+  background: linear-gradient(135deg, #D89AAB 0%, #A05C74 100%);
 }
 
 .resource-tile-color-3 {
   /* Postpartum Recovery: plum, closest to the site ink */
-  background: linear-gradient(135deg, #A96F8C 0%, #66384F 100%);
+  background: linear-gradient(135deg, #C0A3B8 0%, #8A5F7E 100%);
 }
 
 .resource-tile-color-4 {
   /* Maternal Wellness: orchid */
-  background: linear-gradient(135deg, #B07CD1 0%, #7633A0 100%);
+  background: linear-gradient(135deg, #C3AEDD 0%, #8C6FB4 100%);
 }
 
 .resource-tile-color-5 {
   /* For Partners: dusty blue, the one cool note */
-  background: linear-gradient(135deg, #6A95C6 0%, #2F5887 100%);
+  background: linear-gradient(135deg, #9BAED6 0%, #5F74A8 100%);
 }
 
 
