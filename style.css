@@ -8512,6 +8512,11 @@ h3,
   scroll-snap-align: center;
   display: flex;
   flex-direction: column;
+  /*  Positioning context for any .lp-sr label inside a slide: they are
+      position: absolute, and without this their static position -- deep
+      into the strip -- escapes the track's clipping and widens the
+      document. Same failure the quote captions had. */
+  position: relative;
 }
 
 /* ---------- the letter cards (1 and 6) ---------- */
@@ -8565,49 +8570,130 @@ h3,
   margin: 0;
 }
 
-/* ---------- the phone cards (2 to 5) ---------- */
-.lp-story-day {
-  margin: 0 0 10px;
-  text-align: center;
-  color: var(--ms-ink-soft);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.lp-phone {
+/* ---------- the symptom cards (2 to 4) ----------
+   A stage line, then a row of intensity-coded bubbles. The reds are
+   the spec's own escalation ramp, deliberately hotter than the page
+   palette: the heat is the message. Spec tokens map to ours:
+   surface-1 -> ivory, border -> clay-deep, text-muted -> ink-soft,
+   text-primary -> plum. Intensity is also written for screen readers
+   as an .lp-sr suffix on each label, because colour alone says
+   nothing aloud. */
+.lp-symptoms {
   flex: 1;
   min-height: clamp(300px, 58vw, 390px);
   display: flex;
-  padding: 16px 14px;
-  border: 1px solid var(--ms-clay-deep);
-  border-radius: 30px;
-  background: var(--white, #fff);
-}
-
-.lp-phone-screen {
-  display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 8px;
-  width: 100%;
-  overflow: hidden;
+  justify-content: center;
+  gap: clamp(1.2rem, 3vw, 1.8rem);
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  border: 1px solid var(--ms-clay-deep);
+  border-radius: var(--lp-radius);
+  background: #fff;
 }
 
-/*  Outgoing bubbles only: right-aligned, one colour, the tail on the
-    trailing corner. Deliberately the sans, not the display face --
-    these should read as real texts. */
-.lp-msg {
-  align-self: flex-end;
-  max-width: 88%;
+.lp-sym-line {
   margin: 0;
-  padding: 9px 13px;
-  border-radius: 16px 16px 4px 16px;
-  background: var(--ms-peri-deep);
+  text-align: center;
+  color: var(--ms-plum);
+  font-family: var(--font-accent);
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+}
+
+.lp-sym-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 14px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-sym-row li {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: 62px;
+}
+
+.lp-sym-bubble {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+}
+
+.lp-sym-bubble svg {
+  width: 22px;
+  height: 22px;
+}
+
+.lp-sym-label {
+  font-size: 12px;
+  line-height: 1.25;
+  text-align: center;
+  font-weight: 600;
+}
+
+/*  The ramp. */
+.lp-sym-row .is-inactive .lp-sym-bubble {
+  background: var(--ms-ivory);
+  box-shadow: inset 0 0 0 0.5px var(--ms-clay-deep);
+  color: var(--ms-ink-soft);
+}
+
+.lp-sym-row .is-inactive .lp-sym-label {
+  color: var(--ms-ink-soft);
+}
+
+.lp-sym-row .is-mild .lp-sym-bubble {
+  background: #FCEBEB;
+  color: #A32D2D;
+}
+
+.lp-sym-row .is-mild .lp-sym-label {
+  color: #A32D2D;
+}
+
+.lp-sym-row .is-building .lp-sym-bubble {
+  background: #F09595;
+  color: #791F1F;
+}
+
+.lp-sym-row .is-building .lp-sym-label {
+  color: #791F1F;
+}
+
+.lp-sym-row .is-severe .lp-sym-bubble {
+  background: #A32D2D;
   color: #fff;
-  font-size: 0.95rem;
-  line-height: 1.35;
+}
+
+.lp-sym-row .is-severe .lp-sym-label {
+  color: var(--ms-plum);
+}
+
+/*  The culmination bubble, slide 4 only: bigger, deepest red, its own
+    starburst rather than a symptom glyph. */
+.lp-sym-row .is-peak {
+  width: 76px;
+}
+
+.lp-sym-row .is-peak .lp-sym-bubble {
+  width: 64px;
+  height: 64px;
+  background: #791F1F;
+}
+
+.lp-sym-row .is-peak .lp-sym-bubble svg {
+  width: 34px;
+  height: 34px;
+}
+
+.lp-sym-row .is-peak .lp-sym-label {
+  color: var(--ms-plum);
 }
 
 /* ---------- nav: arrow, dots, arrow (built by landing.js) ---------- */
