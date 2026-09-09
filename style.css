@@ -6601,26 +6601,23 @@ p {
     accessible name stays "MilkShaker home", and the mark is already
     spoken once per page from the compliance line. */
 .lp-brand-tm {
+  position: absolute;
+  top: -3px;
+  right: -13px;
   font-size: 0.62rem;
   font-weight: 700;
   color: var(--ms-plum);
-  vertical-align: top;
-  margin-left: 2px;
 }
 
 .lp-footer-brand {
-  /*  Flex, so the TM superscript sits at the wordmark's shoulder
-      instead of wrapping beneath the block image. */
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 2px;
+  /*  A plain block anchor with the TM absolutely positioned at its
+      shoulder: the image is the whole click target, and the mark can
+      never affect layout or steal the hit area. The flex version was
+      fragile about which child got the width. */
+  position: relative;
+  display: inline-block;
   max-width: 12.5rem;
   margin-top: 0.5rem;
-}
-
-.lp-footer-brand img {
-  flex: 1;
-  min-width: 0;
 }
 
 .lp-footer-brand img {
@@ -8750,9 +8747,8 @@ h3,
 /*  The wordmark at the base of the slide-out menu, TM riding it. The
     margin-top auto pushes it to the bottom of the panel's column. */
 .lp-menu-brand {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 2px;
+  position: relative;
+  display: inline-block;
   max-width: 10.5rem;
   /*  Anchors the bottom cluster: logo, then the rule, then the legal
       links beneath it. */
@@ -8764,8 +8760,6 @@ h3,
   display: block;
   width: 100%;
   height: auto;
-  min-width: 0;
-  flex: 1;
 }
 
 .lp-menu-brand:focus-visible {
