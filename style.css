@@ -6596,10 +6596,30 @@ p {
 
 /*  The wordmark in place of the typed company line. Capped narrow: it is
     a sign-off, not a second header logo. */
+/*  The little TM riding the footer wordmark. aria-hidden: the link's
+    accessible name stays "MilkShaker home", and the mark is already
+    spoken once per page from the compliance line. */
+.lp-brand-tm {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--ms-plum);
+  vertical-align: top;
+  margin-left: 2px;
+}
+
 .lp-footer-brand {
-  display: inline-block;
+  /*  Flex, so the TM superscript sits at the wordmark's shoulder
+      instead of wrapping beneath the block image. */
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 2px;
   max-width: 12.5rem;
   margin-top: 0.5rem;
+}
+
+.lp-footer-brand img {
+  flex: 1;
+  min-width: 0;
 }
 
 .lp-footer-brand img {
@@ -8723,4 +8743,29 @@ h3,
 .lp-cycle-arrow[disabled] {
   opacity: 0.35;
   pointer-events: none;
+}
+
+
+/*  The wordmark at the base of the slide-out menu, TM riding it. The
+    margin-top auto pushes it to the bottom of the panel's column. */
+.lp-menu-brand {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 2px;
+  max-width: 10.5rem;
+  margin-top: auto;
+}
+
+.lp-menu-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  flex: 1;
+}
+
+.lp-menu-brand:focus-visible {
+  outline: 2px solid var(--ms-plum);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
