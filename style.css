@@ -7767,14 +7767,27 @@ p {
    Section contents rise and fade as they come into view, holding
    until the panel above is about half read.
 
-   The animation is on the section's inner wrapper, never on the
-   section. Every one of these panels paints its own background:
-   ivory, cream, or a gradient. Fading the section faded its
-   background with it, so a panel arrived as a pale gap in the colour
-   banding and then the whole band faded in mid-screen. Moving the
-   animation one level in leaves the background painted the whole
-   time, so the colour change between panels stays crisp and only the
-   words and images move.
+   Split across two elements, on purpose, because the two properties
+   want different hosts:
+
+     opacity  on the SECTION. Every panel paints its own background
+              -- cream, ivory, or a gradient -- so fading the section
+              fades that colour in along with the words. What shows
+              underneath while it is held is the page ground on <body>,
+              the lightest cream in the palette, so an unrevealed panel
+              reads as bare page rather than as a hole.
+
+     transform on the INNER WRAPPER, never the section. A translate on
+              the section would carry its painted background down with
+              it and leave a 30px strip of page ground between it and
+              the panel above, so the bands would look like they had
+              come unstuck. On the wrapper only the contents move and
+              the colour edge stays exactly where the layout put it.
+
+   The contents need no opacity of their own: they inherit the
+   section's, so words and background arrive together on one curve.
+   Giving both an opacity would multiply the two and leave the text
+   lagging behind its own panel.
 
    It is also opt-in per section: landing.js adds .is-deferred to the
    sections that begin below the fold, and only those animate. The
@@ -7790,33 +7803,38 @@ p {
    feature this file's @supports does.
    ============================================================== */
 
-@keyframes lp-rise-in {
+@keyframes lp-panel-in {
   from {
     opacity: 0;
-    transform: translateY(30px);
   }
+
   to {
     opacity: 1;
+  }
+}
+
+@keyframes lp-rise-in {
+  from {
+    transform: translateY(30px);
+  }
+
+  to {
     transform: none;
   }
 }
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    /*  The wrapper, not the section. See the note above. */
+
+    /*  Longhands, and duration: auto in particular: the shorthand sets
+        duration to 0s when omitted and a scroll-driven animation with
+        zero duration never progresses. The shorthand also resets
+        animation-timeline. */
+    .lp-reveal.is-deferred,
     .lp-reveal.is-deferred > * {
-      /*  Longhands, and duration: auto in particular: the shorthand
-          sets duration to 0s when omitted and a scroll-driven
-          animation with zero duration never progresses. The shorthand
-          also resets animation-timeline. */
-      animation-name: lp-rise-in;
       animation-duration: auto;
       animation-timing-function: linear;
       animation-fill-mode: both;
-
-      /*  view() on the child still measures the child, which is the
-          full width and nearly the full height of its section, so the
-          timing is effectively the same as measuring the section. */
       animation-timeline: view();
 
       /*  Anchored on cover rather than entry. A section's entry phase
@@ -7826,8 +7844,22 @@ p {
           reveal that long and still leave range to animate over.
 
           Measured against panel 01: this starts at about 47% of the
-          way through it and finishes around 75%. */
+          way through it and finishes around 75%.
+
+          Both elements share the range. view() on the child measures
+          the child, which is the full width and nearly the full height
+          of its section, so the two timings land together. */
       animation-range: cover 30% cover 48%;
+    }
+
+    /*  The colour, on the section. */
+    .lp-reveal.is-deferred {
+      animation-name: lp-panel-in;
+    }
+
+    /*  The movement, one level in. See the note above. */
+    .lp-reveal.is-deferred > * {
+      animation-name: lp-rise-in;
     }
   }
 }
@@ -7835,21 +7867,29 @@ p {
 /* ---------- the timed fallback ----------
    Reachable only when .has-reveal is on <html>, which landing.js adds
    only where scroll-driven animations are missing, and only on the
-   sections it marked .is-deferred. Same one-level-in rule. */
-.has-reveal .lp-reveal.is-deferred > * {
+   sections it marked .is-deferred. Same split across the two
+   elements. */
+.has-reveal .lp-reveal.is-deferred {
   opacity: 0;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+
+.has-reveal .lp-reveal.is-deferred > * {
   transform: translateY(30px);
-  transition:
-    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.has-reveal .lp-reveal.is-deferred.is-visible {
+  opacity: 1;
 }
 
 .has-reveal .lp-reveal.is-deferred.is-visible > * {
-  opacity: 1;
   transform: none;
 }
 
+.has-reveal .lp-reveal.is-deferred.is-settled,
 .has-reveal .lp-reveal.is-deferred.is-settled > * {
   will-change: auto;
 }
@@ -7861,8 +7901,13 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .has-reveal .lp-reveal.is-deferred > * {
+
+  .has-reveal .lp-reveal.is-deferred {
     opacity: 1;
+    transition: none;
+  }
+
+  .has-reveal .lp-reveal.is-deferred > * {
     transform: none;
     transition: none;
   }
