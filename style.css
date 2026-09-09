@@ -8217,8 +8217,7 @@ h3,
 }
 
 .lp-ethos li {
-  border-top: 2px solid var(--ms-clay-deep);
-  padding-top: 1.15rem;
+  padding-top: 0.2rem;
 }
 
 .lp-ethos h3 {
