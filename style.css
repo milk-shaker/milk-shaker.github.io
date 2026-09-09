@@ -50,6 +50,21 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400,100&family=Quicksand:wght@300;400;500;600;700&display=swap");
 
+/*  Three characters of Young Serif, layered in front of Fraunces: the
+    unicode-range limits this face to s, f and the ampersand, so the
+    browser takes exactly those glyphs from here and every other letter
+    from Fraunces. The woff2 is Google's own latin file for Young Serif,
+    referenced directly because @import cannot rename a family or scope
+    it to a range. If Google ever retires the v2 path the fallback is
+    plain Fraunces, not a broken heading. */
+@font-face {
+  font-family: "MS Serif Patch";
+  src: url("https://fonts.gstatic.com/s/youngserif/v2/3qTpojO2nS2VtkB3KtkQZ1t93kY6ah7E.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0026, U+0066, U+0073;
+}
+
 /* ==============================================================
    1. BASE, RESET & BRAND PALETTE
    ============================================================== */
@@ -77,7 +92,7 @@
       smeared synthetic bold. When the Adobe kit for Roca exists, its
       stylesheet URL replaces the family in the @import above and this
       one line changes. */
-  --font-accent: "Fraunces", Georgia, serif;
+  --font-accent: "MS Serif Patch", "Fraunces", Georgia, serif;
 
   /* ----------------------------------------------------------------
      BRAND PALETTE
@@ -112,7 +127,9 @@
   --ms-peri-deep: #6260AD;  /* white on it 5.5:1 */
   --ms-peri-dark: #514F9A;  /* white on it 7.2:1 — hover */
   --ms-peri-wash: #F1F1FA;
-  --ms-blush: #F7EAF2;      /* second wash, keeps a little pink */
+  --ms-blush: #F8E7E3;      /* warm blush, panel ground */
+  --ms-sage: #E9F0E3;       /* soft sage, panel ground */
+  --ms-peach: #FBEBDC;      /* soft apricot, panel ground */
 
   /*  the old pink, still used by the dormant preorder pages  */
   --ms-pink: #F3AEC7;
@@ -4847,8 +4864,8 @@ p {
   width: 52px;
   height: 52px;
   padding: 0;
-  border: 1px solid var(--lp-header-line);
-  border-radius: 50%;
+  border: 0;
+  border-radius: 10px;
   background: transparent;
   color: var(--ms-plum);
   cursor: pointer;
@@ -5101,6 +5118,25 @@ p {
   outline-offset: 3px;
 }
 
+.lp-more {
+  margin: clamp(2rem, 4.5vw, 3rem) 0 0;
+  text-align: center;
+}
+
+/*  The quiet cousin: outline only, for links that should read as a
+    step, not the step. */
+.lp-btn--ghost {
+  background: transparent;
+  border: 1.5px solid var(--ms-plum);
+  color: var(--ms-plum);
+  box-shadow: none;
+}
+
+.lp-btn--ghost:hover {
+  background: var(--ms-plum);
+  color: var(--ms-ivory);
+}
+
 .lp-btn--sm {
   padding: 0.7rem 1.25rem;
   font-size: 0.9225rem;
@@ -5160,6 +5196,18 @@ p {
 
 .lp-section--cream {
   background: var(--ms-cream);
+}
+
+.lp-section--blush {
+  background: var(--ms-blush);
+}
+
+.lp-section--sage {
+  background: var(--ms-sage);
+}
+
+.lp-section--peach {
+  background: var(--ms-peach);
 }
 
 /*  A vertical wash of the periwinkle over ivory. Sunday uses this on
@@ -5317,7 +5365,7 @@ p {
   overflow: hidden;
   padding: clamp(3rem, 7vw, 6rem) 0 clamp(3.5rem, 8vw, 7rem);
   background:
-    radial-gradient(120% 90% at 82% 8%, #F2ECF7 0%, rgba(242, 236, 247, 0) 58%),
+    radial-gradient(120% 90% at 82% 8%, #F9E9E3 0%, rgba(249, 233, 227, 0) 58%),
     radial-gradient(90% 80% at 6% 96%, var(--ms-peri-wash) 0%, rgba(241, 241, 250, 0) 62%),
     var(--ms-ivory);
 }
@@ -6522,7 +6570,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 0 0 1.25rem;
+  margin: 1.35rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -7090,15 +7138,11 @@ p {
   to   { transform: translateX(calc(-1 * var(--lp-run, 50%))); }
 }
 
-/*  WCAG 2.2.2 asks for a way to stop moving content. The button is the
-    honest answer to that; reduced-motion covers people who have already
-    said they do not want it, and the text is fully legible standing
-    still either way. */
-.lp-ticker.is-paused .lp-ticker-track,
-.lp-ticker-track:hover,
-.lp-ticker-track:focus-within {
-  animation-play-state: paused;
-}
+/*  Deliberately no hover or focus pause, at explicit request.
+    reduced-motion below stills it for people who have asked for that,
+    and the text repeats, so nothing is lost to the motion. This is
+    short of WCAG 2.2.2, which wants a way to stop moving content --
+    flagged when the pause button went, standing note. */
 
 @media (prefers-reduced-motion: reduce) {
   .lp-ticker-track {
@@ -7812,8 +7856,11 @@ p {
    ============================================================== */
 
 @keyframes lp-panel-in {
+  /*  From 0.4, not 0: the panels carry distinct grounds now, so a held
+      panel shows as a soft tint of its own colour instead of bare page,
+      and the fade reads as arriving rather than appearing. */
   from {
-    opacity: 0;
+    opacity: 0.4;
   }
 
   to {
@@ -7857,7 +7904,7 @@ p {
           Both elements share the range. view() on the child measures
           the child, which is the full width and nearly the full height
           of its section, so the two timings land together. */
-      animation-range: cover 30% cover 48%;
+      animation-range: cover 8% cover 34%;
     }
 
     /*  The colour, on the section. */
@@ -7878,7 +7925,7 @@ p {
    sections it marked .is-deferred. Same split across the two
    elements. */
 .has-reveal .lp-reveal.is-deferred {
-  opacity: 0;
+  opacity: 0.4;
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity;
 }
