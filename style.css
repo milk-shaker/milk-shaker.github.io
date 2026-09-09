@@ -8348,12 +8348,18 @@ h3,
   margin: 0 auto;
   width: 100%;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  /*  Sequenced, not a straight cross-fade. The stages sit on top of
+      each other, so fading both at once double-exposes two sets of
+      text for the length of the transition -- the glitch. The leaver
+      goes quickly with no delay; the arriver (below) waits until the
+      leaver is mostly gone before coming up. */
+  transition: opacity 0.22s ease-out;
   pointer-events: none;
 }
 
 .lp-cycle.is-live .lp-cycle-stage.is-active {
   opacity: 1;
+  transition: opacity 0.45s ease 0.2s;
   pointer-events: auto;
 }
 

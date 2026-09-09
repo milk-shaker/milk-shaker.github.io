@@ -547,9 +547,15 @@
       qNav.hidden = false;
     };
 
-    /*  Hovering or tabbing into the quotes means someone is reading one. */
-    quotes.addEventListener('mouseenter', stop);
-    quotes.addEventListener('mouseleave', start);
+    /*  Hovering or tabbing into the quotes means someone is reading one.
+        Gated to hover-capable pointers: a touch browser fires mouseenter
+        on tap, and a tap on the component's padding has no matching
+        restart, so on a phone it could park the rotation for good. The
+        pointerdown/up pair below covers touch pausing. */
+    if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+      quotes.addEventListener('mouseenter', stop);
+      quotes.addEventListener('mouseleave', start);
+    }
     quotes.addEventListener('focusin', stop);
     quotes.addEventListener('focusout', function (e) {
       if (!quotes.contains(e.relatedTarget)) start();
@@ -711,8 +717,13 @@
       cPaint();
       cStart();
 
-      cycle.addEventListener('mouseenter', cStop);
-      cycle.addEventListener('mouseleave', cStart);
+      /*  Hover-pause only where hovering exists. A touch browser fires
+          mouseenter on tap and never mouseleave, so on a phone one tap
+          anywhere in the panel silently killed the rotation for good. */
+      if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+        cycle.addEventListener('mouseenter', cStop);
+        cycle.addEventListener('mouseleave', cStart);
+      }
       cycle.addEventListener('focusin', cStop);
       cycle.addEventListener('focusout', function (e) {
         if (!cycle.contains(e.relatedTarget)) cStart();
