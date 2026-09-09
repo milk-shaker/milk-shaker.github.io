@@ -62,11 +62,23 @@
   src: url("https://fonts.gstatic.com/s/youngserif/v2/3qTpojO2nS2VtkB3KtkQZ1t93kY6ah7E.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
-  unicode-range: U+0026, U+0066, U+0073;
+  unicode-range: U+0026, U+0073;
   /*  Young Serif runs heavier and taller than Fraunces at the same em.
       92% was picked from a rendered side-by-side at 64px: 100% reads
       bold, 86% reads small; 92% sits flush. */
   size-adjust: 92%;
+}
+
+/*  The f, separately: at 92% it still read heavy, so it takes another
+    notch down. Same file, same family name, its own range -- the
+    browser merges the two faces and picks per character. */
+@font-face {
+  font-family: "MS Serif Patch";
+  src: url("https://fonts.gstatic.com/s/youngserif/v2/3qTpojO2nS2VtkB3KtkQZ1t93kY6ah7E.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0066;
+  size-adjust: 87%;
 }
 
 /* ==============================================================
@@ -131,13 +143,9 @@
   --ms-peri-deep: #6260AD;  /* white on it 5.5:1 */
   --ms-peri-dark: #514F9A;  /* white on it 7.2:1 — hover */
   --ms-peri-wash: #F1F1FA;
-  --ms-blush: #F8E7E3;      /* warm blush, panel ground */
+  --ms-blush: #F8E4E7;      /* blush pink, panel ground */
   --ms-peri-panel: #E7E8F7; /* soft periwinkle, panel ground */
-  /*  Not --ms-rose: that name was already taken six lines down by the
-      deeper accent rose, and a duplicate custom property silently loses
-      to whichever declaration comes last -- which is exactly how the
-      first cut of this panel shipped salmon. */
-  --ms-rose-panel: #F5DFE3; /* dusty rose, panel ground */
+  --ms-lilac-panel: #EADFF0; /* soft lilac, panel ground */
 
   /*  the old pink, still used by the dormant preorder pages  */
   --ms-pink: #F3AEC7;
@@ -5214,8 +5222,8 @@ p {
   background: var(--ms-peri-panel);
 }
 
-.lp-section--rose {
-  background: var(--ms-rose-panel);
+.lp-section--lilac {
+  background: var(--ms-lilac-panel);
 }
 
 /*  A vertical wash of the periwinkle over ivory. Sunday uses this on
@@ -5373,7 +5381,7 @@ p {
   overflow: hidden;
   padding: clamp(3rem, 7vw, 6rem) 0 clamp(3.5rem, 8vw, 7rem);
   background:
-    radial-gradient(120% 90% at 82% 8%, #F9E9E3 0%, rgba(249, 233, 227, 0) 58%),
+    radial-gradient(120% 90% at 82% 8%, #F9E7E9 0%, rgba(249, 231, 233, 0) 58%),
     radial-gradient(90% 80% at 6% 96%, var(--ms-peri-wash) 0%, rgba(241, 241, 250, 0) 62%),
     var(--ms-ivory);
 }
@@ -6448,7 +6456,9 @@ p {
 .lp-footer {
   padding: clamp(2.5rem, 6vw, 4rem) 0 2.5rem;
   border-top: 1px solid var(--lp-bar-line);
-  background: var(--lp-bar-alt);
+  /*  Ivory, not the bar wash: the last panel on the home page is lilac
+      and the footer must read as its own ground, not a continuation. */
+  background: var(--ms-ivory);
 }
 
 .lp-footer-top {
