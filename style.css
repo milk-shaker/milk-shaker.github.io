@@ -8648,17 +8648,17 @@ h3,
   width: 104px;
 }
 
-/*  A honeycomb, not a ring: offset rows of 1, 2 and 3, packed to
-    near-touching. Each row's labels drop into the valley between the
-    cells of the row beneath, which is what lets the pitch stay tight
-    without any label crossing a bubble. Intense breast pain holds the
-    bottom-centre of the mass. */
-.lp-sym-row li:nth-child(1) { left: 50%; top: 15%; }
-.lp-sym-row li:nth-child(2) { left: 39%; top: 45%; }
-.lp-sym-row li:nth-child(3) { left: 61%; top: 45%; }
-.lp-sym-row li:nth-child(4) { left: 28%; top: 75%; }
-.lp-sym-row li:nth-child(5) { left: 72%; top: 75%; }
-.lp-sym-row li:nth-child(6) { left: 50%; top: 75%; }
+/*  The hive: rows of two, three and two, packed to near-touching,
+    with Intense breast pain in the centre cell. The half-cell offset
+    between rows is what lets each label drop into the valley beneath
+    it instead of crossing a bubble. */
+.lp-sym-row li:nth-child(1) { left: 39%; top: 16%; }
+.lp-sym-row li:nth-child(2) { left: 61%; top: 16%; }
+.lp-sym-row li:nth-child(3) { left: 28%; top: 48%; }
+.lp-sym-row li:nth-child(4) { left: 50%; top: 48%; }
+.lp-sym-row li:nth-child(5) { left: 72%; top: 48%; }
+.lp-sym-row li:nth-child(6) { left: 39%; top: 80%; }
+.lp-sym-row li:nth-child(7) { left: 61%; top: 80%; }
 
 .lp-sym-bubble {
   display: grid;
@@ -8842,6 +8842,11 @@ h3,
   overflow: visible;
   padding: 4px 0 10px;
   touch-action: pan-y;
+  cursor: grab;
+}
+
+.lp-story.is-live .lp-story-track:active {
+  cursor: grabbing;
 }
 
 .lp-story.is-live .lp-story-slide {

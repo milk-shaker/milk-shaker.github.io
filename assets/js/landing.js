@@ -806,6 +806,32 @@
         sX = sY = null;
       });
 
+      /*  The third channel: a trackpad. A two-finger horizontal swipe
+          arrives as wheel events with deltaX -- neither touch nor
+          pointer -- and since the strip stopped being a real scroller
+          nothing was listening. Trackpads emit a stream of small
+          deltas per gesture, so they accumulate toward a threshold and
+          a short lock makes one gesture one step. preventDefault also
+          keeps the browser's two-finger back-navigation from firing
+          over the strip. */
+      var sWheelAcc = 0;
+      var sWheelLock = false;
+      var sWheelReset = null;
+      sTrack.addEventListener('wheel', function (e) {
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+        e.preventDefault();
+        if (sWheelLock) return;
+        sWheelAcc += e.deltaX;
+        window.clearTimeout(sWheelReset);
+        sWheelReset = window.setTimeout(function () { sWheelAcc = 0; }, 180);
+        if (Math.abs(sWheelAcc) > 60) {
+          sWheelLock = true;
+          window.setTimeout(function () { sWheelLock = false; }, 450);
+          sGo(sAt + (sWheelAcc > 0 ? 1 : -1));
+          sWheelAcc = 0;
+        }
+      }, { passive: false });
+
       sTrack.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowRight') { e.preventDefault(); sGo(sAt + 1); }
         if (e.key === 'ArrowLeft') { e.preventDefault(); sGo(sAt - 1); }
