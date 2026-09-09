@@ -8188,6 +8188,11 @@ h3,
 .lp-trust--hero {
   border-top: 0;
   padding: clamp(1.3rem, 2.6vw, 1.9rem) 0;
+  /*  Its own ground: a lilac ribbon between the blush hero and the
+      blush problem panel, so the credentials read as a badge bar
+      rather than leftover hero. */
+  background: var(--ms-lilac-panel);
+  border-bottom: 0;
 }
 
 .lp-trust--hero .lp-trust-row li {
