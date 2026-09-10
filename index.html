@@ -84,28 +84,30 @@
 
     .cs-field {
       background:
-        radial-gradient(34vmax 34vmax at 26% 30%, rgba(238, 143, 178, 0.62), rgba(238, 143, 178, 0) 60%),
-        radial-gradient(38vmax 38vmax at 76% 82%, rgba(226, 126, 139, 0.48), rgba(226, 126, 139, 0) 60%);
-      animation: cs-turn 68s linear infinite;
+        radial-gradient(34vmax 34vmax at 26% 30%, rgba(236, 133, 172, 0.72), rgba(236, 133, 172, 0) 60%),
+        radial-gradient(38vmax 38vmax at 76% 82%, rgba(224, 118, 132, 0.56), rgba(224, 118, 132, 0) 60%);
+      animation: cs-turn 42s linear infinite;
     }
 
     .cs-field-b {
       background:
-        radial-gradient(36vmax 36vmax at 80% 24%, rgba(140, 138, 214, 0.58), rgba(140, 138, 214, 0) 62%),
-        radial-gradient(34vmax 34vmax at 18% 76%, rgba(159, 158, 213, 0.46), rgba(159, 158, 213, 0) 62%);
-      animation: cs-turn-reverse 92s linear infinite;
+        radial-gradient(36vmax 36vmax at 80% 24%, rgba(134, 132, 216, 0.68), rgba(134, 132, 216, 0) 62%),
+        radial-gradient(34vmax 34vmax at 18% 76%, rgba(156, 155, 214, 0.54), rgba(156, 155, 214, 0) 62%);
+      animation: cs-turn-reverse 56s linear infinite;
     }
 
+    /*  Rotation plus a translated wander, so the blooms sweep across the
+        middle of the screen too and not just pivot around dead centre. */
     @keyframes cs-turn {
-      0%   { transform: rotate(0deg)   scale(1.06); }
-      50%  { transform: rotate(180deg) scale(1.12); }
-      100% { transform: rotate(360deg) scale(1.06); }
+      0%   { transform: rotate(0deg)   translate3d(-4%, -3%, 0) scale(1.08); }
+      50%  { transform: rotate(180deg) translate3d(4%, 3%, 0)   scale(1.18); }
+      100% { transform: rotate(360deg) translate3d(-4%, -3%, 0) scale(1.08); }
     }
 
     @keyframes cs-turn-reverse {
-      0%   { transform: rotate(360deg) scale(1.1); }
-      50%  { transform: rotate(180deg) scale(1.04); }
-      100% { transform: rotate(0deg)   scale(1.1); }
+      0%   { transform: rotate(360deg) translate3d(3%, -4%, 0)  scale(1.16); }
+      50%  { transform: rotate(180deg) translate3d(-3%, 4%, 0)  scale(1.05); }
+      100% { transform: rotate(0deg)   translate3d(3%, -4%, 0)  scale(1.16); }
     }
 
     /*  The relief. A large, soft cream wash centred on the pointer that
