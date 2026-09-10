@@ -131,7 +131,7 @@
       justify-content: center;
       text-align: center;
       padding: 48px 24px 32px;
-      gap: 30px;
+      gap: 28px;
     }
 
     .cs-logo {
@@ -140,14 +140,33 @@
       display: block;
     }
 
-    .cs-tagline {
+    .cs-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4em;
+    }
+
+    /*  The phrase above: kept to a single line, sized down so it does
+        not compete with the line under it. */
+    .cs-tag-lead {
       margin: 0;
-      max-width: 20ch;
+      white-space: nowrap;
+      color: var(--ms-ink-soft);
+      font-size: clamp(0.85rem, 0.62rem + 1.5vw, 1.15rem);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    /*  The line below: its own line, and the biggest thing on the page
+        after the wordmark. Inherits the site's serif heading face. */
+    .cs-tag-main {
+      margin: 0;
+      max-width: 16ch;
       color: var(--ms-plum);
-      font-size: clamp(1.35rem, 1.1rem + 1.5vw, 1.85rem);
-      font-weight: 700;
-      line-height: 1.32;
-      letter-spacing: -0.01em;
+      font-size: clamp(1.95rem, 1.3rem + 3.4vw, 3rem);
+      line-height: 1.16;
+      letter-spacing: -0.015em;
       text-wrap: balance;
     }
 
@@ -192,7 +211,10 @@
 
   <main class="cs-main">
     <img class="cs-logo" src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
-    <h1 class="cs-tagline">On-demand breastfeeding pain relief: a nursing bra that does more.</h1>
+    <div class="cs-tag">
+      <p class="cs-tag-lead">On-demand breastfeeding pain relief</p>
+      <h1 class="cs-tag-main">A nursing bra that does more.</h1>
+    </div>
     <a class="lp-btn lp-btn--lg" href="/coming-soon-early-access.html">
       <span>Secure yours now</span>
       <span class="lp-arrow" aria-hidden="true"></span>
