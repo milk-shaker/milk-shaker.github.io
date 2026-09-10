@@ -68,25 +68,44 @@
       overflow-x: hidden;
     }
 
-    /*  The restless layer. Three slow-drifting blush / periwinkle blooms
-        that keep the ground from ever being perfectly still. Purely
-        decorative and behind everything. */
-    .cs-field {
+    /*  The moving ground. Two oversized layers of soft blooms that turn
+        slowly in opposite directions, so the blush and periwinkle drift
+        past each other and the colour under any given point is always
+        changing. Purely decorative, behind everything, and held still
+        for anyone who asks for reduced motion. */
+    .cs-field,
+    .cs-field-b {
       position: fixed;
-      inset: -20vmax;
+      inset: -30vmax;
       z-index: 0;
       pointer-events: none;
-      background:
-        radial-gradient(36vmax 36vmax at 20% 26%, rgba(240, 150, 182, 0.55), rgba(240, 150, 182, 0) 60%),
-        radial-gradient(40vmax 40vmax at 84% 20%, rgba(146, 144, 214, 0.52), rgba(146, 144, 214, 0) 62%),
-        radial-gradient(44vmax 44vmax at 64% 90%, rgba(228, 132, 144, 0.40), rgba(228, 132, 144, 0) 60%);
-      animation: cs-drift 26s ease-in-out infinite alternate;
       will-change: transform;
     }
 
-    @keyframes cs-drift {
-      from { transform: translate3d(-2.5%, -1.5%, 0) scale(1.04) rotate(-1.5deg); }
-      to   { transform: translate3d(2.5%, 2%, 0) scale(1.1) rotate(1.5deg); }
+    .cs-field {
+      background:
+        radial-gradient(34vmax 34vmax at 26% 30%, rgba(238, 143, 178, 0.62), rgba(238, 143, 178, 0) 60%),
+        radial-gradient(38vmax 38vmax at 76% 82%, rgba(226, 126, 139, 0.48), rgba(226, 126, 139, 0) 60%);
+      animation: cs-turn 68s linear infinite;
+    }
+
+    .cs-field-b {
+      background:
+        radial-gradient(36vmax 36vmax at 80% 24%, rgba(140, 138, 214, 0.58), rgba(140, 138, 214, 0) 62%),
+        radial-gradient(34vmax 34vmax at 18% 76%, rgba(159, 158, 213, 0.46), rgba(159, 158, 213, 0) 62%);
+      animation: cs-turn-reverse 92s linear infinite;
+    }
+
+    @keyframes cs-turn {
+      0%   { transform: rotate(0deg)   scale(1.06); }
+      50%  { transform: rotate(180deg) scale(1.12); }
+      100% { transform: rotate(360deg) scale(1.06); }
+    }
+
+    @keyframes cs-turn-reverse {
+      0%   { transform: rotate(360deg) scale(1.1); }
+      50%  { transform: rotate(180deg) scale(1.04); }
+      100% { transform: rotate(0deg)   scale(1.1); }
     }
 
     /*  The relief. A large, soft cream wash centred on the pointer that
@@ -131,20 +150,21 @@
       justify-content: center;
       text-align: center;
       padding: 48px 24px 32px;
-      gap: 28px;
     }
 
     .cs-logo {
       width: min(320px, 74vw);
       height: auto;
       display: block;
+      margin-bottom: 10px;
     }
 
     .cs-tag {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4em;
+      gap: 22px;
+      margin-bottom: 38px;
     }
 
     /*  The phrase above: kept to a single line, sized down so it does
@@ -171,7 +191,7 @@
     }
 
     .cs-main .lp-btn {
-      margin-top: 4px;
+      margin-top: 0;
     }
 
     .cs-footer {
@@ -194,7 +214,8 @@
     .cs-footer a:hover { border-bottom-color: rgba(97, 47, 72, 0.7); }
 
     @media (prefers-reduced-motion: reduce) {
-      .cs-field { animation: none; }
+      .cs-field,
+      .cs-field-b { animation: none; }
       .cs-relief { transition: none; }
     }
   </style>
@@ -207,13 +228,14 @@
 <body class="lp">
 
   <div class="cs-field" aria-hidden="true"></div>
+  <div class="cs-field-b" aria-hidden="true"></div>
   <div class="cs-relief" id="csRelief" aria-hidden="true"></div>
 
   <main class="cs-main">
     <img class="cs-logo" src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
     <div class="cs-tag">
       <p class="cs-tag-lead">On-demand breastfeeding pain relief</p>
-      <h1 class="cs-tag-main">A nursing bra that does more.</h1>
+      <h1 class="cs-tag-main">A nursing bra that does more</h1>
     </div>
     <a class="lp-btn lp-btn--lg" href="/coming-soon-early-access.html">
       <span>Secure yours now</span>
