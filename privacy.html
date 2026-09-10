@@ -23,6 +23,14 @@
   <meta name="theme-color" content="#F5EEE4" />
 
   <link rel="stylesheet" href="/style.css" />
+
+  <style>
+    /*  No menu on this page to fall back to, so the header CTA stays
+        visible at every width instead of hiding below 768px. */
+    @media (max-width: 767px) {
+      .lp-header-actions .lp-btn { display: inline-flex; }
+    }
+  </style>
   <!--  Blocking, and in the head, on purpose: it has to rewrite the URL
         before LaunchList's deferred widget script reads it. See the file. -->
   <script src="/assets/js/ref.js"></script>
@@ -57,12 +65,20 @@
 
 
   <!--====== HEADER ======
-        Wordmark only. While the rest of the site is dormant this page is
-        reached from the coming-soon flow; the shared menu and footer it
-        used to carry pointed at pages nothing else links to any more.
-        Restore them by reverting this commit. ======-->
-  <header class="lp-focus-header">
-    <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
+        The wordmark and the one CTA. No menu button: the rest of the
+        site is dormant while the root is the coming-soon page, so there
+        is nowhere for a menu to go, and the CTA points at the
+        coming-soon signup rather than the parked early-access page. ======-->
+  <header class="lp-header">
+    <div class="lp-header-inner">
+      <a class="lp-brand" href="/" aria-label="MilkShaker home">
+        <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
+      </a>
+      <div class="lp-header-actions">
+        <a class="lp-btn lp-btn--sm" href="/coming-soon-early-access.html"><span>Secure yours now</span><span class="lp-arrow"
+            aria-hidden="true"></span></a>
+      </div>
+    </div>
   </header>
 
 <main id="main">
