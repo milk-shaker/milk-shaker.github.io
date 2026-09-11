@@ -48,11 +48,11 @@
          - .p1-shot   the lifestyle photograph. Still a labelled
                       .lp-ph box; grep -n 'lp-ph lp-ph--' finds it.
 
-       Panel 2 is the real product photograph, turning on a shallow
-       rotateY so it presents like a turntable. A true 360 spin would need
-       an actual 3D model: with a flat photograph, anything past about
-       twenty degrees stops reading as rotation and starts reading as
-       skew.
+       Panel 2 is the real product photograph, held still. It used to
+       rock on a shallow rotateY like a turntable; that is gone by
+       request. A true 360 spin would need an actual 3D model anyway --
+       with a flat photograph, anything past about twenty degrees stops
+       reading as rotation and starts reading as skew.
 
        It loads /style.css for the shared type and colour: Quicksand, the
        serif display face, the plum ink and the periwinkle button are the
@@ -290,8 +290,8 @@
       grid-template-rows: 1fr auto;
       align-items: center;
       justify-items: center;
-      gap: clamp(8px, 2vh, 24px);
-      padding: clamp(24px, 4vh, 56px) clamp(20px, 4vw, 56px);
+      gap: clamp(4px, 0.8vh, 10px);
+      padding: clamp(10px, 1.6vh, 22px) clamp(20px, 4vw, 56px);
       border-radius: var(--zr);
       background:
         radial-gradient(122% 100% at 50% 24%, #F3EDFC 0%, #E1DAF5 44%, #C7BFE6 100%);
@@ -308,31 +308,14 @@
         window masks below are positioned as percentages of this box, so the
         photograph has to fill it exactly. Capping height instead would
         letterbox it and slide the cups out from under their buttons. The
-        vh term keeps it inside a short viewport (the shot is 560x491
-        with the studio margin trimmed off, so height is 0.88x width). */
+        vh term keeps it inside a short viewport (the shot is 425x370 with
+        its transparent margin trimmed off, so height is 0.87x width). */
     .stage {
       position: relative;
-      width: min(100%, 660px, 62vh);
+      width: min(100%, 820px, 78vh);
       display: grid;
       place-items: center;
-      perspective: 1400px;
     }
-
-    .bra-turn {
-      width: 100%;
-      transform-style: preserve-3d;
-      animation: bra-turn 16s ease-in-out infinite alternate;
-      will-change: transform;
-    }
-
-    @keyframes bra-turn {
-      from { transform: rotateY(-11deg) rotateX(2deg); }
-      to   { transform: rotateY(11deg) rotateX(-1.5deg); }
-    }
-
-    /*  Stop the turntable while someone is inspecting a cup. */
-    .stage:hover .bra-turn,
-    .stage:focus-within .bra-turn { animation-play-state: paused; }
 
     .shot {
       position: relative;
@@ -361,20 +344,20 @@
     }
 
     .win--l {
-      -webkit-mask-image: radial-gradient(ellipse 15% 16% at 27% 57%, #000 44%, rgba(0, 0, 0, 0) 100%);
-      mask-image: radial-gradient(ellipse 15% 16% at 27% 57%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      -webkit-mask-image: radial-gradient(ellipse 15% 16% at 26% 64%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(ellipse 15% 16% at 26% 64%, #000 44%, rgba(0, 0, 0, 0) 100%);
     }
 
     .win--r {
-      -webkit-mask-image: radial-gradient(ellipse 15% 16% at 73% 57%, #000 44%, rgba(0, 0, 0, 0) 100%);
-      mask-image: radial-gradient(ellipse 15% 16% at 73% 57%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      -webkit-mask-image: radial-gradient(ellipse 15% 16% at 74% 64%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(ellipse 15% 16% at 74% 64%, #000 44%, rgba(0, 0, 0, 0) 100%);
     }
 
     /*  Square art, so its height as a share of the box is width x
-        (560/491). Centred on the same cup apexes as the windows. */
+        (425/370) = 1.149x. Centred on the same points as the windows. */
     .mod {
       position: absolute;
-      width: 26%;
+      width: 22%;
       height: auto;
       opacity: 0;
       pointer-events: none;
@@ -382,8 +365,8 @@
       overflow: visible;
     }
 
-    .mod--l { left: 14%; top: 42.2%; }
-    .mod--r { left: 60%; top: 42.2%; }
+    .mod--l { left: 15%; top: 51.4%; }
+    .mod--r { left: 63%; top: 51.4%; }
 
     .stage.is-l .win--l,
     .stage.is-r .win--r { opacity: 1; }
@@ -400,13 +383,13 @@
     }
 
     /*  Percentages of .stage, which is exactly the photograph, so these
-        sit over the cup apexes at 27% / 73% across and 57% down — the
+        sit over the cup centres at 26% / 74% across and 64% down — the
         same centres the window masks use. */
     .hot {
       position: absolute;
-      top: 43%;
-      width: 26%;
-      height: 28%;
+      top: 49%;
+      width: 28%;
+      height: 30%;
       padding: 0;
       border: 0;
       border-radius: 50%;
@@ -415,8 +398,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .hot--l { left: 14%; }
-    .hot--r { right: 14%; }
+    .hot--l { left: 12%; }
+    .hot--r { right: 12%; }
 
     .hot:focus-visible {
       outline: 3px solid var(--ms-peri-deep);
@@ -515,16 +498,14 @@
       .p1-scroll { display: none; }
       .p1-shot { height: min(44vh, 400px); }
       .p2 { height: 200vh; }
-      .hot { width: 30%; height: 30%; top: 42%; }
-      .hot--l { left: 12%; }
-      .hot--r { right: 12%; }
+      .hot { width: 32%; height: 32%; top: 48%; }
+      .hot--l { left: 10%; }
+      .hot--r { right: 10%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .cs-field,
       .cs-field-b,
-      .bra-turn,
-      .cup-pin,
       .pulse-a,
       .pulse-b,
       .p1-scroll svg { animation: none; }
@@ -613,55 +594,53 @@
                   means moving the two mask centres in .win--l / .win--r
                   and the matching .mod offsets.
                   ====================================== -->
-            <div class="bra-turn">
-              <div class="shot">
-                <img class="shot-base" src="/assets/images/bra-front.png"
-                  alt="The MilkShaker bra, front view" width="560" height="491" />
+            <div class="shot">
+              <img class="shot-base" src="/assets/images/bra-front.png"
+                alt="The MilkShaker bra, front view" width="425" height="370" />
 
-                <div class="win win--l" aria-hidden="true"></div>
-                <div class="win win--r" aria-hidden="true"></div>
-                <svg class="mod mod--l" viewBox="0 0 120 120" aria-hidden="true">
-                  <defs>
-                    <radialGradient id="modface-l" cx="36%" cy="30%" r="74%">
-                      <stop offset="0%" stop-color="#C3C2EA" />
-                      <stop offset="58%" stop-color="#7472BE" />
-                      <stop offset="100%" stop-color="#4B4992" />
-                    </radialGradient>
-                  </defs>
-                  <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
-                  <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
-                    stroke-width="1.8" />
-                  <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
-                    stroke-width="1.8" />
-                  <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
-                    opacity="0.5" />
-                  <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
-                    opacity="0.78" />
-                  <circle cx="60" cy="60" r="20" fill="url(#modface-l)" />
-                  <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
-                </svg>
-                <svg class="mod mod--r" viewBox="0 0 120 120" aria-hidden="true">
-                  <defs>
-                    <radialGradient id="modface-r" cx="36%" cy="30%" r="74%">
-                      <stop offset="0%" stop-color="#C3C2EA" />
-                      <stop offset="58%" stop-color="#7472BE" />
-                      <stop offset="100%" stop-color="#4B4992" />
-                    </radialGradient>
-                  </defs>
-                  <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
-                  <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
-                    stroke-width="1.8" />
-                  <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
-                    stroke-width="1.8" />
-                  <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
-                    opacity="0.5" />
-                  <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
-                    opacity="0.78" />
-                  <circle cx="60" cy="60" r="20" fill="url(#modface-r)" />
-                  <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
-                </svg>
+              <div class="win win--l" aria-hidden="true"></div>
+              <div class="win win--r" aria-hidden="true"></div>
+              <svg class="mod mod--l" viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <radialGradient id="modface-l" cx="36%" cy="30%" r="74%">
+                    <stop offset="0%" stop-color="#C3C2EA" />
+                    <stop offset="58%" stop-color="#7472BE" />
+                    <stop offset="100%" stop-color="#4B4992" />
+                  </radialGradient>
+                </defs>
+                <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
+                <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                  stroke-width="1.8" />
+                <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                  stroke-width="1.8" />
+                <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
+                  opacity="0.5" />
+                <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
+                  opacity="0.78" />
+                <circle cx="60" cy="60" r="20" fill="url(#modface-l)" />
+                <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
+              </svg>
+              <svg class="mod mod--r" viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <radialGradient id="modface-r" cx="36%" cy="30%" r="74%">
+                    <stop offset="0%" stop-color="#C3C2EA" />
+                    <stop offset="58%" stop-color="#7472BE" />
+                    <stop offset="100%" stop-color="#4B4992" />
+                  </radialGradient>
+                </defs>
+                <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
+                <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                  stroke-width="1.8" />
+                <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                  stroke-width="1.8" />
+                <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
+                  opacity="0.5" />
+                <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
+                  opacity="0.78" />
+                <circle cx="60" cy="60" r="20" fill="url(#modface-r)" />
+                <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
+              </svg>
 
-              </div>
             </div>
 
             <button class="hot hot--l" type="button" data-side="l" aria-describedby="callout">
