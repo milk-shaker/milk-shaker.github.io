@@ -45,15 +45,14 @@
 
        THE PRODUCT, and what is still a placeholder:
 
-         - .p1-shot   the lifestyle photograph. Labelled .lp-ph box.
-         - .bra-svg   a schematic stand-in for the 3D render. It turns
-                      on a shallow rotateY, which reads as a turntable;
-                      a real 360 spin needs a real model. The hover
-                      reveal, the callouts and the layout around it are
-                      finished, so dropping the render in is a swap of
-                      one element — see the SWAP POINT comment below.
+         - .p1-shot   the lifestyle photograph. Still a labelled
+                      .lp-ph box; grep -n 'lp-ph lp-ph--' finds it.
 
-       grep -n 'lp-ph lp-ph--\|SWAP POINT' index.html lists both.
+       Panel 2 is the real product photograph, turning on a shallow
+       rotateY so it presents like a turntable. A true 360 spin would need
+       an actual 3D model: with a flat photograph, anything past about
+       twenty degrees stops reading as rotation and starts reading as
+       skew.
 
        It loads /style.css for the shared type and colour: Quicksand, the
        serif display face, the plum ink and the periwinkle button are the
@@ -305,14 +304,15 @@
     /*  ---------------------------------------------------------------
         THE PRODUCT STAGE
         --------------------------------------------------------------- */
-    /*  Width-driven, never height-capped: the hotspot buttons below are
-        positioned as percentages of this box, so the SVG has to fill it
-        exactly. Capping height instead would letterbox the viewBox and
-        slide the cups out from under their buttons. The vh term is what
-        keeps it inside a short viewport (the art is 640x372). */
+    /*  Width-driven, never height-capped: the hotspot buttons and the
+        window masks below are positioned as percentages of this box, so the
+        photograph has to fill it exactly. Capping height instead would
+        letterbox it and slide the cups out from under their buttons. The
+        vh term keeps it inside a short viewport (the shot is 560x491
+        with the studio margin trimmed off, so height is 0.88x width). */
     .stage {
       position: relative;
-      width: min(100%, 760px, 72vh);
+      width: min(100%, 660px, 62vh);
       display: grid;
       place-items: center;
       perspective: 1400px;
@@ -326,47 +326,70 @@
     }
 
     @keyframes bra-turn {
-      from { transform: rotateY(-17deg) rotateX(3deg); }
-      to   { transform: rotateY(17deg) rotateX(-2deg); }
+      from { transform: rotateY(-11deg) rotateX(2deg); }
+      to   { transform: rotateY(11deg) rotateX(-1.5deg); }
     }
 
     /*  Stop the turntable while someone is inspecting a cup. */
     .stage:hover .bra-turn,
     .stage:focus-within .bra-turn { animation-play-state: paused; }
 
-    .bra-svg {
+    .shot {
+      position: relative;
+      width: 100%;
+    }
+
+    .shot-base {
       display: block;
       width: 100%;
       height: auto;
+    }
+
+    /*  The window. A pale wash masked to a feathered ellipse over one cup
+        apex, sitting between the photograph and the module. Fading it in
+        is what makes the fabric read as going sheer -- fading a second
+        copy of the photo does nothing, because the fabric underneath it
+        is identical. The two mask centres are the cup apexes measured off
+        the trimmed shot; retune them if it is ever reshot. */
+    .win {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      background: rgba(249, 246, 255, 0.74);
+      transition: opacity 460ms ease;
+    }
+
+    .win--l {
+      -webkit-mask-image: radial-gradient(ellipse 15% 16% at 27% 57%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(ellipse 15% 16% at 27% 57%, #000 44%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .win--r {
+      -webkit-mask-image: radial-gradient(ellipse 15% 16% at 73% 57%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(ellipse 15% 16% at 73% 57%, #000 44%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    /*  Square art, so its height as a share of the box is width x
+        (560/491). Centred on the same cup apexes as the windows. */
+    .mod {
+      position: absolute;
+      width: 26%;
+      height: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 460ms ease;
       overflow: visible;
     }
 
-    /*  Fabric, insert and hotspot marker all cross-fade off one class on
-        the stage, so the hover, the focus ring and the tap all drive the
-        same reveal. */
-    .cup-shell,
-    .cup-inside,
-    .cup-pin {
-      transition: opacity 420ms ease, transform 420ms ease;
-    }
+    .mod--l { left: 14%; top: 42.2%; }
+    .mod--r { left: 60%; top: 42.2%; }
 
-    .cup-inside { opacity: 0; }
+    .stage.is-l .win--l,
+    .stage.is-r .win--r { opacity: 1; }
 
-    .stage.is-l .cup-l .cup-shell,
-    .stage.is-r .cup-r .cup-shell { opacity: 0.18; }
-
-    .stage.is-l .cup-l .cup-inside,
-    .stage.is-r .cup-r .cup-inside { opacity: 1; }
-
-    .stage.is-l .cup-l .cup-pin,
-    .stage.is-r .cup-r .cup-pin { opacity: 0; }
-
-    .cup-pin { animation: pin-pulse 2.6s ease-in-out infinite; transform-origin: center; }
-
-    @keyframes pin-pulse {
-      0%, 100% { opacity: 0.55; }
-      50%      { opacity: 1; }
-    }
+    .stage.is-l .mod--l,
+    .stage.is-r .mod--r { opacity: 1; }
 
     .pulse-a { animation: pulse-ring 3s ease-out infinite; transform-origin: center; }
     .pulse-b { animation: pulse-ring 3s ease-out infinite 1s; transform-origin: center; }
@@ -376,15 +399,14 @@
       100% { opacity: 0;   transform: scale(1.25); }
     }
 
-    /*  Transparent buttons sitting over each cup. Real buttons, so the
-        reveal is reachable by keyboard and by tap, not hover only. */
-    /*  Percentages of .stage, which is exactly the SVG box, so these sit
-        over the cup centres at 35.6% / 64.4% across and 55% down. */
+    /*  Percentages of .stage, which is exactly the photograph, so these
+        sit over the cup apexes at 27% / 73% across and 57% down — the
+        same centres the window masks use. */
     .hot {
       position: absolute;
-      top: 41.4%;
-      width: 24%;
-      height: 32%;
+      top: 43%;
+      width: 26%;
+      height: 28%;
       padding: 0;
       border: 0;
       border-radius: 50%;
@@ -393,8 +415,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .hot--l { left: 17.3%; }
-    .hot--r { right: 17.3%; }
+    .hot--l { left: 14%; }
+    .hot--r { right: 14%; }
 
     .hot:focus-visible {
       outline: 3px solid var(--ms-peri-deep);
@@ -493,9 +515,9 @@
       .p1-scroll { display: none; }
       .p1-shot { height: min(44vh, 400px); }
       .p2 { height: 200vh; }
-      .hot { width: 28%; height: 28%; top: 43.4%; }
-      .hot--l { left: 15.3%; }
-      .hot--r { right: 15.3%; }
+      .hot { width: 30%; height: 30%; top: 42%; }
+      .hot--l { left: 12%; }
+      .hot--r { right: 12%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -570,144 +592,76 @@
 
           <div class="stage" id="stage">
 
-            <!--  ============ SWAP POINT ============
-                  Everything from here to the end of .bra-turn is the
-                  stand-in. With a real .glb of the bra, replace it with:
+            <!--  ============ THE PRODUCT ============
+                  The real product photograph, with a soft-edged window
+                  over each cup.
 
-                    <script type="module"
-                      src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
-                    <model-viewer class="bra-svg" src="/assets/models/bra.glb"
-                      auto-rotate rotation-per-second="14deg" camera-controls
-                      disable-zoom interaction-prompt="none"
-                      shadow-intensity="1" exposure="1.1"
-                      alt="The MilkShaker bra"></model-viewer>
+                  How the reveal works: the photograph is drawn once and
+                  is always opaque. Over each cup sits a pale wash masked
+                  to a feathered ellipse, at opacity 0, and over that the
+                  massaging module, also at 0. Opening a cup fades both
+                  in, so the fabric goes sheer in a soft pool and the
+                  module shows through it.
 
-                  Keep the two .hot buttons and the #callout below them:
-                  the script drives `is-l` / `is-r` on .stage either way,
-                  and a model with named meshes can hide its cup material
-                  on those same classes.
-                  ==================================== -->
+                  The wash is what sells it. An earlier version faded in a
+                  second, masked copy of the photograph instead, which did
+                  nothing at all: the fabric underneath that copy is the
+                  same fabric, so there was nothing to see through to and
+                  the module read as a sticker on the cup.
+
+                  Nothing is cut out of the photograph, so a reshoot only
+                  means moving the two mask centres in .win--l / .win--r
+                  and the matching .mod offsets.
+                  ====================================== -->
             <div class="bra-turn">
-              <!--  viewBox is cropped to the artwork (x 98-542, y 4-356)
-                    rather than the drawing grid, so the product fills the
-                    stage. The .hot percentages below are derived from it:
-                    cup centres land at 29.3% / 70.7% across, 57.4% down. -->
-              <svg class="bra-svg" viewBox="98 4 444 352" role="img"
-                aria-label="The MilkShaker bra, with a massaging insert seated inside each cup">
-                <defs>
-                  <linearGradient id="fabric" x1="0.15" y1="0" x2="0.6" y2="1">
-                    <stop offset="0%" stop-color="#FBF1F5" />
-                    <stop offset="58%" stop-color="#F0DFE8" />
-                    <stop offset="100%" stop-color="#E2CCDA" />
-                  </linearGradient>
-                  <linearGradient id="trim" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#EFDFE8" />
-                    <stop offset="100%" stop-color="#DCC4D3" />
-                  </linearGradient>
-                  <radialGradient id="module" cx="36%" cy="30%" r="74%">
-                    <stop offset="0%" stop-color="#C3C2EA" />
-                    <stop offset="58%" stop-color="#7472BE" />
-                    <stop offset="100%" stop-color="#4B4992" />
-                  </radialGradient>
-                  <radialGradient id="floor" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="rgba(97,47,72,0.22)" />
-                    <stop offset="100%" stop-color="rgba(97,47,72,0)" />
-                  </radialGradient>
-                  <radialGradient id="hintglow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="rgba(98,96,173,0.30)" />
-                    <stop offset="100%" stop-color="rgba(98,96,173,0)" />
-                  </radialGradient>
-                </defs>
+              <div class="shot">
+                <img class="shot-base" src="/assets/images/bra-front.png"
+                  alt="The MilkShaker bra, front view" width="560" height="491" />
 
-                <!-- contact shadow -->
-                <ellipse cx="320" cy="330" rx="176" ry="16" fill="url(#floor)" />
+                <div class="win win--l" aria-hidden="true"></div>
+                <div class="win win--r" aria-hidden="true"></div>
+                <svg class="mod mod--l" viewBox="0 0 120 120" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="modface-l" cx="36%" cy="30%" r="74%">
+                      <stop offset="0%" stop-color="#C3C2EA" />
+                      <stop offset="58%" stop-color="#7472BE" />
+                      <stop offset="100%" stop-color="#4B4992" />
+                    </radialGradient>
+                  </defs>
+                  <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
+                  <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                    stroke-width="1.8" />
+                  <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                    stroke-width="1.8" />
+                  <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
+                    opacity="0.5" />
+                  <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
+                    opacity="0.78" />
+                  <circle cx="60" cy="60" r="20" fill="url(#modface-l)" />
+                  <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
+                </svg>
+                <svg class="mod mod--r" viewBox="0 0 120 120" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="modface-r" cx="36%" cy="30%" r="74%">
+                      <stop offset="0%" stop-color="#C3C2EA" />
+                      <stop offset="58%" stop-color="#7472BE" />
+                      <stop offset="100%" stop-color="#4B4992" />
+                    </radialGradient>
+                  </defs>
+                  <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
+                  <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                    stroke-width="1.8" />
+                  <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                    stroke-width="1.8" />
+                  <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
+                    opacity="0.5" />
+                  <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
+                    opacity="0.78" />
+                  <circle cx="60" cy="60" r="20" fill="url(#modface-r)" />
+                  <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
+                </svg>
 
-                <!-- straps, behind the cups -->
-                <path d="M156 154 C146 108 142 58 146 14 L182 14 C180 58 184 108 194 148 Z" fill="url(#trim)"
-                  stroke="rgba(97,47,72,0.14)" stroke-width="1.4" />
-                <path d="M484 154 C494 108 498 58 494 14 L458 14 C460 58 456 108 446 148 Z" fill="url(#trim)"
-                  stroke="rgba(97,47,72,0.14)" stroke-width="1.4" />
-                <!-- nursing clips -->
-                <rect x="142" y="56" width="38" height="19" rx="5" fill="#CCB2C2"
-                  stroke="rgba(97,47,72,0.18)" stroke-width="1.2" />
-                <rect x="460" y="56" width="38" height="19" rx="5" fill="#CCB2C2"
-                  stroke="rgba(97,47,72,0.18)" stroke-width="1.2" />
-
-                <!-- underband, tapering into the wings, behind the cups -->
-                <path d="M170 246 L470 246 C508 246 534 254 540 266 C545 277 538 289 520 292
-                         L120 292 C102 289 95 277 100 266 C106 254 132 246 170 246 Z"
-                  fill="url(#trim)" stroke="rgba(97,47,72,0.16)" stroke-width="1.6"
-                  stroke-linejoin="round" />
-
-                <!-- centre gore -->
-                <path d="M310 168 L330 168 L327 258 L313 258 Z" fill="url(#trim)"
-                  stroke="rgba(97,47,72,0.14)" stroke-width="1.4" />
-
-                <!-- LEFT CUP -->
-                <g class="cup cup-l">
-                  <g class="cup-inside">
-                    <circle cx="228" cy="206" r="47" fill="rgba(98,96,173,0.13)" />
-                    <circle class="pulse-a" cx="228" cy="206" r="41" fill="none" stroke="#7472BE"
-                      stroke-width="1.5" />
-                    <circle class="pulse-b" cx="228" cy="206" r="41" fill="none" stroke="#7472BE"
-                      stroke-width="1.5" />
-                    <circle cx="228" cy="206" r="35" fill="none" stroke="#6260AD" stroke-width="2.2"
-                      opacity="0.5" />
-                    <circle cx="228" cy="206" r="26" fill="none" stroke="#6260AD" stroke-width="2.2"
-                      opacity="0.78" />
-                    <circle cx="228" cy="206" r="18" fill="url(#module)" />
-                    <circle cx="228" cy="206" r="6" fill="#FBF7F0" opacity="0.88" />
-                  </g>
-                  <g class="cup-shell">
-                    <path d="M312 172 C268 146 212 132 168 146 C144 180 142 224 164 252
-                             C216 272 272 270 312 252 Z" fill="url(#fabric)" />
-                    <!-- princess seam -->
-                    <path d="M232 140 C222 178 224 222 236 266" fill="none" stroke="rgba(97,47,72,0.14)"
-                      stroke-width="1.5" />
-                    <!-- neckline trim -->
-                    <path d="M312 172 C268 146 212 132 168 146" fill="none" stroke="rgba(255,255,255,0.75)"
-                      stroke-width="3" stroke-linecap="round" />
-                  </g>
-                  <!--  Drawn over the fill and never faded: when the cup
-                        goes translucent this outline is what keeps it a
-                        cutaway rather than a hole. -->
-                  <path class="cup-line" d="M312 172 C268 146 212 132 168 146 C144 180 142 224 164 252
-                           C216 272 272 270 312 252 Z"
-                    fill="none" stroke="rgba(97,47,72,0.32)" stroke-width="1.9"
-                    stroke-linejoin="round" />
-                  <circle class="cup-pin" cx="228" cy="206" r="40" fill="url(#hintglow)" />
-                </g>
-
-                <!-- RIGHT CUP -->
-                <g class="cup cup-r">
-                  <g class="cup-inside">
-                    <circle cx="412" cy="206" r="47" fill="rgba(98,96,173,0.13)" />
-                    <circle class="pulse-a" cx="412" cy="206" r="41" fill="none" stroke="#7472BE"
-                      stroke-width="1.5" />
-                    <circle class="pulse-b" cx="412" cy="206" r="41" fill="none" stroke="#7472BE"
-                      stroke-width="1.5" />
-                    <circle cx="412" cy="206" r="35" fill="none" stroke="#6260AD" stroke-width="2.2"
-                      opacity="0.5" />
-                    <circle cx="412" cy="206" r="26" fill="none" stroke="#6260AD" stroke-width="2.2"
-                      opacity="0.78" />
-                    <circle cx="412" cy="206" r="18" fill="url(#module)" />
-                    <circle cx="412" cy="206" r="6" fill="#FBF7F0" opacity="0.88" />
-                  </g>
-                  <g class="cup-shell">
-                    <path d="M328 172 C372 146 428 132 472 146 C496 180 498 224 476 252
-                             C424 272 368 270 328 252 Z" fill="url(#fabric)" />
-                    <path d="M408 140 C418 178 416 222 404 266" fill="none" stroke="rgba(97,47,72,0.14)"
-                      stroke-width="1.5" />
-                    <path d="M328 172 C372 146 428 132 472 146" fill="none" stroke="rgba(255,255,255,0.75)"
-                      stroke-width="3" stroke-linecap="round" />
-                  </g>
-                  <path class="cup-line" d="M328 172 C372 146 428 132 472 146 C496 180 498 224 476 252
-                           C424 272 368 270 328 252 Z"
-                    fill="none" stroke="rgba(97,47,72,0.32)" stroke-width="1.9"
-                    stroke-linejoin="round" />
-                  <circle class="cup-pin" cx="412" cy="206" r="40" fill="url(#hintglow)" />
-                </g>
-              </svg>
+              </div>
             </div>
 
             <button class="hot hot--l" type="button" data-side="l" aria-describedby="callout">
