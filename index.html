@@ -499,12 +499,20 @@
       min-height: clamp(150px, 26vh, 200px);
     }
 
-    .p2-line {
-      margin: 0;
+    /*  Headline and subtitle move together, so the fade sits on the pair
+        rather than on each of them. */
+    .p2-head {
+      display: grid;
+      justify-items: center;
+      gap: clamp(5px, 0.9vh, 11px);
       /*  Fades up over the last stretch of the zoom rather than riding in
           at full strength from the start. */
       opacity: var(--zo);
       transition: opacity 200ms linear;
+    }
+
+    .p2-line {
+      margin: 0;
       color: var(--ms-plum);
       font-size: clamp(1.5rem, 0.9rem + 2.6vw, 2.9rem);
       line-height: 1.14;
@@ -513,11 +521,29 @@
       text-wrap: balance;
     }
 
+    /*  A step down from the line above, not a caption: it is a credentials
+        claim and wants to be read. Quicksand rather than the display
+        serif, so it reads as supporting text beside a serif headline. */
+    .p2-sub {
+      margin: 0;
+      max-width: 46ch;
+      color: var(--ms-ink-soft);
+      font-family: var(--font-family);
+      font-size: clamp(0.95rem, 0.82rem + 0.72vw, 1.4rem);
+      font-weight: 500;
+      line-height: 1.38;
+      text-align: center;
+      text-wrap: balance;
+    }
+
     /*  Between the straps, near the top of the shot. Not a hit target --
         the buttons underneath it must stay reachable. */
     .stage-hint {
       position: absolute;
-      top: 1.5%;
+      /*  Low enough to clear the subtitle above it, high enough to stay in
+          the clear gap between the straps. Absolute, so moving it costs
+          the card no vertical space -- which it has none of to give. */
+      top: 5%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 3;
@@ -609,7 +635,7 @@
       .p2 { height: auto; }
       .p2-pin { position: static; height: auto; min-height: 100svh; }
       .p2-card { transform: none; border-radius: 0; }
-      .p2-line { opacity: 1; }
+      .p2-head { opacity: 1; }
     }
   </style>
 
@@ -659,7 +685,11 @@
       <div class="p2-pin">
         <div class="p2-card" id="p2Card">
 
-          <p class="p2-line">On-demand breastfeeding pain relief</p>
+          <div class="p2-head">
+            <p class="p2-line">On-demand breastfeeding pain relief</p>
+            <p class="p2-sub">Brought to you by lactation experts, women&rsquo;s health physical
+              therapists, and female engineers</p>
+          </div>
 
           <div class="stage" id="stage">
 
