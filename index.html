@@ -15,7 +15,7 @@
   <meta property="og:description"
     content="On-demand breastfeeding relief, built into the bra. Reserve your place &mdash; no payment, ships Spring 2027." />
 
-  <title>MilkShaker | A nursing bra that lets you do more</title>
+  <title>MilkShaker | The nursing bra that lets you do more</title>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
@@ -308,11 +308,11 @@
         window masks below are positioned as percentages of this box, so the
         photograph has to fill it exactly. Capping height instead would
         letterbox it and slide the cups out from under their buttons. The
-        vh term keeps it inside a short viewport (the shot is 425x370 with
-        its transparent margin trimmed off, so height is 0.87x width). */
+        vh term keeps it inside a short viewport (the shot is 1400x1225
+        cut out of the studio photo, so height is 0.875x width). */
     .stage {
       position: relative;
-      width: min(100%, 820px, 78vh);
+      width: min(100%, 820px, 72vh);
       display: grid;
       place-items: center;
     }
@@ -344,20 +344,37 @@
     }
 
     .win--l {
-      -webkit-mask-image: radial-gradient(ellipse 15% 16% at 26% 64%, #000 44%, rgba(0, 0, 0, 0) 100%);
-      mask-image: radial-gradient(ellipse 15% 16% at 26% 64%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      -webkit-mask-image: radial-gradient(ellipse 17% 18% at 25% 66%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(ellipse 17% 18% at 25% 66%, #000 44%, rgba(0, 0, 0, 0) 100%);
     }
 
     .win--r {
-      -webkit-mask-image: radial-gradient(ellipse 15% 16% at 74% 64%, #000 44%, rgba(0, 0, 0, 0) 100%);
-      mask-image: radial-gradient(ellipse 15% 16% at 74% 64%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      -webkit-mask-image: radial-gradient(ellipse 17% 18% at 75% 66%, #000 44%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(ellipse 17% 18% at 75% 66%, #000 44%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    /*  The straps get a periwinkle highlight rather than the cups' pale
+        wash. Nothing is hidden inside a strap, so fading it toward white
+        just blanks it out; tinting reads as "this bit", which is what a
+        strap callout means. */
+    .win--sl,
+    .win--sr { background: rgba(146, 144, 214, 0.38); }
+
+    .win--sl {
+      -webkit-mask-image: radial-gradient(ellipse 8.5% 25% at 20% 19%, #000 42%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(ellipse 8.5% 25% at 20% 19%, #000 42%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .win--sr {
+      -webkit-mask-image: radial-gradient(ellipse 8.5% 25% at 80% 19%, #000 42%, rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(ellipse 8.5% 25% at 80% 19%, #000 42%, rgba(0, 0, 0, 0) 100%);
     }
 
     /*  Square art, so its height as a share of the box is width x
-        (425/370) = 1.149x. Centred on the same points as the windows. */
+        (1400/1225) = 1.143x. Centred on the same points as the windows. */
     .mod {
       position: absolute;
-      width: 22%;
+      width: 33%;
       height: auto;
       opacity: 0;
       pointer-events: none;
@@ -365,11 +382,13 @@
       overflow: visible;
     }
 
-    .mod--l { left: 15%; top: 51.4%; }
-    .mod--r { left: 63%; top: 51.4%; }
+    .mod--l { left: 8.5%; top: 47.1%; }
+    .mod--r { left: 58.5%; top: 47.1%; }
 
     .stage.is-l .win--l,
-    .stage.is-r .win--r { opacity: 1; }
+    .stage.is-r .win--r,
+    .stage.is-sl .win--sl,
+    .stage.is-sr .win--sr { opacity: 1; }
 
     .stage.is-l .mod--l,
     .stage.is-r .mod--r { opacity: 1; }
@@ -383,11 +402,11 @@
     }
 
     /*  Percentages of .stage, which is exactly the photograph, so these
-        sit over the cup centres at 26% / 74% across and 64% down — the
+        sit over the cup centres at 25% / 75% across and 66% down — the
         same centres the window masks use. */
     .hot {
       position: absolute;
-      top: 49%;
+      top: 51%;
       width: 28%;
       height: 30%;
       padding: 0;
@@ -398,8 +417,20 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .hot--l { left: 12%; }
-    .hot--r { right: 12%; }
+    .hot--l { left: 11%; }
+    .hot--r { right: 11%; }
+
+    /*  The straps run x 14-26% / 74-86% from the top down to about 42%. */
+    .hot--sl,
+    .hot--sr {
+      top: 0;
+      width: 16%;
+      height: 44%;
+      border-radius: 40% / 18%;
+    }
+
+    .hot--sl { left: 12%; }
+    .hot--sr { right: 12%; }
 
     .hot:focus-visible {
       outline: 3px solid var(--ms-peri-deep);
@@ -409,32 +440,52 @@
     /*  The callout. Sits under the product rather than beside it, so it
         never collides with the turning model or runs off a narrow
         screen. One box, its text swapped by script. */
+    /*  Floated above the line rather than sitting in flow. In flow it
+        would have to reserve the height of the longest copy -- 155px at
+        1280x720 -- which is a blank that size under the product whenever
+        nothing is open, and the whole point of this block was to sit
+        close. Absolute means it grows upward into space that is empty
+        anyway, and the line never moves. */
     .callout {
-      min-height: 3.4em;
-      max-width: 34ch;
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      width: min(56ch, 94%);
       margin: 0;
+      padding: 14px 22px;
+      border-radius: 18px;
+      /*  A backdrop, because on a short viewport the longest copy is
+          taller than the gap under the product and will sit over the
+          band. With this it reads as an annotation card rather than as
+          text spilled onto the photograph. */
+      background: rgba(249, 246, 255, 0.9);
+      box-shadow: 0 14px 34px -18px rgba(81, 79, 154, 0.55);
+      -webkit-backdrop-filter: blur(7px);
+      backdrop-filter: blur(7px);
       text-align: center;
       color: var(--ms-plum);
-      font-size: clamp(0.92rem, 0.8rem + 0.4vw, 1.05rem);
-      line-height: 1.5;
+      /*  30% up on the original 0.92-1.05rem. */
+      font-size: clamp(1.2rem, 1.04rem + 0.52vw, 1.37rem);
+      line-height: 1.45;
       opacity: 0;
-      transform: translateY(6px);
+      transform: translate(-50%, 6px);
       transition: opacity 320ms ease, transform 320ms ease;
     }
 
-    .callout.is-on { opacity: 1; transform: none; }
+    .callout.is-on { opacity: 1; transform: translate(-50%, 0); }
 
     .callout strong {
       display: block;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      font-size: 0.72rem;
+      font-size: 0.94rem;
       color: var(--ms-peri-dark);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .p2-foot {
+      position: relative;
       display: grid;
       justify-items: center;
       gap: clamp(10px, 1.6vh, 18px);
@@ -454,12 +505,31 @@
       text-wrap: balance;
     }
 
-    .p2-hint {
+    /*  Between the straps, near the top of the shot. Not a hit target --
+        the buttons underneath it must stay reachable. */
+    .stage-hint {
+      position: absolute;
+      top: 1.5%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
       margin: 0;
+      max-width: 44%;
+      text-align: center;
+      text-wrap: balance;
+      pointer-events: none;
       color: var(--ms-ink-soft);
-      font-size: 0.82rem;
+      font-size: clamp(0.86rem, 0.74rem + 0.42vw, 1.05rem);
+      line-height: 1.35;
       letter-spacing: 0.02em;
+      transition: opacity 320ms ease;
     }
+
+    /*  Gone the moment a feature is open. */
+    .stage.is-l .stage-hint,
+    .stage.is-r .stage-hint,
+    .stage.is-sl .stage-hint,
+    .stage.is-sr .stage-hint { opacity: 0; }
 
     /*  ---------------------------------------------------------------
         FOOTER
@@ -498,9 +568,9 @@
       .p1-scroll { display: none; }
       .p1-shot { height: min(44vh, 400px); }
       .p2 { height: 200vh; }
-      .hot { width: 32%; height: 32%; top: 48%; }
-      .hot--l { left: 10%; }
-      .hot--r { right: 10%; }
+      .hot { width: 32%; height: 32%; top: 50%; }
+      .hot--l { left: 9%; }
+      .hot--r { right: 9%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -573,6 +643,11 @@
 
           <div class="stage" id="stage">
 
+            <!--  Sits in the gap between the straps, which is clear from
+                  the top of the shot down to about 40%. Goes when any
+                  feature is open. -->
+            <p class="stage-hint" id="p2Hint">Hover around the MilkShaker bra to see features</p>
+
             <!--  ============ THE PRODUCT ============
                   The real product photograph, with a soft-edged window
                   over each cup.
@@ -595,11 +670,13 @@
                   and the matching .mod offsets.
                   ====================================== -->
             <div class="shot">
-              <img class="shot-base" src="/assets/images/bra-front.png"
-                alt="The MilkShaker bra, front view" width="425" height="370" />
+              <img class="shot-base" src="/assets/images/bra-front.webp"
+                alt="The MilkShaker bra, front view" width="1400" height="1225" />
 
               <div class="win win--l" aria-hidden="true"></div>
               <div class="win win--r" aria-hidden="true"></div>
+              <div class="win win--sl" aria-hidden="true"></div>
+              <div class="win win--sr" aria-hidden="true"></div>
               <svg class="mod mod--l" viewBox="0 0 120 120" aria-hidden="true">
                 <defs>
                   <radialGradient id="modface-l" cx="36%" cy="30%" r="74%">
@@ -649,12 +726,17 @@
             <button class="hot hot--r" type="button" data-side="r" aria-describedby="callout">
               <span class="lp-sr">Show the massaging insert in the right cup</span>
             </button>
+            <button class="hot hot--sl" type="button" data-side="sl" aria-describedby="callout">
+              <span class="lp-sr">About the left strap</span>
+            </button>
+            <button class="hot hot--sr" type="button" data-side="sr" aria-describedby="callout">
+              <span class="lp-sr">About the right strap</span>
+            </button>
           </div>
 
           <div class="p2-foot">
             <p class="callout" id="callout" aria-live="polite"></p>
             <p class="p2-line">On-demand breastfeeding relief</p>
-            <p class="p2-hint" id="p2Hint">Hover either cup to look inside</p>
           </div>
 
         </div>
@@ -664,7 +746,7 @@
   </main>
 
   <footer class="cs-footer">
-    Reach us at <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
+    Thoughts on our design? Join the community or reach us at <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a> We want your feedback!
   </footer>
 
   <script>
@@ -763,23 +845,27 @@
 
       if (stage && callout) {
         var COPY = {
-          l: '<strong>Inside the cup</strong>A massaging module sits against the breast and works the spot ' +
-             'you point it at &mdash; while you nurse, pump, or carry on with your day.',
-          r: '<strong>Both sides, independent</strong>Each cup has its own module, so you can run one side, ' +
-             'the other, or both. The modules pop out; the rest is machine-washable.'
+          l: '<strong>Inside the internal pocket</strong>A gentle massaging module rests against your breast and ' +
+             'provides pain relief from duct blockages, inflammation, engorgement, and mastitis&mdash;while you ' +
+             'nurse, pump, or carry on with your day.',
+          r: '<strong>2 independent modules</strong>Each breast has its own module, so you can run one side or ' +
+             'both. The modules lift out, charge while the bra is in the wash, and you have another week of relief.',
+          sl: '<strong>The straps</strong>Adjustable for comfort and removable for convenient nursing.',
+          sr: '<strong>The straps</strong>Adjustable for comfort and removable for convenient nursing.'
         };
         var pinned = null;
 
+        var SIDES = ['l', 'r', 'sl', 'sr'];
+
         var show = function (side) {
-          stage.classList.toggle('is-l', side === 'l');
-          stage.classList.toggle('is-r', side === 'r');
+          SIDES.forEach(function (s) {
+            stage.classList.toggle('is-' + s, side === s);
+          });
           if (side) {
             callout.innerHTML = COPY[side];
             callout.classList.add('is-on');
-            if (hint) hint.style.visibility = 'hidden';
           } else {
             callout.classList.remove('is-on');
-            if (hint) hint.style.visibility = '';
           }
         };
 
@@ -801,8 +887,7 @@
               somewhere else. */
           btn.addEventListener('click', function () {
             pinned = (pinned === side) ? null : side;
-            show(pinned || side);
-            if (!pinned) show(null);
+            show(pinned);
           });
         });
 
@@ -810,7 +895,7 @@
           if (pinned && !e.target.closest('.hot')) { pinned = null; show(null); }
         });
 
-        if (hint && !fine) hint.textContent = 'Tap either cup to look inside';
+        if (hint && !fine) hint.textContent = 'Tap around the MilkShaker bra to see features';
       }
     })();
   </script>
