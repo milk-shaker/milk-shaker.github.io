@@ -467,8 +467,8 @@
       backdrop-filter: blur(7px);
       text-align: center;
       color: var(--ms-plum);
-      /*  30% up on the original 0.92-1.05rem. */
-      font-size: clamp(1.2rem, 1.04rem + 0.52vw, 1.37rem);
+      /*  Was 30% up on the original 0.92-1.05rem; now 15% back off that. */
+      font-size: clamp(1.02rem, 0.88rem + 0.44vw, 1.16rem);
       line-height: 1.45;
       opacity: 0;
       transform: translate(-50%, 6px);
@@ -482,7 +482,7 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      font-size: 0.94rem;
+      font-size: 0.8rem;
       color: var(--ms-peri-dark);
       margin-bottom: 6px;
     }
@@ -606,6 +606,15 @@
       }
       .p2 { height: 200vh; }
 
+      /*  A quarter off the product here, and pushed down off the header,
+          so the headline, subtitle and the callout tile all have room on
+          a phone. The hit targets and window masks are percentages of
+          this box, so they scale with it and need no adjustment. */
+      .stage {
+        width: min(75%, 820px, 72vh);
+        margin-top: clamp(12px, 3.5vh, 40px);
+      }
+
       /*  Bigger touch targets, but scoped to the cups. Written as .hot it
           also caught .hot--sl / .hot--sr -- same specificity, later in the
           sheet -- which dragged the strap buttons down onto the cups. They
@@ -655,8 +664,12 @@
     <!--====== PANEL 1 ======-->
     <section class="p1">
 
-      <video class="p1-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
-        tabindex="-1">
+      <!--  poster is the loop's own first frame, so there is no jump when
+            it starts -- and if autoplay is refused (iOS blocks it outright
+            in Low Power Mode) the hero is a still photograph rather than a
+            grey box with a play button on it. -->
+      <video class="p1-video" autoplay muted loop playsinline preload="auto"
+        poster="/assets/images/hero-poster.jpg" aria-hidden="true" tabindex="-1">
         <source src="/assets/video/momandbaby.mp4" type="video/mp4" />
       </video>
       <div class="p1-scrim" aria-hidden="true"></div>
@@ -687,8 +700,8 @@
 
           <div class="p2-head">
             <p class="p2-line">On-demand breastfeeding pain relief</p>
-            <p class="p2-sub">Brought to you by lactation experts, women&rsquo;s health physical
-              therapists, and female engineers</p>
+            <p class="p2-sub">Brought to you by lactation experts, women&rsquo;s health
+              physicians, and female engineers</p>
           </div>
 
           <div class="stage" id="stage">
@@ -812,12 +825,35 @@
       var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var fine = window.matchMedia('(pointer: fine)').matches;
 
-      /*  A looping hero is exactly what a reduced-motion preference is
-          asking about, so hold it on its first frame rather than play it.
-          autoplay is left in the markup so it still runs with no JS. */
-      if (still) {
-        var hero = document.querySelector('.p1-video');
-        if (hero) { hero.removeAttribute('autoplay'); hero.pause(); }
+      var hero = document.querySelector('.p1-video');
+
+      if (hero && still) {
+        /*  A looping hero is exactly what a reduced-motion preference is
+            asking about, so hold it on its first frame rather than play
+            it. autoplay is left in the markup so it still runs with no
+            JS; the poster is what shows here. */
+        hero.removeAttribute('autoplay');
+        hero.pause();
+      } else if (hero) {
+        /*  The attribute alone is not always enough. Safari wants the
+            muted property set, not just the attribute, before it will
+            honour autoplay -- and iOS refuses autoplay altogether in Low
+            Power Mode. So ask directly, swallow the rejection, and try
+            once more on the first touch, which is a gesture iOS accepts.
+            If none of that works the poster is still sitting there. */
+        hero.muted = true;
+        var tryPlay = function () {
+          var p = hero.play();
+          if (p && p.catch) p.catch(function () {});
+        };
+        tryPlay();
+        var onFirstTouch = function () {
+          if (hero.paused) tryPlay();
+          document.removeEventListener('touchstart', onFirstTouch);
+          document.removeEventListener('pointerdown', onFirstTouch);
+        };
+        document.addEventListener('touchstart', onFirstTouch, { passive: true });
+        document.addEventListener('pointerdown', onFirstTouch, { passive: true });
       }
 
       /*  ------------------------------------------------------------
