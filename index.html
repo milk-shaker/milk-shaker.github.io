@@ -562,9 +562,23 @@
         );
       }
       .p2 { height: 200vh; }
-      .hot { width: 32%; height: 32%; top: 50%; }
+
+      /*  Bigger touch targets, but scoped to the cups. Written as .hot it
+          also caught .hot--sl / .hot--sr -- same specificity, later in the
+          sheet -- which dragged the strap buttons down onto the cups. They
+          then sat over them, being later in the DOM, and swallowed every
+          tap meant for a breast. */
+      .hot--l,
+      .hot--r { width: 32%; height: 32%; top: 50%; }
+
       .hot--l { left: 9%; }
       .hot--r { right: 9%; }
+
+      .hot--sl,
+      .hot--sr { top: 0; width: 20%; height: 44%; }
+
+      .hot--sl { left: 10%; }
+      .hot--sr { right: 10%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
