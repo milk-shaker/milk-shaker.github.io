@@ -278,7 +278,7 @@
       width: 100%;
       height: 100%;
       display: grid;
-      grid-template-rows: 1fr auto;
+      grid-template-rows: auto 1fr auto;
       align-items: center;
       justify-items: center;
       gap: clamp(4px, 0.8vh, 10px);
@@ -431,15 +431,13 @@
     /*  The callout. Sits under the product rather than beside it, so it
         never collides with the turning model or runs off a narrow
         screen. One box, its text swapped by script. */
-    /*  Floated above the line rather than sitting in flow. In flow it
-        would have to reserve the height of the longest copy -- 155px at
-        1280x720 -- which is a blank that size under the product whenever
-        nothing is open, and the whole point of this block was to sit
-        close. Absolute means it grows upward into space that is empty
-        anyway, and the line never moves. */
+    /*  Absolute inside .p2-slot, so opening it moves nothing. It used to
+        float upward above the line, which put it over the band on a short
+        viewport; now it opens downward into a slot of its own below the
+        product and cannot reach the bra at all. */
     .callout {
       position: absolute;
-      bottom: calc(100% + 12px);
+      top: 0;
       left: 50%;
       width: min(56ch, 94%);
       margin: 0;
@@ -475,19 +473,24 @@
       margin-bottom: 6px;
     }
 
-    .p2-foot {
+    /*  A reserved slot under the product for the callout to open into.
+        Held at a fixed height rather than growing, so the tile can never
+        push the bra around or -- as it did on a phone -- sit on top of
+        it. The height is measured from the longest copy at the current
+        width by the script below; this clamp is only the no-JS floor,
+        and a starting value before that measurement lands. */
+    .p2-slot {
       position: relative;
-      display: grid;
-      justify-items: center;
-      gap: clamp(10px, 1.6vh, 18px);
-      /*  Fades up over the last stretch of the zoom rather than riding in
-          at full strength from the start. */
-      opacity: var(--zo);
-      transition: opacity 200ms linear;
+      width: 100%;
+      min-height: clamp(150px, 26vh, 200px);
     }
 
     .p2-line {
       margin: 0;
+      /*  Fades up over the last stretch of the zoom rather than riding in
+          at full strength from the start. */
+      opacity: var(--zo);
+      transition: opacity 200ms linear;
       color: var(--ms-plum);
       font-size: clamp(1.5rem, 0.9rem + 2.6vw, 2.9rem);
       line-height: 1.14;
@@ -592,7 +595,7 @@
       .p2 { height: auto; }
       .p2-pin { position: static; height: auto; min-height: 100svh; }
       .p2-card { transform: none; border-radius: 0; }
-      .p2-foot { opacity: 1; }
+      .p2-line { opacity: 1; }
     }
   </style>
 
@@ -641,6 +644,8 @@
     <section class="p2" id="p2">
       <div class="p2-pin">
         <div class="p2-card" id="p2Card">
+
+          <p class="p2-line">On-demand breastfeeding relief</p>
 
           <div class="stage" id="stage">
 
@@ -740,9 +745,8 @@
             </button>
           </div>
 
-          <div class="p2-foot">
+          <div class="p2-slot">
             <p class="callout" id="callout" aria-live="polite"></p>
-            <p class="p2-line">On-demand breastfeeding relief</p>
           </div>
 
         </div>
@@ -911,6 +915,40 @@
         });
 
         if (hint && !fine) hint.textContent = 'Tap around the MilkShaker bra to see features';
+
+        /*  Reserve exactly the tallest copy at this width. Hardcoding it
+            per breakpoint went wrong the moment the copy changed -- at
+            375px the longest one wanted 249px against the 195px the
+            clamp gave it, and the tile ran off the bottom of the card.
+            Measuring means it survives both a reword and any viewport.
+            The callout is opacity 0, not display none, so it lays out
+            and reports a real height without ever being seen. */
+        var slot = stage.parentNode.querySelector('.p2-slot');
+
+        var sizeSlot = function () {
+          if (!slot) return;
+          var keep = callout.innerHTML;
+          var tallest = 0;
+          SIDES.forEach(function (side) {
+            callout.innerHTML = COPY[side];
+            if (callout.offsetHeight > tallest) tallest = callout.offsetHeight;
+          });
+          callout.innerHTML = keep;
+          if (tallest) slot.style.minHeight = tallest + 'px';
+        };
+
+        /*  After fonts, because the display face changes the line count. */
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(sizeSlot);
+        } else {
+          sizeSlot();
+        }
+
+        var slotTimer = null;
+        window.addEventListener('resize', function () {
+          clearTimeout(slotTimer);
+          slotTimer = setTimeout(sizeSlot, 150);
+        }, { passive: true });
       }
     })();
   </script>
