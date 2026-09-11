@@ -177,16 +177,18 @@
 
     <!--====== CLOSING BAND ======
           The same band the other pages carry, except its button points
-          back up at the form on this page rather than off to a page the
-          visitor is already on. The id it targets is the form's card, so
-          the browser does the scrolling and it still works with no
-          JavaScript. -->
+          back up this page rather than off to a page the visitor is
+          already on. "#top" is the spec's own special fragment for the
+          top of the document, so it needs no element to aim at and the
+          browser does the scrolling with no JavaScript. It used to aim at
+          the form card, which landed mid-panel with the headline already
+          scrolled past. -->
     <section class="lp-reveal lp-band" aria-labelledby="h-band">
       <div class="lp-band-inner">
         <div class="lp-band-copy">
           <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
         </div>
-        <a class="lp-btn lp-btn--lg lp-btn--nudge" href="#join"><span>Secure yours now</span><span class="lp-arrow"
+        <a class="lp-btn lp-btn--lg lp-btn--nudge" href="#top"><span>Secure yours now</span><span class="lp-arrow"
             aria-hidden="true"></span></a>
       </div>
     </section>
@@ -200,7 +202,7 @@
   <footer class="lp-focus-footer">
     <div class="lp-wrap">
       <p class="lp-focus-legal">
-        Thoughts on our design? Join the community or reach us at <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
+        Thoughts on our design? <a href="#top">Join our community</a> or reach us at <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
         &nbsp;&middot;&nbsp; &copy; 2026 MilkShaker Inc.
       </p>
     </div>
