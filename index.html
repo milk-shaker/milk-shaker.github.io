@@ -42,8 +42,8 @@
   <!--======================================================================
        COMING-SOON LANDING — two panels.
 
-       PANEL 1, full height. Wordmark and the headline on the left, the
-       LaunchList waitlist form on the right, over the hero loop. The
+       PANEL 1, full height. Wordmark, headline and the LaunchList
+       waitlist form stacked on the left, over the hero loop. The
        signup used to live on /coming-soon-early-access.html behind a
        "Secure yours now" button; that page is now a redirect here.
 
@@ -223,16 +223,11 @@
       );
     }
 
-    /*  Copy on the left, where the scrim is heaviest; the form on the
-        right, where the footage shows through. The form card carries its
-        own ivory ground, so it needs no scrim behind it. */
+    /*  One column on the left, where the scrim is heaviest: wordmark,
+        headline, form, scroll cue. The right side is left to the footage. */
     .p1-inner {
       position: relative;
       z-index: 2;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 34rem);
-      align-items: center;
-      gap: clamp(28px, 5vw, 80px);
       max-width: 1360px;
       width: 100%;
       margin: 0 auto;
@@ -246,8 +241,8 @@
       text-align: left;
     }
 
-    /*  style.css centres this card with a top margin for a page where it
-        sits under a heading; in a grid cell it needs neither. */
+    /*  style.css centres this card with a top margin; here it sits flush
+        left under the headline, capped at the card's own 34rem. */
     .p1-form {
       margin: 0;
       width: 100%;
@@ -257,9 +252,23 @@
         fixed gradient layers sit at z-index 0 and 1 behind everything.
         An unpositioned section paints beneath positioned ones, so without
         this the moving gradient would draw straight over its content. */
-    .p3 {
+    .p3,
+    .p4 {
       position: relative;
       z-index: 2;
+    }
+
+    /*  Short desktop screens -- 1280x720 laptops -- ran the opening panel
+        97px past the fold with the form in it, taking the form note and
+        the scroll cue off screen. A smaller headline and tighter spacing
+        only where the height is actually short. */
+    @media (min-width: 901px) and (max-height: 820px) {
+      /*  Scoped under .p1: these sit above the base rules in the sheet,
+          so at equal specificity the base rules would win. */
+      .p1 .p1-inner { padding-top: 22px; padding-bottom: 22px; }
+      .p1 .p1-logo { width: min(280px, 60%); margin-bottom: 18px; }
+      .p1 .p1-line { font-size: clamp(2.2rem, 1rem + 2.6vw, 3.2rem); margin-bottom: 20px; }
+      .p1 .p1-scroll { margin-top: 16px; }
     }
 
     .p1-logo {
@@ -629,7 +638,6 @@
         --------------------------------------------------------------- */
     @media (max-width: 900px) {
       .p1-inner {
-        grid-template-columns: 1fr;
         padding-left: 14px;
         padding-right: 14px;
       }
@@ -738,6 +746,15 @@
           <img class="p1-logo" src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380"
             height="232" />
           <h1 class="p1-line">The nursing bra that lets you do more</h1>
+
+          <!--  The waitlist form, under the headline where "Secure yours now"
+                used to be. id="join" is what the footer's "Join our
+                community" link and the old page's redirect aim at. -->
+          <div class="lp-ea-card p1-form" id="join">
+            <div class="launchlist-widget" data-key-id="WHgfM8"></div>
+            <p class="lp-form-note">You get your shareable referral link once you join.</p>
+          </div>
+
           <p class="p1-scroll" aria-hidden="true">
             <span>Scroll</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
@@ -745,14 +762,6 @@
               <path d="M12 5v14M6 13l6 6 6-6" />
             </svg>
           </p>
-        </div>
-
-        <!--  The waitlist form, where the "Secure yours now" button used to
-              send people to a separate page. id="join" is what the footer's
-              "Join our community" link and the old page's redirect aim at. -->
-        <div class="lp-ea-card p1-form" id="join">
-          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
-          <p class="lp-form-note">You get your shareable referral link once you join.</p>
         </div>
       </div>
 
@@ -918,6 +927,22 @@
             </figure>
           </li>
         </ul>
+      </div>
+    </section>
+
+
+    <!--====== CLOSING BAND ======
+          The band the old signup page closed on. Its button goes back to
+          the top of this page, where the form now is. "#top" is the
+          spec's own fragment for the top of a document, so it needs no
+          element to aim at and works without JavaScript. -->
+    <section class="p4 lp-band" aria-labelledby="h-band">
+      <div class="lp-band-inner">
+        <div class="lp-band-copy">
+          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
+        </div>
+        <a class="lp-btn lp-btn--lg" href="#top"><span>Secure yours now</span><span class="lp-arrow"
+            aria-hidden="true"></span></a>
       </div>
     </section>
 
