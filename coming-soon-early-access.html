@@ -4,288 +4,85 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description"
-    content="Stop worrying about the never-ending duct blockages, inflammation, and breast pain with our therapeutic nursing bra that gives mom her hands and time back." />
 
-  <!--====== The signup page for the coming-soon root. Same form and copy
-             as /early-access.html, but stripped to the focus chrome so
-             nothing links back to the dormant pages. Kept out of search
-             with a self-canonical; /early-access.html stays the indexable
-             one for when the full site comes back. ======-->
+  <!--======================================================================
+       REDIRECT STUB -- not a real page.
+
+       This was the waitlist signup page. The form now lives on the landing
+       page itself, but this URL has already been shared, so it forwards
+       there rather than 404ing.
+
+       GitHub Pages cannot send a server-side 301, so this is client-side:
+       the script moves real visitors, the meta refresh covers anyone with
+       JavaScript off, and the visible link is the last resort.
+
+       The query string is carried across on purpose. Referral links point
+       at URLs like this one with ?ref=CODE on the end, and dropping it on
+       the way through would lose the referrer their credit. ref.js is
+       loaded first for the same reason -- it stores the code for two days
+       even if the redirect itself somehow loses it. The meta refresh
+       cannot carry the query; it is only the no-JS fallback.
+
+       The og tags describe the landing page, because link previews are
+       built from this URL by scrapers that never run the redirect.
+  =======================================================================-->
   <meta name="robots" content="noindex, follow" />
-  <link rel="canonical" href="https://themilkshaker.com/coming-soon-early-access.html" />
+  <link rel="canonical" href="https://themilkshaker.com/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="MilkShaker" />
-  <meta property="og:url" content="https://themilkshaker.com/coming-soon-early-access.html" />
-  <meta property="og:title" content="Early Access | MilkShaker" />
+  <meta property="og:url" content="https://themilkshaker.com/" />
+  <meta property="og:title" content="MilkShaker | The nursing bra that lets you do more" />
   <meta property="og:description"
     content="Stop worrying about the never-ending duct blockages, inflammation, and breast pain with our therapeutic nursing bra that gives mom her hands and time back." />
-
-  <!--  The share card. Scrapers need an absolute URL, and they cache by
-        it, so bump the ?v= if the image is ever replaced. 1200x630 is the
-        shape Facebook, LinkedIn, Slack and iMessage all crop to; this one
-        is a frame lifted from the hero video. twitter:card is what makes
-        X render it large rather than as a thumbnail. -->
   <meta property="og:image" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=3" />
   <meta property="og:image:secure_url" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=3" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="MilkShaker &mdash; the nursing bra that lets you do more. A mother carrying her baby in a sling while drinking coffee at home." />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <title>Early Access | MilkShaker</title>
+  <meta http-equiv="refresh" content="0; url=/#join" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
-  <link rel="icon" type="image/svg+xml" href="/assets/icons/droplet.svg?v=3" />
+  <title>Redirecting&hellip; | MilkShaker</title>
   <link rel="icon" href="/favicon.ico?v=3" />
-  <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
-  <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
-  <meta name="theme-color" content="#F9EDF3" />
 
-  <link rel="stylesheet" href="/style.css" />
-
-  <style>
-    /*  The waitlist panel sits over the landing page's hero loop. Copy and
-        form are centred here rather than left-aligned, so the scrim is an
-        even wash rather than the landing page's angled one -- an angle
-        would leave one side of the headline and form unreadable. */
-    .ea-hero { isolation: isolate; }
-
-    .ea-video,
-    .ea-scrim {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .ea-video { z-index: -2; object-fit: cover; background: transparent; }
-
-    .ea-scrim {
-      z-index: -1;
-      background: linear-gradient(
-        180deg,
-        rgba(251, 247, 240, 0.9) 0%,
-        rgba(251, 247, 240, 0.8) 45%,
-        rgba(251, 247, 240, 0.88) 100%
-      );
-    }
-  </style>
-
-  <!--  LaunchList runs the signup and the referral tracking. The widget
-        injects an iframe and auto-resizes it by postMessage, so the
-        form's fields and styling are configured in their dashboard,
-        not here. -->
-  <!--  Blocking, and in the head, on purpose: it has to rewrite the URL
-        before LaunchList's deferred widget script reads it. See the file. -->
   <script src="/assets/js/ref.js"></script>
-  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
-</head>
-
-<!--======================================================================
-     EARLY ACCESS LANDING PAGE  (coming-soon variant)
-
-     A copy of /early-access.html for the coming-soon root to link to.
-     Same form, same copy; the shared header/menu and the footer's nav
-     columns are dropped so nothing here reaches the dormant pages. Keep
-     this and /early-access.html in step if the copy changes.
-
-     Deliberately has no navigation: no menu, no header links, no route
-     off the page except the two legal ones in the footer. Every way in
-     is a CTA and the only way on is the form, which is the point of it.
-
-     COMPLIANCE. Nothing here claims MilkShaker treats, cures or prevents
-     anything, and nothing refers to coverage or reimbursement of any
-     kind. The footer wording is fixed and should not be edited casually;
-     it is also sized and wrapped so it cannot be clipped on a narrow
-     screen.
-=======================================================================-->
-
-<body class="lp lp-focus">
-
-  <a class="lp-skip" href="#main">Skip to content</a>
-
-  <!--====== OFFER BANNER ======
-        Promotional only. The countdown is filled in by landing.js from
-        a single date constant; with JavaScript off the static text
-        still reads correctly, just without the days remaining. ======-->
-  <div class="lp-ticker" id="lpTicker">
-    <div class="lp-ticker-track">
-      <div class="lp-ticker-run">
-        <span>Pre-launch early access</span>
-        <span><strong id="lpCountdown" data-countdown>Limited time only</strong></span>
-        <span>Free postpartum care package for referrals</span>
-        <span>Become a founding user</span>
-      </div>
-      <div class="lp-ticker-run" aria-hidden="true">
-        <span>Pre-launch early access</span>
-        <span><strong data-countdown>Limited time only</strong></span>
-        <span>Free postpartum care package for referrals</span>
-        <span>Become a founding user</span>
-      </div>
-    </div>
-  </div>
-
-
-  <!--====== HEADER ======
-        Just the wordmark, linked home. This page has no navigation by
-        design, and while the rest of the site is dormant there is nowhere
-        for a menu to go: the only routes off it are the wordmark, the
-        form, and the two legal links in the footer. ======-->
-  <header class="lp-focus-header">
-    <a href="/" aria-label="MilkShaker home">
-      <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
-    </a>
-  </header>
-
-  <main id="main">
-
-    <!--====== 1. HERO ======-->
-    <section class="lp-hero ea-hero">
-      <!--  Same loop and poster as the landing page's opening panel, so
-            the click through reads as one continuous place. -->
-      <video class="ea-video" autoplay muted loop playsinline preload="auto"
-        poster="/assets/images/hero-poster.jpg" aria-hidden="true" tabindex="-1">
-        <source src="/assets/video/momandbaby.mp4" type="video/mp4" />
-      </video>
-      <div class="ea-scrim" aria-hidden="true"></div>
-      <div class="lp-wrap">
-        <div class="lp-center">
-          <h1 class="lp-title">Join the waitlist, and become a founding user!</h1>
-          <p class="lp-lede">
-            Stop worrying about the never-ending duct blockages, inflammation, and breast pain 
-            with our therapeutic nursing bra that gives you your hands and time back. 
-          </p>
-          <p class="lp-lede">
-            <strong>Joining the waitlist means you will be the first to know when we launch, and founding users get FREE 1-1 text support with a lactation expert, 
-            and have 3 PT visits for postpartum pelvic floor recovery on us!</strong>
-          </p>
-        </div>
-
-        <div class="lp-ea-card" id="join">
-          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
-          <p class="lp-form-note">
-            You get your shareable referral link once you join.
-          </p>
-          <p class="lp-form-note">
-            Founding users will be selected based on submitted interest.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!--====== 4. WELCOME KIT ======
-          Explicitly not tied to referral count or signup position:
-          everyone who joins picks one, first come first served while
-          stock lasts. -->
-    <section class="lp-reveal lp-section lp-section--blush" aria-labelledby="h-kit">
-      <div class="lp-wrap">
-        <div class="lp-intro--center">
-          <h2 class="lp-title" id="h-kit">Refer, and get a chance at a free postpartum care package!</h2>
-          <p class="lp-lede">
-            <strong>Share with a mom in need or your mom friend group!</strong>
-          </p>
-          <p class="lp-lede">
-            The top 30 people with the most referrals joined at the end 
-            of this limited time offer period will receive a welcome postpartum care package (valued at $200). The below four products are 
-            just a few gifts that are included.
-          </p>
-        </div>
-        <ul class="lp-kit lp-kit--grid">
-          <li>
-            <figure>
-              <img src="/assets/images/kit/nipplebutter.webp" alt="Organic nipple balm" width="1080" height="1080" loading="lazy" />
-              <figcaption><span>Earth Mama Organic Nipple Butter</span></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="/assets/images/kit/milkcollector.webp" alt="Silicone milk collector" width="813" height="1219" loading="lazy" />
-              <figcaption><span>Tiny Tot Innovations silicone milk collector</span></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="/assets/images/kit/therapypad.webp" alt="Hot + cold therapy pads" width="813" height="1219" loading="lazy" />
-              <figcaption><span>Le Lolo hot + cold breast therapy pads</span></figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="/assets/images/kit/nippleshield.webp" alt="Nipple shields" width="812" height="1219" loading="lazy" />
-              <figcaption><span>Le Lolo nipple shields, three sizes</span></figcaption>
-            </figure>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-
-    <!--====== CLOSING BAND ======
-          The same band the other pages carry, except its button points
-          back up this page rather than off to a page the visitor is
-          already on. "#top" is the spec's own special fragment for the
-          top of the document, so it needs no element to aim at and the
-          browser does the scrolling with no JavaScript. It used to aim at
-          the form card, which landed mid-panel with the headline already
-          scrolled past. -->
-    <section class="lp-reveal lp-band" aria-labelledby="h-band">
-      <div class="lp-band-inner">
-        <div class="lp-band-copy">
-          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
-        </div>
-        <a class="lp-btn lp-btn--lg lp-btn--nudge" href="#top"><span>Secure yours now</span><span class="lp-arrow"
-            aria-hidden="true"></span></a>
-      </div>
-    </section>
-  </main>
-
-  <!--====== 7. COMPLIANCE FOOTER ======
-        Fixed wording. Sized so it cannot be clipped on a narrow screen:
-        it wraps rather than truncating, and centres below 767px. No site
-        navigation: only the email and the two legal links, which a
-        signup page has to carry. -->
-  <footer class="lp-focus-footer">
-    <div class="lp-wrap">
-      <p class="lp-focus-legal">
-        Thoughts on our design? <a href="#top">Join our community</a> or reach us at <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
-        &nbsp;&middot;&nbsp; &copy; 2026 MilkShaker Inc.
-      </p>
-    </div>
-  </footer>
-
   <script>
-    /*  Same handling as the landing page: Safari wants the muted property,
-        iOS refuses autoplay in Low Power Mode so retry on first touch, and
-        reduced motion holds it on the poster. */
-    (function () {
-      var v = document.querySelector('.ea-video');
-      if (!v) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        v.removeAttribute('autoplay'); v.pause(); return;
-      }
-      v.muted = true;
-      var tryPlay = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
-      tryPlay();
-      var once = function () {
-        if (v.paused) tryPlay();
-        document.removeEventListener('touchstart', once);
-        document.removeEventListener('pointerdown', once);
-      };
-      document.addEventListener('touchstart', once, { passive: true });
-      document.addEventListener('pointerdown', once, { passive: true });
-    })();
+    /*  replace(), not assign(), so this stub stays out of the back button
+        and does not bounce the visitor straight back here. Lands on the
+        form, since that is what this URL used to be. */
+    window.location.replace('/' + window.location.search + '#join');
   </script>
 
-  <script src="/assets/js/landing.js" defer></script>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F8F5FA;
+      color: #612F48;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      text-align: center;
+      padding: 24px;
+    }
 
-  <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
-    src="//gc.zgo.at/count.js"></script>
+    a {
+      color: #612F48;
+      font-weight: 700;
+    }
+  </style>
+</head>
 
+<body>
+  <p>
+    Taking you to MilkShaker&hellip;<br />
+    <a href="/#join">Continue to themilkshaker.com</a>
+  </p>
 </body>
 
 </html>

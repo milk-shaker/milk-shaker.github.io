@@ -42,10 +42,13 @@
   <!--======================================================================
        COMING-SOON LANDING — two panels.
 
-       PANEL 1, full height. Wordmark and the headline on the left, over
-       the moving gradient; the lifestyle shot and the one CTA on the
-       right. Nothing links to the dormant pages: the CTA goes to
-       /coming-soon-early-access.html and the footer carries the email.
+       PANEL 1, full height. Wordmark and the headline on the left, the
+       LaunchList waitlist form on the right, over the hero loop. The
+       signup used to live on /coming-soon-early-access.html behind a
+       "Secure yours now" button; that page is now a redirect here.
+
+       PANEL 3, the referral offer and the four kit items, moved over from
+       that same page.
        The full waitlist landing is parked, unlinked, at
        /waitlist-landing.html; restore it by moving that file back here.
 
@@ -175,6 +178,8 @@
       display: grid;
       align-items: center;
       overflow: clip;
+      /*  Its own stacking context -- see .p1-video. */
+      isolation: isolate;
     }
 
     /*  Full-bleed, behind everything in the panel. Decorative, muted and
@@ -192,6 +197,13 @@
       /*  No background: a 404 should fall through to the gradient. */
       background: transparent;
       pointer-events: none;
+      /*  Forces the loop onto a composited layer of its own. Needed once
+          the LaunchList form went into this panel: with a cross-origin
+          iframe on the page, alongside the big animated fixed gradient
+          layers behind everything, Chrome stopped painting the video --
+          it decoded and played, but drew nothing. Tested with and
+          without: without this line the hero is blank. */
+      transform: translateZ(0);
     }
 
     /*  Footage is unknown and can be light or dark under the copy, so the
@@ -211,17 +223,43 @@
       );
     }
 
-    .p1-copy {
+    /*  Copy on the left, where the scrim is heaviest; the form on the
+        right, where the footage shows through. The form card carries its
+        own ivory ground, so it needs no scrim behind it. */
+    .p1-inner {
       position: relative;
       z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 34rem);
+      align-items: center;
+      gap: clamp(28px, 5vw, 80px);
       max-width: 1360px;
       width: 100%;
       margin: 0 auto;
       padding: clamp(32px, 5vh, 64px) clamp(24px, 5vw, 72px);
+    }
+
+    .p1-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    /*  style.css centres this card with a top margin for a page where it
+        sits under a heading; in a grid cell it needs neither. */
+    .p1-form {
+      margin: 0;
+      width: 100%;
+    }
+
+    /*  Panel 3 is an ordinary style.css section, but on this page two
+        fixed gradient layers sit at z-index 0 and 1 behind everything.
+        An unpositioned section paints beneath positioned ones, so without
+        this the moving gradient would draw straight over its content. */
+    .p3 {
+      position: relative;
+      z-index: 2;
     }
 
     .p1-logo {
@@ -590,6 +628,21 @@
         NARROW
         --------------------------------------------------------------- */
     @media (max-width: 900px) {
+      .p1-inner {
+        grid-template-columns: 1fr;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      /*  LaunchList's form has a minimum width it will not shrink below,
+          and its iframe is scrolling="no", so anything narrower is simply
+          clipped -- at 375px the default padding left the iframe 282px
+          wide and cut "Email" down to "nail". Less padding on the page
+          and on the card gets the form room to lay out. */
+      .p1-form {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
       .p1-copy { align-items: center; text-align: center; }
       .p1-logo { width: min(300px, 74vw); margin-inline: auto; }
       .p1-line { max-width: 16ch; }
@@ -651,6 +704,12 @@
   <!--  Blocking, and in the head, on purpose: it has to store or restore
         a referral code before the CTA can be clicked. See the file. -->
   <script src="/assets/js/ref.js"></script>
+  <!--  LaunchList runs the signup and the referral tracking. Deferred, and
+        after ref.js on purpose: the widget builds its iframe src from this
+        page's query string, so ref.js has to have put any referral code
+        back in the URL first. Reorder these and attribution fails
+        silently. -->
+  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
 </head>
 
 <body class="lp">
@@ -674,21 +733,27 @@
       </video>
       <div class="p1-scrim" aria-hidden="true"></div>
 
-      <div class="p1-copy">
-        <img class="p1-logo" src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380"
-          height="232" />
-        <h1 class="p1-line">The nursing bra that lets you do more</h1>
-        <a class="lp-btn lp-btn--lg" href="/coming-soon-early-access.html">
-          <span>Secure yours now</span>
-          <span class="lp-arrow" aria-hidden="true"></span>
-        </a>
-        <p class="p1-scroll" aria-hidden="true">
-          <span>Scroll</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M12 5v14M6 13l6 6 6-6" />
-          </svg>
-        </p>
+      <div class="p1-inner">
+        <div class="p1-copy">
+          <img class="p1-logo" src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380"
+            height="232" />
+          <h1 class="p1-line">The nursing bra that lets you do more</h1>
+          <p class="p1-scroll" aria-hidden="true">
+            <span>Scroll</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 5v14M6 13l6 6 6-6" />
+            </svg>
+          </p>
+        </div>
+
+        <!--  The waitlist form, where the "Secure yours now" button used to
+              send people to a separate page. id="join" is what the footer's
+              "Join our community" link and the old page's redirect aim at. -->
+        <div class="lp-ea-card p1-form" id="join">
+          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
+          <p class="lp-form-note">You get your shareable referral link once you join.</p>
+        </div>
       </div>
 
     </section>
@@ -810,10 +875,56 @@
       </div>
     </section>
 
+
+    <!--====== PANEL 3 — the referral offer ======
+          Moved here from the old /coming-soon-early-access.html, which is
+          now a redirect to this page. -->
+    <section class="p3 lp-section lp-section--blush" aria-labelledby="h-kit">
+      <div class="lp-wrap">
+        <div class="lp-intro--center">
+          <h2 class="lp-title" id="h-kit">Refer, and get a chance at a free postpartum care package!</h2>
+          <p class="lp-lede">
+            <strong>Share with a mom in need or your mom friend group!</strong>
+          </p>
+          <p class="lp-lede">
+            The top 30 people with the most referrals joined at the end 
+            of this limited time offer period will receive a welcome postpartum care package (valued at $200). The below four products are 
+            just a few gifts that are included.
+          </p>
+        </div>
+        <ul class="lp-kit lp-kit--grid">
+          <li>
+            <figure>
+              <img src="/assets/images/kit/nipplebutter.webp" alt="Organic nipple balm" width="1080" height="1080" loading="lazy" />
+              <figcaption><span>Earth Mama Organic Nipple Butter</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="/assets/images/kit/milkcollector.webp" alt="Silicone milk collector" width="813" height="1219" loading="lazy" />
+              <figcaption><span>Tiny Tot Innovations silicone milk collector</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="/assets/images/kit/therapypad.webp" alt="Hot + cold therapy pads" width="813" height="1219" loading="lazy" />
+              <figcaption><span>Le Lolo hot + cold breast therapy pads</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="/assets/images/kit/nippleshield.webp" alt="Nipple shields" width="812" height="1219" loading="lazy" />
+              <figcaption><span>Le Lolo nipple shields, three sizes</span></figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+    </section>
+
   </main>
 
   <footer class="cs-footer">
-    Thoughts on our design? <a href="/coming-soon-early-access.html">Join our community</a> or reach us at
+    Thoughts on our design? <a href="#join">Join our community</a> or reach us at
     <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a> We want your feedback!
   </footer>
 
