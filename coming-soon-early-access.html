@@ -47,6 +47,35 @@
 
   <link rel="stylesheet" href="/style.css" />
 
+  <style>
+    /*  The waitlist panel sits over the landing page's hero loop. Copy and
+        form are centred here rather than left-aligned, so the scrim is an
+        even wash rather than the landing page's angled one -- an angle
+        would leave one side of the headline and form unreadable. */
+    .ea-hero { isolation: isolate; }
+
+    .ea-video,
+    .ea-scrim {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .ea-video { z-index: -2; object-fit: cover; background: transparent; }
+
+    .ea-scrim {
+      z-index: -1;
+      background: linear-gradient(
+        180deg,
+        rgba(251, 247, 240, 0.9) 0%,
+        rgba(251, 247, 240, 0.8) 45%,
+        rgba(251, 247, 240, 0.88) 100%
+      );
+    }
+  </style>
+
   <!--  LaunchList runs the signup and the referral tracking. The widget
         injects an iframe and auto-resizes it by postMessage, so the
         form's fields and styling are configured in their dashboard,
@@ -116,7 +145,14 @@
   <main id="main">
 
     <!--====== 1. HERO ======-->
-    <section class="lp-hero">
+    <section class="lp-hero ea-hero">
+      <!--  Same loop and poster as the landing page's opening panel, so
+            the click through reads as one continuous place. -->
+      <video class="ea-video" autoplay muted loop playsinline preload="auto"
+        poster="/assets/images/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+        <source src="/assets/video/momandbaby.mp4" type="video/mp4" />
+      </video>
+      <div class="ea-scrim" aria-hidden="true"></div>
       <div class="lp-wrap">
         <div class="lp-center">
           <h1 class="lp-title">Join the waitlist, and become a founding user!</h1>
@@ -221,6 +257,29 @@
       </p>
     </div>
   </footer>
+
+  <script>
+    /*  Same handling as the landing page: Safari wants the muted property,
+        iOS refuses autoplay in Low Power Mode so retry on first touch, and
+        reduced motion holds it on the poster. */
+    (function () {
+      var v = document.querySelector('.ea-video');
+      if (!v) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        v.removeAttribute('autoplay'); v.pause(); return;
+      }
+      v.muted = true;
+      var tryPlay = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+      tryPlay();
+      var once = function () {
+        if (v.paused) tryPlay();
+        document.removeEventListener('touchstart', once);
+        document.removeEventListener('pointerdown', once);
+      };
+      document.addEventListener('touchstart', once, { passive: true });
+      document.addEventListener('pointerdown', once, { passive: true });
+    })();
+  </script>
 
   <script src="/assets/js/landing.js" defer></script>
 
