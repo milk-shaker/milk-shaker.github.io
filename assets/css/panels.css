@@ -192,11 +192,16 @@ body.lp {
 
 .pq-inner {
   width: 100%;
-  max-width: 40rem;
+  /*  Wider than the reading measure on purpose: the quiz is the thing
+      people came for, so on a desktop it should not look like a footnote
+      under the hero. Tally lays its questions out to whatever width it is
+      given. */
+  max-width: 54rem;
 }
 
 .pq-title {
-  margin: 0 0 clamp(18px, 3vh, 30px);
+  margin: 0 auto clamp(18px, 3vh, 30px);
+  max-width: 24ch;
   color: var(--ms-plum);
   font-size: clamp(1.5rem, 0.9rem + 2.4vw, 2.5rem);
   line-height: 1.16;
@@ -208,6 +213,9 @@ body.lp {
 .pq-card {
   margin: 0;
   width: 100%;
+  /*  style.css caps this card class at 34rem for its original use in a
+      narrow column. Here the section sets the width. */
+  max-width: none;
 }
 
 .pq-card iframe {
@@ -617,6 +625,18 @@ body.lp {
 }
 
 .cs-footer a:hover { border-bottom-color: rgba(97, 47, 72, 0.7); }
+
+.cs-footer p {
+  margin: 0 auto;
+  max-width: 52ch;
+}
+
+.cs-footer-lead {
+  margin-bottom: 0.7em;
+  font-size: 1.05em;
+}
+
+.cs-footer-lead a { font-weight: 700; }
 
 /*  ---------------------------------------------------------------
     NARROW
