@@ -42,8 +42,10 @@
   <!--======================================================================
        COMING-SOON LANDING — two panels.
 
-       PANEL 1, full height. Wordmark, headline and the LaunchList
-       waitlist form stacked on the left, over the hero loop. The
+       PANEL 1, full height. Wordmark, headline and the Tally Feeding
+       Readiness quiz stacked on the left, over the hero loop. The quiz is
+       the front door; the LaunchList waitlist is the quiet last ask, in
+       the closing band. The
        signup used to live on /coming-soon-early-access.html behind a
        "Secure yours now" button; that page is now a redirect here.
 
@@ -197,12 +199,13 @@
       /*  No background: a 404 should fall through to the gradient. */
       background: transparent;
       pointer-events: none;
-      /*  Forces the loop onto a composited layer of its own. Needed once
-          the LaunchList form went into this panel: with a cross-origin
-          iframe on the page, alongside the big animated fixed gradient
-          layers behind everything, Chrome stopped painting the video --
-          it decoded and played, but drew nothing. Tested with and
-          without: without this line the hero is blank. */
+      /*  Gives the loop a composited layer of its own. Added when the
+          video went blank in the preview pane once third-party iframes
+          (LaunchList, then Tally) were on the page. Later checked in real
+          headless Chrome, which painted it correctly with both iframes
+          present -- so the blank was most likely the preview pane's
+          capture, not real browsers. Kept because it is harmless and
+          cheap insurance on a page with this many composited layers. */
       transform: translateZ(0);
     }
 
@@ -252,6 +255,40 @@
         fixed gradient layers sit at z-index 0 and 1 behind everything.
         An unpositioned section paints beneath positioned ones, so without
         this the moving gradient would draw straight over its content. */
+    /*  The quiz card: Tally's transparent background sits on the card's
+        ivory ground, so the questions read against a stable surface
+        rather than directly over moving footage. */
+    .p1-quiz iframe {
+      display: block;
+      width: 100%;
+      border: 0;
+    }
+
+    .p1-quiz-label {
+      margin: 0 0 6px;
+      color: var(--ms-peri-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /*  Closing band: headline and a quiet line on one side, the waitlist
+        form on the other; they wrap to a stack on narrow screens. */
+    .p4-copy { flex-direction: column; gap: 0.6rem; }
+
+    .p4-note {
+      margin: 0;
+      color: var(--ms-ink-soft);
+      font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+    }
+
+    .p4-form {
+      flex: 1 1 22rem;
+      margin: 0;
+      width: 100%;
+    }
+
     .p3,
     .p4 {
       position: relative;
@@ -647,7 +684,8 @@
           clipped -- at 375px the default padding left the iframe 282px
           wide and cut "Email" down to "nail". Less padding on the page
           and on the card gets the form room to lay out. */
-      .p1-form {
+      .p1-form,
+      .p4-form {
         padding-left: 8px;
         padding-right: 8px;
       }
@@ -747,12 +785,20 @@
             height="232" />
           <h1 class="p1-line">The nursing bra that lets you do more</h1>
 
-          <!--  The waitlist form, under the headline where "Secure yours now"
-                used to be. id="join" is what the footer's "Join our
-                community" link and the old page's redirect aim at. -->
-          <div class="lp-ea-card p1-form" id="join">
-            <div class="launchlist-widget" data-key-id="WHgfM8"></div>
-            <p class="lp-form-note">You get your shareable referral link once you join.</p>
+          <!--  The Feeding Readiness quiz: the front door of the funnel.
+                Education first -- the waitlist is the last, softest ask, and
+                lives on the Tally results pages and in the closing band, not
+                here. The iframe uses data-tally-src; Tally's embed.js (loaded
+                at the end of <body>) sets the real src and resizes it to each
+                question, which is what dynamicHeight=1 asks for. The 275px
+                height is only the starting size before the first resize.
+                transparentBackground lets it sit on this card's ivory ground;
+                the "Made with Tally" badge can only be removed on Tally Pro. -->
+          <div class="lp-ea-card p1-form p1-quiz" id="quiz">
+            <p class="p1-quiz-label">Feeding readiness quiz</p>
+            <iframe data-tally-src="https://tally.so/embed/KYX19X?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
+              width="100%" height="275" frameborder="0" marginheight="0" marginwidth="0"
+              title="Feeding readiness quiz"></iframe>
           </div>
 
           <p class="p1-scroll" aria-hidden="true">
@@ -932,24 +978,28 @@
 
 
     <!--====== CLOSING BAND ======
-          The band the old signup page closed on. Its button goes back to
-          the top of this page, where the form now is. "#top" is the
-          spec's own fragment for the top of a document, so it needs no
-          element to aim at and works without JavaScript. -->
+          The waitlist, as the last and quietest thing on the page. It used
+          to lead the opening panel; the quiz leads now. id="join" stays on
+          this form because the old /coming-soon-early-access.html redirect
+          aims there, and referral links to that old URL must still reach a
+          LaunchList form with their ?ref= intact. -->
     <section class="p4 lp-band" aria-labelledby="h-band">
       <div class="lp-band-inner">
-        <div class="lp-band-copy">
+        <div class="lp-band-copy p4-copy">
           <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
+          <p class="p4-note">Join the waitlist to hear when it launches.</p>
         </div>
-        <a class="lp-btn lp-btn--lg" href="#top"><span>Secure yours now</span><span class="lp-arrow"
-            aria-hidden="true"></span></a>
+        <div class="lp-ea-card p4-form" id="join">
+          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
+          <p class="lp-form-note">You get your shareable referral link once you join.</p>
+        </div>
       </div>
     </section>
 
   </main>
 
   <footer class="cs-footer">
-    Thoughts on our design? <a href="#join">Join our community</a> or reach us at
+    Thoughts on our design? <a href="#quiz">Join our community</a> or reach us at
     <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a> We want your feedback!
   </footer>
 
@@ -1169,6 +1219,12 @@
       }
     })();
   </script>
+
+  <!--  Tally's own loader, unchanged. If embed.js is already on the page it
+        calls Tally.loadEmbeds(); otherwise it injects embed.js and, even if
+        that fails to load, falls back to copying data-tally-src into src so
+        the quiz still appears (just without dynamic height). -->
+  <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 
   <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
     src="//gc.zgo.at/count.js"></script>
