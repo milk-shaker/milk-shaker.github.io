@@ -1,0 +1,705 @@
+/*  Shared by the landing page and /coming-soon-early-access.html.
+
+    The two pages use different subsets of this: the landing page has the
+    hero and the quiz, the second page has the product zoom, the gift
+    panel and the closing band. Kept in one file rather than split and
+    duplicated, so a change to the shared parts -- the moving gradient
+    ground, the pointer relief wash, the footer -- cannot drift between
+    them. Rules a page does not use simply never match.  */
+
+:root {
+  /* pointer position for the relief wash, eased by the rAF loop */
+  --mx: 50%;
+  --my: 42%;
+  /* zoom progress for panel 2, written by the scroll listener */
+  --z: 0.58;
+  --zr: 30px;
+  --zo: 0;
+}
+
+body.lp {
+  background:
+    linear-gradient(160deg, #F8E4E7 0%, #EDE6F4 44%, #E7E8F7 70%, #FBF7F0 100%)
+    fixed;
+  /*  clip, not hidden: `overflow-x: hidden` would turn the body into
+      a scroll container and break the sticky pin in panel 2. */
+  overflow-x: clip;
+}
+
+/*  ---------------------------------------------------------------
+    THE MOVING GROUND
+    Two oversized layers of soft blooms that turn slowly in opposite
+    directions, so the blush and periwinkle drift past each other and
+    the colour under any given point is always changing. Fixed, so
+    they carry through both panels. Held still for reduced motion.
+    --------------------------------------------------------------- */
+.cs-field,
+.cs-field-b {
+  position: fixed;
+  inset: -30vmax;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cs-field {
+  background:
+    radial-gradient(34vmax 34vmax at 26% 30%, rgba(236, 133, 172, 0.72), rgba(236, 133, 172, 0) 60%),
+    radial-gradient(38vmax 38vmax at 76% 82%, rgba(224, 118, 132, 0.56), rgba(224, 118, 132, 0) 60%);
+  animation: cs-turn 42s linear infinite;
+}
+
+.cs-field-b {
+  background:
+    radial-gradient(36vmax 36vmax at 80% 24%, rgba(134, 132, 216, 0.68), rgba(134, 132, 216, 0) 62%),
+    radial-gradient(34vmax 34vmax at 18% 76%, rgba(156, 155, 214, 0.54), rgba(156, 155, 214, 0) 62%);
+  animation: cs-turn-reverse 56s linear infinite;
+}
+
+@keyframes cs-turn {
+  0%   { transform: rotate(0deg)   translate3d(-4%, -3%, 0) scale(1.08); }
+  50%  { transform: rotate(180deg) translate3d(4%, 3%, 0)   scale(1.18); }
+  100% { transform: rotate(360deg) translate3d(-4%, -3%, 0) scale(1.08); }
+}
+
+@keyframes cs-turn-reverse {
+  0%   { transform: rotate(360deg) translate3d(3%, -4%, 0)  scale(1.16); }
+  50%  { transform: rotate(180deg) translate3d(-3%, 4%, 0)  scale(1.05); }
+  100% { transform: rotate(0deg)   translate3d(3%, -4%, 0)  scale(1.16); }
+}
+
+/*  The relief wash: a soft cream pool that follows the pointer and
+    quiets the ground locally, as if the pressure were being worked
+    out of that spot. */
+.cs-relief {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    34vmax 34vmax at var(--mx) var(--my),
+    rgba(252, 248, 242, 0.88) 0%,
+    rgba(252, 248, 242, 0.62) 26%,
+    rgba(252, 248, 242, 0.28) 46%,
+    rgba(252, 248, 242, 0.08) 62%,
+    rgba(252, 248, 242, 0) 76%
+  );
+  transition: background 220ms ease-out;
+}
+
+.cs-relief::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    13vmax 13vmax at var(--mx) var(--my),
+    rgba(255, 253, 249, 0.5) 0%,
+    rgba(255, 253, 249, 0) 70%
+  );
+}
+
+/*  ---------------------------------------------------------------
+    PANEL 1
+    --------------------------------------------------------------- */
+.p1 {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  overflow: clip;
+  /*  Its own stacking context -- see .p1-video. */
+  isolation: isolate;
+}
+
+/*  Full-bleed, behind everything in the panel. Decorative, muted and
+    looping, so it carries no meaning and needs no controls. If the
+    file is missing it simply paints nothing and the moving gradient
+    behind the panel shows through, which is a perfectly good hero on
+    its own -- there is no broken state to design around. */
+.p1-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /*  No background: a 404 should fall through to the gradient. */
+  background: transparent;
+  pointer-events: none;
+  /*  Gives the loop a composited layer of its own. Added when the
+      video went blank in the preview pane once third-party iframes
+      (LaunchList, then Tally) were on the page. Later checked in real
+      headless Chrome, which painted it correctly with both iframes
+      present -- so the blank was most likely the preview pane's
+      capture, not real browsers. Kept because it is harmless and
+      cheap insurance on a page with this many composited layers. */
+  transform: translateZ(0);
+}
+
+/*  Footage is unknown and can be light or dark under the copy, so the
+    scrim is heavy where the text sits and clears toward the other
+    side. Plum on this is comfortably above 7:1 whatever is behind. */
+.p1-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgba(251, 247, 240, 0.94) 0%,
+    rgba(251, 247, 240, 0.86) 30%,
+    rgba(251, 247, 240, 0.44) 58%,
+    rgba(251, 247, 240, 0.16) 100%
+  );
+}
+
+/*  One column on the left, where the scrim is heaviest: wordmark,
+    headline, scroll cue. The right side is left to the footage. */
+.p1-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1360px;
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(32px, 5vh, 64px) clamp(24px, 5vw, 72px);
+}
+
+.p1-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/*  Panel 3 is an ordinary style.css section, but on this page two
+    fixed gradient layers sit at z-index 0 and 1 behind everything.
+    An unpositioned section paints beneath positioned ones, so without
+    this the moving gradient would draw straight over its content. */
+/*  ---------------------------------------------------------------
+    THE QUIZ  (landing page)
+    Sits under the hero, on the moving gradient rather than the video.
+    Tally's transparentBackground lets the form take this card's ivory
+    ground, so the questions read against a stable surface.
+    --------------------------------------------------------------- */
+.pq {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: clamp(48px, 9vh, 96px) clamp(16px, 5vw, 72px) clamp(56px, 10vh, 110px);
+}
+
+.pq-inner {
+  width: 100%;
+  max-width: 40rem;
+}
+
+.pq-title {
+  margin: 0 0 clamp(18px, 3vh, 30px);
+  color: var(--ms-plum);
+  font-size: clamp(1.5rem, 0.9rem + 2.4vw, 2.5rem);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.pq-card {
+  margin: 0;
+  width: 100%;
+}
+
+.pq-card iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+/*  ---------------------------------------------------------------
+    WORDMARK HEADER  (early access page)
+    That page has no hero, so it carries its own mark and a way back.
+    --------------------------------------------------------------- */
+.ea-header {
+  position: relative;
+  z-index: 2;
+  padding: clamp(18px, 3vh, 30px) clamp(20px, 5vw, 56px);
+  text-align: center;
+}
+
+.ea-header img {
+  display: inline-block;
+  width: auto;
+  height: clamp(34px, 5vw, 46px);
+}
+
+/*  Closing band: headline and a quiet line on one side, the waitlist
+    form on the other; they wrap to a stack on narrow screens. */
+.p4-copy { flex-direction: column; gap: 0.6rem; }
+
+.p4-note {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+}
+
+.p4-form {
+  flex: 1 1 22rem;
+  margin: 0;
+  width: 100%;
+}
+
+.p3,
+.p4 {
+  position: relative;
+  z-index: 2;
+}
+
+.p1-logo {
+  width: min(340px, 68%);
+  max-width: 340px;
+  height: auto;
+  display: block;
+  margin-bottom: clamp(30px, 5.5vh, 60px);
+}
+
+.p1-line {
+  margin: 0 0 clamp(28px, 4.5vh, 48px);
+  max-width: 13ch;
+  color: var(--ms-plum);
+  /*  Inherits the site's serif display face from style.css, which
+      also forces weight 400 on every h1. */
+  font-size: clamp(2.2rem, 1.2rem + 4.2vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/*  A quiet cue that there is a second panel. */
+.p1-scroll {
+  display: inline-flex;
+  text-decoration: none;
+  align-items: center;
+  gap: 10px;
+  margin: clamp(26px, 4vh, 44px) 0 0;
+  color: var(--ms-ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.p1-scroll svg {
+  width: 15px;
+  height: 15px;
+  animation: p1-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes p1-bob {
+  0%, 100% { transform: translateY(-2px); }
+  50%      { transform: translateY(3px); }
+}
+
+/*  ---------------------------------------------------------------
+    PANEL 2 — the zoom runway
+    --------------------------------------------------------------- */
+.p2 {
+  position: relative;
+  z-index: 2;
+  /*  Runway. The extra 130vh over the pin is the scroll distance the
+      zoom is spread across. */
+  height: 230vh;
+}
+
+.p2-pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: clip;
+}
+
+.p2-card {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  justify-items: center;
+  gap: clamp(4px, 0.8vh, 10px);
+  padding: clamp(10px, 1.6vh, 22px) clamp(20px, 4vw, 56px);
+  border-radius: var(--zr);
+  background:
+    radial-gradient(122% 100% at 50% 24%, #F3EDFC 0%, #E1DAF5 44%, #C7BFE6 100%);
+  box-shadow: 0 40px 90px -40px rgba(81, 79, 154, 0.5);
+  transform: scale(var(--z));
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/*  ---------------------------------------------------------------
+    THE PRODUCT STAGE
+    --------------------------------------------------------------- */
+/*  Width-driven, never height-capped: the hotspot buttons and the
+    window masks below are positioned as percentages of this box, so the
+    photograph has to fill it exactly. Capping height instead would
+    letterbox it and slide the cups out from under their buttons. The
+    vh term keeps it inside a short viewport (the shot is 1400x1225
+    cut out of the studio photo, so height is 0.875x width). */
+.stage {
+  position: relative;
+  width: min(100%, 820px, 72vh);
+  display: grid;
+  place-items: center;
+}
+
+.shot {
+  position: relative;
+  width: 100%;
+}
+
+.shot-base {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/*  The window. A pale wash masked to a feathered ellipse over one cup
+    apex, sitting between the photograph and the module. Fading it in
+    is what makes the fabric read as going sheer -- fading a second
+    copy of the photo does nothing, because the fabric underneath it
+    is identical. The two mask centres are the cup apexes measured off
+    the trimmed shot; retune them if it is ever reshot. */
+.win {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(249, 246, 255, 0.74);
+  transition: opacity 460ms ease;
+}
+
+.win--l {
+  -webkit-mask-image: radial-gradient(ellipse 17% 18% at 25% 66%, #000 44%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse 17% 18% at 25% 66%, #000 44%, rgba(0, 0, 0, 0) 100%);
+}
+
+.win--r {
+  -webkit-mask-image: radial-gradient(ellipse 17% 18% at 75% 66%, #000 44%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse 17% 18% at 75% 66%, #000 44%, rgba(0, 0, 0, 0) 100%);
+}
+
+/*  The straps get a periwinkle highlight rather than the cups' pale
+    wash. Nothing is hidden inside a strap, so fading it toward white
+    just blanks it out; tinting reads as "this bit", which is what a
+    strap callout means. */
+.win--sl,
+.win--sr { background: rgba(146, 144, 214, 0.38); }
+
+.win--sl {
+  -webkit-mask-image: radial-gradient(ellipse 8.5% 25% at 20% 19%, #000 42%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse 8.5% 25% at 20% 19%, #000 42%, rgba(0, 0, 0, 0) 100%);
+}
+
+.win--sr {
+  -webkit-mask-image: radial-gradient(ellipse 8.5% 25% at 80% 19%, #000 42%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(ellipse 8.5% 25% at 80% 19%, #000 42%, rgba(0, 0, 0, 0) 100%);
+}
+
+/*  Square art, so its height as a share of the box is width x
+    (1400/1225) = 1.143x. Centred on the same points as the windows. */
+.mod {
+  position: absolute;
+  width: 33%;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 460ms ease;
+  overflow: visible;
+}
+
+.mod--l { left: 8.5%; top: 47.1%; }
+.mod--r { left: 58.5%; top: 47.1%; }
+
+.stage.is-l .win--l,
+.stage.is-r .win--r,
+.stage.is-sl .win--sl,
+.stage.is-sr .win--sr { opacity: 1; }
+
+.stage.is-l .mod--l,
+.stage.is-r .mod--r { opacity: 1; }
+
+.pulse-a { animation: pulse-ring 3s ease-out infinite; transform-origin: center; }
+.pulse-b { animation: pulse-ring 3s ease-out infinite 1s; transform-origin: center; }
+
+@keyframes pulse-ring {
+  0%   { opacity: 0.7; transform: scale(0.72); }
+  100% { opacity: 0;   transform: scale(1.25); }
+}
+
+/*  Percentages of .stage, which is exactly the photograph, so these
+    sit over the cup centres at 25% / 75% across and 66% down — the
+    same centres the window masks use. */
+.hot {
+  position: absolute;
+  top: 51%;
+  width: 28%;
+  height: 30%;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hot--l { left: 11%; }
+.hot--r { right: 11%; }
+
+/*  The straps run x 14-26% / 74-86% from the top down to about 42%. */
+.hot--sl,
+.hot--sr {
+  top: 0;
+  width: 16%;
+  height: 44%;
+  border-radius: 40% / 18%;
+}
+
+.hot--sl { left: 12%; }
+.hot--sr { right: 12%; }
+
+.hot:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 4px;
+}
+
+/*  The callout. Sits under the product rather than beside it, so it
+    never collides with the turning model or runs off a narrow
+    screen. One box, its text swapped by script. */
+/*  Absolute inside .p2-slot, so opening it moves nothing. It used to
+    float upward above the line, which put it over the band on a short
+    viewport; now it opens downward into a slot of its own below the
+    product and cannot reach the bra at all. */
+.callout {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(56ch, 94%);
+  margin: 0;
+  padding: 14px 22px;
+  border-radius: 18px;
+  /*  A backdrop, because on a short viewport the longest copy is
+      taller than the gap under the product and will sit over the
+      band. With this it reads as an annotation card rather than as
+      text spilled onto the photograph. */
+  background: rgba(249, 246, 255, 0.9);
+  box-shadow: 0 14px 34px -18px rgba(81, 79, 154, 0.55);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  text-align: center;
+  color: var(--ms-plum);
+  /*  Was 30% up on the original 0.92-1.05rem; now 15% back off that. */
+  font-size: clamp(1.02rem, 0.88rem + 0.44vw, 1.16rem);
+  line-height: 1.45;
+  opacity: 0;
+  transform: translate(-50%, 6px);
+  transition: opacity 320ms ease, transform 320ms ease;
+}
+
+.callout.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+.callout strong {
+  display: block;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--ms-peri-dark);
+  margin-bottom: 6px;
+}
+
+/*  A reserved slot under the product for the callout to open into.
+    Held at a fixed height rather than growing, so the tile can never
+    push the bra around or -- as it did on a phone -- sit on top of
+    it. The height is measured from the longest copy at the current
+    width by the script below; this clamp is only the no-JS floor,
+    and a starting value before that measurement lands. */
+.p2-slot {
+  position: relative;
+  width: 100%;
+  min-height: clamp(150px, 26vh, 200px);
+}
+
+/*  Headline and subtitle move together, so the fade sits on the pair
+    rather than on each of them. */
+.p2-head {
+  display: grid;
+  justify-items: center;
+  gap: clamp(5px, 0.9vh, 11px);
+  /*  Fades up over the last stretch of the zoom rather than riding in
+      at full strength from the start. */
+  opacity: var(--zo);
+  transition: opacity 200ms linear;
+}
+
+.p2-line {
+  margin: 0;
+  color: var(--ms-plum);
+  font-size: clamp(1.5rem, 0.9rem + 2.6vw, 2.9rem);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/*  A step down from the line above, not a caption: it is a credentials
+    claim and wants to be read. Quicksand rather than the display
+    serif, so it reads as supporting text beside a serif headline. */
+.p2-sub {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--ms-ink-soft);
+  font-family: var(--font-family);
+  font-size: clamp(0.95rem, 0.82rem + 0.72vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.38;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/*  Between the straps, near the top of the shot. Not a hit target --
+    the buttons underneath it must stay reachable. */
+.stage-hint {
+  position: absolute;
+  /*  Low enough to clear the subtitle above it, high enough to stay in
+      the clear gap between the straps. Absolute, so moving it costs
+      the card no vertical space -- which it has none of to give. */
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  margin: 0;
+  max-width: 44%;
+  text-align: center;
+  text-wrap: balance;
+  pointer-events: none;
+  color: var(--ms-ink-soft);
+  font-size: clamp(0.86rem, 0.74rem + 0.42vw, 1.05rem);
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  transition: opacity 320ms ease;
+}
+
+/*  Gone the moment a feature is open. */
+.stage.is-l .stage-hint,
+.stage.is-r .stage-hint,
+.stage.is-sl .stage-hint,
+.stage.is-sr .stage-hint { opacity: 0; }
+
+/*  ---------------------------------------------------------------
+    FOOTER
+    --------------------------------------------------------------- */
+.cs-footer {
+  position: relative;
+  z-index: 2;
+  padding: 26px 24px 34px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--ms-ink-soft);
+}
+
+.cs-footer a {
+  color: var(--ms-plum);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(97, 47, 72, 0.3);
+}
+
+.cs-footer a:hover { border-bottom-color: rgba(97, 47, 72, 0.7); }
+
+/*  ---------------------------------------------------------------
+    NARROW
+    --------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .p1-inner {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  /*  LaunchList's form has a minimum width it will not shrink below,
+      and its iframe is scrolling="no", so anything narrower is simply
+      clipped -- 282px cut "Email" down to "nail". Less padding on the
+      card gets it room to lay out. */
+  .p4-form {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /*  Same reason for the quiz: Tally's form has its own minimum width,
+      and at the default padding it was down to 277px on a 375px screen.
+      Trim the section and the card so it has room. */
+  .pq {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .pq-card {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .p1-copy { align-items: center; text-align: center; }
+  .p1-logo { width: min(300px, 74vw); margin-inline: auto; }
+  .p1-line { max-width: 16ch; }
+  /*  Copy is centred at this width, so an angled scrim would leave
+      one edge of it unreadable. Even wash instead. */
+  .p1-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(251, 247, 240, 0.9) 0%,
+      rgba(251, 247, 240, 0.82) 55%,
+      rgba(251, 247, 240, 0.62) 100%
+    );
+  }
+  .p2 { height: 200vh; }
+
+  /*  A quarter off the product here, and pushed down off the header,
+      so the headline, subtitle and the callout tile all have room on
+      a phone. The hit targets and window masks are percentages of
+      this box, so they scale with it and need no adjustment. */
+  .stage {
+    width: min(75%, 820px, 72vh);
+    margin-top: clamp(12px, 3.5vh, 40px);
+  }
+
+  /*  Bigger touch targets, but scoped to the cups. Written as .hot it
+      also caught .hot--sl / .hot--sr -- same specificity, later in the
+      sheet -- which dragged the strap buttons down onto the cups. They
+      then sat over them, being later in the DOM, and swallowed every
+      tap meant for a breast. */
+  .hot--l,
+  .hot--r { width: 32%; height: 32%; top: 50%; }
+
+  .hot--l { left: 9%; }
+  .hot--r { right: 9%; }
+
+  .hot--sl,
+  .hot--sr { top: 0; width: 20%; height: 44%; }
+
+  .hot--sl { left: 10%; }
+  .hot--sr { right: 10%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-field,
+  .cs-field-b,
+  .pulse-a,
+  .pulse-b,
+  .p1-scroll svg { animation: none; }
+  .cs-relief { transition: none; }
+  /*  No zoom: the runway collapses and the panel is simply open. */
+  .p2 { height: auto; }
+  .p2-pin { position: static; height: auto; min-height: 100svh; }
+  .p2-card { transform: none; border-radius: 0; }
+  .p2-head { opacity: 1; }
+}

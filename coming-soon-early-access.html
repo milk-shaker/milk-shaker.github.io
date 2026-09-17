@@ -4,85 +4,272 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="The MilkShaker bra: massaging modules inside the cups, for on-demand mastitis and breastfeeding pain relief. Join the waitlist." />
 
-  <!--======================================================================
-       REDIRECT STUB -- not a real page.
-
-       This was the waitlist signup page. The form now lives on the landing
-       page itself, but this URL has already been shared, so it forwards
-       there rather than 404ing.
-
-       GitHub Pages cannot send a server-side 301, so this is client-side:
-       the script moves real visitors, the meta refresh covers anyone with
-       JavaScript off, and the visible link is the last resort.
-
-       The query string is carried across on purpose. Referral links point
-       at URLs like this one with ?ref=CODE on the end, and dropping it on
-       the way through would lose the referrer their credit. ref.js is
-       loaded first for the same reason -- it stores the code for two days
-       even if the redirect itself somehow loses it. The meta refresh
-       cannot carry the query; it is only the no-JS fallback.
-
-       The og tags describe the landing page, because link previews are
-       built from this URL by scrapers that never run the redirect.
-  =======================================================================-->
+  <!--  Still noindex, as it was: the landing page is the one indexable
+        page while the site is pre-launch. Remove this tag to list it. -->
   <meta name="robots" content="noindex, follow" />
-  <link rel="canonical" href="https://themilkshaker.com/" />
+  <link rel="canonical" href="https://themilkshaker.com/coming-soon-early-access.html" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="MilkShaker" />
-  <meta property="og:url" content="https://themilkshaker.com/" />
-  <meta property="og:title" content="MilkShaker | The nursing bra that lets you do more" />
+  <meta property="og:url" content="https://themilkshaker.com/coming-soon-early-access.html" />
+  <meta property="og:title" content="The MilkShaker bra | Early access" />
   <meta property="og:description"
-    content="Stop worrying about the never-ending duct blockages, inflammation, and breast pain with our therapeutic nursing bra that gives mom her hands and time back." />
-  <meta property="og:image" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=3" />
-  <meta property="og:image:secure_url" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=3" />
+    content="Massaging modules inside the cups, for on-demand mastitis and breastfeeding pain relief. Join the waitlist." />
+  <meta property="og:image" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=4" />
+  <meta property="og:image:secure_url" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=4" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <meta http-equiv="refresh" content="0; url=/#join" />
+  <title>The MilkShaker bra | Early access</title>
 
-  <title>Redirecting&hellip; | MilkShaker</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/droplet.svg?v=3" />
   <link rel="icon" href="/favicon.ico?v=3" />
+  <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
+  <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
+  <meta name="theme-color" content="#F3E9F1" />
 
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/assets/css/panels.css" />
+
+  <!--======================================================================
+       EARLY ACCESS — the product, the gift panel and the waitlist.
+
+       These three panels used to sit under the landing page's hero. The
+       landing page is the quiz now, so they live here.
+
+       PANEL 2, the zoom: a runway taller than the viewport, a sticky pin
+       inside it at exactly viewport height, and a card inside that which
+       scales from 0.58 to 1 and loses its corner radius as you scroll, so
+       the product appears to zoom up into the full screen. Hovering or
+       tapping either cup or strap opens a callout.
+
+       The waitlist keeps id="join": referral links pointing at this URL
+       with ?ref= on the end have been shared, and they have to land on a
+       LaunchList form with the code intact. ref.js restores it to the URL
+       before widget.js builds the form's iframe, which is why the two are
+       in this order.
+  =======================================================================-->
   <script src="/assets/js/ref.js"></script>
-  <script>
-    /*  replace(), not assign(), so this stub stays out of the back button
-        and does not bounce the visitor straight back here. Lands on the
-        form, since that is what this URL used to be. */
-    window.location.replace('/' + window.location.search + '#join');
-  </script>
-
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #F8F5FA;
-      color: #612F48;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      text-align: center;
-      padding: 24px;
-    }
-
-    a {
-      color: #612F48;
-      font-weight: 700;
-    }
-  </style>
+  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
 </head>
 
-<body>
-  <p>
-    Taking you to MilkShaker&hellip;<br />
-    <a href="/#join">Continue to themilkshaker.com</a>
-  </p>
+<body class="lp">
+
+  <div class="cs-field" aria-hidden="true"></div>
+  <div class="cs-field-b" aria-hidden="true"></div>
+  <div class="cs-relief" id="csRelief" aria-hidden="true"></div>
+
+  <header class="ea-header">
+    <a href="/" aria-label="MilkShaker home">
+      <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
+    </a>
+  </header>
+
+  <main>
+
+    <!--====== PANEL 2 — zooms up into the full screen ======-->
+    <section class="p2" id="p2">
+      <div class="p2-pin">
+        <div class="p2-card" id="p2Card">
+
+          <div class="p2-head">
+            <p class="p2-line">On-demand mastitis and breastfeeding pain relief</p>
+            <p class="p2-sub">Brought to you by lactation experts, women&rsquo;s health
+              physicians, and female engineers</p>
+          </div>
+
+          <div class="stage" id="stage">
+
+            <!--  Sits in the gap between the straps, which is clear from
+                  the top of the shot down to about 40%. Goes when any
+                  feature is open. -->
+            <p class="stage-hint" id="p2Hint">Hover around the MilkShaker bra to see features</p>
+
+            <!--  ============ THE PRODUCT ============
+                  The real product photograph, with a soft-edged window
+                  over each cup.
+
+                  How the reveal works: the photograph is drawn once and
+                  is always opaque. Over each cup sits a pale wash masked
+                  to a feathered ellipse, at opacity 0, and over that the
+                  massaging module, also at 0. Opening a cup fades both
+                  in, so the fabric goes sheer in a soft pool and the
+                  module shows through it.
+
+                  The wash is what sells it. An earlier version faded in a
+                  second, masked copy of the photograph instead, which did
+                  nothing at all: the fabric underneath that copy is the
+                  same fabric, so there was nothing to see through to and
+                  the module read as a sticker on the cup.
+
+                  Nothing is cut out of the photograph, so a reshoot only
+                  means moving the two mask centres in .win--l / .win--r
+                  and the matching .mod offsets.
+
+                  The ?v= on the src is not decoration. This file has been
+                  replaced twice under the same name, and both a browser
+                  and the Pages CDN will keep serving the bytes they
+                  already have. Bump it whenever the file changes.
+                  ====================================== -->
+            <div class="shot">
+              <img class="shot-base" src="/assets/images/bra-front.webp?v=2"
+                alt="The MilkShaker bra, front view" width="1400" height="1225" />
+
+              <div class="win win--l" aria-hidden="true"></div>
+              <div class="win win--r" aria-hidden="true"></div>
+              <div class="win win--sl" aria-hidden="true"></div>
+              <div class="win win--sr" aria-hidden="true"></div>
+              <svg class="mod mod--l" viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <radialGradient id="modface-l" cx="36%" cy="30%" r="74%">
+                    <stop offset="0%" stop-color="#C3C2EA" />
+                    <stop offset="58%" stop-color="#7472BE" />
+                    <stop offset="100%" stop-color="#4B4992" />
+                  </radialGradient>
+                </defs>
+                <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
+                <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                  stroke-width="1.8" />
+                <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                  stroke-width="1.8" />
+                <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
+                  opacity="0.5" />
+                <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
+                  opacity="0.78" />
+                <circle cx="60" cy="60" r="20" fill="url(#modface-l)" />
+                <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
+              </svg>
+              <svg class="mod mod--r" viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <radialGradient id="modface-r" cx="36%" cy="30%" r="74%">
+                    <stop offset="0%" stop-color="#C3C2EA" />
+                    <stop offset="58%" stop-color="#7472BE" />
+                    <stop offset="100%" stop-color="#4B4992" />
+                  </radialGradient>
+                </defs>
+                <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
+                <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                  stroke-width="1.8" />
+                <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
+                  stroke-width="1.8" />
+                <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
+                  opacity="0.5" />
+                <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
+                  opacity="0.78" />
+                <circle cx="60" cy="60" r="20" fill="url(#modface-r)" />
+                <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
+              </svg>
+
+            </div>
+
+            <button class="hot hot--l" type="button" data-side="l" aria-describedby="callout">
+              <span class="lp-sr">Show the massaging insert in the left cup</span>
+            </button>
+            <button class="hot hot--r" type="button" data-side="r" aria-describedby="callout">
+              <span class="lp-sr">Show the massaging insert in the right cup</span>
+            </button>
+            <button class="hot hot--sl" type="button" data-side="sl" aria-describedby="callout">
+              <span class="lp-sr">About the left shoulder strap</span>
+            </button>
+            <button class="hot hot--sr" type="button" data-side="sr" aria-describedby="callout">
+              <span class="lp-sr">About the right shoulder strap</span>
+            </button>
+          </div>
+
+          <div class="p2-slot">
+            <p class="callout" id="callout" aria-live="polite"></p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!--====== PANEL 3 — the referral offer ======
+          Moved here from the old /coming-soon-early-access.html, which is
+          now a redirect to this page. -->
+    <section class="p3 lp-section lp-section--blush" aria-labelledby="h-kit">
+      <div class="lp-wrap">
+        <div class="lp-intro--center">
+          <h2 class="lp-title" id="h-kit">Refer, and get a chance at a free postpartum care package!</h2>
+          <p class="lp-lede">
+            <strong>Share with a mom in need or your mom friend group!</strong>
+          </p>
+          <p class="lp-lede">
+            The top 30 people with the most referrals joined at the end 
+            of this limited time offer period will receive a welcome postpartum care package (valued at $200). The below four products are 
+            just a few gifts that are included.
+          </p>
+        </div>
+        <ul class="lp-kit lp-kit--grid">
+          <li>
+            <figure>
+              <img src="/assets/images/kit/nipplebutter.webp" alt="Organic nipple balm" width="1080" height="1080" loading="lazy" />
+              <figcaption><span>Earth Mama Organic Nipple Butter</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="/assets/images/kit/milkcollector.webp" alt="Silicone milk collector" width="813" height="1219" loading="lazy" />
+              <figcaption><span>Tiny Tot Innovations silicone milk collector</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="/assets/images/kit/therapypad.webp" alt="Hot + cold therapy pads" width="813" height="1219" loading="lazy" />
+              <figcaption><span>Le Lolo hot + cold breast therapy pads</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="/assets/images/kit/nippleshield.webp" alt="Nipple shields" width="812" height="1219" loading="lazy" />
+              <figcaption><span>Le Lolo nipple shields, three sizes</span></figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!--====== CLOSING BAND ======
+          The waitlist, as the last and quietest thing on the page. It used
+          to lead the opening panel; the quiz leads now. id="join" stays on
+          this form because the old /coming-soon-early-access.html redirect
+          aims there, and referral links to that old URL must still reach a
+          LaunchList form with their ?ref= intact. -->
+    <section class="p4 lp-band" aria-labelledby="h-band">
+      <div class="lp-band-inner">
+        <div class="lp-band-copy p4-copy">
+          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
+          <p class="p4-note">Join the waitlist to hear when it launches.</p>
+        </div>
+        <div class="lp-ea-card p4-form" id="join">
+          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
+          <p class="lp-form-note">You get your shareable referral link once you join.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="cs-footer">
+    <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">Join our subreddit
+      community</a>, <a href="/#quiz">assess your readiness</a>, or reach us at
+    <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a> We want your feedback!
+  </footer>
+
+  <script src="/assets/js/panels.js" defer></script>
+
+  <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
+    src="//gc.zgo.at/count.js"></script>
+
 </body>
 
 </html>
