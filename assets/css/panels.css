@@ -183,13 +183,17 @@ body.lp {
     ground, so the questions read against a stable surface.
     --------------------------------------------------------------- */
 .pq {
+  /*  Medallion diameter. Set here rather than on the medallion so the
+      top padding below can be derived from it. */
+  --peek: clamp(192px, 18vw, 264px);
   position: relative;
   z-index: 2;
   display: grid;
   place-items: center;
-  /*  Extra room at the top for the medallion, which hangs half into
-      this section from the seam above. */
-  padding: clamp(190px, 26vh, 240px) clamp(16px, 5vw, 72px) clamp(56px, 10vh, 110px);
+  /*  Only the medallion's lower half hangs into this section -- its
+      caption sits beside it, not under it -- so the padding is that half
+      plus a little air, and the gap between the panels stays small. */
+  padding: calc(var(--peek) / 2 + clamp(24px, 4vh, 44px)) clamp(16px, 5vw, 72px) clamp(56px, 10vh, 110px);
 }
 
 /*  Heading on the left, quiz on the right. The quiz column is the wider
@@ -232,18 +236,19 @@ body.lp {
 /*  The medallion: a circle holding the product shot, centred on the
     seam between hero and quiz, with a line of text under it. */
 .pq-peek {
-  --peek: clamp(128px, 12vw, 176px);
   position: absolute;
   top: calc(var(--peek) / -2);
-  right: clamp(20px, 6vw, 96px);
+  right: clamp(14px, 6vw, 96px);
   z-index: 3;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: clamp(170px, 16vw, 230px);
+  /*  Caption to the left of the circle, and top-aligned: centring would
+      let the caption's margin pull the circle down off the seam. */
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: calc(100% - 28px);
   color: var(--ms-plum);
-  text-align: center;
+  text-align: right;
   text-decoration: none;
 }
 
@@ -265,12 +270,14 @@ body.lp {
   height: auto;
 }
 
+/*  Just below the seam, beside the circle's lower half, so it reads
+    against the quiz section's light ground rather than the footage. */
 .pq-peek-text {
-  font-size: clamp(0.84rem, 0.78rem + 0.2vw, 0.95rem);
+  max-width: 15ch;
+  margin-top: calc(var(--peek) / 2 + 14px);
+  font-size: clamp(0.9rem, 0.8rem + 0.3vw, 1.05rem);
   font-weight: 600;
   line-height: 1.35;
-  border-bottom: 1px solid rgba(97, 47, 72, 0.25);
-  padding-bottom: 2px;
 }
 
 .pq-peek:hover .pq-peek-circle,
@@ -723,7 +730,6 @@ body.lp {
   .pq {
     padding-left: 14px;
     padding-right: 14px;
-    padding-top: 150px;
   }
 
   .pq-inner { grid-template-columns: 1fr; gap: 18px; }
@@ -735,23 +741,9 @@ body.lp {
     text-align: center;
   }
 
-  /*  Smaller, and the text beside the circle rather than under it, so
-      the whole thing stays within the section's top padding instead of
-      running down over the heading. */
-  .pq-peek {
-    --peek: 104px;
-    right: 14px;
-    flex-direction: row-reverse;
-    /*  Top, not centre: the caption's margin makes this row taller, and
-        centring would pull the circle down off the seam. */
-    align-items: flex-start;
-    width: auto;
-    max-width: calc(100% - 28px);
-    gap: 12px;
-    text-align: right;
-  }
+  .pq { --peek: 156px; }
 
-  .pq-peek-text { max-width: 19ch; margin-top: calc(var(--peek) / 2); }
+  .pq-peek { gap: 12px; }
 
   .pq-card {
     padding-left: 8px;
