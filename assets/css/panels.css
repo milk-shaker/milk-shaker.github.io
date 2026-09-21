@@ -187,26 +187,31 @@ body.lp {
   z-index: 2;
   display: grid;
   place-items: center;
-  padding: clamp(48px, 9vh, 96px) clamp(16px, 5vw, 72px) clamp(56px, 10vh, 110px);
+  /*  Extra room at the top for the medallion, which hangs half into
+      this section from the seam above. */
+  padding: clamp(190px, 26vh, 240px) clamp(16px, 5vw, 72px) clamp(56px, 10vh, 110px);
 }
 
+/*  Heading on the left, quiz on the right. The quiz column is the wider
+    one: it is the thing people came down here for. */
 .pq-inner {
   width: 100%;
-  /*  Wider than the reading measure on purpose: the quiz is the thing
-      people came for, so on a desktop it should not look like a footnote
-      under the hero. Tally lays its questions out to whatever width it is
-      given. */
-  max-width: 54rem;
+  max-width: 76rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.5fr);
+  align-items: start;
+  gap: clamp(28px, 4vw, 64px);
 }
 
 .pq-title {
-  margin: 0 auto clamp(18px, 3vh, 30px);
-  max-width: 24ch;
+  margin: 0;
+  max-width: 16ch;
+  padding-top: clamp(8px, 2vh, 24px);
   color: var(--ms-plum);
-  font-size: clamp(1.5rem, 0.9rem + 2.4vw, 2.5rem);
-  line-height: 1.16;
+  font-size: clamp(1.7rem, 0.9rem + 2.4vw, 2.9rem);
+  line-height: 1.14;
   letter-spacing: -0.015em;
-  text-align: center;
+  text-align: left;
   text-wrap: balance;
 }
 
@@ -214,7 +219,7 @@ body.lp {
   margin: 0;
   width: 100%;
   /*  style.css caps this card class at 34rem for its original use in a
-      narrow column. Here the section sets the width. */
+      narrow column. Here the grid sets the width. */
   max-width: none;
 }
 
@@ -222,6 +227,62 @@ body.lp {
   display: block;
   width: 100%;
   border: 0;
+}
+
+/*  The medallion: a circle holding the product shot, centred on the
+    seam between hero and quiz, with a line of text under it. */
+.pq-peek {
+  --peek: clamp(128px, 12vw, 176px);
+  position: absolute;
+  top: calc(var(--peek) / -2);
+  right: clamp(20px, 6vw, 96px);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: clamp(170px, 16vw, 230px);
+  color: var(--ms-plum);
+  text-align: center;
+  text-decoration: none;
+}
+
+.pq-peek-circle {
+  display: grid;
+  place-items: center;
+  width: var(--peek);
+  height: var(--peek);
+  border-radius: 50%;
+  border: 1px solid var(--ms-clay-deep);
+  background:
+    radial-gradient(circle at 50% 38%, #FFFFFF 0%, var(--ms-ivory) 62%, #EFE7F3 100%);
+  box-shadow: 0 18px 40px -20px rgba(97, 47, 72, 0.5);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.pq-peek-circle img {
+  width: 76%;
+  height: auto;
+}
+
+.pq-peek-text {
+  font-size: clamp(0.84rem, 0.78rem + 0.2vw, 0.95rem);
+  font-weight: 600;
+  line-height: 1.35;
+  border-bottom: 1px solid rgba(97, 47, 72, 0.25);
+  padding-bottom: 2px;
+}
+
+.pq-peek:hover .pq-peek-circle,
+.pq-peek:focus-visible .pq-peek-circle {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 46px -20px rgba(97, 47, 72, 0.6);
+}
+
+.pq-peek:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 6px;
+  border-radius: 12px;
 }
 
 /*  ---------------------------------------------------------------
@@ -662,7 +723,35 @@ body.lp {
   .pq {
     padding-left: 14px;
     padding-right: 14px;
+    padding-top: 150px;
   }
+
+  .pq-inner { grid-template-columns: 1fr; gap: 18px; }
+
+  .pq-title {
+    max-width: 18ch;
+    margin: 0 auto;
+    padding-top: 0;
+    text-align: center;
+  }
+
+  /*  Smaller, and the text beside the circle rather than under it, so
+      the whole thing stays within the section's top padding instead of
+      running down over the heading. */
+  .pq-peek {
+    --peek: 104px;
+    right: 14px;
+    flex-direction: row-reverse;
+    /*  Top, not centre: the caption's margin makes this row taller, and
+        centring would pull the circle down off the seam. */
+    align-items: flex-start;
+    width: auto;
+    max-width: calc(100% - 28px);
+    gap: 12px;
+    text-align: right;
+  }
+
+  .pq-peek-text { max-width: 19ch; margin-top: calc(var(--peek) / 2); }
 
   .pq-card {
     padding-left: 8px;
