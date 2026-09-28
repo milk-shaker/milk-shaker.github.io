@@ -106,15 +106,19 @@
           <!--  Two ways on: the quiz, which is the funnel, and the waitlist
                 for anyone who already knows they want it. The scroll cue
                 that used to sit here said neither. -->
-          <div class="p1-cta">
-            <a class="lp-btn" href="#quiz"><span>Take the 2-minute quiz</span><span class="lp-arrow"
-                aria-hidden="true"></span></a>
-            <a class="lp-btn lp-btn--ghost" href="/coming-soon-early-access.html#join"><span>Join the
-                waitlist</span></a>
+          <!--  The wrapper is only as wide as the two buttons, so the credit
+                line below wraps to exactly their width instead of needing a
+                hand-tuned max-width that breaks at the next font change. -->
+          <div class="p1-act">
+            <div class="p1-cta">
+              <a class="lp-btn lp-btn--ghost" href="/coming-soon-early-access.html#join"><span>Join the
+                  waitlist</span></a>
+              <a class="lp-btn" href="#quiz"><span>Take the 2-minute quiz</span><span class="lp-arrow"
+                  aria-hidden="true"></span></a>
+            </div>
+            <p class="p1-credit">Built with lactation consultants, women&rsquo;s health physicians and female
+              engineers</p>
           </div>
-
-          <p class="p1-credit">Built with lactation consultants, women&rsquo;s health physicians and female
-            engineers</p>
         </div>
       </div>
 
@@ -154,17 +158,26 @@
 
   </main>
 
+  <!--  One footer, same shape on every page: the two sideways links and
+        the community line on the left, the email as a button on the
+        right. Only the first link differs per page. -->
   <footer class="cs-footer">
-    <p class="cs-footer-lead">
-      <a href="/coming-soon-early-access.html">See product details</a>
-      <span class="cs-footer-sep" aria-hidden="true">&middot;</span>
-      <a href="/partners.html">For clinics and educators</a>
-    </p>
-    <p class="cs-footer-line">
-      <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">Join our subreddit
-        community</a> to support and learn from other parents and reach us at
-      <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a> with any questions. We want your feedback!
-    </p>
+    <div class="cs-footer-inner">
+      <div class="cs-footer-copy">
+        <p class="cs-footer-lead">
+          <a href="/coming-soon-early-access.html">Product details</a>
+          <span class="cs-footer-sep" aria-hidden="true">&middot;</span>
+          <a href="/partners.html">Partner with us</a>
+        </p>
+        <p class="cs-footer-line">
+          <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">Join our
+            subreddit community</a> to support and learn from other parents!
+        </p>
+      </div>
+      <p class="cs-footer-cta">
+        <a class="lp-btn" href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
+      </p>
+    </div>
   </footer>
 
   <script src="/assets/js/panels.js" defer></script>

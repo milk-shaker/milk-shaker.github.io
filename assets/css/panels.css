@@ -363,6 +363,10 @@ body.lp {
   line-height: 1.45;
 }
 
+/*  Only as wide as the button row, so .p1-credit below wraps to the
+    buttons' own width at any font size. */
+.p1-act { width: fit-content; }
+
 .p1-cta {
   display: flex;
   flex-wrap: wrap;
@@ -377,7 +381,7 @@ body.lp {
 
 .p1-credit {
   margin: clamp(18px, 2.6vh, 28px) 0 0;
-  max-width: 34ch;
+  max-width: 100%;
   color: var(--ms-ink-soft);
   font-size: clamp(0.82rem, 0.78rem + 0.15vw, 0.92rem);
   font-weight: 600;
@@ -712,7 +716,6 @@ body.lp {
   position: relative;
   z-index: 2;
   padding: 26px 24px 34px;
-  text-align: center;
   font-size: 0.95rem;
   color: var(--ms-ink-soft);
 }
@@ -726,9 +729,36 @@ body.lp {
 
 .cs-footer a:hover { border-bottom-color: rgba(97, 47, 72, 0.7); }
 
+/*  Same shape on every page: the copy block centred on the left, the
+    email button on the right, stacking below the narrow breakpoint. */
+.cs-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 32px;
+  max-width: var(--lp-wrap);
+  margin: 0 auto;
+  padding: 0 var(--lp-gutter);
+}
+
+.cs-footer-copy {
+  flex: 1 1 26rem;
+  text-align: center;
+}
+
 .cs-footer p {
   margin: 0 auto;
   max-width: 52ch;
+}
+
+.cs-footer-cta { margin: 0; }
+
+/*  The button is not one of the footer's underlined text links. */
+.cs-footer-cta .lp-btn {
+  border-bottom: 0;
+  color: var(--white);
+  font-weight: 700;
 }
 
 .cs-footer-lead {
@@ -739,6 +769,11 @@ body.lp {
 .cs-footer-lead a { font-weight: 700; }
 
 .cs-footer-sep { margin: 0 0.6em; opacity: 0.5; }
+
+@media (max-width: 900px) {
+  .cs-footer-inner { flex-direction: column; }
+  .cs-footer-cta .lp-btn { font-size: 0.95rem; }
+}
 
 /*  ---------------------------------------------------------------
     NARROW
@@ -785,6 +820,7 @@ body.lp {
   }
   .p1-copy { align-items: center; text-align: center; }
   .p1-sub { max-width: 30ch; margin-inline: auto; }
+  .p1-act { width: 100%; }
   .p1-cta { justify-content: center; }
   .p1-cta .lp-btn { padding-inline: 1.5rem; }
   .p1-credit { max-width: 32ch; margin-inline: auto; }
@@ -885,10 +921,20 @@ body.lp {
 
 .pt-cta--band { margin: 0; }
 
+/*  Transparent on purpose: the page's ground is the moving gradient
+    field behind everything, not a stack of alternating panels. */
 .pt-block {
   position: relative;
   z-index: 2;
+  background: transparent;
+  /*  Tighter than lp-section's own padding: with no panel colours to
+      separate them, the sections need less air, not more. */
+  padding: clamp(2rem, 5vw, 3.75rem) 0;
 }
+
+.pt-backed { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+
+.pt-backed .lp-title { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); }
 
 /*  Three cards, then one column below the shared narrow breakpoint. */
 .pt-grid {
