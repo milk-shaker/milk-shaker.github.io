@@ -340,7 +340,7 @@ body.lp {
 }
 
 .p1-line {
-  margin: 0 0 clamp(28px, 4.5vh, 48px);
+  margin: 0 0 clamp(14px, 2.2vh, 22px);
   max-width: 13ch;
   color: var(--ms-plum);
   /*  Inherits the site's serif display face from style.css, which
@@ -352,6 +352,38 @@ body.lp {
 }
 
 /*  A quiet cue that there is a second panel. */
+/*  The one line that says what this actually is. Wider than the
+    headline on purpose: it is read, not scanned. */
+.p1-sub {
+  margin: 0 0 clamp(20px, 3.2vh, 34px);
+  max-width: 32ch;
+  color: var(--ms-plum);
+  font-size: clamp(1.02rem, 0.92rem + 0.5vw, 1.32rem);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.p1-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 14px;
+}
+
+/*  The ghost button sits on footage, so it needs its own opaque-ish
+    ground; the shared rule assumes a solid panel behind it. */
+.p1-cta .lp-btn--ghost {
+  background: rgba(251, 247, 240, 0.72);
+}
+
+.p1-credit {
+  margin: clamp(18px, 2.6vh, 28px) 0 0;
+  max-width: 34ch;
+  color: var(--ms-ink-soft);
+  font-size: clamp(0.82rem, 0.78rem + 0.15vw, 0.92rem);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
 .p1-scroll {
   display: inline-flex;
   text-decoration: none;
@@ -706,6 +738,8 @@ body.lp {
 
 .cs-footer-lead a { font-weight: 700; }
 
+.cs-footer-sep { margin: 0 0.6em; opacity: 0.5; }
+
 /*  ---------------------------------------------------------------
     NARROW
     --------------------------------------------------------------- */
@@ -750,6 +784,10 @@ body.lp {
     padding-right: 8px;
   }
   .p1-copy { align-items: center; text-align: center; }
+  .p1-sub { max-width: 30ch; margin-inline: auto; }
+  .p1-cta { justify-content: center; }
+  .p1-cta .lp-btn { padding-inline: 1.5rem; }
+  .p1-credit { max-width: 32ch; margin-inline: auto; }
   .p1-logo { width: min(300px, 74vw); margin-inline: auto; }
   .p1-line { max-width: 16ch; }
   /*  Copy is centred at this width, so an angled scrim would leave
@@ -803,4 +841,121 @@ body.lp {
   .p2-pin { position: static; height: auto; min-height: 100svh; }
   .p2-card { transform: none; border-radius: 0; }
   .p2-head { opacity: 1; }
+}
+
+/*  ---------------------------------------------------------------
+    PARTNERS PAGE
+    Institution-facing, so it is plainer than the rest of the site:
+    no video, no zoom, no animation beyond the shared logo strip.
+    Everything else here reuses the lp-* section furniture.
+    --------------------------------------------------------------- */
+.pt-hero {
+  position: relative;
+  z-index: 2;
+  padding: clamp(40px, 7vh, 88px) 0 clamp(36px, 6vh, 72px);
+}
+
+.pt-eyebrow {
+  margin: 0 0 0.9rem;
+  color: var(--ms-ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pt-title {
+  margin: 0 0 clamp(16px, 2.4vh, 26px);
+  max-width: 18ch;
+  color: var(--ms-plum);
+  font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+.pt-lede {
+  margin: 0 0 1.1rem;
+  max-width: 58ch;
+  color: var(--ms-ink-soft);
+  font-size: clamp(1.02rem, 0.95rem + 0.4vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.pt-cta { margin: clamp(20px, 3vh, 34px) 0 0; }
+
+.pt-cta--band { margin: 0; }
+
+.pt-block {
+  position: relative;
+  z-index: 2;
+}
+
+/*  Three cards, then one column below the shared narrow breakpoint. */
+.pt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: clamp(16px, 2.4vw, 26px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pt-card {
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: 18px;
+  background: var(--ms-ivory);
+  box-shadow: 0 18px 40px -28px rgba(97, 47, 72, 0.45);
+}
+
+.pt-card h3 {
+  margin: 0 0 0.7rem;
+  color: var(--ms-plum);
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
+  line-height: 1.25;
+}
+
+.pt-card p {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/*  The timeline. A list, not a graphic: it has to stay readable in a
+    forwarded screenshot and to be edited when a date moves. */
+.pt-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: clamp(16px, 2.4vw, 26px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.pt-steps li {
+  padding-top: 14px;
+  border-top: 2px solid var(--ms-clay-deep);
+}
+
+.pt-when {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--ms-plum);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.pt-steps p {
+  margin: 0;
+  color: var(--ms-ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .pt-title { max-width: 20ch; }
+  .pt-cta .lp-btn { width: 100%; }
 }
