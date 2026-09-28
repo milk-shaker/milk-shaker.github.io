@@ -373,15 +373,24 @@ body.lp {
   gap: 12px 14px;
 }
 
-/*  The ghost button sits on footage, so it needs its own opaque-ish
-    ground; the shared rule assumes a solid panel behind it. */
+/*  Solid, not translucent: over footage the shared ghost hover (plum
+    fill, ivory text) read as the label disappearing. */
 .p1-cta .lp-btn--ghost {
-  background: rgba(251, 247, 240, 0.72);
+  background: var(--ms-ivory);
+  border-color: var(--ms-plum);
+  color: var(--ms-plum);
 }
 
+.p1-cta .lp-btn--ghost:hover {
+  background: var(--ms-blush);
+  color: var(--ms-plum);
+}
+
+/*  Centred under the button row, whose width the wrapper carries. */
 .p1-credit {
   margin: clamp(18px, 2.6vh, 28px) 0 0;
   max-width: 100%;
+  text-align: center;
   color: var(--ms-ink-soft);
   font-size: clamp(0.82rem, 0.78rem + 0.15vw, 0.92rem);
   font-weight: 600;
@@ -888,7 +897,32 @@ body.lp {
 .pt-hero {
   position: relative;
   z-index: 2;
-  padding: clamp(40px, 7vh, 88px) 0 clamp(36px, 6vh, 72px);
+  overflow: hidden;
+  padding: clamp(40px, 7vh, 88px) 0 clamp(52px, 8vh, 96px);
+}
+
+/*  The photograph sits to the right, where the frame is emptiest, with
+    a wash across it that goes opaque under the copy on the left. */
+.pt-hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(
+      100deg,
+      var(--ms-ivory) 0%,
+      var(--ms-ivory) 40%,
+      rgba(248, 245, 250, 0.88) 58%,
+      rgba(248, 245, 250, 0.5) 78%,
+      rgba(248, 245, 250, 0.22) 100%
+    ),
+    url("/assets/images/cover_photo.jpg") center right / cover no-repeat;
+}
+
+/*  Above the photo layer. */
+.pt-hero > .lp-wrap {
+  position: relative;
+  z-index: 1;
 }
 
 .pt-eyebrow {
@@ -1002,6 +1036,19 @@ body.lp {
 }
 
 @media (max-width: 900px) {
+  /*  No room beside the copy at this width, so the photo goes to an
+      even wash behind all of it. */
+  .pt-hero-photo {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(248, 245, 250, 0.9) 0%,
+        rgba(248, 245, 250, 0.86) 60%,
+        rgba(248, 245, 250, 0.92) 100%
+      ),
+      url("/assets/images/cover_photo.jpg") center / cover no-repeat;
+  }
+
   .pt-title { max-width: 20ch; }
   .pt-cta .lp-btn { width: 100%; }
 }
