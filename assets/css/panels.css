@@ -916,7 +916,11 @@ body.lp {
       rgba(248, 245, 250, 0.5) 78%,
       rgba(248, 245, 250, 0.22) 100%
     ),
-    url("/assets/images/cover_photo.jpg") center right / cover no-repeat;
+    /*  Sized to the panel's height, not cropped to fill its width: at
+        cover the frame cut the top off and the baby went with it. The
+        photo now sits whole against the right edge, and the wash above
+        carries the empty left half. */
+    url("/assets/images/cover_photo.jpg") right center / auto 100% no-repeat;
 }
 
 /*  Above the photo layer. */
