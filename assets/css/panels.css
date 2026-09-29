@@ -781,6 +781,10 @@ body.lp {
 
 @media (max-width: 900px) {
   .cs-footer-inner { flex-direction: column; }
+
+  /*  The 26rem basis is a width for the side-by-side layout; stacked, it
+      becomes a height, and padded the copy out with 300px of nothing. */
+  .cs-footer-copy { flex: 0 0 auto; }
   .cs-footer-cta .lp-btn { font-size: 0.95rem; }
 }
 
