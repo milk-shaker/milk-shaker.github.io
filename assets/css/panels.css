@@ -970,7 +970,18 @@ body.lp {
   padding: clamp(2rem, 5vw, 3.75rem) 0;
 }
 
-.pt-backed { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+/*  The logo strip gets its band back, faded in and out at the edges so
+    it sits on the moving field without cutting a hard seam across it. */
+.pt-backed {
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(
+    180deg,
+    rgba(248, 245, 250, 0) 0%,
+    rgba(248, 245, 250, 0.86) 16%,
+    rgba(248, 245, 250, 0.86) 84%,
+    rgba(248, 245, 250, 0) 100%
+  );
+}
 
 .pt-backed .lp-title { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); }
 
