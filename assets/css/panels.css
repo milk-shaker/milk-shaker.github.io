@@ -127,6 +127,11 @@ body.lp {
   /*  No background: a 404 should fall through to the gradient. */
   background: transparent;
   pointer-events: none;
+  /*  Faded out at the bottom so the footage dissolves into the moving
+      field below rather than stopping on a straight edge. The scrim
+      carries the same fade, or it would outlast the video it sits on. */
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
+  mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
   /*  Gives the loop a composited layer of its own. Added when the
       video went blank in the preview pane once third-party iframes
       (LaunchList, then Tally) were on the page. Later checked in real
@@ -145,6 +150,8 @@ body.lp {
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
+  mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
   background: linear-gradient(
     100deg,
     rgba(251, 247, 240, 0.94) 0%,
@@ -329,6 +336,27 @@ body.lp {
 .p4 {
   position: relative;
   z-index: 2;
+}
+
+/*  Same soft edges as the partner band: the ground moves to its own
+    layer and fades out at the top, where it meets the product panel. */
+.p4.lp-band { background: none; }
+
+.p4.lp-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(80% 130% at 88% 12%, rgba(241, 241, 250, 0.55) 0%, rgba(241, 241, 250, 0) 60%),
+    var(--ms-clay);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 80%, transparent 100%);
+}
+
+.p4.lp-band > .lp-band-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .p1-logo {
@@ -911,6 +939,8 @@ body.lp {
   position: absolute;
   inset: 0;
   z-index: 0;
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(48px, 8vw, 110px)), transparent 100%);
+  mask-image: linear-gradient(180deg, #000 calc(100% - clamp(48px, 8vw, 110px)), transparent 100%);
   background:
     linear-gradient(
       100deg,
@@ -978,11 +1008,27 @@ body.lp {
     it sits on the moving field without cutting a hard seam across it. */
 .pt-backed {
   padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  /*  The site's banner ground, same as .lp-band elsewhere: clay with a
-      periwinkle wash off the top right. */
+}
+
+/*  The banner ground -- clay with the periwinkle wash, same as .lp-band
+    -- on a layer of its own, faded top and bottom so the panel melts
+    into what is above and below it. On its own layer because a mask on
+    the section itself would fade the logos with it. */
+.pt-backed::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   background:
     radial-gradient(80% 130% at 88% 12%, rgba(241, 241, 250, 0.55) 0%, rgba(241, 241, 250, 0) 60%),
     var(--ms-clay);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 var(--fuzz, 18%), #000 calc(100% - var(--fuzz, 18%)), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 var(--fuzz, 18%), #000 calc(100% - var(--fuzz, 18%)), transparent 100%);
+}
+
+.pt-backed > .lp-wrap {
+  position: relative;
+  z-index: 1;
 }
 
 .pt-backed .lp-title { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); }
