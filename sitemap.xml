@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Only the landing page: it is the one indexable page while the site
-      is pre-launch. Add a url entry here when a page's noindex tag comes
-      off, never before, since listing a noindex page just wastes crawl. -->
+<!--  The three live pages. The older pages in this repo are dormant and
+      still carry their own noindex tag, so they stay out of here: listing
+      a noindex page just wastes crawl. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://themilkshaker.com/</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://themilkshaker.com/coming-soon-early-access.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://themilkshaker.com/partners.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
