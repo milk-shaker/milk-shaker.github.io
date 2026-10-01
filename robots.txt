@@ -1,0 +1,16 @@
+# themilkshaker.com
+#
+# The landing page is the only page meant to be found in search while
+# the site is pre-launch. Every other page carries its own
+# "noindex" tag, which is what actually keeps it out of the index --
+# this file only points crawlers at the sitemap.
+#
+# Disallow rules are deliberately absent: a blocked page cannot be
+# crawled, so its noindex tag is never read, and it can still surface
+# from inbound links. Letting crawlers in and telling them noindex is
+# what keeps those pages out.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://themilkshaker.com/sitemap.xml

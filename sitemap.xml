@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Only the landing page: it is the one indexable page while the site
+      is pre-launch. Add a url entry here when a page's noindex tag comes
+      off, never before, since listing a noindex page just wastes crawl. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://themilkshaker.com/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

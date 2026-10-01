@@ -4,17 +4,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--  Search listing. The title leads with what the product is, not the
+        brand name: nobody is searching for "MilkShaker" yet, and the
+        words people do search -- clogged ducts, mastitis, nursing bra --
+        have to be in it. Keep the title near 60 characters and the
+        description near 155, or Google truncates them. -->
   <meta name="description"
-    content="Join the MilkShaker community. Take the two-minute feeding readiness quiz, and find the subreddit where lactation experts answer questions before you need them." />
+    content="A nursing bra with built-in massage for clogged ducts and mastitis, designed with lactation consultants. Coming spring 2027 — take the 2-minute feeding quiz." />
 
   <link rel="canonical" href="https://themilkshaker.com/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="MilkShaker" />
   <meta property="og:url" content="https://themilkshaker.com/" />
-  <meta property="og:title" content="Join the MilkShaker community" />
+  <meta property="og:title" content="MilkShaker | Nursing bra with built-in massage" />
   <meta property="og:description"
-    content="Take the two-minute feeding readiness quiz, and find the subreddit where lactation experts answer questions before you need them." />
+    content="Built-in massage for clogged ducts and mastitis, designed with lactation consultants. Coming spring 2027." />
 
   <!--  The share card. Scrapers need an absolute URL, and they cache by it,
         so bump the ?v= whenever the image changes. It is a plain frame from
@@ -29,7 +34,7 @@
   <meta property="og:image:alt" content="A mother carrying her baby in a sling while drinking coffee at home" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <title>Join the MilkShaker community</title>
+  <title>MilkShaker | Nursing bra with built-in massage</title>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
@@ -68,6 +73,23 @@
   <!--  Blocking, and in the head, on purpose: it has to store or restore
         a referral code before any link out of this page is clicked. -->
   <script src="/assets/js/ref.js"></script>
+
+  <!--  Organisation details for search engines. No Product schema: there
+        is nothing on sale, and marking up a price with no checkout is
+        how a listing gets flagged. Revisit at launch. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MilkShaker",
+    "url": "https://themilkshaker.com/",
+    "logo": "https://themilkshaker.com/assets/images/milkshaker-wordmark.png",
+    "email": "hello@themilkshaker.com",
+    "description": "MilkShaker is developing a nursing bra with massaging modules in the cups, for clogged duct and mastitis relief during breastfeeding.",
+    "foundingLocation": "New York, NY",
+    "sameAs": ["https://www.reddit.com/r/mastitis/"]
+  }
+  </script>
 </head>
 
 <body class="lp">
