@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="/assets/css/panels.css?v=4" />
 
   <!--======================================================================
-       EARLY ACCESS — the product and the waitlist.
+       EARLY ACCESS — the waitlist, then the product.
 
        These panels used to sit under the landing page's hero. The landing
        page is the quiz now, so they live here.
@@ -70,6 +70,25 @@
   </header>
 
   <main>
+
+    <!--====== THE WAITLIST ======
+          First on the page now, with the product zoom under it. id="join"
+          stays on this form because the old /coming-soon-early-access.html
+          redirect aims there, and referral links to that old URL must
+          still reach a LaunchList form with their ?ref= intact. -->
+    <section class="p4 lp-band" aria-labelledby="h-band">
+      <div class="lp-band-inner">
+        <div class="lp-band-copy p4-copy">
+          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
+          <p class="p4-note">Coming Spring 2027. Join the waitlist to hear when it launches.</p>
+        </div>
+        <div class="lp-ea-card p4-form" id="join">
+          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
+          <p class="lp-form-note">You get your shareable referral link once you join.</p>
+        </div>
+      </div>
+    </section>
+
 
     <!--====== PANEL 2 — zooms up into the full screen ======-->
     <section class="p2" id="p2">
@@ -194,25 +213,6 @@
           clinic and hospital partners. The mechanic itself is untouched:
           LaunchList still gives every new member a share link, and the
           one line under the form says so. -->
-
-    <!--====== CLOSING BAND ======
-          The waitlist, as the last and quietest thing on the page. It used
-          to lead the opening panel; the quiz leads now. id="join" stays on
-          this form because the old /coming-soon-early-access.html redirect
-          aims there, and referral links to that old URL must still reach a
-          LaunchList form with their ?ref= intact. -->
-    <section class="p4 lp-band" aria-labelledby="h-band">
-      <div class="lp-band-inner">
-        <div class="lp-band-copy p4-copy">
-          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
-          <p class="p4-note">Coming Spring 2027. Join the waitlist to hear when it launches.</p>
-        </div>
-        <div class="lp-ea-card p4-form" id="join">
-          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
-          <p class="lp-form-note">You get your shareable referral link once you join.</p>
-        </div>
-      </div>
-    </section>
 
   </main>
 
