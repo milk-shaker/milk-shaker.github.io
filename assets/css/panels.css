@@ -1115,3 +1115,51 @@ body.lp {
   .pt-title { max-width: 20ch; }
   .pt-cta .lp-btn { width: 100%; }
 }
+
+/*  ---------------------------------------------------------------
+    STANDALONE FORM PAGE
+    One embedded form, centred, with the shared header and footer
+    around it. Used by /educational-survey.html.
+    --------------------------------------------------------------- */
+.pf {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 5vh, 56px) clamp(16px, 5vw, 72px) clamp(40px, 7vh, 80px);
+}
+
+.pf-inner {
+  width: 100%;
+  max-width: 46rem;
+}
+
+.pf-title {
+  margin: 0 0 0.7rem;
+  color: var(--ms-plum);
+  font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.pf-lede {
+  margin: 0 0 clamp(20px, 3vh, 32px);
+  max-width: 48ch;
+  color: var(--ms-ink-soft);
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
+  line-height: 1.6;
+}
+
+/*  The shared card caps at 34rem, which is narrower than this column. */
+.pf-card {
+  max-width: none;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  /*  Same trim as the quiz card: the embedded form clips below about
+      300px of inner width. */
+  .pf { padding-left: 14px; padding-right: 14px; }
+  .pf-card { padding-left: 12px; padding-right: 12px; }
+}

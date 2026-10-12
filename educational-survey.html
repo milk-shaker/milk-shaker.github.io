@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="A short survey from MilkShaker on breastfeeding education: what you were taught, what you were not, and where you went looking." />
+
+  <!--  Handed out by link, not found by search and linked from no page on
+        the site, so it stays out of the index and out of the sitemap.
+        Remove this tag and add it to sitemap.xml to list it. -->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://themilkshaker.com/educational-survey.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MilkShaker" />
+  <meta property="og:url" content="https://themilkshaker.com/educational-survey.html" />
+  <meta property="og:title" content="Breastfeeding education survey | MilkShaker" />
+  <meta property="og:description"
+    content="A few minutes on what you were taught about breastfeeding, what you were not, and where you went looking." />
+  <meta property="og:image" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=4" />
+  <meta property="og:image:secure_url" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=4" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Breastfeeding education survey | MilkShaker</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/droplet.svg?v=3" />
+  <link rel="icon" href="/favicon.ico?v=3" />
+  <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
+  <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
+  <meta name="theme-color" content="#F3E9F1" />
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=5" />
+
+  <!--======================================================================
+       EDUCATIONAL SURVEY — one Tally form, nothing else.
+
+       Deliberately unlinked: no page on the site points here, and it is
+       not in the sitemap. It is handed out directly, so whoever opens it
+       arrived with the link in hand.
+
+       It still carries the shared wordmark header and the shared footer,
+       so somebody who lands here cold can tell whose survey it is and
+       find their way to the rest of the site.
+
+       The embed is the same arrangement as the landing page's quiz: the
+       iframe holds data-tally-src, and Tally's loader at the end of
+       <body> sets the real src and resizes it to each question, which is
+       what dynamicHeight=1 asks for.
+  =======================================================================-->
+</head>
+
+<body class="lp">
+
+  <div class="cs-field" aria-hidden="true"></div>
+  <div class="cs-field-b" aria-hidden="true"></div>
+  <div class="cs-relief" id="csRelief" aria-hidden="true"></div>
+
+  <header class="ea-header">
+    <a href="/" aria-label="MilkShaker home">
+      <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
+    </a>
+  </header>
+
+  <main>
+
+    <section class="pf" aria-labelledby="h-survey">
+      <div class="pf-inner">
+        <h1 class="pf-title" id="h-survey">What were you actually taught about breastfeeding?</h1>
+        <p class="pf-lede">
+          A few minutes, and it shapes what we teach and build next. There are no right answers.
+        </p>
+
+        <div class="lp-ea-card pf-card" id="survey">
+          <iframe data-tally-src="https://tally.so/embed/xXk61y?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
+            width="100%" height="320" frameborder="0" marginheight="0" marginwidth="0"
+            title="Breastfeeding education survey"></iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="cs-footer">
+    <div class="cs-footer-inner">
+      <div class="cs-footer-copy">
+        <p class="cs-footer-lead">
+          <a href="/">Home</a>
+          <span class="cs-footer-sep" aria-hidden="true">&middot;</span>
+          <a href="/coming-soon-early-access.html">Product details</a>
+        </p>
+        <p class="cs-footer-line">
+          <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">Join our
+            subreddit community</a> to support and learn from other parents!
+        </p>
+      </div>
+      <p class="cs-footer-cta">
+        <a class="lp-btn" href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <!--  Tally's own loader, unchanged, as on the landing page. If embed.js
+        is already on the page it calls Tally.loadEmbeds(); otherwise it
+        injects embed.js and, even if that fails to load, falls back to
+        copying data-tally-src into src so the form still appears (just
+        without dynamic height). -->
+  <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+  <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
+    src="//gc.zgo.at/count.js"></script>
+
+</body>
+
+</html>
