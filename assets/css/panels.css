@@ -1135,7 +1135,7 @@ body.lp {
 }
 
 .pf-title {
-  margin: 0 0 0.7rem;
+  margin: 0 0 clamp(20px, 3vh, 32px);
   color: var(--ms-plum);
   font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.9rem);
   line-height: 1.12;
@@ -1143,13 +1143,6 @@ body.lp {
   text-wrap: balance;
 }
 
-.pf-lede {
-  margin: 0 0 clamp(20px, 3vh, 32px);
-  max-width: 48ch;
-  color: var(--ms-ink-soft);
-  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
-  line-height: 1.6;
-}
 
 /*  The shared card caps at 34rem, which is narrower than this column. */
 .pf-card {
