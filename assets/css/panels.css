@@ -172,19 +172,19 @@ body.lp {
   padding: clamp(32px, 5vh, 64px) clamp(24px, 5vw, 72px);
 }
 
-/*  Wordmark only, centred over the loop. Everything that used to sit
-    here moved into the band below the video. */
+/*  Wordmark only, on the left over the loop. Everything that used to
+    sit here moved into the band below the video. */
 .p1-copy {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .p1-soon {
   margin: clamp(14px, 2.4vh, 24px) 0 0;
   color: var(--ms-plum);
-  font-size: clamp(0.76rem, 0.72rem + 0.2vw, 0.92rem);
+  font-size: clamp(0.9rem, 0.82rem + 0.3vw, 1.12rem);
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -312,11 +312,9 @@ body.lp {
 }
 
 .p1-logo {
-  width: min(340px, 68%);
-  max-width: 340px;
+  width: min(420px, 74%);
+  max-width: 420px;
   height: auto;
-  display: block;
-  margin-bottom: clamp(30px, 5.5vh, 60px);
 }
 
 
@@ -733,8 +731,7 @@ body.lp {
     padding-left: 8px;
     padding-right: 8px;
   }
-  .p1-copy { align-items: center; text-align: center; }
-  .p1-logo { width: min(300px, 74vw); margin-inline: auto; }
+  .p1-logo { width: min(330px, 78vw); }
   /*  Copy is centred at this width, so an angled scrim would leave
       one edge of it unreadable. Even wash instead. */
   .p1-scrim {
@@ -1199,3 +1196,49 @@ body.lp {
   .ms-footer-inner { flex-direction: column; gap: 28px; }
   .ms-footer-nav { justify-items: start; text-align: left; margin-left: 0; }
 }
+
+
+/*  ---------------------------------------------------------------
+    TOP BAR
+    Two asks on the left, two places we already are on the right.
+    Over the hero footage on the landing page, over the field
+    elsewhere, so it is transparent and relies on the plum type.
+    --------------------------------------------------------------- */
+.ms-nav {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: clamp(14px, 2.4vw, 26px) clamp(16px, 5vw, 48px) 0;
+}
+
+.ms-nav-left {
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+}
+
+.ms-nav-right {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px 22px;
+}
+
+.ms-nav a {
+  color: var(--ms-plum);
+  font-size: clamp(0.66rem, 0.62rem + 0.16vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.ms-nav a:hover { border-bottom-color: var(--ms-plum); }
+
+/*  The landing page's bar sits on the video, so the hero's own top
+    padding is not needed above it. */
+.lp .ms-nav + main .p1 { margin-top: calc(-1 * clamp(44px, 7vw, 76px)); }

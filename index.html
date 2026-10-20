@@ -45,7 +45,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=7" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=8" />
 
   <!--======================================================================
        LANDING PAGE — the whole funnel, in one scroll.
@@ -54,10 +54,9 @@
          2. the opening words: the problem, then who is building for it.
             Deliberately short on product -- there is nothing to show yet,
             and a spec invites questions the first units have not answered;
-         3. the Tally feeding readiness quiz, the front door;
-         4. the waitlist, moved here from the old product page, which is
+         3. the waitlist, moved here from the old product page, which is
             now a redirect to this page's #join anchor;
-         5. the subreddit, which is the thing we can offer today.
+         4. the subreddit, which is the thing we can offer today.
 
        ref.js is blocking in the head and must stay ahead of LaunchList's
        widget.js: a referral link lands here with ?ref= in the query (or
@@ -71,6 +70,10 @@
   <!--  Blocking, and in the head, on purpose: it has to store or restore
         a referral code before any link out of this page is clicked. -->
   <script src="/assets/js/ref.js"></script>
+
+  <!--  Builds the waitlist form. Deferred, and after ref.js, which has to
+        put ?ref= back on the URL before this reads it. -->
+  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
 
   <!--  Organisation details for search engines. No Product schema: there
         is nothing on sale, and marking up a price with no checkout is
@@ -96,6 +99,20 @@
   <div class="cs-field-b" aria-hidden="true"></div>
   <div class="cs-relief" id="csRelief" aria-hidden="true"></div>
 
+  <!--  Skippies-style top bar: the two asks stacked on the left, the two
+        places you can already find us on the right. Same on every page. -->
+  <header class="ms-nav">
+    <div class="ms-nav-left">
+      <a href="/#join">Join the waitlist</a>
+      <a href="sms:+19178085179">Text an expert</a>
+    </div>
+    <div class="ms-nav-right">
+      <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">r/mastitis</a>
+      <a href="https://www.instagram.com/thisisthemilkshaker/" target="_blank"
+        rel="noopener noreferrer">Instagram</a>
+    </div>
+  </header>
+
   <main>
 
     <!--====== THE HERO ======
@@ -118,7 +135,7 @@
         <div class="p1-copy">
           <img class="p1-logo" src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380"
             height="232" />
-          <p class="p1-soon">Coming soon</p>
+          <p class="p1-soon">Coming Spring 2027</p>
         </div>
       </div>
 
@@ -138,27 +155,10 @@
         <p class="pl-credit">Built with lactation experts, women&rsquo;s health physicians, and female
           engineers</p>
         <div class="pl-cta">
-          <a class="lp-btn" href="#quiz"><span>Take the 2-minute quiz</span><span class="lp-arrow"
+          <a class="lp-btn" href="#join"><span>Join the waitlist</span><span class="lp-arrow"
               aria-hidden="true"></span></a>
-          <a class="lp-btn lp-btn--ghost" href="#join"><span>Join the waitlist</span></a>
-        </div>
-      </div>
-    </section>
-
-    <!--====== THE QUIZ ======
-          The iframe uses data-tally-src; Tally's embed.js, loaded at the
-          end of <body>, sets the real src and resizes it to each question,
-          which is what dynamicHeight=1 asks for. The 275px height is only
-          the starting size before the first resize. transparentBackground
-          lets it sit on this card's ivory ground; the "Made with Tally"
-          badge can only be removed on Tally Pro. ======-->
-    <section class="pq" aria-labelledby="h-quiz">
-      <div class="pq-inner">
-        <h2 class="pq-title" id="h-quiz">The baby feeding questions every new parent wishes they were asked sooner</h2>
-        <div class="lp-ea-card pq-card" id="quiz">
-          <iframe data-tally-src="https://tally.so/embed/KYX19X?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
-            width="100%" height="275" frameborder="0" marginheight="0" marginwidth="0"
-            title="Feeding readiness quiz"></iframe>
+          <a class="lp-btn lp-btn--ghost" href="https://www.reddit.com/r/mastitis/" target="_blank"
+            rel="noopener noreferrer"><span>Ask r/mastitis</span></a>
         </div>
       </div>
     </section>
@@ -228,12 +228,6 @@
   </footer>
 
   <script src="/assets/js/panels.js" defer></script>
-
-  <!--  Tally's own loader, unchanged. If embed.js is already on the page it
-        calls Tally.loadEmbeds(); otherwise it injects embed.js and, even if
-        that fails to load, falls back to copying data-tally-src into src so
-        the quiz still appears (just without dynamic height). -->
-  <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 
   <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
     src="//gc.zgo.at/count.js"></script>
