@@ -4,245 +4,66 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description"
-    content="A nursing bra with massaging modules inside the cups, for on-demand mastitis, clogged duct and breastfeeding pain relief. Coming spring 2027 — join the waitlist." />
-
-  <link rel="canonical" href="https://themilkshaker.com/coming-soon-early-access.html" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="MilkShaker" />
-  <meta property="og:url" content="https://themilkshaker.com/coming-soon-early-access.html" />
-  <meta property="og:title" content="The MilkShaker nursing bra | Mastitis and clogged duct relief" />
-  <meta property="og:description"
-    content="Massaging modules inside the cups, for on-demand mastitis and breastfeeding pain relief. Join the waitlist." />
-  <meta property="og:image" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=4" />
-  <meta property="og:image:secure_url" content="https://themilkshaker.com/assets/images/og-cover.jpg?v=4" />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <title>The MilkShaker nursing bra | Mastitis and clogged duct relief</title>
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/droplet-32.png?v=3" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/droplet-16.png?v=3" />
-  <link rel="icon" type="image/svg+xml" href="/assets/icons/droplet.svg?v=3" />
-  <link rel="icon" href="/favicon.ico?v=3" />
-  <link rel="apple-touch-icon" href="/assets/icons/droplet-apple-touch-180.png?v=3" />
-  <link rel="manifest" href="/assets/icons/site.webmanifest?v=3" />
-  <meta name="theme-color" content="#F3E9F1" />
-
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=6" />
 
   <!--======================================================================
-       EARLY ACCESS — the waitlist, then the product.
+       REDIRECT — this page's contents moved to the landing page.
 
-       These panels used to sit under the landing page's hero. The landing
-       page is the quiz now, so they live here.
+       The address stays alive because printed QR codes point at it, and
+       because referral links shared before the move carry ?ref= on this
+       URL. Both have to keep working:
 
-       PANEL 2, the zoom: a runway taller than the viewport, a sticky pin
-       inside it at exactly viewport height, and a card inside that which
-       scales from 0.58 to 1 and loses its corner radius as you scroll, so
-       the product appears to zoom up into the full screen. Hovering or
-       tapping either cup or strap opens a callout.
+         - the canonical and the refresh both aim at "/", where the
+           waitlist form now lives under the same #join anchor;
+         - the script carries the query string across, so ?ref= survives
+           and ref.js on the landing page can store it;
+         - noindex, because this is a doorway, not a page. The meta
+           refresh alone would be enough for Google, which follows it and
+           folds this URL into the landing page, but the tag makes it
+           explicit.
 
-       The waitlist keeps id="join": referral links pointing at this URL
-       with ?ref= on the end have been shared, and they have to land on a
-       LaunchList form with the code intact. ref.js restores it to the URL
-       before widget.js builds the form's iframe, which is why the two are
-       in this order.
+       The <noscript> path and the meta refresh cover browsers that never
+       run the script; they lose the ?ref= code, which is the right
+       trade against not arriving at all.
   =======================================================================-->
-  <script src="/assets/js/ref.js"></script>
-  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://themilkshaker.com/" />
+  <meta http-equiv="refresh" content="0; url=/#join" />
+
+  <title>MilkShaker</title>
+
+  <link rel="icon" href="/favicon.ico?v=3" />
+
+  <script>
+    (function () {
+      /*  Keep whatever came in on the URL -- ?ref= above all -- and land
+          on the waitlist. location.replace so the back button goes back
+          where the person came from rather than into a redirect loop. */
+      var q = window.location.search || '';
+      window.location.replace('/' + q + '#join');
+    })();
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #F8F5FA;
+      color: #612F48;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      text-align: center;
+      padding: 24px;
+    }
+    a { color: #612F48; }
+  </style>
 </head>
 
-<body class="lp">
-
-  <div class="cs-field" aria-hidden="true"></div>
-  <div class="cs-field-b" aria-hidden="true"></div>
-  <div class="cs-relief" id="csRelief" aria-hidden="true"></div>
-
-  <header class="ea-header">
-    <a href="/" aria-label="MilkShaker home">
-      <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
-    </a>
-  </header>
-
-  <main>
-
-    <!--====== THE WAITLIST ======
-          First on the page now, with the product zoom under it. id="join"
-          stays on this form because the old /coming-soon-early-access.html
-          redirect aims there, and referral links to that old URL must
-          still reach a LaunchList form with their ?ref= intact. -->
-    <section class="p4 lp-band" aria-labelledby="h-band">
-      <div class="lp-band-inner">
-        <div class="lp-band-copy p4-copy">
-          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
-          <p class="p4-note">Coming Spring 2027. Join the waitlist to hear when it launches.</p>
-        </div>
-        <div class="lp-ea-card p4-form" id="join">
-          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
-          <p class="lp-form-note">You get your shareable referral link once you join.</p>
-        </div>
-      </div>
-    </section>
-
-
-    <!--====== PANEL 2 — zooms up into the full screen ======-->
-    <section class="p2" id="p2">
-      <div class="p2-pin">
-        <div class="p2-card" id="p2Card">
-
-          <div class="p2-head">
-            <p class="p2-line">On-demand mastitis and breastfeeding pain relief</p>
-            <p class="p2-sub">Brought to you by lactation experts, women&rsquo;s health
-              physicians, and female engineers &middot; Coming Spring 2027</p>
-          </div>
-
-          <div class="stage" id="stage">
-
-            <!--  Sits in the gap between the straps, which is clear from
-                  the top of the shot down to about 40%. Goes when any
-                  feature is open. -->
-            <p class="stage-hint" id="p2Hint">Hover around the MilkShaker bra to see features</p>
-
-            <!--  ============ THE PRODUCT ============
-                  The real product photograph, with a soft-edged window
-                  over each cup.
-
-                  How the reveal works: the photograph is drawn once and
-                  is always opaque. Over each cup sits a pale wash masked
-                  to a feathered ellipse, at opacity 0, and over that the
-                  massaging module, also at 0. Opening a cup fades both
-                  in, so the fabric goes sheer in a soft pool and the
-                  module shows through it.
-
-                  The wash is what sells it. An earlier version faded in a
-                  second, masked copy of the photograph instead, which did
-                  nothing at all: the fabric underneath that copy is the
-                  same fabric, so there was nothing to see through to and
-                  the module read as a sticker on the cup.
-
-                  Nothing is cut out of the photograph, so a reshoot only
-                  means moving the two mask centres in .win--l / .win--r
-                  and the matching .mod offsets.
-
-                  The ?v= on the src is not decoration. This file has been
-                  replaced twice under the same name, and both a browser
-                  and the Pages CDN will keep serving the bytes they
-                  already have. Bump it whenever the file changes.
-                  ====================================== -->
-            <div class="shot">
-              <img class="shot-base" src="/assets/images/bra-front.webp?v=2"
-                alt="The MilkShaker bra, front view" width="1400" height="1225" />
-
-              <div class="win win--l" aria-hidden="true"></div>
-              <div class="win win--r" aria-hidden="true"></div>
-              <div class="win win--sl" aria-hidden="true"></div>
-              <div class="win win--sr" aria-hidden="true"></div>
-              <svg class="mod mod--l" viewBox="0 0 120 120" aria-hidden="true">
-                <defs>
-                  <radialGradient id="modface-l" cx="36%" cy="30%" r="74%">
-                    <stop offset="0%" stop-color="#C3C2EA" />
-                    <stop offset="58%" stop-color="#7472BE" />
-                    <stop offset="100%" stop-color="#4B4992" />
-                  </radialGradient>
-                </defs>
-                <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
-                <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
-                  stroke-width="1.8" />
-                <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
-                  stroke-width="1.8" />
-                <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
-                  opacity="0.5" />
-                <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
-                  opacity="0.78" />
-                <circle cx="60" cy="60" r="20" fill="url(#modface-l)" />
-                <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
-              </svg>
-              <svg class="mod mod--r" viewBox="0 0 120 120" aria-hidden="true">
-                <defs>
-                  <radialGradient id="modface-r" cx="36%" cy="30%" r="74%">
-                    <stop offset="0%" stop-color="#C3C2EA" />
-                    <stop offset="58%" stop-color="#7472BE" />
-                    <stop offset="100%" stop-color="#4B4992" />
-                  </radialGradient>
-                </defs>
-                <circle cx="60" cy="60" r="54" fill="rgba(98,96,173,0.16)" />
-                <circle class="pulse-a" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
-                  stroke-width="1.8" />
-                <circle class="pulse-b" cx="60" cy="60" r="46" fill="none" stroke="#7472BE"
-                  stroke-width="1.8" />
-                <circle cx="60" cy="60" r="38" fill="none" stroke="#6260AD" stroke-width="2.4"
-                  opacity="0.5" />
-                <circle cx="60" cy="60" r="29" fill="none" stroke="#6260AD" stroke-width="2.4"
-                  opacity="0.78" />
-                <circle cx="60" cy="60" r="20" fill="url(#modface-r)" />
-                <circle cx="60" cy="60" r="6.5" fill="#FBF7F0" opacity="0.88" />
-              </svg>
-
-            </div>
-
-            <button class="hot hot--l" type="button" data-side="l" aria-describedby="callout">
-              <span class="lp-sr">Show the massaging insert in the left cup</span>
-            </button>
-            <button class="hot hot--r" type="button" data-side="r" aria-describedby="callout">
-              <span class="lp-sr">Show the massaging insert in the right cup</span>
-            </button>
-            <button class="hot hot--sl" type="button" data-side="sl" aria-describedby="callout">
-              <span class="lp-sr">About the left shoulder strap</span>
-            </button>
-            <button class="hot hot--sr" type="button" data-side="sr" aria-describedby="callout">
-              <span class="lp-sr">About the right shoulder strap</span>
-            </button>
-          </div>
-
-          <div class="p2-slot">
-            <p class="callout" id="callout" aria-live="polite"></p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!--  The referral / care-package panel that used to sit here is gone.
-          It read as a sweepstake, and this is the same URL that goes to
-          clinic and hospital partners. The mechanic itself is untouched:
-          LaunchList still gives every new member a share link, and the
-          one line under the form says so. -->
-
-  </main>
-
-  <!--  One footer, same shape on every page: the two sideways links and
-        the community line on the left, the email as a button on the
-        right. Only the first link differs per page. -->
-  <footer class="cs-footer">
-    <div class="cs-footer-inner">
-      <div class="cs-footer-copy">
-        <p class="cs-footer-lead">
-          <a href="/">Home</a>
-          <span class="cs-footer-sep" aria-hidden="true">&middot;</span>
-          <a href="/partners.html">Partner with us</a>
-        </p>
-        <p class="cs-footer-line">
-          <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">Join our
-            subreddit community</a> to support and learn from other parents!
-        </p>
-      </div>
-      <p class="cs-footer-cta">
-        <a class="lp-btn" href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
-      </p>
-    </div>
-  </footer>
-
-  <script src="/assets/js/panels.js" defer></script>
-
-  <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
-    src="//gc.zgo.at/count.js"></script>
-
+<body>
+  <p>
+    This page has moved to <a href="/#join">themilkshaker.com</a>.
+    <noscript><br />Follow the link if your browser does not take you there.</noscript>
+  </p>
 </body>
 
 </html>

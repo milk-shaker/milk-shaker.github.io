@@ -10,7 +10,7 @@
         have to be in it. Keep the title near 60 characters and the
         description near 155, or Google truncates them. -->
   <meta name="description"
-    content="A nursing bra with built-in massage for clogged ducts and mastitis, designed with lactation consultants. Coming spring 2027 — take the 2-minute feeding quiz." />
+    content="Ending the trial and error of breastfeeding. Built with lactation experts and women’s health physicians for clogged ducts and breast pain. Coming Spring 2027." />
 
   <link rel="canonical" href="https://themilkshaker.com/" />
 
@@ -45,29 +45,27 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=6" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=7" />
 
   <!--======================================================================
-       LANDING PAGE — two screens.
+       LANDING PAGE — the whole funnel, in one scroll.
 
-       The hero: the muted loop full bleed, with the wordmark and the
-       tagline on the left over a scrim, and the scroll cue pointing at
-       what is below.
+         1. the loop, full bleed, with the wordmark over it;
+         2. the opening words: the problem, then who is building for it.
+            Deliberately short on product -- there is nothing to show yet,
+            and a spec invites questions the first units have not answered;
+         3. the Tally feeding readiness quiz, the front door;
+         4. the waitlist, moved here from the old product page, which is
+            now a redirect to this page's #join anchor;
+         5. the subreddit, which is the thing we can offer today.
 
-       Below it: the Tally feeding readiness quiz, the front door of the
-       funnel. Its results pages carry people on to the subreddit and to
-       the waitlist, so nothing here sells anything.
+       ref.js is blocking in the head and must stay ahead of LaunchList's
+       widget.js: a referral link lands here with ?ref= in the query (or
+       arrives via the redirect, which carries it across), and ref.js has
+       to restore it to the URL before the widget builds its iframe.
 
-       The product itself, the gift panel and the waitlist all live on
-       /coming-soon-early-access.html now.
-
-       Shared with that page: /assets/css/panels.css and
-       /assets/js/panels.js. The script guards on the elements it drives,
-       so this page runs only the hero video and the pointer relief wash.
-
-       ref.js stays even though the waitlist form is on the other page: a
-       referral link lands here, and ref.js keeps the code in the URL and
-       adds it to any link clicked through to that form.
+       panels.js guards on the elements it drives, so this page runs only
+       the hero video and the pointer relief wash.
   =======================================================================-->
 
   <!--  Blocking, and in the head, on purpose: it has to store or restore
@@ -100,7 +98,10 @@
 
   <main>
 
-    <!--====== THE HERO ======-->
+    <!--====== THE HERO ======
+          The loop, full bleed, with the wordmark over it and nothing else.
+          Every word that used to sit here now lives in the band below, so
+          the footage opens the page the way a cover does. ======-->
     <section class="p1">
 
       <!--  poster is the loop's own first frame, so there is no jump when
@@ -117,33 +118,31 @@
         <div class="p1-copy">
           <img class="p1-logo" src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380"
             height="232" />
-          <h1 class="p1-line">Ending the trial and error of breastfeeding</h1>
-
-          <!--  What it is, who it is for and when, in one line. Most of the
-                traffic here arrives cold from a community post or a flyer
-                and has never heard the name before. -->
-          <p class="p1-sub">A nursing bra with built-in support for clogged ducts and mastitis.
-            Coming Spring&nbsp;2027.</p>
-
-          <!--  Two ways on: the quiz, which is the funnel, and the waitlist
-                for anyone who already knows they want it. The scroll cue
-                that used to sit here said neither. -->
-          <!--  The wrapper is only as wide as the two buttons, so the credit
-                line below wraps to exactly their width instead of needing a
-                hand-tuned max-width that breaks at the next font change. -->
-          <div class="p1-act">
-            <div class="p1-cta">
-              <a class="lp-btn lp-btn--ghost" href="/coming-soon-early-access.html#join"><span>Join the
-                  waitlist</span></a>
-              <a class="lp-btn" href="#quiz"><span>Take the 2-minute quiz</span><span class="lp-arrow"
-                  aria-hidden="true"></span></a>
-            </div>
-            <p class="p1-credit">Built with lactation experts, women&rsquo;s health physicians, and female
-              engineers</p>
-          </div>
+          <p class="p1-soon">Coming soon</p>
         </div>
       </div>
 
+    </section>
+
+    <!--====== THE OPENING WORDS ======
+          Problem first, the people behind it second, the product barely at
+          all: there is nothing to show yet, and a spec invites questions we
+          cannot answer until the first units are tested. ======-->
+    <section class="pl" aria-labelledby="h-lead">
+      <div class="pl-inner">
+        <h1 class="pl-line" id="h-lead">Ending the trial and error of breastfeeding</h1>
+        <p class="pl-sub">
+          The clogged ducts, the pain, the 2am searching &mdash; the part nobody walks you through. We are
+          building something for it, with the people who treat it every day.
+        </p>
+        <p class="pl-credit">Built with lactation experts, women&rsquo;s health physicians, and female
+          engineers</p>
+        <div class="pl-cta">
+          <a class="lp-btn" href="#quiz"><span>Take the 2-minute quiz</span><span class="lp-arrow"
+              aria-hidden="true"></span></a>
+          <a class="lp-btn lp-btn--ghost" href="#join"><span>Join the waitlist</span></a>
+        </div>
+      </div>
     </section>
 
     <!--====== THE QUIZ ======
@@ -154,20 +153,6 @@
           lets it sit on this card's ivory ground; the "Made with Tally"
           badge can only be removed on Tally Pro. ======-->
     <section class="pq" aria-labelledby="h-quiz">
-
-      <!--  The product, as a small medallion sitting across the seam between
-            the hero and this section, on the right. It is the one quiet
-            pointer to the product page from here; the quiz stays the main
-            thing. Positioned from this section, which paints after the
-            hero, so it lands on top of both. -->
-      <a class="pq-peek" href="/coming-soon-early-access.html">
-        <span class="pq-peek-circle">
-          <img src="/assets/images/bra-front.webp?v=2" alt="The MilkShaker nursing bra" width="1400"
-            height="1225" loading="lazy" />
-        </span>
-        <span class="pq-peek-text">Simplifying postpartum care for you&nbsp;&rarr;</span>
-      </a>
-
       <div class="pq-inner">
         <h2 class="pq-title" id="h-quiz">The baby feeding questions every new parent wishes they were asked sooner</h2>
         <div class="lp-ea-card pq-card" id="quiz">
@@ -178,27 +163,67 @@
       </div>
     </section>
 
-  </main>
+    <!--====== THE WAITLIST ======
+          Moved here from the product page, which is now a redirect. id="join"
+          has to stay on this form: referral links to the old page point at
+          that anchor, the redirect carries ?ref= across, and ref.js restores
+          it to the URL before LaunchList's widget builds the iframe. ======-->
+    <section class="p4 lp-band" id="join" aria-labelledby="h-band">
+      <div class="lp-band-inner">
+        <div class="lp-band-copy p4-copy">
+          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
+          <p class="p4-note">Coming Spring 2027. Join the waitlist to hear it first.</p>
+        </div>
+        <div class="lp-ea-card p4-form">
+          <div class="launchlist-widget" data-key-id="WHgfM8"></div>
+          <p class="lp-form-note">You get your shareable referral link once you join.</p>
+        </div>
+      </div>
+    </section>
 
-  <!--  One footer, same shape on every page: the two sideways links and
-        the community line on the left, the email as a button on the
-        right. Only the first link differs per page. -->
-  <footer class="cs-footer">
-    <div class="cs-footer-inner">
-      <div class="cs-footer-copy">
-        <p class="cs-footer-lead">
-          <a href="/coming-soon-early-access.html">Product details</a>
-          <span class="cs-footer-sep" aria-hidden="true">&middot;</span>
-          <a href="/partners.html">Partner with us</a>
+    <!--====== THE COMMUNITY ======
+          The reason to be on this page even if the waitlist means nothing
+          to you yet: somewhere to go today, with people answering. ======-->
+    <section class="pc" aria-labelledby="h-community">
+      <div class="pc-inner">
+        <h2 class="pc-title" id="h-community">In the meantime, meet our community</h2>
+        <p class="pc-sub">
+          r/mastitis is where parents and lactation experts work through clogged ducts, supply and the
+          questions you did not know to ask. Free, and open now.
         </p>
-        <p class="cs-footer-line">
-          <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">Join our
-            subreddit community</a> to support and learn from other parents!
+        <p class="pc-cta">
+          <a class="lp-btn" href="https://www.reddit.com/r/mastitis/" target="_blank"
+            rel="noopener noreferrer"><span>Join the subreddit</span><span class="lp-arrow"
+              aria-hidden="true"></span></a>
         </p>
       </div>
-      <p class="cs-footer-cta">
-        <a class="lp-btn" href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
-      </p>
+    </section>
+
+  </main>
+
+  <!--  Skippies-style solid bar: the contact offer on the left, the few
+        links stacked on the right. Same markup on every page. -->
+  <footer class="ms-footer">
+    <div class="ms-footer-inner">
+
+      <div class="ms-footer-contact">
+        <h2 class="ms-footer-h">Contact</h2>
+        <p>Have a question about nursing and pumping complications?</p>
+        <p>Text our lactation expert for guidance &mdash; we&rsquo;re here to help.</p>
+        <p class="ms-footer-reach">
+          MilkShaker&rsquo;s Chief Lactation Officer:
+          <a href="sms:+19178085179">917-808-5179</a><br />
+          <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
+        </p>
+      </div>
+
+      <nav class="ms-footer-nav" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/partners.html">Partner with us</a>
+        <span>&copy; MilkShaker 2026</span>
+        <span>MilkShaker&trade;</span>
+      </nav>
+
     </div>
   </footer>
 

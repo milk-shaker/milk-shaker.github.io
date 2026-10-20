@@ -172,11 +172,22 @@ body.lp {
   padding: clamp(32px, 5vh, 64px) clamp(24px, 5vw, 72px);
 }
 
+/*  Wordmark only, centred over the loop. Everything that used to sit
+    here moved into the band below the video. */
 .p1-copy {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
+}
+
+.p1-soon {
+  margin: clamp(14px, 2.4vh, 24px) 0 0;
+  color: var(--ms-plum);
+  font-size: clamp(0.76rem, 0.72rem + 0.2vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
 }
 
 /*  Panel 3 is an ordinary style.css section, but on this page two
@@ -238,65 +249,6 @@ body.lp {
   display: block;
   width: 100%;
   border: 0;
-}
-
-/*  The medallion: a circle holding the product shot, centred on the
-    seam between hero and quiz, with a line of text under it. */
-.pq-peek {
-  position: absolute;
-  top: calc(var(--peek) / -2);
-  right: clamp(14px, 6vw, 96px);
-  z-index: 3;
-  display: flex;
-  /*  Caption to the left of the circle, and top-aligned: centring would
-      let the caption's margin pull the circle down off the seam. */
-  flex-direction: row-reverse;
-  align-items: flex-start;
-  gap: 16px;
-  max-width: calc(100% - 28px);
-  color: var(--ms-plum);
-  text-align: right;
-  text-decoration: none;
-}
-
-.pq-peek-circle {
-  display: grid;
-  place-items: center;
-  width: var(--peek);
-  height: var(--peek);
-  border-radius: 50%;
-  border: 1px solid var(--ms-clay-deep);
-  background:
-    radial-gradient(circle at 50% 38%, #FFFFFF 0%, var(--ms-ivory) 62%, #EFE7F3 100%);
-  box-shadow: 0 18px 40px -20px rgba(97, 47, 72, 0.5);
-  transition: transform 220ms ease, box-shadow 220ms ease;
-}
-
-.pq-peek-circle img {
-  width: 76%;
-  height: auto;
-}
-
-/*  Just below the seam, beside the circle's lower half, so it reads
-    against the quiz section's light ground rather than the footage. */
-.pq-peek-text {
-  max-width: 15ch;
-  margin-top: calc(var(--peek) / 2 + 14px);
-  font-size: clamp(0.9rem, 0.8rem + 0.3vw, 1.05rem);
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.pq-peek:hover .pq-peek-circle,
-.pq-peek:focus-visible .pq-peek-circle {
-  transform: translateY(-3px);
-  box-shadow: 0 24px 46px -20px rgba(97, 47, 72, 0.6);
-}
-
-.pq-peek:focus-visible {
-  outline: 3px solid var(--ms-peri-deep);
-  outline-offset: 6px;
-  border-radius: 12px;
 }
 
 /*  ---------------------------------------------------------------
@@ -367,82 +319,8 @@ body.lp {
   margin-bottom: clamp(30px, 5.5vh, 60px);
 }
 
-.p1-line {
-  margin: 0 0 clamp(14px, 2.2vh, 22px);
-  max-width: 13ch;
-  color: var(--ms-plum);
-  /*  Inherits the site's serif display face from style.css, which
-      also forces weight 400 on every h1. */
-  font-size: clamp(2.2rem, 1.2rem + 4.2vw, 4.2rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
 
-/*  A quiet cue that there is a second panel. */
-/*  The one line that says what this actually is. Wider than the
-    headline on purpose: it is read, not scanned. */
-.p1-sub {
-  margin: 0 0 clamp(20px, 3.2vh, 34px);
-  max-width: 32ch;
-  color: var(--ms-plum);
-  font-size: clamp(1.02rem, 0.92rem + 0.5vw, 1.32rem);
-  font-weight: 600;
-  line-height: 1.45;
-}
 
-/*  Only as wide as the button row, so .p1-credit below wraps to the
-    buttons' own width at any font size. */
-.p1-act { width: fit-content; }
-
-.p1-cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 14px;
-}
-
-/*  Solid, not translucent: over footage the shared ghost hover (plum
-    fill, ivory text) read as the label disappearing. */
-.p1-cta .lp-btn--ghost {
-  background: var(--ms-ivory);
-  border-color: var(--ms-plum);
-  color: var(--ms-plum);
-}
-
-.p1-cta .lp-btn--ghost:hover {
-  background: var(--ms-blush);
-  color: var(--ms-plum);
-}
-
-/*  Centred under the button row, whose width the wrapper carries. */
-.p1-credit {
-  margin: clamp(18px, 2.6vh, 28px) 0 0;
-  max-width: 100%;
-  text-align: center;
-  color: var(--ms-ink-soft);
-  font-size: clamp(0.82rem, 0.78rem + 0.15vw, 0.92rem);
-  font-weight: 600;
-  line-height: 1.45;
-}
-
-.p1-scroll {
-  display: inline-flex;
-  text-decoration: none;
-  align-items: center;
-  gap: 10px;
-  margin: clamp(26px, 4vh, 44px) 0 0;
-  color: var(--ms-ink-soft);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.p1-scroll svg {
-  width: 15px;
-  height: 15px;
-  animation: p1-bob 2.4s ease-in-out infinite;
-}
 
 @keyframes p1-bob {
   0%, 100% { transform: translateY(-2px); }
@@ -851,22 +729,12 @@ body.lp {
     text-align: center;
   }
 
-  .pq { --peek: 156px; }
-
-  .pq-peek { gap: 12px; }
-
   .pq-card {
     padding-left: 8px;
     padding-right: 8px;
   }
   .p1-copy { align-items: center; text-align: center; }
-  .p1-sub { max-width: 30ch; margin-inline: auto; }
-  .p1-act { width: 100%; }
-  .p1-cta { justify-content: center; }
-  .p1-cta .lp-btn { padding-inline: 1.5rem; }
-  .p1-credit { max-width: 32ch; margin-inline: auto; }
   .p1-logo { width: min(300px, 74vw); margin-inline: auto; }
-  .p1-line { max-width: 16ch; }
   /*  Copy is centred at this width, so an angled scrim would leave
       one edge of it unreadable. Even wash instead. */
   .p1-scrim {
@@ -910,8 +778,7 @@ body.lp {
   .cs-field,
   .cs-field-b,
   .pulse-a,
-  .pulse-b,
-  .p1-scroll svg { animation: none; }
+  .pulse-b { animation: none; }
   .cs-relief { transition: none; }
   /*  No zoom: the runway collapses and the panel is simply open. */
   .p2 { height: auto; }
@@ -1155,4 +1022,180 @@ body.lp {
       300px of inner width. */
   .pf { padding-left: 14px; padding-right: 14px; }
   .pf-card { padding-left: 12px; padding-right: 12px; }
+}
+
+
+/*  ---------------------------------------------------------------
+    THE OPENING WORDS  (landing, under the video)
+    Spaced out and centred: this band is the whole message now, so it
+    gets room rather than being packed into a hero corner.
+    --------------------------------------------------------------- */
+.pl {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: clamp(56px, 11vh, 130px) clamp(16px, 5vw, 72px) clamp(40px, 8vh, 96px);
+  text-align: center;
+}
+
+.pl-inner {
+  width: 100%;
+  max-width: 60rem;
+}
+
+.pl-line {
+  margin: 0 0 clamp(20px, 3.4vh, 34px);
+  max-width: 22ch;
+  margin-inline: auto;
+  color: var(--ms-plum);
+  font-size: clamp(2.1rem, 1.2rem + 3.6vw, 3.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.pl-sub {
+  margin: 0 auto clamp(18px, 3vh, 30px);
+  max-width: 46ch;
+  color: var(--ms-ink-soft);
+  font-size: clamp(1.02rem, 0.94rem + 0.45vw, 1.3rem);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.pl-credit {
+  margin: 0 auto clamp(26px, 4vh, 44px);
+  max-width: 40ch;
+  color: var(--ms-plum);
+  font-size: clamp(0.8rem, 0.76rem + 0.18vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+.pl-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 14px;
+}
+
+/*  ---------------------------------------------------------------
+    THE COMMUNITY BLOCK  (landing, above the footer)
+    --------------------------------------------------------------- */
+.pc {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: clamp(48px, 9vh, 110px) clamp(16px, 5vw, 72px);
+  text-align: center;
+}
+
+.pc-inner { width: 100%; max-width: 46rem; }
+
+.pc-title {
+  margin: 0 0 0.8rem;
+  color: var(--ms-plum);
+  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.5rem);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+.pc-sub {
+  margin: 0 auto clamp(22px, 3.4vh, 34px);
+  max-width: 44ch;
+  color: var(--ms-ink-soft);
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
+  line-height: 1.6;
+}
+
+.pc-cta { margin: 0; }
+
+/*  ---------------------------------------------------------------
+    FOOTER  (solid bar, every page)
+    Contact offer on the left, the few links stacked on the right.
+    --------------------------------------------------------------- */
+.ms-footer {
+  position: relative;
+  z-index: 2;
+  background: var(--ms-plum);
+  color: var(--ms-ivory);
+  padding: clamp(32px, 6vw, 64px) clamp(16px, 5vw, 72px);
+}
+
+.ms-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(26px, 5vw, 64px);
+  max-width: var(--lp-wrap);
+  margin: 0 auto;
+}
+
+.ms-footer-contact { max-width: 40ch; }
+
+.ms-footer-h {
+  margin: 0 0 0.9rem;
+  color: var(--ms-ivory);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/*  style.css sets a colour on every p, which beats inheriting from the
+    bar, so the footer's own text colour has to be stated here. */
+.ms-footer p,
+.ms-footer-nav span {
+  color: var(--ms-ivory);
+}
+
+.ms-footer-contact p {
+  margin: 0 0 0.45rem;
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  line-height: 1.55;
+}
+
+.ms-footer-reach {
+  margin-top: 1.1rem !important;
+  font-weight: 600;
+}
+
+.ms-footer a {
+  color: var(--ms-ivory);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(248, 245, 250, 0.45);
+}
+
+.ms-footer a:hover { border-bottom-color: var(--ms-ivory); }
+
+/*  Right-aligned stack: the two links, then the small print. */
+.ms-footer-nav {
+  display: grid;
+  justify-items: end;
+  gap: 0.55rem;
+  margin-left: auto;
+  text-align: right;
+  font-size: 0.95rem;
+}
+
+.ms-footer-nav a {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ms-footer-nav span {
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
+.ms-footer-nav span:first-of-type { margin-top: 0.6rem; }
+
+@media (max-width: 760px) {
+  /*  Stacked, still left and right of each other in reading order. */
+  .ms-footer-inner { flex-direction: column; gap: 28px; }
+  .ms-footer-nav { justify-items: start; text-align: left; margin-left: 0; }
 }
