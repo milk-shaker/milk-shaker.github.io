@@ -1309,3 +1309,60 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+
+/*  ---------------------------------------------------------------
+    TOP BAR ON THE INNER PAGES
+    One row instead of two: the link columns sit either side of the
+    wordmark, centred on it, and the bar stays put while the page
+    scrolls under it.
+    --------------------------------------------------------------- */
+.ms-nav--page {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  align-items: center;
+  gap: 16px;
+  padding: clamp(8px, 1.4vw, 14px) clamp(16px, 5vw, 48px);
+  background: rgba(248, 245, 250, 0.82);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  backdrop-filter: saturate(140%) blur(14px);
+  border-bottom: 1px solid rgba(97, 47, 72, 0.12);
+}
+
+.ms-nav-mark {
+  display: block;
+  flex: 0 1 auto;
+  line-height: 0;
+}
+
+.ms-nav-mark img {
+  width: clamp(130px, 15vw, 200px);
+  height: auto;
+}
+
+/*  The columns take equal space so the wordmark lands in the middle of
+    the bar rather than in the middle of whatever is left over. */
+.ms-nav--page .ms-nav-left,
+.ms-nav--page .ms-nav-right {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  /*  No room for three columns: the wordmark leads, the links sit under
+      it, and the bar stops being sticky so it does not eat the screen. */
+  .ms-nav--page {
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+  }
+
+  .ms-nav-mark { order: -1; flex: 1 0 100%; text-align: center; }
+  .ms-nav-mark img { margin: 0 auto; }
+
+  .ms-nav--page .ms-nav-left,
+  .ms-nav--page .ms-nav-right { flex: 0 0 auto; }
+  .ms-nav--page .ms-nav-right { justify-items: end; }
+}

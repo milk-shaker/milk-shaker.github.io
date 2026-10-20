@@ -37,7 +37,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=9" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=10" />
 
   <!--======================================================================
        EDUCATIONAL SURVEY — one Tally form, nothing else.
@@ -63,24 +63,22 @@
   <div class="cs-field-b" aria-hidden="true"></div>
   <div class="cs-relief" id="csRelief" aria-hidden="true"></div>
 
-  <!--  Skippies-style top bar: the two asks stacked on the left, the two
-        places you can already find us on the right. Same on every page. -->
-  <header class="ms-nav">
+  <!--  One short sticky bar: the two asks on the left, the wordmark in
+        the middle on its own baseline with them, the two places we
+        already are on the right. It stays put while the page scrolls. -->
+  <header class="ms-nav ms-nav--page">
     <div class="ms-nav-left">
       <a href="/#join">Join the waitlist</a>
       <a href="#contact">Text an expert</a>
     </div>
+    <a class="ms-nav-mark" href="/" aria-label="MilkShaker home">
+      <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
+    </a>
     <div class="ms-nav-right">
       <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">r/mastitis</a>
       <a href="https://www.instagram.com/thisisthemilkshaker/" target="_blank"
         rel="noopener noreferrer">Instagram</a>
     </div>
-  </header>
-
-  <header class="ea-header">
-    <a href="/" aria-label="MilkShaker home">
-      <img src="/assets/images/milkshaker-wordmark.png" alt="MilkShaker" width="1380" height="232" />
-    </a>
   </header>
 
   <main>
