@@ -249,30 +249,38 @@
       Array.prototype.forEach.call(bands, function (el) {
         var r = el.getBoundingClientRect();
 
-        /*  Up to full strength over the last 55% of the viewport as the
-            band rises, and back down again as it climbs out of the top.
-            Whichever of the two is further along wins. */
+        /*  Over the last 55% of the viewport as the band rises, and back
+            again as it climbs out of the top. Whichever is further along
+            wins. */
         var rising = clamp01((vh - r.top - vh * 0.12) / (vh * 0.55));
         var leaving = clamp01((r.bottom - vh * 0.06) / (vh * 0.42));
         var v = Math.min(rising, leaving);
 
-        el.style.opacity = v.toFixed(3);
-        el.style.transform = 'translateY(' + ((1 - v) * 26).toFixed(1) + 'px)';
+        /*  Movement is the effect; the dimming only takes the first and
+            last fifth of the travel off, so the band glides rather than
+            washing out. */
+        var ease = 1 - Math.pow(1 - v, 2);
+
+        el.style.opacity = clamp01(v * 2.4).toFixed(3);
+        el.style.transform = 'translateY(' + ((1 - ease) * 68).toFixed(1) + 'px)';
       });
 
       if (heroPanel && heroCopy) {
         var hr = heroPanel.getBoundingClientRect();
         var p = clamp01(-hr.top / Math.max(1, hr.height));
 
-        /*  Sinks and fades, finishing exactly at the panel's bottom. */
-        heroCopy.style.opacity = (1 - p).toFixed(3);
-        heroCopy.style.transform = 'translateY(' + (p * 90).toFixed(1) + 'px)';
+        /*  Sinks away, finishing exactly at the panel's bottom. It keeps
+            its strength through most of the travel and only gives it up
+            at the end, so it reads as leaving rather than dimming. */
+        heroCopy.style.opacity = clamp01((1 - p) * 1.9).toFixed(3);
+        heroCopy.style.transform = 'translateY(' + (p * 130).toFixed(1) + 'px)';
 
         if (navFades) {
           /*  Gone by the middle of the panel, and not clickable once it
               is invisible. */
           var np = clamp01(p / 0.5);
-          topBar.style.opacity = (1 - np).toFixed(3);
+          topBar.style.opacity = clamp01((1 - np) * 1.8).toFixed(3);
+          topBar.style.transform = 'translateY(' + (np * -38).toFixed(1) + 'px)';
           topBar.style.pointerEvents = np > 0.92 ? 'none' : '';
         }
       }

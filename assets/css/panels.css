@@ -1354,3 +1354,85 @@ html { scroll-behavior: smooth; }
   .ms-nav--page .ms-nav-right { flex: 0 0 auto; }
   .ms-nav--page .ms-nav-right { justify-items: end; }
 }
+
+
+/*  ---------------------------------------------------------------
+    LINKS
+    Nothing gets underlined or boxed on hover anywhere. A link
+    answers with its colour, and the pointer does the rest.
+    --------------------------------------------------------------- */
+.lp a:not(.lp-btn):hover,
+.lp a:not(.lp-btn):focus-visible,
+.lp a:not(.lp-btn):active {
+  color: var(--ms-peri-deep);
+  border-bottom-color: transparent;
+  text-decoration: none;
+}
+
+.ms-nav a,
+.cs-footer a,
+.ms-footer a {
+  border-bottom: 0;
+  transition: color 160ms ease;
+}
+
+.ms-nav a:hover,
+.ms-nav a:focus-visible,
+.ms-nav a:active {
+  color: var(--ms-peri-deep);
+  border-bottom-color: transparent;
+}
+
+/*  On the plum bar the periwinkle would sink into the ground, so the
+    footer's links answer by lifting towards white instead. */
+.ms-footer a:hover,
+.ms-footer a:focus-visible,
+.ms-footer a:active {
+  color: #FFFFFF;
+  border-bottom-color: transparent;
+}
+
+/*  The wordmark is a picture of the brand: no colour shift, no box,
+    no underline. The cursor is the only thing that changes. The
+    keyboard focus ring stays -- it is the only way a keyboard user
+    can tell where they are. */
+.ms-nav-mark:hover,
+.ms-nav-mark:active,
+.p1-logo:hover {
+  opacity: 1;
+  border-bottom: 0;
+  text-decoration: none;
+}
+
+.ms-nav-mark:focus-visible {
+  outline: 3px solid var(--ms-peri-deep);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/*  ---------------------------------------------------------------
+    FOOTER TYPE
+    Everything in the bar takes the CONTACT heading's treatment:
+    uppercase, letterspaced, in the same face.
+    --------------------------------------------------------------- */
+.ms-footer p,
+.ms-footer-nav a,
+.ms-footer-nav span {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.ms-footer-contact p {
+  font-size: clamp(0.8rem, 0.74rem + 0.22vw, 0.92rem);
+  line-height: 1.75;
+}
+
+.ms-footer-reach { font-size: clamp(0.8rem, 0.74rem + 0.22vw, 0.92rem); }
+
+.ms-footer-nav {
+  font-size: clamp(0.8rem, 0.74rem + 0.22vw, 0.92rem);
+  gap: 0.7rem;
+}
+
+.ms-footer-nav span { font-size: 0.78rem; }
