@@ -219,27 +219,75 @@
   }
 
   /*  ------------------------------------------------------------
-      SCROLL REVEAL
-      Every [data-reveal] band lifts and fades in once as it comes
-      into view. The hidden state is applied here rather than in the
-      stylesheet, so with the script blocked the sections just show.
+      SCROLL-LINKED FADES
+      Each [data-reveal] band fades in as it rises into view and back
+      out as it leaves, in both directions, tied to scroll position
+      rather than to a one-shot trigger -- so scrolling back up plays
+      it again, the way the reference site does.
+
+      The hero does the same on its own terms: the wordmark sinks and
+      fades out by the bottom of the first panel, and the top bar is
+      gone by the middle of it.
+
+      Values are written straight onto the elements each frame, so
+      there is no CSS transition fighting the scroll position.
       ------------------------------------------------------------ */
-  var reveals = document.querySelectorAll('[data-reveal]');
-  if (reveals.length) {
-    if (still || !('IntersectionObserver' in window)) {
-      Array.prototype.forEach.call(reveals, function (el) { el.classList.add('is-in'); });
-    } else {
-      Array.prototype.forEach.call(reveals, function (el) { el.classList.add('js-reveal'); });
+  var bands = document.querySelectorAll('[data-reveal]');
+  var heroPanel = document.querySelector('.p1');
+  var heroCopy = document.querySelector('.p1-copy');
+  var topBar = document.querySelector('.ms-nav');
+  var navFades = topBar && !topBar.classList.contains('ms-nav--page');
 
-      var seen = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-in');
-          seen.unobserve(entry.target);
-        });
-      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  if ((bands.length || heroCopy) && !still) {
+    Array.prototype.forEach.call(bands, function (el) { el.classList.add('js-fade'); });
 
-      Array.prototype.forEach.call(reveals, function (el) { seen.observe(el); });
-    }
+    var clamp01 = function (n) { return n < 0 ? 0 : (n > 1 ? 1 : n); };
+
+    var paintFades = function () {
+      var vh = window.innerHeight || 1;
+
+      Array.prototype.forEach.call(bands, function (el) {
+        var r = el.getBoundingClientRect();
+
+        /*  Up to full strength over the last 55% of the viewport as the
+            band rises, and back down again as it climbs out of the top.
+            Whichever of the two is further along wins. */
+        var rising = clamp01((vh - r.top - vh * 0.12) / (vh * 0.55));
+        var leaving = clamp01((r.bottom - vh * 0.06) / (vh * 0.42));
+        var v = Math.min(rising, leaving);
+
+        el.style.opacity = v.toFixed(3);
+        el.style.transform = 'translateY(' + ((1 - v) * 26).toFixed(1) + 'px)';
+      });
+
+      if (heroPanel && heroCopy) {
+        var hr = heroPanel.getBoundingClientRect();
+        var p = clamp01(-hr.top / Math.max(1, hr.height));
+
+        /*  Sinks and fades, finishing exactly at the panel's bottom. */
+        heroCopy.style.opacity = (1 - p).toFixed(3);
+        heroCopy.style.transform = 'translateY(' + (p * 90).toFixed(1) + 'px)';
+
+        if (navFades) {
+          /*  Gone by the middle of the panel, and not clickable once it
+              is invisible. */
+          var np = clamp01(p / 0.5);
+          topBar.style.opacity = (1 - np).toFixed(3);
+          topBar.style.pointerEvents = np > 0.92 ? 'none' : '';
+        }
+      }
+    };
+
+    var fadeRaf = null;
+    var onFadeScroll = function () {
+      if (fadeRaf == null) fadeRaf = requestAnimationFrame(function () {
+        fadeRaf = null;
+        paintFades();
+      });
+    };
+
+    window.addEventListener('scroll', onFadeScroll, { passive: true });
+    window.addEventListener('resize', onFadeScroll, { passive: true });
+    paintFades();
   }
 })();

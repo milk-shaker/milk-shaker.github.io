@@ -181,21 +181,20 @@ body.lp {
   text-align: left;
 }
 
-/*  Set to the same width as the wordmark above it and justified, so the
-    line starts and ends exactly where "milkshaker" does. The trailing
-    letter-space would otherwise push the last letter past its edge, so
-    it is pulled back by the same amount. */
+/*  Centred inside the wordmark's own width, so it sits under the middle
+    of "milkshaker" rather than under its left edge. The padding offsets
+    the trailing letter-space, which would otherwise push the line a
+    third of a character to the left of true centre. */
 .p1-soon {
   width: min(420px, 74%);
   margin: clamp(14px, 2.4vh, 24px) 0 0;
-  padding-right: 0.3em;
+  padding-left: 0.3em;
   color: var(--ms-plum);
   font-size: clamp(1.02rem, 0.9rem + 0.42vw, 1.32rem);
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  text-align: justify;
-  text-align-last: justify;
+  text-align: center;
 }
 
 /*  Panel 3 is an ordinary style.css section, but on this page two
@@ -1273,32 +1272,21 @@ body.lp {
 .lp-btn--community:focus-visible { outline-color: var(--ms-peri-deep); }
 
 /*  ---------------------------------------------------------------
-    SCROLL REVEAL
-    Each band below the hero lifts and fades in as it arrives, the
-    way the panels do on the reference site. panels.js adds
-    .is-in when the section crosses into view; without the script
-    the sections are simply visible, which is why the hidden state
-    is set by .js-reveal rather than by the section itself.
+    SCROLL-LINKED FADES
+    panels.js writes opacity and offset on every frame, so there is
+    no transition here to lag behind the scroll. The class is added
+    by the script: with JS off, or with reduced motion, the bands
+    are simply visible.
     --------------------------------------------------------------- */
-.js-reveal {
-  opacity: 0;
-  transform: translateY(38px);
-  transition: opacity 760ms cubic-bezier(0.2, 0.7, 0.2, 1),
-              transform 760ms cubic-bezier(0.2, 0.7, 0.2, 1);
+.js-fade {
   will-change: opacity, transform;
 }
 
-.js-reveal.is-in {
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .js-reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+/*  The hero copy and the landing page's top bar are driven the same
+    way; they only need somewhere smooth to land. */
+.p1-copy,
+.lp .ms-nav {
+  will-change: opacity, transform;
 }
 
 /*  ---------------------------------------------------------------
