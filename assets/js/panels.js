@@ -217,4 +217,29 @@
       slotTimer = setTimeout(sizeSlot, 150);
     }, { passive: true });
   }
+
+  /*  ------------------------------------------------------------
+      SCROLL REVEAL
+      Every [data-reveal] band lifts and fades in once as it comes
+      into view. The hidden state is applied here rather than in the
+      stylesheet, so with the script blocked the sections just show.
+      ------------------------------------------------------------ */
+  var reveals = document.querySelectorAll('[data-reveal]');
+  if (reveals.length) {
+    if (still || !('IntersectionObserver' in window)) {
+      Array.prototype.forEach.call(reveals, function (el) { el.classList.add('is-in'); });
+    } else {
+      Array.prototype.forEach.call(reveals, function (el) { el.classList.add('js-reveal'); });
+
+      var seen = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          seen.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+
+      Array.prototype.forEach.call(reveals, function (el) { seen.observe(el); });
+    }
+  }
 })();

@@ -45,7 +45,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=8" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=9" />
 
   <!--======================================================================
        LANDING PAGE — the whole funnel, in one scroll.
@@ -103,8 +103,8 @@
         places you can already find us on the right. Same on every page. -->
   <header class="ms-nav">
     <div class="ms-nav-left">
-      <a href="/#join">Join the waitlist</a>
-      <a href="sms:+19178085179">Text an expert</a>
+      <a href="#join">Join the waitlist</a>
+      <a href="#contact">Text an expert</a>
     </div>
     <div class="ms-nav-right">
       <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">r/mastitis</a>
@@ -145,7 +145,7 @@
           Problem first, the people behind it second, the product barely at
           all: there is nothing to show yet, and a spec invites questions we
           cannot answer until the first units are tested. ======-->
-    <section class="pl" aria-labelledby="h-lead">
+    <section class="pl" data-reveal aria-labelledby="h-lead">
       <div class="pl-inner">
         <h1 class="pl-line" id="h-lead">Ending the trial and error of breastfeeding</h1>
         <p class="pl-sub">
@@ -157,7 +157,7 @@
         <div class="pl-cta">
           <a class="lp-btn" href="#join"><span>Join the waitlist</span><span class="lp-arrow"
               aria-hidden="true"></span></a>
-          <a class="lp-btn lp-btn--ghost" href="https://www.reddit.com/r/mastitis/" target="_blank"
+          <a class="lp-btn lp-btn--community" href="https://www.reddit.com/r/mastitis/" target="_blank"
             rel="noopener noreferrer"><span>Ask r/mastitis</span></a>
         </div>
       </div>
@@ -168,7 +168,7 @@
           has to stay on this form: referral links to the old page point at
           that anchor, the redirect carries ?ref= across, and ref.js restores
           it to the URL before LaunchList's widget builds the iframe. ======-->
-    <section class="p4 lp-band" id="join" aria-labelledby="h-band">
+    <section class="p4 lp-band" id="join" data-reveal aria-labelledby="h-band">
       <div class="lp-band-inner">
         <div class="lp-band-copy p4-copy">
           <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
@@ -184,7 +184,7 @@
     <!--====== THE COMMUNITY ======
           The reason to be on this page even if the waitlist means nothing
           to you yet: somewhere to go today, with people answering. ======-->
-    <section class="pc" aria-labelledby="h-community">
+    <section class="pc" data-reveal aria-labelledby="h-community">
       <div class="pc-inner">
         <h2 class="pc-title" id="h-community">In the meantime, meet our community</h2>
         <p class="pc-sub">
@@ -192,7 +192,7 @@
           questions you did not know to ask. Free, and open now.
         </p>
         <p class="pc-cta">
-          <a class="lp-btn" href="https://www.reddit.com/r/mastitis/" target="_blank"
+          <a class="lp-btn lp-btn--community" href="https://www.reddit.com/r/mastitis/" target="_blank"
             rel="noopener noreferrer"><span>Join the subreddit</span><span class="lp-arrow"
               aria-hidden="true"></span></a>
         </p>
@@ -203,7 +203,7 @@
 
   <!--  Skippies-style solid bar: the contact offer on the left, the few
         links stacked on the right. Same markup on every page. -->
-  <footer class="ms-footer">
+  <footer class="ms-footer" id="contact">
     <div class="ms-footer-inner">
 
       <div class="ms-footer-contact">
@@ -211,7 +211,7 @@
         <p>Have a question about nursing and pumping complications?</p>
         <p>Text our lactation expert for guidance &mdash; we&rsquo;re here to help.</p>
         <p class="ms-footer-reach">
-          MilkShaker&rsquo;s Chief Lactation Officer:
+          MilkShaker&rsquo;s Chief Executive Baby Officer:
           <a href="sms:+19178085179">917-808-5179</a><br />
           <a href="mailto:hello@themilkshaker.com">hello@themilkshaker.com</a>
         </p>

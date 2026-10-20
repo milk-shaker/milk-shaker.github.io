@@ -181,13 +181,21 @@ body.lp {
   text-align: left;
 }
 
+/*  Set to the same width as the wordmark above it and justified, so the
+    line starts and ends exactly where "milkshaker" does. The trailing
+    letter-space would otherwise push the last letter past its edge, so
+    it is pulled back by the same amount. */
 .p1-soon {
+  width: min(420px, 74%);
   margin: clamp(14px, 2.4vh, 24px) 0 0;
+  padding-right: 0.3em;
   color: var(--ms-plum);
-  font-size: clamp(0.9rem, 0.82rem + 0.3vw, 1.12rem);
+  font-size: clamp(1.02rem, 0.9rem + 0.42vw, 1.32rem);
   font-weight: 700;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
+  text-align: justify;
+  text-align-last: justify;
 }
 
 /*  Panel 3 is an ordinary style.css section, but on this page two
@@ -732,6 +740,7 @@ body.lp {
     padding-right: 8px;
   }
   .p1-logo { width: min(330px, 78vw); }
+  .p1-soon { width: min(330px, 78vw); }
   /*  Copy is centred at this width, so an angled scrim would leave
       one edge of it unreadable. Even wash instead. */
   .p1-scrim {
@@ -1132,12 +1141,12 @@ body.lp {
   margin: 0 auto;
 }
 
-.ms-footer-contact { max-width: 40ch; }
+.ms-footer-contact { max-width: 44ch; }
 
 .ms-footer-h {
   margin: 0 0 0.9rem;
   color: var(--ms-ivory);
-  font-size: 0.78rem;
+  font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -1151,8 +1160,8 @@ body.lp {
 }
 
 .ms-footer-contact p {
-  margin: 0 0 0.45rem;
-  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem);
   line-height: 1.55;
 }
 
@@ -1173,10 +1182,10 @@ body.lp {
 .ms-footer-nav {
   display: grid;
   justify-items: end;
-  gap: 0.55rem;
+  gap: 0.6rem;
   margin-left: auto;
   text-align: right;
-  font-size: 0.95rem;
+  font-size: clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem);
 }
 
 .ms-footer-nav a {
@@ -1185,7 +1194,7 @@ body.lp {
 }
 
 .ms-footer-nav span {
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   opacity: 0.75;
 }
 
@@ -1220,16 +1229,16 @@ body.lp {
   justify-items: start;
 }
 
+/*  Stacked, like the left column, so the two sides read as a pair. */
 .ms-nav-right {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 6px 22px;
+  display: grid;
+  gap: 2px;
+  justify-items: end;
 }
 
 .ms-nav a {
   color: var(--ms-plum);
-  font-size: clamp(0.66rem, 0.62rem + 0.16vw, 0.78rem);
+  font-size: clamp(0.82rem, 0.74rem + 0.3vw, 1rem);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1242,3 +1251,61 @@ body.lp {
 /*  The landing page's bar sits on the video, so the hero's own top
     padding is not needed above it. */
 .lp .ms-nav + main .p1 { margin-top: calc(-1 * clamp(44px, 7vw, 76px)); }
+
+
+/*  ---------------------------------------------------------------
+    COMMUNITY BUTTON
+    Plum, so the two subreddit CTAs match each other and neither is
+    mistaken for the periwinkle waitlist button.
+    --------------------------------------------------------------- */
+.lp-btn--community {
+  background: var(--ms-plum);
+  border: 1.5px solid var(--ms-plum);
+  color: var(--ms-ivory);
+}
+
+.lp-btn--community:hover {
+  background: var(--ms-plum-dark);
+  border-color: var(--ms-plum-dark);
+  color: var(--ms-ivory);
+}
+
+.lp-btn--community:focus-visible { outline-color: var(--ms-peri-deep); }
+
+/*  ---------------------------------------------------------------
+    SCROLL REVEAL
+    Each band below the hero lifts and fades in as it arrives, the
+    way the panels do on the reference site. panels.js adds
+    .is-in when the section crosses into view; without the script
+    the sections are simply visible, which is why the hidden state
+    is set by .js-reveal rather than by the section itself.
+    --------------------------------------------------------------- */
+.js-reveal {
+  opacity: 0;
+  transform: translateY(38px);
+  transition: opacity 760ms cubic-bezier(0.2, 0.7, 0.2, 1),
+              transform 760ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.js-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/*  ---------------------------------------------------------------
+    A gentler jump for in-page links (the top bar's two).
+    --------------------------------------------------------------- */
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
