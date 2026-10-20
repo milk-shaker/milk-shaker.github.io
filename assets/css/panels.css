@@ -1412,27 +1412,13 @@ html { scroll-behavior: smooth; }
 
 /*  ---------------------------------------------------------------
     FOOTER TYPE
-    Everything in the bar takes the CONTACT heading's treatment:
-    uppercase, letterspaced, in the same face.
+    Only the two links take the CONTACT heading's treatment: caps,
+    letterspaced, same face and size. The contact copy stays as it
+    reads, in sentence case.
     --------------------------------------------------------------- */
-.ms-footer p,
-.ms-footer-nav a,
-.ms-footer-nav span {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+.ms-footer-nav a {
+  font-size: 0.92rem;
   font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
-
-.ms-footer-contact p {
-  font-size: clamp(0.8rem, 0.74rem + 0.22vw, 0.92rem);
-  line-height: 1.75;
-}
-
-.ms-footer-reach { font-size: clamp(0.8rem, 0.74rem + 0.22vw, 0.92rem); }
-
-.ms-footer-nav {
-  font-size: clamp(0.8rem, 0.74rem + 0.22vw, 0.92rem);
-  gap: 0.7rem;
-}
-
-.ms-footer-nav span { font-size: 0.78rem; }
