@@ -1512,6 +1512,24 @@ html { scroll-behavior: smooth; }
 .ms-footer-social a:focus-visible { color: #FFFFFF; }
 
 
+/*  The mark beside the Instagram link in the bar, at the size of the
+    type it sits with. */
+.ms-nav-ig {
+  display: inline-block;
+  width: 1.05em;
+  height: 1.05em;
+  margin-left: 0.3em;
+  vertical-align: -0.2em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.ms-nav-ig .ms-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
 /*  ---------------------------------------------------------------
     HEART
     Drawn, not typed: an emoji would arrive in whatever shape and
