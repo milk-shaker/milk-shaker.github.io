@@ -841,7 +841,7 @@ body.lp {
 .pt-eyebrow {
   margin: 0 0 0.9rem;
   color: var(--ms-ink-soft);
-  font-size: 0.78rem;
+  font-size: clamp(0.92rem, 0.84rem + 0.26vw, 1.08rem);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -1510,3 +1510,40 @@ html { scroll-behavior: smooth; }
 
 .ms-footer-social a:hover,
 .ms-footer-social a:focus-visible { color: #FFFFFF; }
+
+
+/*  ---------------------------------------------------------------
+    HEART
+    Drawn, not typed: an emoji would arrive in whatever shape and
+    colour the reader's system keeps, and the two here have to be
+    plum on the bar and white on the footer.
+    --------------------------------------------------------------- */
+.ms-heart {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: 0.14em;
+  vertical-align: -0.12em;
+  fill: currentColor;
+  stroke: none;
+}
+
+.ms-heart--light {
+  fill: #FFFFFF;
+  margin: 0 0.1em;
+}
+
+/*  ---------------------------------------------------------------
+    The line under the waitlist form, at twice its old size: it is
+    the offer, not a footnote.
+    --------------------------------------------------------------- */
+.p4-form .lp-form-note {
+  font-size: 1.935rem;
+  line-height: 1.3;
+  margin-top: 1.4rem;
+  text-wrap: balance;
+}
+
+@media (max-width: 900px) {
+  .p4-form .lp-form-note { font-size: 1.5rem; }
+}
