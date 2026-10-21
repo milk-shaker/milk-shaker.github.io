@@ -1565,3 +1565,25 @@ html { scroll-behavior: smooth; }
 @media (max-width: 900px) {
   .p4-form .lp-form-note { font-size: 1.5rem; }
 }
+
+
+/*  ---------------------------------------------------------------
+    PARTNER BUTTON
+    A third colour, so the three asks never read as the same one:
+    periwinkle joins the waitlist, plum joins the community, and the
+    deep rose writes to us about a partnership. White on it is
+    4.6:1, which carries the button's bold label.
+    --------------------------------------------------------------- */
+.lp-btn--partner {
+  background: var(--ms-rose-deep);
+  border: 1.5px solid var(--ms-rose-deep);
+  color: #FFFFFF;
+}
+
+.lp-btn--partner:hover {
+  background: #A93B48;
+  border-color: #A93B48;
+  color: #FFFFFF;
+}
+
+.lp-btn--partner:focus-visible { outline-color: var(--ms-plum); }
