@@ -1299,14 +1299,18 @@ body.lp {
   transition: opacity 620ms ease, transform 720ms cubic-bezier(0.22, 0.68, 0.24, 1);
 }
 
+/*  One timing for both, so they leave together. */
 .js-anim .p1-copy,
 .js-anim .ms-nav {
-  transition: opacity 520ms ease, transform 720ms cubic-bezier(0.22, 0.68, 0.24, 1);
+  transition: opacity 560ms ease, transform 560ms cubic-bezier(0.22, 0.68, 0.24, 1);
 }
 
+/*  Upwards, like the bar above it. Sinking it instead sent the
+    wordmark down into the fixed bar while that bar was still fading,
+    and the two sat on top of each other for half a second. */
 .js-anim .p1-copy.is-gone {
   opacity: 0;
-  transform: translate3d(0, 110px, 0);
+  transform: translate3d(0, -40px, 0);
 }
 
 .js-anim .ms-nav.is-gone {

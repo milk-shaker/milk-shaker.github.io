@@ -299,7 +299,9 @@
         var gone = null;
         var checkHero = function () {
           var h = heroPanel.getBoundingClientRect();
-          var past = -h.top > h.height * 0.5;
+          /*  Earlier than the halfway mark the pointer version uses: the
+              copy has to clear the fixed bar before it reaches it. */
+          var past = -h.top > h.height * 0.28;
           if (past === gone) return;
           gone = past;
           if (heroCopy) heroCopy.classList.toggle('is-gone', past);
