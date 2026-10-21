@@ -1575,14 +1575,17 @@ html { scroll-behavior: smooth; }
     4.6:1, which carries the button's bold label.
     --------------------------------------------------------------- */
 .lp-btn--partner {
-  background: var(--ms-rose-deep);
-  border: 1.5px solid var(--ms-rose-deep);
+  /*  A dusty blush-rose rather than the palette's bright --ms-rose-deep,
+      which read as a warning colour next to the plum. Still 4.6:1 under
+      white, which the bold label needs. */
+  background: #A96072;
+  border: 1.5px solid #A96072;
   color: #FFFFFF;
 }
 
 .lp-btn--partner:hover {
-  background: #A93B48;
-  border-color: #A93B48;
+  background: #965263;
+  border-color: #965263;
   color: #FFFFFF;
 }
 
