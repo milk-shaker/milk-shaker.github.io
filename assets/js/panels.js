@@ -219,83 +219,157 @@
   }
 
   /*  ------------------------------------------------------------
-      SCROLL-LINKED FADES
-      Each [data-reveal] band fades in as it rises into view and back
-      out as it leaves, in both directions, tied to scroll position
-      rather than to a one-shot trigger -- so scrolling back up plays
-      it again, the way the reference site does.
+      ENTRANCES
+      Two routes to the same effect.
 
-      The hero does the same on its own terms: the wordmark sinks and
-      fades out by the bottom of the first panel, and the top bar is
-      gone by the middle of it.
+      On a pointer device the values are written every frame from the
+      scroll position, so a band's travel tracks the wheel and
+      reverses when you scroll back up.
 
-      Values are written straight onto the elements each frame, so
-      there is no CSS transition fighting the scroll position.
+      On a touch device that costs too much: phones deliver scroll in
+      bursts, and during momentum scrolling they stop delivering it at
+      all, so per-frame writes land late and read as stutter. There a
+      class goes on when the band arrives and the browser animates it
+      on the compositor, which keeps up with the finger.
+
+      Either way the hidden state is applied by this script and never
+      by the stylesheet, and a watchdog clears it if the mechanism
+      that is meant to lift it never reports in. A band that is
+      invisible because an observer stayed silent is worse than no
+      animation at all.
       ------------------------------------------------------------ */
   var bands = document.querySelectorAll('[data-reveal]');
   var heroPanel = document.querySelector('.p1');
   var heroCopy = document.querySelector('.p1-copy');
   var topBar = document.querySelector('.ms-nav');
   var navFades = topBar && !topBar.classList.contains('ms-nav--page');
+  var touch = window.matchMedia('(hover: none), (max-width: 760px)').matches;
 
   if ((bands.length || heroCopy) && !still) {
-    Array.prototype.forEach.call(bands, function (el) { el.classList.add('js-fade'); });
-
     var clamp01 = function (n) { return n < 0 ? 0 : (n > 1 ? 1 : n); };
 
-    var paintFades = function () {
-      var vh = window.innerHeight || 1;
+    Array.prototype.forEach.call(bands, function (el) { el.classList.add('js-fade'); });
+
+    if (touch) {
+      /*  ---- touch: the browser animates between two states ---- */
+      document.documentElement.classList.add('js-anim');
+
+      var LIFT = 46;
+      var hide = function (el) {
+        el.style.opacity = '0';
+        el.style.transform = 'translate3d(0,' + LIFT + 'px,0)';
+      };
+      var show = function (el) {
+        el.style.opacity = '';
+        el.style.transform = '';
+      };
+      var inView = function (el) {
+        var r = el.getBoundingClientRect();
+        return r.top < window.innerHeight * 0.9 && r.bottom > window.innerHeight * 0.1;
+      };
 
       Array.prototype.forEach.call(bands, function (el) {
-        var r = el.getBoundingClientRect();
-
-        /*  Over the last 55% of the viewport as the band rises, and back
-            again as it climbs out of the top. Whichever is further along
-            wins. */
-        var rising = clamp01((vh - r.top - vh * 0.12) / (vh * 0.55));
-        var leaving = clamp01((r.bottom - vh * 0.06) / (vh * 0.42));
-        var v = Math.min(rising, leaving);
-
-        /*  Movement is the effect; the dimming only takes the first and
-            last fifth of the travel off, so the band glides rather than
-            washing out. */
-        var ease = 1 - Math.pow(1 - v, 2);
-
-        el.style.opacity = clamp01(v * 2.4).toFixed(3);
-        el.style.transform = 'translateY(' + ((1 - ease) * 68).toFixed(1) + 'px)';
+        if (!inView(el)) hide(el);
       });
 
-      if (heroPanel && heroCopy) {
-        var hr = heroPanel.getBoundingClientRect();
-        var p = clamp01(-hr.top / Math.max(1, hr.height));
+      var heard = false;
 
-        /*  Sinks away, finishing exactly at the panel's bottom. It keeps
-            its strength through most of the travel and only gives it up
-            at the end, so it reads as leaving rather than dimming. */
-        heroCopy.style.opacity = clamp01((1 - p) * 1.9).toFixed(3);
-        heroCopy.style.transform = 'translateY(' + (p * 130).toFixed(1) + 'px)';
+      if ('IntersectionObserver' in window) {
+        var arrive = new IntersectionObserver(function (entries) {
+          heard = true;
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) show(entry.target);
+            else hide(entry.target);
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
 
-        if (navFades) {
-          /*  Gone by the middle of the panel, and not clickable once it
-              is invisible. */
-          var np = clamp01(p / 0.5);
-          topBar.style.opacity = clamp01((1 - np) * 1.8).toFixed(3);
-          topBar.style.transform = 'translateY(' + (np * -38).toFixed(1) + 'px)';
-          topBar.style.pointerEvents = np > 0.92 ? 'none' : '';
-        }
+        Array.prototype.forEach.call(bands, function (el) { arrive.observe(el); });
       }
-    };
 
-    var fadeRaf = null;
-    var onFadeScroll = function () {
-      if (fadeRaf == null) fadeRaf = requestAnimationFrame(function () {
-        fadeRaf = null;
-        paintFades();
-      });
-    };
+      /*  If nothing came back, the observer is not running here. Show
+          everything and leave it shown. */
+      window.setTimeout(function () {
+        if (heard) return;
+        Array.prototype.forEach.call(bands, show);
+      }, 1400);
 
-    window.addEventListener('scroll', onFadeScroll, { passive: true });
-    window.addEventListener('resize', onFadeScroll, { passive: true });
-    paintFades();
+      /*  The hero's exit is one threshold rather than a per-frame
+          value, for the same reason: halfway down the first panel. */
+      if (heroPanel && (heroCopy || navFades)) {
+        var gone = null;
+        var checkHero = function () {
+          var h = heroPanel.getBoundingClientRect();
+          var past = -h.top > h.height * 0.5;
+          if (past === gone) return;
+          gone = past;
+          if (heroCopy) heroCopy.classList.toggle('is-gone', past);
+          if (navFades) topBar.classList.toggle('is-gone', past);
+        };
+
+        var heroRaf = null;
+        window.addEventListener('scroll', function () {
+          if (heroRaf == null) heroRaf = requestAnimationFrame(function () {
+            heroRaf = null;
+            checkHero();
+          });
+        }, { passive: true });
+        window.addEventListener('resize', checkHero, { passive: true });
+        checkHero();
+      }
+    } else {
+      /*  ---- pointer: tied to the scroll position ---- */
+      var paintFades = function () {
+        var vh = window.innerHeight;
+        /*  A zero-height viewport (a hidden tab, a pane being resized)
+            would drive everything to the same end value. Leave the last
+            frame standing instead. */
+        if (!vh) return;
+
+        Array.prototype.forEach.call(bands, function (el) {
+          var r = el.getBoundingClientRect();
+
+          var rising = clamp01((vh - r.top - vh * 0.12) / (vh * 0.55));
+          var leaving = clamp01((r.bottom - vh * 0.06) / (vh * 0.42));
+          var v = Math.min(rising, leaving);
+
+          /*  Movement is the effect; the dimming only takes the first
+              and last of the travel off. */
+          var ease = 1 - Math.pow(1 - v, 2);
+
+          el.style.opacity = clamp01(v * 2.4).toFixed(3);
+          el.style.transform = 'translate3d(0,' + ((1 - ease) * 68).toFixed(1) + 'px,0)';
+        });
+
+        if (heroPanel && heroCopy) {
+          var hr = heroPanel.getBoundingClientRect();
+          var p = clamp01(-hr.top / Math.max(1, hr.height));
+
+          heroCopy.style.opacity = clamp01((1 - p) * 1.9).toFixed(3);
+          heroCopy.style.transform = 'translate3d(0,' + (p * 130).toFixed(1) + 'px,0)';
+
+          if (navFades) {
+            /*  Carried along by the fixed bar until halfway down the
+                panel, then gone -- and not clickable once invisible. */
+            var np = clamp01(p / 0.5);
+            topBar.style.opacity = clamp01((1 - np) * 1.8).toFixed(3);
+            topBar.style.transform = 'translate3d(0,' + (np * -38).toFixed(1) + 'px,0)';
+            topBar.style.pointerEvents = np > 0.92 ? 'none' : '';
+          }
+        }
+      };
+
+      var fadeRaf = null;
+      var onFadeScroll = function () {
+        if (fadeRaf == null) fadeRaf = requestAnimationFrame(function () {
+          fadeRaf = null;
+          paintFades();
+        });
+      };
+
+      window.addEventListener('scroll', onFadeScroll, { passive: true });
+      window.addEventListener('resize', onFadeScroll, { passive: true });
+      window.addEventListener('load', onFadeScroll);
+      paintFades();
+    }
   }
 })();

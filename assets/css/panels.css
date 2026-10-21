@@ -1247,9 +1247,16 @@ body.lp {
 
 .ms-nav a:hover { border-bottom-color: var(--ms-plum); }
 
-/*  The landing page's bar sits on the video, so the hero's own top
-    padding is not needed above it. */
-.lp .ms-nav + main .p1 { margin-top: calc(-1 * clamp(44px, 7vw, 76px)); }
+/*  The landing bar is pinned over the footage so it is still there to
+    be scrolled away from: panels.js lifts and fades it out across the
+    first panel. In normal flow it just left with the page, which looked
+    like no animation at all. */
+.lp .ms-nav:not(.ms-nav--page) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 
 
 /*  ---------------------------------------------------------------
@@ -1280,6 +1287,29 @@ body.lp {
     --------------------------------------------------------------- */
 .js-fade {
   will-change: opacity, transform;
+}
+
+/*  The touch route: the browser animates between the two states that
+    panels.js sets inline. Nothing here hides anything -- with the
+    script stalled or blocked, every band stays on the page. */
+.js-anim .js-fade {
+  transition: opacity 620ms ease, transform 720ms cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+
+.js-anim .p1-copy,
+.js-anim .ms-nav {
+  transition: opacity 520ms ease, transform 720ms cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+
+.js-anim .p1-copy.is-gone {
+  opacity: 0;
+  transform: translate3d(0, 110px, 0);
+}
+
+.js-anim .ms-nav.is-gone {
+  opacity: 0;
+  transform: translate3d(0, -38px, 0);
+  pointer-events: none;
 }
 
 /*  The hero copy and the landing page's top bar are driven the same
@@ -1417,8 +1447,59 @@ html { scroll-behavior: smooth; }
     reads, in sentence case.
     --------------------------------------------------------------- */
 .ms-footer-nav a {
+  /*  CONTACT is an <h2>, which style.css sets in the display serif at
+      weight 700. Matching it means matching the face, not just the
+      caps and the letterspacing. */
+  font-family: var(--font-accent);
   font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
+
+
+/*  ---------------------------------------------------------------
+    FOOTER SOCIAL
+    A row of marks under the two links, drawn as strokes so they sit
+    at the same visual weight as the type beside them.
+    --------------------------------------------------------------- */
+.ms-footer-social {
+  display: flex;
+  gap: 14px;
+  margin: 0.2rem 0 0.3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ms-footer-social a {
+  display: block;
+  border-bottom: 0;
+  line-height: 0;
+  color: var(--ms-ivory);
+}
+
+.ms-footer-social svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: color 160ms ease;
+}
+
+/*  The glyph-shaped marks read as solid shapes, not outlines. */
+.ms-footer-social svg path[d^="M14.5"],
+.ms-footer-social svg path[d^="M4.5"] {
+  fill: currentColor;
+  stroke: none;
+}
+
+.ms-footer-social .ms-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.ms-footer-social a:hover,
+.ms-footer-social a:focus-visible { color: #FFFFFF; }
