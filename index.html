@@ -45,7 +45,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=24" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=25" />
 
   <!--======================================================================
        LANDING PAGE — the whole funnel, in one scroll.
@@ -101,13 +101,13 @@
 
   <!--  Skippies-style top bar: the two asks stacked on the left, the two
         places you can already find us on the right. Same on every page. -->
+  <!--  Everything in one stack on the left, the way the reference site
+        carries its own: two asks and the two places we already are. -->
   <header class="ms-nav">
     <div class="ms-nav-left">
       <a href="#join">Join the waitlist</a>
-      <a href="#contact">Text for support <svg class="ms-heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.6c-.3 0-.6-.1-.8-.3C7.5 17.1 3 13.2 3 8.9A4.9 4.9 0 0 1 12 6.1a4.9 4.9 0 0 1 9 2.8c0 4.3-4.5 8.2-8.2 11.4-.2.2-.5.3-.8.3Z"/></svg></a>
-    </div>
-    <div class="ms-nav-right">
-      <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">Join our subreddit</a>
+      <a href="https://www.reddit.com/r/mastitis/" target="_blank" rel="noopener noreferrer">Join our
+        subreddit</a>
       <a href="https://www.instagram.com/thisisthemilkshaker/" target="_blank"
         rel="noopener noreferrer">Instagram <svg class="ms-nav-ig" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4.2" /><circle class="ms-dot" cx="17.2" cy="6.8" r="1.2" /></svg></a>
     </div>
@@ -141,46 +141,40 @@
 
     </section>
 
-    <!--====== THE OPENING WORDS ======
-          Problem first, the people behind it second, the product barely at
-          all: there is nothing to show yet, and a spec invites questions we
-          cannot answer until the first units are tested. ======-->
-    <section class="pl" data-reveal aria-labelledby="h-lead">
-      <div class="pl-inner">
-        <h1 class="pl-line" id="h-lead">Ending the trial and error of breastfeeding</h1>
-        <p class="pl-sub">
-          The clogged ducts, the pain, the 2am searching &mdash; the part nobody walks you through. We are
-          building something for it, with the people who treat it every day.
-        </p>
-        <div class="pl-cta">
-          <a class="lp-btn" href="#join"><span>Join the waitlist</span><span class="lp-arrow"
-              aria-hidden="true"></span></a>
-        </div>
-      </div>
-    </section>
+    <!--====== THE ASK ======
+          The problem on the left, the form on the right, in one panel.
+          Vague about the product on purpose: there is nothing to show
+          yet, and a spec invites questions the first units have not
+          answered.
 
-    <!--====== THE WAITLIST ======
-          Moved here from the product page, which is now a redirect. id="join"
-          has to stay on this form: referral links to the old page point at
-          that anchor, the redirect carries ?ref= across, and ref.js restores
-          it to the URL before LaunchList's widget builds the iframe. ======-->
-    <section class="p4 lp-band" id="join" data-reveal aria-labelledby="h-band">
-      <div class="lp-band-inner">
-        <div class="lp-band-copy p4-copy">
-          <h2 id="h-band">Wear it. Forget it. Feel better.</h2>
-          <p class="p4-note">Hear when we launch first.</p>
+          id="join" has to stay on this section: referral links to the
+          old product page point at that anchor, the redirect carries
+          ?ref= across, and ref.js restores it to the URL before
+          LaunchList's widget builds the iframe. ======-->
+    <section class="pm" id="join" data-reveal aria-labelledby="h-lead">
+      <div class="pm-inner">
+
+        <div class="pm-copy">
+          <h1 class="pl-line" id="h-lead">Ending the trial and error of breastfeeding</h1>
+          <p class="pl-sub">
+            The clogged ducts, the pain, the 2am searching &mdash; the part nobody walks you through. We are
+            building something for it, with the people who treat it every day.
+          </p>
         </div>
-        <div class="lp-ea-card p4-form">
+
+        <div class="lp-ea-card pm-form">
+          <h2 class="pm-form-title">Wear it. Forget it. Feel better.</h2>
           <div class="launchlist-widget" data-key-id="WHgfM8"></div>
-          <p class="lp-form-note">Joining the waitlist means early access &amp; exclusive founding user pricing.</p>
+          <p class="lp-form-note">Secure early access &amp; exclusive founding user pricing.</p>
         </div>
+
       </div>
     </section>
 
     <!--====== THE COMMUNITY ======
           The reason to be on this page even if the waitlist means nothing
           to you yet: somewhere to go today, with people answering. ======-->
-    <section class="pc" data-reveal aria-labelledby="h-community">
+    <section class="pc pc--band" data-reveal aria-labelledby="h-community">
       <div class="pc-inner">
         <h2 class="pc-title" id="h-community">Join the maternal &amp; infant health conversation</h2>
         <p class="pc-sub">

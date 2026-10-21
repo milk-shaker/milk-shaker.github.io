@@ -1227,7 +1227,7 @@ body.lp {
 
 .ms-nav-left {
   display: grid;
-  gap: 2px;
+  gap: 4px;
   justify-items: start;
 }
 
@@ -1366,10 +1366,11 @@ html { scroll-behavior: smooth; }
   height: auto;
 }
 
-/*  The columns take equal space so the wordmark lands in the middle of
-    the bar rather than in the middle of whatever is left over. */
+/*  The spacer mirrors the link column, so the wordmark sits in the
+    middle of the bar rather than the middle of what is left over. */
 .ms-nav--page .ms-nav-left,
-.ms-nav--page .ms-nav-right {
+.ms-nav--page .ms-nav-right,
+.ms-nav--page .ms-nav-spacer {
   flex: 1 1 0;
   min-width: 0;
 }
@@ -1390,6 +1391,7 @@ html { scroll-behavior: smooth; }
   .ms-nav--page .ms-nav-left,
   .ms-nav--page .ms-nav-right { flex: 0 0 auto; }
   .ms-nav--page .ms-nav-right { justify-items: end; }
+  .ms-nav--page .ms-nav-spacer { display: none; }
 }
 
 
@@ -1590,3 +1592,91 @@ html { scroll-behavior: smooth; }
 }
 
 .lp-btn--partner:focus-visible { outline-color: var(--ms-plum); }
+
+
+/*  ---------------------------------------------------------------
+    THE ASK  (landing, panel two)
+    The words on the left, the form on the right. One panel now:
+    the headline and the thing it asks for were two screens apart.
+    --------------------------------------------------------------- */
+.pm {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: clamp(54px, 10vh, 120px) clamp(16px, 5vw, 72px);
+}
+
+.pm-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+  width: 100%;
+  max-width: 76rem;
+}
+
+/*  The type scale is shared with the old centred band; here it reads
+    left, beside the card. */
+.pm-copy .pl-line {
+  margin: 0 0 clamp(16px, 2.6vh, 26px);
+  max-width: 16ch;
+  text-align: left;
+}
+
+.pm-copy .pl-sub {
+  margin: 0;
+  max-width: 42ch;
+  text-align: left;
+}
+
+.pm-form {
+  max-width: none;
+  margin: 0;
+  width: 100%;
+}
+
+.pm-form-title {
+  margin: 0 0 1.1rem;
+  color: var(--ms-plum);
+  font-size: clamp(1.45rem, 1.15rem + 1.1vw, 1.9rem);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.pm-form .lp-form-note {
+  margin-top: 1.2rem;
+  font-size: clamp(1rem, 0.92rem + 0.3vw, 1.18rem);
+  font-weight: 600;
+  color: var(--ms-plum);
+}
+
+@media (max-width: 900px) {
+  .pm-inner { grid-template-columns: 1fr; gap: 26px; }
+  .pm-copy { text-align: center; }
+  .pm-copy .pl-line { max-width: 18ch; margin-inline: auto; text-align: center; }
+  .pm-copy .pl-sub { margin-inline: auto; text-align: center; }
+  .pm-form { padding-left: 14px; padding-right: 14px; }
+}
+
+/*  ---------------------------------------------------------------
+    The community panel now carries the banner ground the waitlist
+    used to have: clay with the periwinkle wash, faded in and out at
+    the edges so it melts into the field above and below.
+    --------------------------------------------------------------- */
+.pc--band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(80% 130% at 88% 12%, rgba(241, 241, 250, 0.55) 0%, rgba(241, 241, 250, 0) 60%),
+    var(--ms-clay);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 82%, transparent 100%);
+}
+
+.pc--band > .pc-inner {
+  position: relative;
+  z-index: 1;
+}
