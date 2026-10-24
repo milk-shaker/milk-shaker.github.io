@@ -104,7 +104,9 @@ body.lp {
 .p1 {
   position: relative;
   z-index: 2;
-  min-height: 100svh;
+  /*  Shorter than a full screen: the form underneath has to be a short
+      scroll away, not a whole screen away. */
+  min-height: 74svh;
   display: grid;
   align-items: center;
   overflow: clip;
@@ -118,7 +120,10 @@ body.lp {
     behind the panel shows through, which is a perfectly good hero on
     its own -- there is no broken state to design around. */
 .p1-video {
-  position: absolute;
+  /*  Fixed, not absolute: the panel below this one sits on the same
+      loop, so one element backs the whole page rather than two copies
+      of the same file playing at once. */
+  position: fixed;
   inset: 0;
   z-index: 0;
   width: 100%;
@@ -146,7 +151,7 @@ body.lp {
     scrim is heavy where the text sits and clears toward the other
     side. Plum on this is comfortably above 7:1 whatever is behind. */
 .p1-scrim {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
@@ -1690,4 +1695,119 @@ html { scroll-behavior: smooth; }
   max-width: none;
   width: 100%;
   margin-top: 0;
+}
+
+
+/*  ---------------------------------------------------------------
+    THE WHOLE ASK  (landing, under the cover)
+    One column over the loop: the stat, who is building, what it is,
+    then the form with no card around it. Left on a desktop, centred
+    on a phone, which is where the sketch starts.
+    --------------------------------------------------------------- */
+.ps {
+  position: relative;
+  z-index: 2;
+  padding: clamp(28px, 5vh, 56px) clamp(16px, 5vw, 72px) clamp(56px, 9vh, 120px);
+}
+
+/*  Its own wash, so the words hold against whatever the footage is
+    doing behind them. */
+.ps::before {
+  content: "";
+  position: absolute;
+  inset: -8% 0 0;
+  z-index: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(251, 247, 240, 0.95) 0%,
+    rgba(251, 247, 240, 0.9) 42%,
+    rgba(251, 247, 240, 0.62) 68%,
+    rgba(251, 247, 240, 0.3) 100%
+  );
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 100%);
+}
+
+.ps-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 48rem;
+  margin-left: max(0px, calc((100% - 82rem) / 2));
+}
+
+.ps-stat {
+  margin: 0 0 clamp(18px, 2.6vh, 28px);
+  max-width: 54ch;
+  color: var(--ms-ink-soft);
+  font-size: clamp(0.98rem, 0.92rem + 0.3vw, 1.12rem);
+  line-height: 1.6;
+}
+
+.ps-line {
+  margin: 0 0 clamp(16px, 2.4vh, 26px);
+  max-width: 24ch;
+  color: var(--ms-plum);
+  font-size: clamp(1.85rem, 1.15rem + 2.6vw, 3.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.ps-what {
+  margin: 0 0 clamp(26px, 4vh, 44px);
+  max-width: 46ch;
+  color: var(--ms-ink-soft);
+  font-size: clamp(1rem, 0.94rem + 0.32vw, 1.18rem);
+  line-height: 1.6;
+}
+
+.ps-label {
+  margin: 0 0 0.55rem;
+  color: var(--ms-plum);
+  font-size: clamp(0.78rem, 0.74rem + 0.18vw, 0.9rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.ps-ask {
+  margin: 0 0 clamp(16px, 2.4vh, 26px);
+  max-width: 40ch;
+  color: var(--ms-plum);
+  font-size: clamp(1.08rem, 0.98rem + 0.4vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/*  No card: the form stands on the footage. style.css caps the widget
+    at 30rem, which is narrower than this column wants. */
+.ps-form { max-width: 34rem; }
+
+.ps-form .launchlist-widget {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .ps { padding-left: 18px; padding-right: 18px; }
+
+  /*  Centred at this width, like the sketch. */
+  .ps-inner { margin-inline: auto; text-align: center; }
+  .ps-stat,
+  .ps-line,
+  .ps-what,
+  .ps-ask { margin-inline: auto; }
+  .ps-line { max-width: 18ch; }
+  .ps-form { margin-inline: auto; }
+
+  .ps::before {
+    background: linear-gradient(
+      180deg,
+      rgba(251, 247, 240, 0.88) 0%,
+      rgba(251, 247, 240, 0.94) 30%,
+      rgba(251, 247, 240, 0.94) 100%
+    );
+  }
 }

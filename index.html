@@ -45,7 +45,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=27" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=28" />
 
   <!--======================================================================
        LANDING PAGE — the whole funnel, in one scroll.
@@ -54,9 +54,10 @@
          2. the opening words: the problem, then who is building for it.
             Deliberately short on product -- there is nothing to show yet,
             and a spec invites questions the first units have not answered;
-         3. the waitlist, moved here from the old product page, which is
-            now a redirect to this page's #join anchor;
-         4. the subreddit, which is the thing we can offer today.
+         3. everything else in one view over the same loop: why it
+            matters, who is building, what we are building, and the
+            waitlist form, which carries the old product page's #join
+            anchor.
 
        ref.js is blocking in the head and must stay ahead of LaunchList's
        widget.js: a referral link lands here with ?ref= in the query (or
@@ -140,50 +141,42 @@
 
     </section>
 
-    <!--====== THE ASK ======
-          The problem on the left, the form on the right, in one panel.
-          Vague about the product on purpose: there is nothing to show
-          yet, and a spec invites questions the first units have not
-          answered.
+    <!--====== THE WHOLE ASK ======
+          One view, over the same loop: why it matters, who is building,
+          what we are building, and the form. No card around the form on
+          purpose -- it sits straight on the footage.
 
           id="join" has to stay on this section: referral links to the
           old product page point at that anchor, the redirect carries
           ?ref= across, and ref.js restores it to the URL before
           LaunchList's widget builds the iframe. ======-->
-    <section class="pm" id="join" data-reveal aria-labelledby="h-lead">
-      <div class="pm-inner">
+    <section class="ps" id="join" data-reveal aria-labelledby="h-lead">
+      <div class="ps-inner">
 
-        <div class="pm-copy">
-          <h1 class="pl-line" id="h-lead">Ending the trial and error of breastfeeding</h1>
-          <p class="pl-sub">
-            The clogged ducts, the pain, the 2am searching &mdash; the part nobody walks you through. We are
-            building something for it, with the people who treat it every day.
-          </p>
-        </div>
+        <p class="ps-stat">
+          Complications while breastfeeding and pumping for your baby affect most new mothers. Blocked ducts
+          and mastitis are among the most painful, and left untreated they can lead to hospitalization and
+          serious medical intervention.
+        </p>
 
-        <div class="lp-ea-card pm-form">
-          <h2 class="pm-form-title">Wear it. Forget it. Feel better.</h2>
+        <h1 class="ps-line" id="h-lead">
+          We are a team of female engineers and lactation experts dedicated to ending the trial and error of
+          care for this problem.
+        </h1>
+
+        <p class="ps-what">
+          The clogged ducts, the pain, the 2am searching &mdash; the part nobody walks you through. We are
+          building something for it, with the people who treat it every day.
+        </p>
+
+        <p class="ps-label">Support our mission</p>
+
+        <p class="ps-ask">Join our waitlist to secure early access &amp; exclusive founding user pricing.</p>
+
+        <div class="ps-form">
           <div class="launchlist-widget" data-key-id="WHgfM8"></div>
-          <p class="lp-form-note">Secure early access &amp; exclusive founding user pricing.</p>
         </div>
 
-      </div>
-    </section>
-
-    <!--====== THE COMMUNITY ======
-          The reason to be on this page even if the waitlist means nothing
-          to you yet: somewhere to go today, with people answering. ======-->
-    <section class="pc pc--band" data-reveal aria-labelledby="h-community">
-      <div class="pc-inner">
-        <h2 class="pc-title" id="h-community">Join the maternal &amp; infant health conversation</h2>
-        <p class="pc-sub">
-          A community built with lactation experts, women&rsquo;s health physicians, and female engineers.
-        </p>
-        <p class="pc-cta">
-          <a class="lp-btn lp-btn--community" href="https://www.reddit.com/r/mastitis/" target="_blank"
-            rel="noopener noreferrer"><span>Our subreddit</span><span class="lp-arrow"
-              aria-hidden="true"></span></a>
-        </p>
       </div>
     </section>
 
