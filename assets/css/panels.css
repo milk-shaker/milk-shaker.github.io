@@ -157,11 +157,16 @@ body.lp {
   pointer-events: none;
   -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
   mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
+  /*  A long, even ramp across the frame: the old three-stop version
+      stepped from almost opaque to almost clear in one move. */
   background: linear-gradient(
     100deg,
-    rgba(251, 247, 240, 0.94) 0%,
-    rgba(251, 247, 240, 0.86) 30%,
-    rgba(251, 247, 240, 0.44) 58%,
+    rgba(251, 247, 240, 0.8) 0%,
+    rgba(251, 247, 240, 0.72) 18%,
+    rgba(251, 247, 240, 0.62) 34%,
+    rgba(251, 247, 240, 0.5) 48%,
+    rgba(251, 247, 240, 0.38) 62%,
+    rgba(251, 247, 240, 0.26) 78%,
     rgba(251, 247, 240, 0.16) 100%
   );
 }
@@ -753,9 +758,10 @@ body.lp {
   .p1-scrim {
     background: linear-gradient(
       180deg,
-      rgba(251, 247, 240, 0.9) 0%,
-      rgba(251, 247, 240, 0.82) 55%,
-      rgba(251, 247, 240, 0.62) 100%
+      rgba(251, 247, 240, 0.68) 0%,
+      rgba(251, 247, 240, 0.6) 30%,
+      rgba(251, 247, 240, 0.54) 60%,
+      rgba(251, 247, 240, 0.5) 100%
     );
   }
   .p2 { height: 200vh; }
@@ -1739,7 +1745,7 @@ html { scroll-behavior: smooth; }
 .ps-stat {
   margin: 0 0 clamp(18px, 2.6vh, 28px);
   max-width: 54ch;
-  color: var(--ms-ink-soft);
+  color: var(--ms-plum);
   font-size: clamp(0.98rem, 0.92rem + 0.3vw, 1.12rem);
   line-height: 1.6;
 }
@@ -1757,7 +1763,7 @@ html { scroll-behavior: smooth; }
 .ps-what {
   margin: 0 0 clamp(26px, 4vh, 44px);
   max-width: 46ch;
-  color: var(--ms-ink-soft);
+  color: var(--ms-plum);
   font-size: clamp(1rem, 0.94rem + 0.32vw, 1.18rem);
   line-height: 1.6;
 }
@@ -1808,6 +1814,105 @@ html { scroll-behavior: smooth; }
       rgba(251, 247, 240, 0.88) 0%,
       rgba(251, 247, 240, 0.94) 30%,
       rgba(251, 247, 240, 0.94) 100%
+    );
+  }
+}
+
+
+/*  ---------------------------------------------------------------
+    THE DATE IN THE BAR
+    It used to sit under the wordmark; it rides the bar now, which
+    means it leaves with the bar's own fade.
+    --------------------------------------------------------------- */
+.ms-nav-soon {
+  margin: 0;
+  color: var(--ms-plum);
+  font-size: clamp(0.82rem, 0.74rem + 0.3vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+/*  ---------------------------------------------------------------
+    CENTRED COLUMN, LIGHTER WASH
+    The words sit in the middle of the page at every width, and the
+    wash over the footage is thinner and ramps in gradually: the
+    earlier one hid the picture and arrived in one step.
+    --------------------------------------------------------------- */
+.ps-inner {
+  margin-inline: auto;
+  text-align: center;
+  max-width: 44rem;
+}
+
+.ps-stat,
+.ps-line,
+.ps-what,
+.ps-ask,
+.ps-form {
+  margin-inline: auto;
+}
+
+/*  Looser: this column is read, not scanned. */
+.ps-stat {
+  max-width: 48ch;
+  line-height: 1.75;
+  margin-bottom: clamp(26px, 4vh, 44px);
+}
+
+.ps-line {
+  max-width: 20ch;
+  line-height: 1.16;
+  margin-bottom: clamp(24px, 3.4vh, 38px);
+}
+
+.ps-what {
+  max-width: 44ch;
+  line-height: 1.75;
+  margin-bottom: clamp(34px, 5vh, 58px);
+}
+
+.ps-ask {
+  max-width: 34ch;
+  line-height: 1.55;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.ps-label { margin-bottom: 0.7rem; }
+
+.ps::before {
+  inset: -14% 0 0;
+  /*  Many stops rather than three, so the footage dims gradually
+      instead of meeting a line. Thin enough to keep the picture. */
+  background: linear-gradient(
+    180deg,
+    rgba(251, 247, 240, 0) 0%,
+    rgba(251, 247, 240, 0.3) 6%,
+    rgba(251, 247, 240, 0.5) 13%,
+    rgba(251, 247, 240, 0.62) 22%,
+    rgba(251, 247, 240, 0.64) 34%,
+    rgba(251, 247, 240, 0.7) 50%,
+    rgba(251, 247, 240, 0.74) 72%,
+    rgba(251, 247, 240, 0.76) 100%
+  );
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+@media (max-width: 900px) {
+  /*  Thinner still on a phone, where the earlier wash left almost
+      nothing of the picture visible. */
+  .ps::before {
+    background: linear-gradient(
+      180deg,
+      rgba(251, 247, 240, 0) 0%,
+      rgba(251, 247, 240, 0.32) 5%,
+      rgba(251, 247, 240, 0.52) 12%,
+      rgba(251, 247, 240, 0.64) 20%,
+      rgba(251, 247, 240, 0.68) 34%,
+      rgba(251, 247, 240, 0.72) 60%,
+      rgba(251, 247, 240, 0.74) 100%
     );
   }
 }
