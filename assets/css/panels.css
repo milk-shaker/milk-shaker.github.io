@@ -157,17 +157,18 @@ body.lp {
   pointer-events: none;
   -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
   mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
-  /*  A long, even ramp across the frame: the old three-stop version
-      stepped from almost opaque to almost clear in one move. */
+  /*  The page's only wash, fixed like the video under it. The content
+      panel used to lay a second, scrolling layer over this one, and the
+      edge where they met slid up the screen as you scrolled. That
+      moving line was the abrupt part, not the gradient. One static
+      layer has no edge to see. */
   background: linear-gradient(
-    100deg,
-    rgba(251, 247, 240, 0.8) 0%,
-    rgba(251, 247, 240, 0.72) 18%,
-    rgba(251, 247, 240, 0.62) 34%,
-    rgba(251, 247, 240, 0.5) 48%,
-    rgba(251, 247, 240, 0.38) 62%,
-    rgba(251, 247, 240, 0.26) 78%,
-    rgba(251, 247, 240, 0.16) 100%
+    180deg,
+    rgba(251, 247, 240, 0.46) 0%,
+    rgba(251, 247, 240, 0.52) 28%,
+    rgba(251, 247, 240, 0.58) 52%,
+    rgba(251, 247, 240, 0.63) 74%,
+    rgba(251, 247, 240, 0.66) 100%
   );
 }
 
@@ -333,9 +334,6 @@ body.lp {
   max-width: 420px;
   height: auto;
 }
-
-
-
 
 @keyframes p1-bob {
   0%, 100% { transform: translateY(-2px); }
@@ -758,10 +756,10 @@ body.lp {
   .p1-scrim {
     background: linear-gradient(
       180deg,
-      rgba(251, 247, 240, 0.68) 0%,
-      rgba(251, 247, 240, 0.6) 30%,
-      rgba(251, 247, 240, 0.54) 60%,
-      rgba(251, 247, 240, 0.5) 100%
+      rgba(251, 247, 240, 0.5) 0%,
+      rgba(251, 247, 240, 0.58) 30%,
+      rgba(251, 247, 240, 0.64) 60%,
+      rgba(251, 247, 240, 0.68) 100%
     );
   }
   .p2 { height: 200vh; }
@@ -1029,7 +1027,6 @@ body.lp {
   text-wrap: balance;
 }
 
-
 /*  The shared card caps at 34rem, which is narrower than this column. */
 .pf-card {
   max-width: none;
@@ -1042,7 +1039,6 @@ body.lp {
   .pf { padding-left: 14px; padding-right: 14px; }
   .pf-card { padding-left: 12px; padding-right: 12px; }
 }
-
 
 /*  ---------------------------------------------------------------
     THE OPENING WORDS  (landing, under the video)
@@ -1219,7 +1215,6 @@ body.lp {
   .ms-footer-nav { justify-items: start; text-align: left; margin-left: 0; }
 }
 
-
 /*  ---------------------------------------------------------------
     TOP BAR
     Two asks on the left, two places we already are on the right.
@@ -1271,7 +1266,6 @@ body.lp {
   left: 0;
   right: 0;
 }
-
 
 /*  ---------------------------------------------------------------
     COMMUNITY BUTTON
@@ -1346,7 +1340,6 @@ html { scroll-behavior: smooth; }
   html { scroll-behavior: auto; }
 }
 
-
 /*  ---------------------------------------------------------------
     TOP BAR ON THE INNER PAGES
     One row instead of two: the link columns sit either side of the
@@ -1404,7 +1397,6 @@ html { scroll-behavior: smooth; }
   .ms-nav--page .ms-nav-right { justify-items: end; }
   .ms-nav--page .ms-nav-spacer { display: none; }
 }
-
 
 /*  ---------------------------------------------------------------
     LINKS
@@ -1477,7 +1469,6 @@ html { scroll-behavior: smooth; }
   text-transform: uppercase;
 }
 
-
 /*  ---------------------------------------------------------------
     FOOTER SOCIAL
     A row of marks under the two links, drawn as strokes so they sit
@@ -1523,7 +1514,6 @@ html { scroll-behavior: smooth; }
 
 .ms-footer-social a:hover,
 .ms-footer-social a:focus-visible { color: #FFFFFF; }
-
 
 /*  The mark beside the Instagram link in the bar, at the size of the
     type it sits with. */
@@ -1579,7 +1569,6 @@ html { scroll-behavior: smooth; }
   .p4-form .lp-form-note { font-size: 1.5rem; }
 }
 
-
 /*  ---------------------------------------------------------------
     PARTNER BUTTON
     A third colour, so the three asks never read as the same one:
@@ -1603,7 +1592,6 @@ html { scroll-behavior: smooth; }
 }
 
 .lp-btn--partner:focus-visible { outline-color: var(--ms-plum); }
-
 
 /*  ---------------------------------------------------------------
     THE ASK  (landing, panel two)
@@ -1693,7 +1681,6 @@ html { scroll-behavior: smooth; }
   z-index: 1;
 }
 
-
 /*  style.css caps the widget at 30rem, which inside this card left the
     fields narrower than the title above them and the line below. Here
     the form runs the full measure of the card. */
@@ -1702,7 +1689,6 @@ html { scroll-behavior: smooth; }
   width: 100%;
   margin-top: 0;
 }
-
 
 /*  ---------------------------------------------------------------
     THE WHOLE ASK  (landing, under the cover)
@@ -1716,24 +1702,8 @@ html { scroll-behavior: smooth; }
   padding: clamp(28px, 5vh, 56px) clamp(16px, 5vw, 72px) clamp(56px, 9vh, 120px);
 }
 
-/*  Its own wash, so the words hold against whatever the footage is
-    doing behind them. */
-.ps::before {
-  content: "";
-  position: absolute;
-  inset: -8% 0 0;
-  z-index: 0;
-  background: linear-gradient(
-    100deg,
-    rgba(251, 247, 240, 0.95) 0%,
-    rgba(251, 247, 240, 0.9) 42%,
-    rgba(251, 247, 240, 0.62) 68%,
-    rgba(251, 247, 240, 0.3) 100%
-  );
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 100%);
-}
-
+/*  No wash of its own: the fixed scrim over the video covers the whole
+    page, so nothing slides past an edge here. */
 .ps-inner {
   position: relative;
   z-index: 1;
@@ -1754,7 +1724,7 @@ html { scroll-behavior: smooth; }
   margin: 0 0 clamp(16px, 2.4vh, 26px);
   max-width: 24ch;
   color: var(--ms-plum);
-  font-size: clamp(1.85rem, 1.1rem + 2.9vw, 3.4rem);
+  font-size: clamp(1.4rem, 1.05rem + 1.5vw, 2.25rem);
   line-height: 1.1;
   letter-spacing: -0.015em;
   text-wrap: balance;
@@ -1808,16 +1778,7 @@ html { scroll-behavior: smooth; }
   .ps-line { max-width: 18ch; }
   .ps-form { margin-inline: auto; }
 
-  .ps::before {
-    background: linear-gradient(
-      180deg,
-      rgba(251, 247, 240, 0.88) 0%,
-      rgba(251, 247, 240, 0.94) 30%,
-      rgba(251, 247, 240, 0.94) 100%
-    );
-  }
 }
-
 
 /*  ---------------------------------------------------------------
     THE DATE IN THE BAR
@@ -1863,9 +1824,10 @@ html { scroll-behavior: smooth; }
 }
 
 .ps-line {
-  max-width: 30ch;
-  line-height: 1.16;
-  margin-bottom: clamp(24px, 3.4vh, 38px);
+  max-width: 44ch;
+  line-height: 1.34;
+  /*  The long gap, before the ask. */
+  margin-bottom: clamp(56px, 9vh, 104px);
 }
 
 .ps-what {
@@ -1875,53 +1837,18 @@ html { scroll-behavior: smooth; }
 }
 
 .ps-ask {
-  max-width: 50ch;
-  line-height: 1.55;
-  margin-bottom: clamp(20px, 3vh, 32px);
+  max-width: 44ch;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: clamp(6px, 0.8vh, 10px);
 }
 
 .ps-label { margin-bottom: 0.7rem; }
 
-.ps::before {
-  inset: -14% 0 0;
-  /*  Many stops rather than three, so the footage dims gradually
-      instead of meeting a line. Thin enough to keep the picture. */
-  background: linear-gradient(
-    180deg,
-    rgba(251, 247, 240, 0) 0%,
-    rgba(251, 247, 240, 0.3) 6%,
-    rgba(251, 247, 240, 0.5) 13%,
-    rgba(251, 247, 240, 0.62) 22%,
-    rgba(251, 247, 240, 0.64) 34%,
-    rgba(251, 247, 240, 0.7) 50%,
-    rgba(251, 247, 240, 0.74) 72%,
-    rgba(251, 247, 240, 0.76) 100%
-  );
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
-@media (max-width: 900px) {
-  /*  Thinner still on a phone, where the earlier wash left almost
-      nothing of the picture visible. */
-  .ps::before {
-    background: linear-gradient(
-      180deg,
-      rgba(251, 247, 240, 0) 0%,
-      rgba(251, 247, 240, 0.32) 5%,
-      rgba(251, 247, 240, 0.52) 12%,
-      rgba(251, 247, 240, 0.64) 20%,
-      rgba(251, 247, 240, 0.68) 34%,
-      rgba(251, 247, 240, 0.72) 60%,
-      rgba(251, 247, 240, 0.74) 100%
-    );
-  }
-}
-
-
 /*  The offer sits under the form now, where the old card note was. */
 .ps-offer {
-  margin: clamp(14px, 2vh, 22px) auto 0;
+  margin: clamp(2px, 0.4vh, 6px) auto 0;
   max-width: 46ch;
   color: var(--ms-plum);
   font-size: clamp(1rem, 0.94rem + 0.3vw, 1.16rem);
