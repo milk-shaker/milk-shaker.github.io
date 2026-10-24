@@ -1788,7 +1788,7 @@ html { scroll-behavior: smooth; }
 
 /*  No card: the form stands on the footage. style.css caps the widget
     at 30rem, which is narrower than this column wants. */
-.ps-form { max-width: 34rem; }
+.ps-form { max-width: 40rem; }
 
 .ps-form .launchlist-widget {
   max-width: none;
@@ -1856,9 +1856,10 @@ html { scroll-behavior: smooth; }
 
 /*  Looser: this column is read, not scanned. */
 .ps-stat {
-  max-width: 76ch;
-  line-height: 1.75;
-  margin-bottom: clamp(26px, 4vh, 44px);
+  max-width: 72ch;
+  font-size: clamp(1.1rem, 1rem + 0.42vw, 1.32rem);
+  line-height: 1.7;
+  margin-bottom: clamp(48px, 7.5vh, 88px);
 }
 
 .ps-line {
@@ -1915,4 +1916,25 @@ html { scroll-behavior: smooth; }
       rgba(251, 247, 240, 0.74) 100%
     );
   }
+}
+
+
+/*  The offer sits under the form now, where the old card note was. */
+.ps-offer {
+  margin: clamp(14px, 2vh, 22px) auto 0;
+  max-width: 46ch;
+  color: var(--ms-plum);
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.16rem);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  /*  Edge to edge within the page's own gutter: on a phone the fields
+      are the page. */
+  .ps-form { width: 100%; max-width: none; }
+
+  /*  One word per line, hard right, so the date reads as a stamp in
+      the corner rather than a sentence across the top. */
+  .ms-nav-soon span { display: block; }
 }
