@@ -1754,7 +1754,7 @@ html { scroll-behavior: smooth; }
   margin: 0 0 clamp(16px, 2.4vh, 26px);
   max-width: 24ch;
   color: var(--ms-plum);
-  font-size: clamp(1.85rem, 1.15rem + 2.6vw, 3.1rem);
+  font-size: clamp(1.85rem, 1.1rem + 2.9vw, 3.4rem);
   line-height: 1.1;
   letter-spacing: -0.015em;
   text-wrap: balance;
@@ -1843,7 +1843,7 @@ html { scroll-behavior: smooth; }
 .ps-inner {
   margin-inline: auto;
   text-align: center;
-  max-width: 44rem;
+  max-width: 68rem;
 }
 
 .ps-stat,
@@ -1856,25 +1856,25 @@ html { scroll-behavior: smooth; }
 
 /*  Looser: this column is read, not scanned. */
 .ps-stat {
-  max-width: 48ch;
+  max-width: 76ch;
   line-height: 1.75;
   margin-bottom: clamp(26px, 4vh, 44px);
 }
 
 .ps-line {
-  max-width: 20ch;
+  max-width: 30ch;
   line-height: 1.16;
   margin-bottom: clamp(24px, 3.4vh, 38px);
 }
 
 .ps-what {
-  max-width: 44ch;
+  max-width: 68ch;
   line-height: 1.75;
   margin-bottom: clamp(34px, 5vh, 58px);
 }
 
 .ps-ask {
-  max-width: 34ch;
+  max-width: 50ch;
   line-height: 1.55;
   margin-bottom: clamp(20px, 3vh, 32px);
 }
