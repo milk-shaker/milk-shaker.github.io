@@ -940,7 +940,7 @@ body.lp {
     right: 0;
     bottom: 0;
     left: auto;
-    width: 50%;
+    width: 68%;
     height: 100%;
     aspect-ratio: auto;
     object-fit: cover;
@@ -950,14 +950,14 @@ body.lp {
 
   .pt-hero-photo::after {
     background: linear-gradient(
-      100deg,
+      90deg,
       var(--ms-ivory) 0%,
       var(--ms-ivory) 34%,
-      rgba(248, 245, 250, 0.98) 42%,
-      rgba(248, 245, 250, 0.9) 50%,
-      rgba(248, 245, 250, 0.74) 60%,
-      rgba(248, 245, 250, 0.46) 75%,
-      rgba(248, 245, 250, 0.2) 100%
+      rgba(248, 245, 250, 0.97) 42%,
+      rgba(248, 245, 250, 0.88) 52%,
+      rgba(248, 245, 250, 0.68) 64%,
+      rgba(248, 245, 250, 0.38) 80%,
+      rgba(248, 245, 250, 0.08) 100%
     );
   }
 
