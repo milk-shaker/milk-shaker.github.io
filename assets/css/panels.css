@@ -877,8 +877,9 @@ body.lp {
   padding: clamp(40px, 7vh, 88px) 0 clamp(52px, 8vh, 96px);
 }
 
-/*  The video is a contained, 16:9 feature on the right. The left stays
-    open for copy; the wash blends the media into the page colors. */
+/*  Desktop keeps the video in a contained 16:9 frame on the right.
+    Phones use a pre-cropped portrait version across the hero, with the
+    same wash blending the media into the page colors. */
 .pt-hero-photo {
   position: absolute;
   inset: 0;
@@ -1061,15 +1062,6 @@ body.lp {
 }
 
 @media (max-width: 900px) {
-  /*  Keep the entire video frame in a compact tile at the top right on
-      phones rather than stretching it beneath the whole panel. */
-  .pt-hero-video {
-    top: 0;
-    width: 72%;
-    max-width: 380px;
-    transform: none;
-  }
-
   .pt-hero-photo::after {
     background: linear-gradient(
       180deg,
@@ -1081,6 +1073,22 @@ body.lp {
 
   .pt-title { max-width: 20ch; }
   .pt-cta .lp-btn { width: 100%; }
+}
+
+@media (max-width: 767px) {
+  .pt-hero-video {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center center;
+    transform: none;
+  }
 }
 
 /*  ---------------------------------------------------------------
