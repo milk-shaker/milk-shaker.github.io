@@ -162,14 +162,26 @@ body.lp {
       edge where they met slid up the screen as you scrolled. That
       moving line was the abrupt part, not the gradient. One static
       layer has no edge to see. */
-  background: linear-gradient(
-    180deg,
-    rgba(251, 247, 240, 0.46) 0%,
-    rgba(251, 247, 240, 0.52) 28%,
-    rgba(251, 247, 240, 0.58) 52%,
-    rgba(251, 247, 240, 0.63) 74%,
-    rgba(251, 247, 240, 0.66) 100%
-  );
+  background:
+    /*  A soft pool of fog where the column sits, so the words have
+        more to stand on without thickening the whole frame. It is
+        fixed with the rest of this layer and has no hard edge, so
+        nothing slides past anything. */
+    radial-gradient(
+      72% 58% at 50% 60%,
+      rgba(251, 247, 240, 0.34) 0%,
+      rgba(251, 247, 240, 0.22) 45%,
+      rgba(251, 247, 240, 0.08) 72%,
+      rgba(251, 247, 240, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(251, 247, 240, 0.44) 0%,
+      rgba(251, 247, 240, 0.5) 28%,
+      rgba(251, 247, 240, 0.56) 52%,
+      rgba(251, 247, 240, 0.61) 74%,
+      rgba(251, 247, 240, 0.64) 100%
+    );
 }
 
 /*  One column on the left, where the scrim is heaviest: wordmark,
@@ -754,13 +766,20 @@ body.lp {
   /*  Copy is centred at this width, so an angled scrim would leave
       one edge of it unreadable. Even wash instead. */
   .p1-scrim {
-    background: linear-gradient(
-      180deg,
-      rgba(251, 247, 240, 0.5) 0%,
-      rgba(251, 247, 240, 0.58) 30%,
-      rgba(251, 247, 240, 0.64) 60%,
-      rgba(251, 247, 240, 0.68) 100%
-    );
+    background:
+      radial-gradient(
+        96% 48% at 50% 62%,
+        rgba(251, 247, 240, 0.3) 0%,
+        rgba(251, 247, 240, 0.18) 50%,
+        rgba(251, 247, 240, 0) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(251, 247, 240, 0.48) 0%,
+        rgba(251, 247, 240, 0.56) 30%,
+        rgba(251, 247, 240, 0.62) 60%,
+        rgba(251, 247, 240, 0.66) 100%
+      );
   }
   .p2 { height: 200vh; }
 
