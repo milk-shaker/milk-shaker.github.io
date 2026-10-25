@@ -1911,3 +1911,48 @@ html { scroll-behavior: smooth; }
 @media (max-width: 900px) {
   .p1-stat { max-width: 34ch; margin-inline: auto; }
 }
+
+
+/*  ---------------------------------------------------------------
+    THE LOOP ON A PHONE
+    cover crops a 16:9 frame to about a third of its width on a
+    portrait screen, which cut the people out of it. The frame is
+    fitted whole instead, sitting high on the screen as a band, and
+    the cover's copy moves below it. Everything under the band is the
+    page's own moving field.
+    --------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .p1-video {
+    object-fit: contain;
+    /*  Pushed clear of the bar: plum links on footage are unreadable,
+        and the band's top edge is where they sat. */
+    object-position: 50% 74px;
+  }
+
+  /*  The wash follows the band rather than covering the screen, so
+      the field below it stays clean. */
+  .p1-scrim {
+    /*  Clear over the band, closing to a wash under it, where the
+        words are. */
+    background: linear-gradient(
+      180deg,
+      rgba(251, 247, 240, 0.12) 0%,
+      rgba(251, 247, 240, 0.1) 24%,
+      rgba(251, 247, 240, 0.46) 32%,
+      rgba(251, 247, 240, 0.72) 42%,
+      rgba(251, 247, 240, 0.82) 100%
+    );
+  }
+
+  /*  As tall as the band and the copy need, no more: a fixed screen
+      height left a field of nothing under the words. */
+  .p1 {
+    min-height: 0;
+    padding-bottom: clamp(28px, 6vh, 56px);
+  }
+
+  .p1-inner {
+    padding-top: calc(56.25vw + 74px + clamp(20px, 4vh, 36px));
+    align-self: start;
+  }
+}
