@@ -14,6 +14,15 @@
   var hero = document.querySelector('.p1-video');
   var heroPoster = document.querySelector('.p1-poster');
 
+  if (hero) {
+    var mobileHeroSource = hero.getAttribute('data-mobile-src');
+    var desktopHeroSource = hero.getAttribute('data-desktop-src');
+    var selectedHeroSource = window.matchMedia('(max-width: 767px)').matches
+      ? mobileHeroSource
+      : desktopHeroSource;
+    if (selectedHeroSource) hero.src = selectedHeroSource;
+  }
+
   if (hero && heroPoster) {
     hero.addEventListener('playing', function () {
       heroPoster.hidden = true;
