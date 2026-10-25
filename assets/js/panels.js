@@ -50,11 +50,13 @@
   if (hero && !still && mobileHero.matches) {
     var heroCrops = [
       { at: 0, focal: 0.625 },
-      { at: 3.253, focal: 0.375 },
-      { at: 9.009, focal: 0.55 },
-      { at: 12.804, focal: 0.5 },
-      { at: 17.309, focal: 0.5 },
-      { at: 22.105, focal: 0.68 }
+      /*  Enter the new crop on the second frame of each shot so the
+          update cannot flash ahead of the actual cut. */
+      { at: 3.295, focal: 0.375 },
+      { at: 9.051, focal: 0.55 },
+      { at: 12.846, focal: 0.5 },
+      { at: 17.351, focal: 0.5 },
+      { at: 22.147, focal: 0.68 }
     ];
     var updateHeroCrop = function (frameTime) {
       var time = typeof frameTime === 'number' ? frameTime : (hero.currentTime || 0);
@@ -64,10 +66,12 @@
         scene = i;
       }
 
-      var videoWidth = hero.videoWidth;
-      var videoHeight = hero.videoHeight;
+      /*  The loop is 16:9, so the first crop can be prepared before
+          metadata arrives and before the first video frame is painted. */
+      var videoWidth = hero.videoWidth || 1280;
+      var videoHeight = hero.videoHeight || 720;
       var box = hero.getBoundingClientRect();
-      if (!videoWidth || !videoHeight || !box.width || !box.height) return;
+      if (!box.width || !box.height) return;
 
       /*  Translate the desired point in the source frame to the CSS
           object-position needed to put it at the viewport center. */
