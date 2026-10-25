@@ -792,6 +792,12 @@ body.lp {
         rgba(251, 247, 240, 0.58) 100%
       );
   }
+  @media (max-width: 767px) {
+    .p1-video {
+      object-position: var(--p1-mobile-x, 50%) center;
+      transition: object-position 2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+  }
   .p2 { height: 200vh; }
 
   /*  A quarter off the product here, and pushed down off the header,

@@ -42,6 +42,37 @@
     document.addEventListener('pointerdown', onFirstTouch, { passive: true });
   }
 
+  /*  On phones, each cut in the landscape loop has a different focal
+      point. Ease the crop toward the faces over two seconds instead of
+      holding one centered slice for the whole video. The family shot
+      keeps the baby centered. Desktop framing is unchanged. */
+  var mobileHero = window.matchMedia('(max-width: 767px)');
+  if (hero && !still && mobileHero.matches) {
+    var heroCrops = [
+      { at: 0, x: 64 },
+      { at: 3.253, x: 50 },
+      { at: 9.009, x: 50 },
+      { at: 12.804, x: 42 },
+      { at: 17.309, x: 56 },
+      { at: 22.105, x: 72 }
+    ];
+    var updateHeroCrop = function () {
+      var time = hero.currentTime || 0;
+      var scene = 0;
+      for (var i = 1; i < heroCrops.length; i++) {
+        if (time < heroCrops[i].at) break;
+        scene = i;
+      }
+      var position = heroCrops[scene].x + '%';
+      if (hero.style.getPropertyValue('--p1-mobile-x') !== position) {
+        hero.style.setProperty('--p1-mobile-x', position);
+      }
+    };
+    hero.addEventListener('timeupdate', updateHeroCrop);
+    hero.addEventListener('loadedmetadata', updateHeroCrop);
+    updateHeroCrop();
+  }
+
   /*  ------------------------------------------------------------
       The relief wash. Target is where the pointer is; current eases
       toward it. The low factor is the point of the whole thing:
