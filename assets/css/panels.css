@@ -1532,6 +1532,44 @@ html { scroll-behavior: smooth; }
   .ms-nav--page .ms-nav-spacer { display: none; }
 }
 
+/*  The partner page keeps the link stack left and the wordmark right at
+    every width, instead of centering the mark above them on phones. */
+.partners-page .ms-nav--page {
+  justify-content: space-between;
+}
+
+.partners-page .ms-nav--page .ms-nav-left {
+  flex: 0 0 auto;
+}
+
+.partners-page .ms-nav--page .ms-nav-mark {
+  order: 0;
+  flex: 0 0 auto;
+  margin-left: auto;
+  text-align: right;
+}
+
+.partners-page .ms-nav-mark img {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.partners-page .ms-nav--page .ms-nav-spacer {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .partners-page .ms-nav--page {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .partners-page .ms-nav--page .ms-nav-mark img {
+    width: clamp(96px, 29vw, 130px);
+  }
+}
+
 /*  ---------------------------------------------------------------
     LINKS
     Nothing gets underlined or boxed on hover anywhere. A link
