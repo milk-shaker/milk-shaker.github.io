@@ -33,7 +33,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=57" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=58" />
 
   <!--======================================================================
        PARTNERS — the one page addressed to institutions.
@@ -76,12 +76,13 @@
 
     <!--====== OPENING ======-->
     <section class="pt-hero" aria-labelledby="h-pt">
-      <!--  Muted ambient loop behind the same soft wash. The still image
-            underneath holds the framing while the video loads or if it
-            cannot autoplay. -->
+      <!--  Muted loop in a contained frame on the right. Its poster is
+            the still fallback while the video loads or if autoplay fails. -->
       <div class="pt-hero-photo" aria-hidden="true">
-        <video class="pt-hero-video" autoplay muted loop playsinline preload="metadata">
-          <source src="/assets/video/partners-background.mp4?v=1" type="video/mp4" />
+        <video class="pt-hero-video" autoplay muted loop playsinline preload="auto"
+          poster="/assets/images/cover_photo.jpg?v=1"
+          data-mobile-src="/assets/video/partners-background-mobile.mp4?v=1"
+          data-desktop-src="/assets/video/partners-background.mp4?v=1">
         </video>
       </div>
       <div class="lp-wrap">
@@ -253,6 +254,8 @@
 
     </div>
   </footer>
+
+  <script src="/assets/js/partners-video.js?v=1" defer></script>
 
   <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
     src="//gc.zgo.at/count.js"></script>

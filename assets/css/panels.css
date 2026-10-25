@@ -877,27 +877,30 @@ body.lp {
   padding: clamp(40px, 7vh, 88px) 0 clamp(52px, 8vh, 96px);
 }
 
-/*  The moving footage fills the hero behind a wash that keeps the copy
-    readable. The still image remains underneath as a loading fallback. */
+/*  The video is a contained, 16:9 feature on the right. The left stays
+    open for copy; the wash blends the media into the page colors. */
 .pt-hero-photo {
   position: absolute;
   inset: 0;
   z-index: 0;
   -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(48px, 8vw, 110px)), transparent 100%);
   mask-image: linear-gradient(180deg, #000 calc(100% - clamp(48px, 8vw, 110px)), transparent 100%);
-  background: url("/assets/images/cover_photo.jpg") right center / auto 100% no-repeat;
+  background: transparent;
 }
 
 .pt-hero-video {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  right: 0;
+  left: auto;
   z-index: 0;
   display: block;
-  width: 100%;
-  height: 100%;
+  width: min(50%, 820px);
+  height: auto;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center center;
-  background: transparent;
+  transform: translateY(-50%);
 }
 
 .pt-hero-photo::after {
@@ -1058,10 +1061,13 @@ body.lp {
 }
 
 @media (max-width: 900px) {
-  /*  No room beside the copy at this width, so the photo goes to an
-      even wash behind all of it. */
-  .pt-hero-photo {
-    background: url("/assets/images/cover_photo.jpg") center / cover no-repeat;
+  /*  Keep the entire video frame in a compact tile at the top right on
+      phones rather than stretching it beneath the whole panel. */
+  .pt-hero-video {
+    top: 0;
+    width: 55%;
+    max-width: 340px;
+    transform: none;
   }
 
   .pt-hero-photo::after {
