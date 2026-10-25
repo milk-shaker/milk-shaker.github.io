@@ -1911,24 +1911,3 @@ html { scroll-behavior: smooth; }
 @media (max-width: 900px) {
   .p1-stat { max-width: 34ch; margin-inline: auto; }
 }
-
-
-/*  ---------------------------------------------------------------
-    THE LOOP ON A PHONE
-    A 16:9 frame cropped to a portrait screen loses two thirds of its
-    width, which cut people out of shot. The phone gets its own cut of
-    the film instead -- the whole frame, with the rest of the screen
-    filled by a blurred continuation of it -- so cover can fill the
-    screen here without throwing anything away. See index.html.
-    --------------------------------------------------------------- */
-@media (max-width: 900px) {
-  .p1-scrim {
-    background: linear-gradient(
-      180deg,
-      rgba(251, 247, 240, 0.24) 0%,
-      rgba(251, 247, 240, 0.32) 30%,
-      rgba(251, 247, 240, 0.46) 60%,
-      rgba(251, 247, 240, 0.52) 100%
-    );
-  }
-}
