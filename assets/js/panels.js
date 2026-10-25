@@ -44,20 +44,26 @@
 
   /*  On phones, hold one preselected focal point for each shot. The
       focal values follow the frame quarters: Q3, Q2, just right of
-      center, center, center, then just right of Q3. The crop moves only
-      when the video reaches a cut; desktop framing is unchanged. */
+      center, center, center, then just right of Q3. A brief crossfade
+      softens each crop change without moving the frame across screen. */
   var mobileHero = window.matchMedia('(max-width: 767px)');
   if (hero && !still && mobileHero.matches) {
     var heroCrops = [
       { at: 0, focal: 0.625 },
-      /*  Enter the new crop on the second frame of each shot so the
-          update cannot flash ahead of the actual cut. */
+      /*  Enter each new crop on the second frame of its shot. */
       { at: 3.295, focal: 0.375 },
       { at: 9.051, focal: 0.55 },
       { at: 12.846, focal: 0.5 },
       { at: 17.351, focal: 0.5 },
       { at: 22.147, focal: 0.68 }
     ];
+    var blendCanvas = document.createElement('canvas');
+    blendCanvas.className = 'p1-frame-blend';
+    blendCanvas.setAttribute('aria-hidden', 'true');
+    hero.parentNode.insertBefore(blendCanvas, hero.nextSibling);
+    var blendContext = blendCanvas.getContext('2d');
+    var activeScene = null;
+
     var updateHeroCrop = function (frameTime) {
       var time = typeof frameTime === 'number' ? frameTime : (hero.currentTime || 0);
       var scene = 0;
@@ -66,15 +72,13 @@
         scene = i;
       }
 
-      /*  The loop is 16:9, so the first crop can be prepared before
-          metadata arrives and before the first video frame is painted. */
+      /*  The loop is 16:9, so the opening crop is ready before video
+          metadata arrives and before the first frame is painted. */
       var videoWidth = hero.videoWidth || 1280;
       var videoHeight = hero.videoHeight || 720;
       var box = hero.getBoundingClientRect();
       if (!box.width || !box.height) return;
 
-      /*  Translate the desired point in the source frame to the CSS
-          object-position needed to put it at the viewport center. */
       var scale = Math.max(box.width / videoWidth, box.height / videoHeight);
       var renderedWidth = videoWidth * scale;
       var overflow = renderedWidth - box.width;
@@ -83,8 +87,40 @@
         : 50;
       position = Math.max(0, Math.min(100, position));
       var value = position.toFixed(1) + '%';
-      if (hero.style.getPropertyValue('--p1-mobile-x') !== value) {
-        hero.style.setProperty('--p1-mobile-x', value);
+      var previous = hero.style.getPropertyValue('--p1-mobile-x');
+
+      if (activeScene !== null && scene !== activeScene && blendContext &&
+          hero.readyState >= 2 && videoWidth && videoHeight) {
+        try {
+          var cropWidth = box.width / scale;
+          var cropHeight = box.height / scale;
+          var previousPosition = parseFloat(previous) / 100;
+          if (!isFinite(previousPosition)) previousPosition = 0.67;
+          var sourceX = (videoWidth - cropWidth) * previousPosition;
+          var sourceY = (videoHeight - cropHeight) * 0.5;
+          var pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+          blendCanvas.width = Math.round(box.width * pixelRatio);
+          blendCanvas.height = Math.round(box.height * pixelRatio);
+          blendContext.drawImage(
+            hero, sourceX, sourceY, cropWidth, cropHeight,
+            0, 0, blendCanvas.width, blendCanvas.height
+          );
+          blendCanvas.style.transition = 'none';
+          blendCanvas.style.opacity = '1';
+          void blendCanvas.offsetWidth;
+        } catch (error) {
+          blendCanvas.style.opacity = '0';
+        }
+      }
+
+      if (previous !== value) hero.style.setProperty('--p1-mobile-x', value);
+      activeScene = scene;
+
+      if (blendCanvas.style.opacity === '1') {
+        requestAnimationFrame(function () {
+          blendCanvas.style.transition = 'opacity 140ms ease-out';
+          blendCanvas.style.opacity = '0';
+        });
       }
     };
     hero.addEventListener('loadedmetadata', updateHeroCrop);

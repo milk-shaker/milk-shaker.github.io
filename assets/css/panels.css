@@ -796,6 +796,20 @@ body.lp {
     .p1-video {
       object-position: var(--p1-mobile-x, 67%) center;
     }
+    .p1-frame-blend {
+      position: fixed;
+      inset: 0;
+      bottom: auto;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100vh;
+      height: 100lvh;
+      opacity: 0;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
+      mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
+    }
   }
   .p2 { height: 200vh; }
 
