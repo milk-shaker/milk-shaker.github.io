@@ -928,9 +928,10 @@ body.lp {
 
 @media (min-width: 901px) {
   .pt-hero > .lp-wrap {
-    width: calc(46% - clamp(56px, 8vw, 116px));
+    --pt-copy-left: max(var(--lp-gutter), calc((100% - var(--lp-wrap)) / 2 + var(--lp-gutter)));
+    width: calc(52% - var(--pt-copy-left));
     max-width: none;
-    margin: 0 0 0 clamp(56px, 8vw, 116px);
+    margin: 0 0 0 var(--pt-copy-left);
     padding: 0;
   }
 
@@ -951,9 +952,11 @@ body.lp {
     background: linear-gradient(
       100deg,
       var(--ms-ivory) 0%,
-      var(--ms-ivory) 42%,
-      rgba(248, 245, 250, 0.94) 50%,
-      rgba(248, 245, 250, 0.58) 68%,
+      var(--ms-ivory) 34%,
+      rgba(248, 245, 250, 0.98) 42%,
+      rgba(248, 245, 250, 0.9) 50%,
+      rgba(248, 245, 250, 0.74) 60%,
+      rgba(248, 245, 250, 0.46) 75%,
       rgba(248, 245, 250, 0.2) 100%
     );
   }
