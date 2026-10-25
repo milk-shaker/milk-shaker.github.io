@@ -33,7 +33,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=56" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=57" />
 
   <!--======================================================================
        PARTNERS — the one page addressed to institutions.
@@ -76,9 +76,14 @@
 
     <!--====== OPENING ======-->
     <section class="pt-hero" aria-labelledby="h-pt">
-      <!--  Decorative, so it is a background rather than an <img>: it sits
-            on the right, behind a wash that keeps the copy readable. -->
-      <div class="pt-hero-photo" aria-hidden="true"></div>
+      <!--  Muted ambient loop behind the same soft wash. The still image
+            underneath holds the framing while the video loads or if it
+            cannot autoplay. -->
+      <div class="pt-hero-photo" aria-hidden="true">
+        <video class="pt-hero-video" autoplay muted loop playsinline preload="metadata">
+          <source src="/assets/video/partners-background.mp4?v=1" type="video/mp4" />
+        </video>
+      </div>
       <div class="lp-wrap">
         <p class="pt-eyebrow">Partner with us</p>
         <h1 class="pt-title" id="h-pt">For healthcare providers, hospitals, and educators</h1>
