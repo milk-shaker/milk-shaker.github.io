@@ -43,25 +43,18 @@
   }
 
   /*  On phones, hold one preselected focal point for each shot. The
-      focal values follow the frame quarters: Q3, Q2, just right of
-      center, center, center, then just right of Q3. A brief crossfade
-      softens each crop change without moving the frame across screen. */
+      crop changes directly on the first frame of a new scene and stays
+      fixed until the next cut. There is no pan or fade. */
   var mobileHero = window.matchMedia('(max-width: 767px)');
   if (hero && !still && mobileHero.matches) {
     var heroCrops = [
       { at: 0, focal: 0.625 },
-      /*  Enter each new crop on the second frame of its shot. */
-      { at: 3.295, focal: 0.375 },
-      { at: 9.051, focal: 0.55 },
-      { at: 12.846, focal: 0.5 },
-      { at: 17.351, focal: 0.5 },
-      { at: 22.147, focal: 0.68 }
+      { at: 3.25325, focal: 0.375 },
+      { at: 9.009, focal: 0.55 },
+      { at: 12.804458, focal: 0.5 },
+      { at: 17.308958, focal: 0.5 },
+      { at: 22.105417, focal: 0.68 }
     ];
-    var blendCanvas = document.createElement('canvas');
-    blendCanvas.className = 'p1-frame-blend';
-    blendCanvas.setAttribute('aria-hidden', 'true');
-    hero.parentNode.insertBefore(blendCanvas, hero.nextSibling);
-    var blendContext = blendCanvas.getContext('2d');
     var activeScene = null;
 
     var updateHeroCrop = function (frameTime) {
@@ -71,8 +64,6 @@
         if (time < heroCrops[i].at) break;
         scene = i;
       }
-      /*  Freeze the framing for the whole scene. Do not recalculate it
-          on every video frame or when the phone's browser chrome shifts. */
       if (scene === activeScene) return;
 
       /*  The loop is 16:9, so the opening crop is ready before video
@@ -89,43 +80,10 @@
         ? ((heroCrops[scene].focal * renderedWidth - box.width / 2) / overflow) * 100
         : 50;
       position = Math.max(0, Math.min(100, position));
-      var value = position.toFixed(1) + '%';
-      var previous = hero.style.getPropertyValue('--p1-mobile-x');
-
-      if (activeScene !== null && scene !== activeScene && blendContext &&
-          hero.readyState >= 2 && videoWidth && videoHeight) {
-        try {
-          var cropWidth = box.width / scale;
-          var cropHeight = box.height / scale;
-          var previousPosition = parseFloat(previous) / 100;
-          if (!isFinite(previousPosition)) previousPosition = 0.67;
-          var sourceX = (videoWidth - cropWidth) * previousPosition;
-          var sourceY = (videoHeight - cropHeight) * 0.5;
-          var pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-          blendCanvas.width = Math.round(box.width * pixelRatio);
-          blendCanvas.height = Math.round(box.height * pixelRatio);
-          blendContext.drawImage(
-            hero, sourceX, sourceY, cropWidth, cropHeight,
-            0, 0, blendCanvas.width, blendCanvas.height
-          );
-          blendCanvas.style.transition = 'none';
-          blendCanvas.style.opacity = '1';
-          void blendCanvas.offsetWidth;
-        } catch (error) {
-          blendCanvas.style.opacity = '0';
-        }
-      }
-
-      if (previous !== value) hero.style.setProperty('--p1-mobile-x', value);
+      hero.style.setProperty('--p1-mobile-x', position.toFixed(1) + '%');
       activeScene = scene;
-
-      if (blendCanvas.style.opacity === '1') {
-        requestAnimationFrame(function () {
-          blendCanvas.style.transition = 'opacity 240ms ease-out';
-          blendCanvas.style.opacity = '0';
-        });
-      }
     };
+
     hero.addEventListener('loadedmetadata', updateHeroCrop);
     if (typeof hero.requestVideoFrameCallback === 'function') {
       var followVideoFrame = function (now, metadata) {
