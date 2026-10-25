@@ -928,7 +928,7 @@ body.lp {
 
 @media (min-width: 901px) {
   .pt-hero > .lp-wrap {
-    --pt-copy-left: max(var(--lp-gutter), calc((100% - var(--lp-wrap)) / 2 + var(--lp-gutter)));
+    --pt-copy-left: max(var(--lp-gutter), calc((100% - var(--lp-wrap)) / 2 + var(--lp-gutter) - 0.75rem));
     width: calc(52% - var(--pt-copy-left));
     max-width: none;
     margin: 0 0 0 var(--pt-copy-left);
