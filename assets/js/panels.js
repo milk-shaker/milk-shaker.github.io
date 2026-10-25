@@ -42,34 +42,58 @@
     document.addEventListener('pointerdown', onFirstTouch, { passive: true });
   }
 
-  /*  On phones, each cut in the landscape loop has a different focal
-      point. Ease the crop toward the faces over two seconds instead of
-      holding one centered slice for the whole video. The family shot
-      keeps the baby centered. Desktop framing is unchanged. */
+  /*  On phones, hold one preselected focal point for each shot. The
+      focal values follow the frame quarters: Q3, Q2, just right of
+      center, center, center, then just right of Q3. The crop moves only
+      when the video reaches a cut; desktop framing is unchanged. */
   var mobileHero = window.matchMedia('(max-width: 767px)');
   if (hero && !still && mobileHero.matches) {
     var heroCrops = [
-      { at: 0, x: 64 },
-      { at: 3.253, x: 50 },
-      { at: 9.009, x: 50 },
-      { at: 12.804, x: 42 },
-      { at: 17.309, x: 56 },
-      { at: 22.105, x: 72 }
+      { at: 0, focal: 0.625 },
+      { at: 3.253, focal: 0.375 },
+      { at: 9.009, focal: 0.55 },
+      { at: 12.804, focal: 0.5 },
+      { at: 17.309, focal: 0.5 },
+      { at: 22.105, focal: 0.68 }
     ];
-    var updateHeroCrop = function () {
-      var time = hero.currentTime || 0;
+    var updateHeroCrop = function (frameTime) {
+      var time = typeof frameTime === 'number' ? frameTime : (hero.currentTime || 0);
       var scene = 0;
       for (var i = 1; i < heroCrops.length; i++) {
         if (time < heroCrops[i].at) break;
         scene = i;
       }
-      var position = heroCrops[scene].x + '%';
-      if (hero.style.getPropertyValue('--p1-mobile-x') !== position) {
-        hero.style.setProperty('--p1-mobile-x', position);
+
+      var videoWidth = hero.videoWidth;
+      var videoHeight = hero.videoHeight;
+      var box = hero.getBoundingClientRect();
+      if (!videoWidth || !videoHeight || !box.width || !box.height) return;
+
+      /*  Translate the desired point in the source frame to the CSS
+          object-position needed to put it at the viewport center. */
+      var scale = Math.max(box.width / videoWidth, box.height / videoHeight);
+      var renderedWidth = videoWidth * scale;
+      var overflow = renderedWidth - box.width;
+      var position = overflow > 0
+        ? ((heroCrops[scene].focal * renderedWidth - box.width / 2) / overflow) * 100
+        : 50;
+      position = Math.max(0, Math.min(100, position));
+      var value = position.toFixed(1) + '%';
+      if (hero.style.getPropertyValue('--p1-mobile-x') !== value) {
+        hero.style.setProperty('--p1-mobile-x', value);
       }
     };
-    hero.addEventListener('timeupdate', updateHeroCrop);
     hero.addEventListener('loadedmetadata', updateHeroCrop);
+    window.addEventListener('resize', updateHeroCrop, { passive: true });
+    if (typeof hero.requestVideoFrameCallback === 'function') {
+      var followVideoFrame = function (now, metadata) {
+        updateHeroCrop(metadata.mediaTime);
+        hero.requestVideoFrameCallback(followVideoFrame);
+      };
+      hero.requestVideoFrameCallback(followVideoFrame);
+    } else {
+      hero.addEventListener('timeupdate', updateHeroCrop);
+    }
     updateHeroCrop();
   }
 
