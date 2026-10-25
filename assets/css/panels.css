@@ -125,9 +125,16 @@ body.lp {
       of the same file playing at once. */
   position: fixed;
   inset: 0;
+  bottom: auto;
   z-index: 0;
   width: 100%;
-  height: 100%;
+  /*  lvh, not 100%: a fixed element sized to the viewport is resized
+      every time a phone's address bar hides or returns, and with
+      object-fit: cover each resize rescales the footage -- which is
+      the "zoom" you see while scrolling. The large-viewport unit is
+      the height with the bar hidden, so it never changes. */
+  height: 100vh;
+  height: 100lvh;
   object-fit: cover;
   /*  No background: a 404 should fall through to the gradient. */
   background: transparent;
@@ -153,6 +160,10 @@ body.lp {
 .p1-scrim {
   position: fixed;
   inset: 0;
+  bottom: auto;
+  /*  Same height as the video it covers; see the note there. */
+  height: 100vh;
+  height: 100lvh;
   z-index: 1;
   pointer-events: none;
   -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
@@ -1898,5 +1909,5 @@ html { scroll-behavior: smooth; }
 .p1-stat strong { font-weight: 700; }
 
 @media (max-width: 900px) {
-  .p1-stat { max-width: 42ch; margin-inline: auto; }
+  .p1-stat { max-width: 34ch; margin-inline: auto; }
 }
