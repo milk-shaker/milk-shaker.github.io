@@ -71,6 +71,9 @@
         if (time < heroCrops[i].at) break;
         scene = i;
       }
+      /*  Freeze the framing for the whole scene. Do not recalculate it
+          on every video frame or when the phone's browser chrome shifts. */
+      if (scene === activeScene) return;
 
       /*  The loop is 16:9, so the opening crop is ready before video
           metadata arrives and before the first frame is painted. */
@@ -118,13 +121,12 @@
 
       if (blendCanvas.style.opacity === '1') {
         requestAnimationFrame(function () {
-          blendCanvas.style.transition = 'opacity 140ms ease-out';
+          blendCanvas.style.transition = 'opacity 240ms ease-out';
           blendCanvas.style.opacity = '0';
         });
       }
     };
     hero.addEventListener('loadedmetadata', updateHeroCrop);
-    window.addEventListener('resize', updateHeroCrop, { passive: true });
     if (typeof hero.requestVideoFrameCallback === 'function') {
       var followVideoFrame = function (now, metadata) {
         updateHeroCrop(metadata.mediaTime);
