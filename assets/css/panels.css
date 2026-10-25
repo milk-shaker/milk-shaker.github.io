@@ -119,6 +119,31 @@ body.lp {
     file is missing it simply paints nothing and the moving gradient
     behind the panel shows through, which is a perfectly good hero on
     its own -- there is no broken state to design around. */
+.p1-poster {
+  position: fixed;
+  inset: 0;
+  bottom: auto;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
+  mask-image: linear-gradient(180deg, #000 calc(100% - clamp(70px, 10vh, 130px)), transparent 100%);
+}
+
+.p1-poster[hidden] { display: none; }
+
+.p1-poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
 .p1-video {
   /*  Fixed, not absolute: the panel below this one sits on the same
       loop, so one element backs the whole page rather than two copies
@@ -794,7 +819,7 @@ body.lp {
   }
   @media (max-width: 767px) {
     .p1-video {
-      object-position: var(--p1-mobile-x, 67%) center;
+      object-position: center center;
     }
   }
   .p2 { height: 200vh; }

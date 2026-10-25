@@ -45,7 +45,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=55" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=56" />
 
   <!--======================================================================
        LANDING PAGE — the whole funnel, in one scroll.
@@ -122,12 +122,15 @@
           the footage opens the page the way a cover does. ======-->
     <section class="p1">
 
-      <!--  poster is the loop's own first frame, so there is no jump when
-            it starts -- and if autoplay is refused (iOS blocks it outright
-            in Low Power Mode) the hero is a still photograph rather than a
-            grey box with a play button on it. -->
+      <!--  Responsive still frame holds the exact crop until the video
+            starts, and remains visible if autoplay is unavailable. -->
+      <picture class="p1-poster" aria-hidden="true">
+        <source srcset="/assets/images/hero-poster-mobile.jpg?v=1" media="(max-width: 767px)" />
+        <img src="/assets/images/hero-poster.jpg?v=2" alt="" />
+      </picture>
       <video class="p1-video" autoplay muted loop playsinline preload="auto"
-        poster="/assets/images/hero-poster.jpg?v=2" aria-hidden="true" tabindex="-1">
+        aria-hidden="true" tabindex="-1">
+        <source src="/assets/video/momandbaby-mobile.mp4?v=1" media="(max-width: 767px)" type="video/mp4" />
         <source src="/assets/video/momandbaby.mp4?v=2" type="video/mp4" />
       </video>
       <div class="p1-scrim" aria-hidden="true"></div>
@@ -241,7 +244,7 @@
     </div>
   </footer>
 
-  <script src="/assets/js/panels.js?v=10" defer></script>
+  <script src="/assets/js/panels.js?v=11" defer></script>
 
   <script data-goatcounter="https://milkshaker.goatcounter.com/count" async
     src="//gc.zgo.at/count.js"></script>

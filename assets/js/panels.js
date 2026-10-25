@@ -12,6 +12,14 @@
   var fine = window.matchMedia('(pointer: fine)').matches;
 
   var hero = document.querySelector('.p1-video');
+  var heroPoster = document.querySelector('.p1-poster');
+
+  if (hero && heroPoster) {
+    hero.addEventListener('playing', function () {
+      heroPoster.hidden = true;
+    }, { once: true });
+    if (!hero.paused && hero.readyState >= 2) heroPoster.hidden = true;
+  }
 
   if (hero && still) {
     /*  A looping hero is exactly what a reduced-motion preference is
@@ -40,61 +48,6 @@
     };
     document.addEventListener('touchstart', onFirstTouch, { passive: true });
     document.addEventListener('pointerdown', onFirstTouch, { passive: true });
-  }
-
-  /*  On phones, hold one preselected focal point for each shot. The
-      crop changes directly on the first frame of a new scene and stays
-      fixed until the next cut. There is no pan or fade. */
-  var mobileHero = window.matchMedia('(max-width: 767px)');
-  if (hero && !still && mobileHero.matches) {
-    var heroCrops = [
-      { at: 0, focal: 0.625 },
-      { at: 3.25325, focal: 0.375 },
-      { at: 9.009, focal: 0.55 },
-      { at: 12.804458, focal: 0.5 },
-      { at: 17.308958, focal: 0.5 },
-      { at: 22.105417, focal: 0.68 }
-    ];
-    var activeScene = null;
-
-    var updateHeroCrop = function (frameTime) {
-      var time = typeof frameTime === 'number' ? frameTime : (hero.currentTime || 0);
-      var scene = 0;
-      for (var i = 1; i < heroCrops.length; i++) {
-        if (time < heroCrops[i].at) break;
-        scene = i;
-      }
-      if (scene === activeScene) return;
-
-      /*  The loop is 16:9, so the opening crop is ready before video
-          metadata arrives and before the first frame is painted. */
-      var videoWidth = hero.videoWidth || 1280;
-      var videoHeight = hero.videoHeight || 720;
-      var box = hero.getBoundingClientRect();
-      if (!box.width || !box.height) return;
-
-      var scale = Math.max(box.width / videoWidth, box.height / videoHeight);
-      var renderedWidth = videoWidth * scale;
-      var overflow = renderedWidth - box.width;
-      var position = overflow > 0
-        ? ((heroCrops[scene].focal * renderedWidth - box.width / 2) / overflow) * 100
-        : 50;
-      position = Math.max(0, Math.min(100, position));
-      hero.style.setProperty('--p1-mobile-x', position.toFixed(1) + '%');
-      activeScene = scene;
-    };
-
-    hero.addEventListener('loadedmetadata', updateHeroCrop);
-    if (typeof hero.requestVideoFrameCallback === 'function') {
-      var followVideoFrame = function (now, metadata) {
-        updateHeroCrop(metadata.mediaTime);
-        hero.requestVideoFrameCallback(followVideoFrame);
-      };
-      hero.requestVideoFrameCallback(followVideoFrame);
-    } else {
-      hero.addEventListener('timeupdate', updateHeroCrop);
-    }
-    updateHeroCrop();
   }
 
   /*  ------------------------------------------------------------
