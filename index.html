@@ -45,7 +45,7 @@
   <meta name="theme-color" content="#F3E9F1" />
 
   <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/assets/css/panels.css?v=46" />
+  <link rel="stylesheet" href="/assets/css/panels.css?v=47" />
 
   <!--======================================================================
        LANDING PAGE — the whole funnel, in one scroll.
@@ -128,8 +128,29 @@
             grey box with a play button on it. -->
       <video class="p1-video" autoplay muted loop playsinline preload="auto"
         poster="/assets/images/hero-poster.jpg?v=2" aria-hidden="true" tabindex="-1">
+        <source src="/assets/video/momandbaby-portrait.mp4?v=2" type="video/mp4"
+          media="(max-width: 900px)" />
         <source src="/assets/video/momandbaby.mp4?v=2" type="video/mp4" />
       </video>
+      <!--  Safari has never honoured media on a <source> inside <video>,
+            so the choice is made here as well, before the element starts
+            fetching. The markup above covers the no-JS case. -->
+      <script>
+        (function () {
+          var v = document.querySelector('.p1-video');
+          if (!v) return;
+          var portrait = window.matchMedia('(max-width: 900px)').matches;
+          var want = portrait
+            ? '/assets/video/momandbaby-portrait.mp4?v=2'
+            : '/assets/video/momandbaby.mp4?v=2';
+          if (v.currentSrc && v.currentSrc.indexOf(want) !== -1) return;
+          v.setAttribute('poster', portrait
+            ? '/assets/images/hero-poster-portrait.jpg?v=2'
+            : '/assets/images/hero-poster.jpg?v=2');
+          v.src = want;
+          v.load();
+        })();
+      </script>
       <div class="p1-scrim" aria-hidden="true"></div>
 
       <div class="p1-inner">
